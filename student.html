@@ -3687,659 +3687,370 @@ let secondsLeft = 0;
 let testSubmitted = false;
 
 const fallbackQuestions = [
-
-    /* MATHEMATICS */
-
-    {
-        subject:"Mathematics",
-        question:"36 और 48 का HCF क्या है?",
-        options:["6","12","18","24"],
-        correct:1
-    },
-
-    {
-        subject:"Mathematics",
-        question:"बहुपद x² - 5x + 6 के शून्यक हैं—",
-        options:["1, 6","2, 3","-2, -3","3, 4"],
-        correct:1
-    },
-
-    {
-        subject:"Mathematics",
-        question:"समीकरण x + y = 7 और x - y = 1 का हल है—",
-        options:[
-            "x=3, y=4",
-            "x=4, y=3",
-            "x=5, y=2",
-            "x=2, y=5"
-        ],
-        correct:1
-    },
-
-    {
-        subject:"Mathematics",
-        question:"द्विघात समीकरण x² - 5x + 6 = 0 के मूल हैं—",
-        options:["1, 6","2, 3","-2, -3","3, 4"],
-        correct:1
-    },
-
-    {
-        subject:"Mathematics",
-        question:"समांतर श्रेणी 2, 5, 8, 11,... का सार्व अंतर है—",
-        options:["2","3","4","5"],
-        correct:1
-    },
-
-    {
-        subject:"Mathematics",
-        question:"यदि दो त्रिभुजों के तीनों संगत कोण बराबर हों, तो वे कहलाते हैं—",
-        options:[
-            "सर्वांगसम",
-            "समद्विबाहु",
-            "समरूप",
-            "समकोण"
-        ],
-        correct:2
-    },
-
-    {
-        subject:"Mathematics",
-        question:"बिंदु (3, 4) की मूल बिंदु से दूरी है—",
-        options:["3","4","5","7"],
-        correct:2
-    },
-
-    {
-        subject:"Mathematics",
-        question:"sin 30° का मान है—",
-        options:["0","1/2","√3/2","1"],
-        correct:1
-    },
-
-    {
-        subject:"Mathematics",
-        question:"वृत्त की त्रिज्या 7 cm है। उसका क्षेत्रफल (π = 22/7) होगा—",
-        options:[
-            "44 cm²",
-            "88 cm²",
-            "154 cm²",
-            "308 cm²"
-        ],
-        correct:2
-    },
-
-    {
-        subject:"Mathematics",
-        question:"एक सिक्का एक बार उछालने पर Head आने की प्रायिकता है—",
-        options:["0","1/4","1/2","1"],
-        correct:2
-    },
-
-
-    /* SCIENCE */
-
-    {
-        subject:"Science",
-        question:"निम्न में से कौन-सी रासायनिक अभिक्रिया का उदाहरण है?",
-        options:[
-            "बर्फ का पिघलना",
-            "पानी का जमना",
-            "लोहे में जंग लगना",
-            "पानी का वाष्पीकरण"
-        ],
-        correct:2
-    },
-
-    {
-        subject:"Science",
-        question:"अम्ल का pH सामान्यतः होता है—",
-        options:["7 से अधिक","7","7 से कम","14"],
-        correct:2
-    },
-
-    {
-        subject:"Science",
-        question:"निम्न में से कौन-सी धातु है?",
-        options:["ऑक्सीजन","सल्फर","लोहा","कार्बन"],
-        correct:2
-    },
-
-    {
-        subject:"Science",
-        question:"मीथेन का रासायनिक सूत्र है—",
-        options:["CH₃","CH₄","C₂H₆","CO₂"],
-        correct:1
-    },
-
-    {
-        subject:"Science",
-        question:"प्रकाश संश्लेषण मुख्यतः पौधे के किस भाग में होता है?",
-        options:["जड़","तना","पत्ती","फूल"],
-        correct:2
-    },
-
-    {
-        subject:"Science",
-        question:"मानव शरीर में रक्त का संचार किस अंग द्वारा किया जाता है?",
-        options:["फेफड़े","हृदय","गुर्दा","मस्तिष्क"],
-        correct:1
-    },
-
-    {
-        subject:"Science",
-        question:"मनुष्य में श्वसन के दौरान मुख्य रूप से कौन-सी गैस अंदर ली जाती है?",
-        options:[
-            "नाइट्रोजन",
-            "ऑक्सीजन",
-            "कार्बन डाइऑक्साइड",
-            "हाइड्रोजन"
-        ],
-        correct:1
-    },
-
-    {
-        subject:"Science",
-        question:"विद्युत धारा की SI इकाई है—",
-        options:["वोल्ट","ओम","एम्पियर","वाट"],
-        correct:2
-    },
-
-    {
-        subject:"Science",
-        question:"विद्युत शक्ति की SI इकाई है—",
-        options:["जूल","वाट","वोल्ट","एम्पियर"],
-        correct:1
-    },
-
-    {
-        subject:"Science",
-        question:"विद्युत मोटर किस ऊर्जा को यांत्रिक ऊर्जा में बदलती है?",
-        options:[
-            "ऊष्मीय",
-            "विद्युत",
-            "रासायनिक",
-            "प्रकाश"
-        ],
-        correct:1
-    },
-
-
-    /* SOCIAL SCIENCE */
-
-    {
-        subject:"Social Science",
-        question:"भारत में राष्ट्रवाद के विकास में किस आंदोलन की महत्वपूर्ण भूमिका थी?",
-        options:[
-            "असहयोग आंदोलन",
-            "हरित क्रांति",
-            "श्वेत क्रांति",
-            "औद्योगिक क्रांति"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"Social Science",
-        question:"भारत में असहयोग आंदोलन किसने शुरू किया था?",
-        options:[
-            "सुभाष चंद्र बोस",
-            "महात्मा गांधी",
-            "भगत सिंह",
-            "जवाहरलाल नेहरू"
-        ],
-        correct:1
-    },
-
-    {
-        subject:"Social Science",
-        question:"भारत में सबसे अधिक क्षेत्र में कौन-सी फसल उगाई जाती है?",
-        options:["चाय","गेहूँ","चावल","कॉफी"],
-        correct:2
-    },
-
-    {
-        subject:"Social Science",
-        question:"भारत में संघीय व्यवस्था का अर्थ है—",
-        options:[
-            "केवल केंद्र की सरकार",
-            "केवल राज्य की सरकार",
-            "केंद्र और राज्यों के बीच सत्ता का विभाजन",
-            "न्यायपालिका का शासन"
-        ],
-        correct:2
-    },
-
-    {
-        subject:"Social Science",
-        question:"लोकतंत्र में अंतिम निर्णय लेने की शक्ति किसके पास होनी चाहिए?",
-        options:[
-            "सेना",
-            "निर्वाचित प्रतिनिधियों",
-            "न्यायाधीशों",
-            "अधिकारियों"
-        ],
-        correct:1
-    },
-
-    {
-        subject:"Social Science",
-        question:"भारत में मुद्रा जारी करने का मुख्य अधिकार किस संस्था के पास है?",
-        options:["SBI","RBI","NABARD","SEBI"],
-        correct:1
-    },
-
-    {
-        subject:"Social Science",
-        question:"प्राथमिक क्षेत्र में कौन-सा कार्य आता है?",
-        options:["बैंकिंग","खेती","अध्यापन","परिवहन"],
-        correct:1
-    },
-
-    {
-        subject:"Social Science",
-        question:"वैश्वीकरण का प्रमुख अर्थ है—",
-        options:[
-            "देशों के बीच आर्थिक संबंधों में वृद्धि",
-            "केवल स्थानीय व्यापार",
-            "व्यापार पर पूर्ण प्रतिबंध",
-            "केवल कृषि उत्पादन"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"Social Science",
-        question:"उपभोक्ता के अधिकारों की रक्षा के लिए भारत में कौन-सा कानून बनाया गया?",
-        options:[
-            "उपभोक्ता संरक्षण कानून",
-            "वन कानून",
-            "शिक्षा कानून",
-            "कृषि कानून"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"Social Science",
-        question:"राजनीतिक दल का मुख्य उद्देश्य क्या होता है?",
-        options:[
-            "चुनाव लड़ना और सरकार बनाना",
-            "केवल व्यापार करना",
-            "न्यायालय चलाना",
-            "सेना चलाना"
-        ],
-        correct:0
-    },
-
-
-    /* HINDI */
-
-    {
-        subject:"Hindi",
-        question:"‘सूरदास’ किस भक्ति धारा के प्रमुख कवि हैं?",
-        options:[
-            "रामभक्ति",
-            "कृष्णभक्ति",
-            "निर्गुण भक्ति",
-            "सूफी भक्ति"
-        ],
-        correct:1
-    },
-
-    {
-        subject:"Hindi",
-        question:"‘राम-लक्ष्मण-परशुराम संवाद’ के रचनाकार कौन हैं?",
-        options:[
-            "तुलसीदास",
-            "सूरदास",
-            "कबीर",
-            "बिहारी"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"Hindi",
-        question:"‘आत्मकथ्य’ कविता के कवि कौन हैं?",
-        options:[
-            "जयशंकर प्रसाद",
-            "नागार्जुन",
-            "निराला",
-            "मंगलेश डबराल"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"Hindi",
-        question:"‘उत्साह’ कविता के रचनाकार हैं—",
-        options:[
-            "सूर्यकांत त्रिपाठी ‘निराला’",
-            "नागार्जुन",
-            "तुलसीदास",
-            "देव"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"Hindi",
-        question:"‘यह दंतुरित मुस्कान’ के कवि कौन हैं?",
-        options:[
-            "नागार्जुन",
-            "प्रसाद",
-            "निराला",
-            "देव"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"Hindi",
-        question:"‘नेताजी का चश्मा’ के लेखक कौन हैं?",
-        options:[
-            "स्वयं प्रकाश",
-            "मन्नू भंडारी",
-            "प्रेमचंद",
-            "हजारी प्रसाद द्विवेदी"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"Hindi",
-        question:"‘बालगोबिन भगत’ के लेखक हैं—",
-        options:[
-            "रामवृक्ष बेनीपुरी",
-            "स्वयं प्रकाश",
-            "यतीन्द्र मिश्रा",
-            "प्रहलाद अग्रवाल"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"Hindi",
-        question:"‘लखनवी अंदाज़’ के लेखक कौन हैं?",
-        options:[
-            "यतीन्द्र मिश्रा",
-            "मन्नू भंडारी",
-            "स्वयं प्रकाश",
-            "रामवृक्ष बेनीपुरी"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"Hindi",
-        question:"‘एक कहानी यह भी’ की लेखिका हैं—",
-        options:[
-            "मन्नू भंडारी",
-            "महादेवी वर्मा",
-            "सुभद्रा कुमारी चौहान",
-            "कृष्णा सोबती"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"Hindi",
-        question:"‘संस्कृति’ पाठ के लेखक हैं—",
-        options:[
-            "हजारी प्रसाद द्विवेदी",
-            "रामवृक्ष बेनीपुरी",
-            "स्वयं प्रकाश",
-            "प्रेमचंद"
-        ],
-        correct:0
-    },
-
-
-    /* ENGLISH */
-
-    {
-        subject:"English",
-        question:"Who wrote 'A Letter to God'?",
-        options:[
-            "Nelson Mandela",
-            "G.L. Fuentes",
-            "Anne Frank",
-            "Robert Frost"
-        ],
-        correct:1
-    },
-
-    {
-        subject:"English",
-        question:"What was Lencho's profession?",
-        options:[
-            "Teacher",
-            "Farmer",
-            "Doctor",
-            "Postman"
-        ],
-        correct:1
-    },
-
-    {
-        subject:"English",
-        question:"Nelson Mandela became the first black President of—",
-        options:[
-            "India",
-            "America",
-            "South Africa",
-            "England"
-        ],
-        correct:2
-    },
-
-    {
-        subject:"English",
-        question:"Anne Frank named her diary—",
-        options:[
-            "Kitty",
-            "Maria",
-            "Helen",
-            "Alice"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"English",
-        question:"Mijbil was a—",
-        options:[
-            "Dog",
-            "Cat",
-            "Otter",
-            "Rabbit"
-        ],
-        correct:2
-    },
-
-    {
-        subject:"English",
-        question:"Who wrote 'The Sermon at Benares'?",
-        options:[
-            "Betty Renshaw",
-            "James Herriot",
-            "Pearl S. Buck",
-            "Vicente Blasco Ibáñez"
-        ],
-        correct:2
-    },
-
-    {
-        subject:"English",
-        question:"In 'Madam Rides the Bus', Valli wanted to travel by—",
-        options:[
-            "Train",
-            "Bus",
-            "Car",
-            "Bicycle"
-        ],
-        correct:1
-    },
-
-    {
-        subject:"English",
-        question:"Tricki was a—",
-        options:[
-            "Cat",
-            "Dog",
-            "Horse",
-            "Parrot"
-        ],
-        correct:1
-    },
-
-    {
-        subject:"English",
-        question:"Who was Hari Singh in 'The Thief's Story'?",
-        options:[
-            "A teacher",
-            "A young thief",
-            "A doctor",
-            "A policeman"
-        ],
-        correct:1
-    },
-
-    {
-        subject:"English",
-        question:"The necklace in 'The Necklace' was borrowed by—",
-        options:[
-            "Matilda Loisel",
-            "Mrs Hall",
-            "Bholi",
-            "Anne Frank"
-        ],
-        correct:0
-    },
-
-
-    /* SANSKRIT */
-
-    {
-        subject:"Sanskrit",
-        question:"‘शुचिपर्यावरणम्’ पाठ का मुख्य विषय है—",
-        options:[
-            "पर्यावरण की स्वच्छता",
-            "खेल",
-            "व्यापार",
-            "युद्ध"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"Sanskrit",
-        question:"‘बुद्धिर्बलवती सदा’ का अर्थ है—",
-        options:[
-            "बुद्धि सदा बलवान होती है",
-            "शरीर बलवान है",
-            "धन बलवान है",
-            "राजा बलवान है"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"Sanskrit",
-        question:"‘व्यायामः सर्वदा पथ्यः’ का संबंध किससे है?",
-        options:[
-            "भोजन",
-            "व्यायाम और स्वास्थ्य",
-            "शिक्षा",
-            "व्यापार"
-        ],
-        correct:1
-    },
-
-    {
-        subject:"Sanskrit",
-        question:"‘जननी तुल्यवत्सला’ में ‘जननी’ का अर्थ है—",
-        options:[
-            "पिता",
-            "माता",
-            "भाई",
-            "बहन"
-        ],
-        correct:1
-    },
-
-    {
-        subject:"Sanskrit",
-        question:"‘सुभाषितानि’ का अर्थ है—",
-        options:[
-            "अच्छे वचन",
-            "कठिन शब्द",
-            "कहानी",
-            "प्रश्न"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"Sanskrit",
-        question:"‘सौहार्दं प्रकृतेः शोभा’ का संबंध किससे है?",
-        options:[
-            "प्रकृति और सौहार्द",
-            "युद्ध",
-            "व्यापार",
-            "राजनीति"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"Sanskrit",
-        question:"‘विचित्रः साक्षी’ में ‘साक्षी’ का अर्थ है?",
-        options:[
-            "गवाह",
-            "शिक्षक",
-            "राजा",
-            "सैनिक"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"Sanskrit",
-        question:"‘सूक्तयः’ का अर्थ है—",
-        options:[
-            "सुंदर/श्रेष्ठ उक्तियाँ",
-            "खेल",
-            "भोजन",
-            "वस्त्र"
-        ],
-        correct:0
-    },
-
-    {
-        subject:"Sanskrit",
-        question:"‘भूकम्पविभीषिका’ का संबंध किससे है?",
-        options:[
-            "बाढ़",
-            "भूकंप",
-            "सूखा",
-            "तूफान"
-        ],
-        correct:1
-    },
-
-    {
-        subject:"Sanskrit",
-        question:"‘सर्वदा’ शब्द का अर्थ है—",
-        options:[
-            "कभी नहीं",
-            "हमेशा",
-            "आज",
-            "कल"
-        ],
-        correct:1
-    }
-
+      /*SCIENCE*/
+      {
+    subject:"Science",
+    class:"10",
+    question:"मैग्नीशियम रिबन को जलाने पर कौन-सा पदार्थ बनता है?",
+    options:["मैग्नीशियम क्लोराइड","मैग्नीशियम सल्फेट","मैग्नीशियम ऑक्साइड","मैग्नीशियम नाइट्रेट"],
+    correct:2
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"जिस अभिक्रिया में ऑक्सीजन का योग होता है, उसे क्या कहते हैं?",
+    options:["अपचयन","विस्थापन","ऑक्सीकरण","उदासीनीकरण"],
+    correct:2
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"लोहे पर जंग लगना किसका उदाहरण है?",
+    options:["संक्षारण","अपचयन","उदासीनीकरण","विस्थापन"],
+    correct:0
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"वह अभिक्रिया जिसमें एक यौगिक टूटकर दो या अधिक पदार्थ बनाता है, क्या कहलाती है?",
+    options:["संयोजन अभिक्रिया","अपघटन अभिक्रिया","विस्थापन अभिक्रिया","द्विविस्थापन अभिक्रिया"],
+    correct:1
+},
+
+{
+    subject:"Science",
+    class:"10",
+    question:"उदासीन विलयन का pH मान कितना होता है?",
+    options:["0","7","10","14"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"बेकिंग सोडा का रासायनिक सूत्र क्या है?",
+    options:["NaCl","NaOH","NaHCO₃","Na₂CO₃"],
+    correct:2
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"अम्ल और क्षार की अभिक्रिया से नमक और जल बनता है। इसे क्या कहते हैं?",
+    options:["विस्थापन","उदासीनीकरण","अपघटन","ऑक्सीकरण"],
+    correct:1
+},
+
+{
+    subject:"Science",
+    class:"10",
+    question:"सोडियम धातु को किसमें रखा जाता है?",
+    options:["जल में","मिट्टी के तेल में","अल्कोहल में","हवा में"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"निम्न में से कौन-सा उभयधर्मी ऑक्साइड है?",
+    options:["Na₂O","MgO","Al₂O₃","CO₂"],
+    correct:2
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"आयनिक यौगिकों का गलनांक सामान्यतः अधिक क्यों होता है?",
+    options:["वे बहुत हल्के होते हैं","उनमें प्रबल वैद्युतस्थैतिक बल होता है","वे गैस होते हैं","वे जल में नहीं घुलते"],
+    correct:1
+},
+
+{
+    subject:"Science",
+    class:"10",
+    question:"निम्नलिखित में से कौन-सी अधातु विद्युत की सुचालक है?",
+    options:["सल्फर","फॉस्फोरस","ग्रेफाइट","ऑक्सीजन"],
+    correct:2
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"कार्बन की संयोजकता कितनी होती है?",
+    options:["1","2","3","4"],
+    correct:3
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"एथेन का रासायनिक सूत्र क्या है?",
+    options:["CH₄","C₂H₆","C₂H₄","C₃H₈"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"सहसंयोजक बंध का निर्माण कैसे होता है?",
+    options:["इलेक्ट्रॉन त्यागने से","इलेक्ट्रॉन ग्रहण करने से","इलेक्ट्रॉनों की साझेदारी से","न्यूट्रॉन के विनिमय से"],
+    correct:2
+},
+
+{
+    subject:"Science",
+    class:"10",
+    question:"प्रकाश संश्लेषण के लिए आवश्यक हरा वर्णक कौन-सा है?",
+    options:["हीमोग्लोबिन","क्लोरोफिल","इंसुलिन","मेलनिन"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"पौधों में जल और खनिजों का परिवहन कौन करता है?",
+    options:["फ्लोएम","जाइलम","रंध्र","तंत्रिका"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"मानव शरीर में रक्त को छानने का कार्य कौन-सा अंग करता है?",
+    options:["हृदय","फेफड़ा","वृक्क","आमाशय"],
+    correct:2
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"पत्तियों में गैसों का आदान-प्रदान किसके द्वारा होता है?",
+    options:["जाइलम","फ्लोएम","रंध्र","जड़ रोम"],
+    correct:2
+},
+
+{
+    subject:"Science",
+    class:"10",
+    question:"तंत्रिका तंत्र की संरचनात्मक और क्रियात्मक इकाई क्या है?",
+    options:["नेफ्रॉन","न्यूरॉन","एल्विओलाई","प्लेटलेट"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"प्रतिवर्ती क्रिया का नियंत्रण मुख्यतः कौन करता है?",
+    options:["मस्तिष्क","मेरुरज्जु","हृदय","फेफड़ा"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"पौधों के तने की प्रकाश की ओर वृद्धि किस हार्मोन के कारण होती है?",
+    options:["इंसुलिन","ऑक्सिन","थायरॉक्सिन","एड्रेनालिन"],
+    correct:1
+},
+
+{
+    subject:"Science",
+    class:"10",
+    question:"अमीबा में अलैंगिक जनन किस विधि से होता है?",
+    options:["कली बनना","द्विखंडन","बीजाणु बनना","परागण"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"पुष्प का नर जनन अंग कौन-सा है?",
+    options:["वर्तिकाग्र","अंडाशय","पुंकेसर","बाह्यदल"],
+    correct:2
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"निषेचन के बाद पुष्प का अंडाशय किसमें बदलता है?",
+    options:["बीज में","फल में","पत्ती में","जड़ में"],
+    correct:1
+},
+
+{
+    subject:"Science",
+    class:"10",
+    question:"आनुवंशिकता की इकाई क्या कहलाती है?",
+    options:["कोशिका","जीन","ऊतक","अंग"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"मनुष्य में नर का लैंगिक गुणसूत्र संयोजन क्या है?",
+    options:["XX","XY","YY","XO"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"मटर के पौधों पर प्रयोग करने वाले वैज्ञानिक कौन थे?",
+    options:["चार्ल्स डार्विन","ग्रेगर मेंडल","न्यूटन","रॉबर्ट हुक"],
+    correct:1
+},
+
+{
+    subject:"Science",
+    class:"10",
+    question:"अवतल लेंस से गुजरने के बाद प्रकाश किरणें कैसी हो जाती हैं?",
+    options:["अभिसारी","अपसारी","रुक जाती हैं","परावर्तित हो जाती हैं"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"वाहन के rear-view mirror में कौन-सा दर्पण उपयोग होता है?",
+    options:["समतल दर्पण","अवतल दर्पण","उत्तल दर्पण","कोई दर्पण नहीं"],
+    correct:2
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"लेंस की क्षमता की SI इकाई क्या है?",
+    options:["मीटर","डायोप्टर","जूल","वाट"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"उत्तल लेंस के फोकस और प्रकाशिक केंद्र के बीच वस्तु रखने पर प्रतिबिंब कैसा बनता है?",
+    options:["वास्तविक और उल्टा","आभासी, सीधा और बड़ा","वास्तविक और छोटा","कोई प्रतिबिंब नहीं"],
+    correct:1
+},
+
+{
+    subject:"Science",
+    class:"10",
+    question:"मानव नेत्र में प्रतिबिंब कहाँ बनता है?",
+    options:["कॉर्निया पर","परितारिका पर","रेटिना पर","पुतली पर"],
+    correct:2
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"निकट दृष्टिदोष को दूर करने के लिए कौन-सा लेंस लगाया जाता है?",
+    options:["उत्तल लेंस","अवतल लेंस","बेलनाकार लेंस","द्विफोकसी लेंस"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"आकाश का रंग नीला दिखाई देने का कारण क्या है?",
+    options:["परावर्तन","अपवर्तन","प्रकाश का प्रकीर्णन","वर्ण विक्षेपण"],
+    correct:2
+},
+
+{
+    subject:"Science",
+    class:"10",
+    question:"विद्युत धारा की SI इकाई क्या है?",
+    options:["वोल्ट","एम्पियर","ओम","वाट"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"ओम के नियम के अनुसार V = ?",
+    options:["I/R","IR","R/I","I+R"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"श्रृंखला क्रम में जुड़े प्रतिरोधों का कुल प्रतिरोध क्या होता है?",
+    options:["सबसे छोटे प्रतिरोध के बराबर","प्रतिरोधों का योग","प्रतिरोधों का गुणनफल","शून्य"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"विद्युत ऊर्जा की व्यावसायिक इकाई क्या है?",
+    options:["जूल","किलोवाट-घंटा","वाट","एम्पियर"],
+    correct:1
+},
+
+{
+    subject:"Science",
+    class:"10",
+    question:"विद्युत मोटर किस सिद्धांत पर कार्य करती है?",
+    options:["धारा के रासायनिक प्रभाव पर","चुंबकीय क्षेत्र में धारा-वाहक चालक पर बल लगता है","अपवर्तन पर","परावर्तन पर"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"फ्लेमिंग के बाएँ हाथ का नियम किसकी दिशा बताता है?",
+    options:["प्रेरित धारा की दिशा","बल या गति की दिशा","प्रतिरोध की दिशा","ऊष्मा की दिशा"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"विद्युत चुंबक बनाने के लिए लोहे के किस प्रकार के टुकड़े का उपयोग किया जाता है?",
+    options:["कठोर इस्पात","नरम लोहा","तांबा","एल्यूमिनियम"],
+    correct:1
+},
+
+{
+    subject:"Science",
+    class:"10",
+    question:"ओजोन परत हमें किस हानिकारक किरण से बचाती है?",
+    options:["अवरक्त किरणें","पराबैंगनी किरणें","रेडियो तरंगें","ध्वनि तरंगें"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"निम्न में से कौन जैव-अविघटनीय पदार्थ है?",
+    options:["कागज","सब्जी का छिलका","प्लास्टिक","कपास"],
+    correct:2
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"खाद्य श्रृंखला में ऊर्जा का प्रवाह कैसा होता है?",
+    options:["दोनों दिशाओं में","चक्रीय","एकदिशीय","ऊपर से नीचे और नीचे से ऊपर"],
+    correct:2
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"एक पोषी स्तर से अगले पोषी स्तर तक लगभग कितनी ऊर्जा पहुँचती है?",
+    options:["1%","10%","50%","100%"],
+    correct:1
+},
+
+{
+    subject:"Science",
+    class:"10",
+    question:"3R का सही क्रम क्या है?",
+    options:["Read, Run, Rest","Reduce, Reuse, Recycle","Repair, Remove, Return","React, Reduce, Restore"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"वर्षा जल संचयन का मुख्य लाभ क्या है?",
+    options:["हवा को गर्म करना","भूजल स्तर बढ़ाना","ध्वनि कम करना","प्लास्टिक बनाना"],
+    correct:1
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"निम्न में से कौन-सा अनवीकरणीय प्राकृतिक संसाधन है?",
+    options:["सौर ऊर्जा","पवन ऊर्जा","कोयला","जल"],
+    correct:2
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"वनों की कटाई से कौन-सी समस्या बढ़ती है?",
+    options:["मृदा अपरदन","ऑक्सीजन उत्पादन","वर्षा जल संचयन","भूजल निर्माण"],
+    correct:0
+},
+{
+    subject:"Science",
+    class:"10",
+    question:"सतत विकास का अर्थ क्या है?",
+    options:["संसाधनों का असीमित उपयोग","वर्तमान जरूरतें पूरी करते हुए भविष्य की जरूरतों का ध्यान रखना","केवल उद्योग बढ़ाना","सभी वन काट देना"],
+    correct:1
+}
 ];
 
 function safeJSON(key, fallbackValue){
