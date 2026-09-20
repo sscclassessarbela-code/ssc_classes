@@ -1,0 +1,3332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SSC CLASSES - Admin Portal</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f3f6fb;
+    color:#1f2937;
+}
+
+/* ================= LOGIN ================= */
+
+#loginBox{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:linear-gradient(135deg,#1769e8,#0b4dbb);
+}
+
+.login-card{
+    width:100%;
+    max-width:420px;
+    background:#fff;
+    padding:30px 25px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
+    text-align:center;
+}
+
+.login-logo{
+    width:90px;
+    height:90px;
+    object-fit:contain;
+    margin-bottom:10px;
+}
+
+.login-card h1{
+    color:#1769e8;
+    font-size:26px;
+}
+
+.login-card h2{
+    margin-top:6px;
+    margin-bottom:25px;
+    font-size:18px;
+}
+
+.input-box{
+    text-align:left;
+    margin-bottom:16px;
+}
+
+.input-box label{
+    display:block;
+    margin-bottom:7px;
+    font-weight:bold;
+    font-size:14px;
+}
+
+.input-box input,
+.input-box select,
+.input-box textarea{
+    width:100%;
+    padding:13px;
+    border:1px solid #d5dbea;
+    border-radius:10px;
+    outline:none;
+    font-size:15px;
+}
+
+.input-box input:focus,
+.input-box select:focus,
+.input-box textarea:focus{
+    border-color:#1769e8;
+}
+
+.primary-btn{
+    width:100%;
+    padding:13px;
+    border:0;
+    border-radius:10px;
+    background:#1769e8;
+    color:white;
+    font-weight:bold;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.primary-btn:hover{
+    background:#0d57c7;
+}
+
+.error{
+    color:#dc2626;
+    margin-top:12px;
+    font-size:14px;
+    display:none;
+}
+
+
+/* ================= ADMIN ================= */
+
+#adminPanel{
+    display:none;
+    min-height:100vh;
+}
+
+.topbar{
+    height:65px;
+    background:#fff;
+    border-bottom:1px solid #e5e7eb;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 25px;
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.brand img{
+    width:42px;
+    height:42px;
+    object-fit:contain;
+}
+
+.brand h2{
+    color:#1769e8;
+    font-size:20px;
+}
+
+.logout-btn{
+    border:0;
+    background:#fee2e2;
+    color:#dc2626;
+    padding:9px 15px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:25px;
+}
+
+.welcome{
+    margin-bottom:25px;
+}
+
+.welcome h1{
+    font-size:28px;
+}
+
+.welcome p{
+    color:#6b7280;
+    margin-top:6px;
+}
+
+
+/* ================= STATS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.stat-card{
+    background:white;
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+
+.stat-card h3{
+    font-size:14px;
+    color:#6b7280;
+}
+
+.stat-card strong{
+    display:block;
+    margin-top:8px;
+    color:#1769e8;
+    font-size:28px;
+}
+
+
+/* ================= MENU ================= */
+
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.menu-card{
+    background:#fff;
+    padding:22px;
+    border-radius:15px;
+    box-shadow:0 3px 12px rgba(0,0,0,.06);
+    cursor:pointer;
+    transition:.2s;
+}
+
+.menu-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 7px 20px rgba(0,0,0,.1);
+}
+
+.menu-icon{
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.menu-card h2{
+    font-size:18px;
+    margin-bottom:7px;
+}
+
+.menu-card p{
+    color:#6b7280;
+    font-size:14px;
+    line-height:1.5;
+}
+
+
+/* ================= SECTIONS ================= */
+
+.admin-section{
+    display:none;
+    margin-top:25px;
+}
+
+.admin-section.active{
+    display:block;
+}
+
+.section-box{
+    background:white;
+    padding:22px;
+    border-radius:15px;
+    box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+
+.back-btn{
+    border:0;
+    background:#eaf2ff;
+    color:#1769e8;
+    padding:9px 15px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-bottom:18px;
+}
+
+
+/* ================= QUESTIONS ================= */
+
+.question-progress{
+    margin:15px 0;
+    padding:12px;
+    background:#eaf2ff;
+    color:#1769e8;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.question-card{
+    margin-top:12px;
+    padding:16px;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+}
+
+.question-card p{
+    margin-top:7px;
+    line-height:1.5;
+}
+
+.correct-answer{
+    color:#16a34a;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.delete-btn{
+    margin-top:10px;
+    border:0;
+    background:#fee2e2;
+    color:#dc2626;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.save-btn{
+    width:100%;
+    padding:13px;
+    border:0;
+    border-radius:10px;
+    background:#16a34a;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:12px;
+}
+
+
+/* ================= TABLE ================= */
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+th,
+td{
+    padding:12px;
+    border-bottom:1px solid #e5e7eb;
+    text-align:left;
+    font-size:14px;
+}
+
+th{
+    background:#f8fafc;
+}
+
+
+.video-admin-card{border:1px solid #e5e7eb;border-radius:12px;padding:14px;margin-top:10px;background:#fff}.danger-btn{border:0;background:#fee2e2;color:#dc2626;padding:8px 12px;border-radius:8px;cursor:pointer;margin-top:8px}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .menu-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    .topbar{
+        padding:0 15px;
+    }
+
+    .brand h2{
+        font-size:16px;
+    }
+
+    .container{
+        padding:15px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .menu-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     ADMIN LOGIN
+===================================================== -->
+
+<div id="loginBox">
+
+    <div class="login-card">
+
+        <img
+            src="logo.png"
+            class="login-logo"
+            alt="SSC CLASSES"
+        >
+
+        <h1>SSC CLASSES</h1>
+
+        <h2>Admin Portal</h2>
+
+
+        <div class="input-box">
+
+            <label>Admin ID</label>
+
+            <input
+                id="adminUser"
+                type="text"
+                placeholder="Enter Admin ID"
+            >
+
+        </div>
+
+
+        <div class="input-box">
+
+            <label>Password</label>
+
+            <input
+                id="adminPassword"
+                type="password"
+                placeholder="Enter Password"
+            >
+
+        </div>
+
+
+        <button
+            class="primary-btn"
+            onclick="adminLogin()"
+        >
+            Login to Admin Panel
+        </button>
+
+
+        <div
+            id="loginError"
+            class="error"
+        >
+            Invalid Admin ID or Password
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     ADMIN PANEL
+===================================================== -->
+
+<div id="adminPanel">
+
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <img
+            src="logo.png"
+            alt="SSC CLASSES"
+        >
+
+        <h2>SSC CLASSES Admin</h2>
+
+    </div>
+
+
+    <button
+        class="logout-btn"
+        onclick="adminLogout()"
+    >
+        Logout
+    </button>
+
+</header>
+
+
+
+<main class="container">
+
+
+<div class="welcome">
+
+    <h1>Admin Dashboard</h1>
+
+    <p>
+        Manage students, tests, questions and classes
+    </p>
+
+</div>
+
+
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+
+<div class="stats">
+
+    <div class="stat-card">
+
+        <h3>Total Students</h3>
+
+        <strong id="studentCount">0</strong>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <h3>Total Tests</h3>
+
+        <strong id="testCount">0</strong>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <h3>Total Results</h3>
+
+        <strong id="resultCount">0</strong>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <h3>Ready Tests</h3>
+
+        <strong id="readyCount">0</strong>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     ADMIN MENU
+===================================================== -->
+
+<div class="menu-grid">
+
+
+<div
+    class="menu-card"
+    onclick="showSection('createTestSection')"
+>
+
+    <div class="menu-icon">📝</div>
+
+    <h2>Create Test</h2>
+
+    <p>
+        नया online test बनाएं और questions add करें।
+    </p>
+
+</div>
+
+
+
+<div
+    class="menu-card"
+    onclick="showSection('manageTestsSection')"
+>
+
+    <div class="menu-icon">📚</div>
+
+    <h2>Manage Tests</h2>
+
+    <p>
+        Created tests देखें और manage करें।
+    </p>
+
+</div>
+
+
+
+<div
+    class="menu-card"
+    onclick="showSection('scheduleSection')"
+>
+
+    <div class="menu-icon">📅</div>
+
+    <h2>Test Schedule</h2>
+
+    <p>
+        Test को date और time के साथ schedule करें।
+    </p>
+
+</div>
+
+
+
+<div
+    class="menu-card"
+    onclick="showSection('resultsSection')"
+>
+
+    <div class="menu-icon">📊</div>
+
+    <h2>Results</h2>
+
+    <p>
+        Students के test results देखें।
+    </p>
+
+</div>
+
+
+
+<div
+    class="menu-card"
+    onclick="showSection('studentsSection')"
+>
+
+    <div class="menu-icon">👨‍🎓</div>
+
+    <h2>All Students</h2>
+
+    <p>
+        Registered students की जानकारी देखें।
+    </p>
+
+</div>
+
+
+
+<div
+    class="menu-card"
+    onclick="showSection('classesSection')"
+>
+
+    <div class="menu-icon">🎓</div>
+
+    <h2>Classes & Subjects</h2>
+
+    <p>
+        Class 6 से 12 तक manage करें।
+    </p>
+
+</div>
+
+
+
+<div
+    class="menu-card"
+    onclick="showSection('videosSection')"
+>
+
+    <div class="menu-icon">🎥</div>
+
+    <h2>Video Classes</h2>
+
+    <p>
+        Subject और chapter wise videos manage करें।
+    </p>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     CREATE TEST
+===================================================== -->
+
+<section
+    id="createTestSection"
+    class="admin-section"
+>
+
+<div class="section-box">
+
+<button
+    class="back-btn"
+    onclick="backDashboard()"
+>
+    ← Dashboard
+</button>
+
+
+<h2>📝 Create New Test</h2>
+
+
+<div style="margin-top:20px;">
+
+
+<div class="input-box">
+
+<label>Test Name</label>
+
+<input
+    id="testName"
+    type="text"
+    placeholder="Example: Class 11 Biology Test 1"
+>
+
+</div>
+
+
+
+<div class="input-box">
+
+<label>Select Class</label>
+
+<select id="testClass">
+
+<option value="">Select Class</option>
+
+<option value="6">Class 6</option>
+<option value="7">Class 7</option>
+<option value="8">Class 8</option>
+<option value="9">Class 9</option>
+<option value="10">Class 10</option>
+<option value="11">Class 11</option>
+<option value="12">Class 12</option>
+
+</select>
+
+</div>
+
+
+
+<div class="input-box">
+
+<label>Subject</label>
+
+<select id="testSubject">
+
+<option value="">Select Subject</option>
+
+</select>
+
+</div>
+
+
+
+<div class="input-box">
+
+<label>Test Duration (Minutes)</label>
+
+<input
+    id="testDuration"
+    type="number"
+    min="1"
+    value="40"
+>
+
+</div>
+
+
+
+<div class="input-box">
+
+<label>Marks Per Question</label>
+
+<input
+    id="marksPerQuestion"
+    type="number"
+    min="1"
+    value="1"
+>
+
+</div>
+
+
+
+<div class="input-box">
+
+<label>Number of Questions</label>
+
+<input
+    id="questionCount"
+    type="number"
+    min="1"
+    value="5"
+>
+
+</div>
+
+
+
+<button
+    id="createTestButton"
+    class="primary-btn"
+    onclick="createTest()"
+>
+    Create Test
+</button>
+
+</div>
+
+
+
+<!-- QUESTION AREA -->
+
+<div
+    id="questionArea"
+    style="display:none;margin-top:30px;"
+>
+
+<hr style="
+    border:0;
+    border-top:1px solid #eee;
+    margin-bottom:20px;
+">
+
+
+<h2>➕ Add Question</h2>
+
+
+
+<div
+    id="questionProgress"
+    class="question-progress"
+>
+    Questions: 0 / 0
+</div>
+
+
+
+<div class="input-box">
+
+<label>Question</label>
+
+<textarea
+    id="questionText"
+    rows="4"
+    placeholder="Enter question"
+></textarea>
+
+</div>
+
+
+
+<div class="input-box">
+
+<label>Option A</label>
+
+<input
+    id="optionA"
+    type="text"
+    placeholder="Option A"
+>
+
+</div>
+
+
+
+<div class="input-box">
+
+<label>Option B</label>
+
+<input
+    id="optionB"
+    type="text"
+    placeholder="Option B"
+>
+
+</div>
+
+
+
+<div class="input-box">
+
+<label>Option C</label>
+
+<input
+    id="optionC"
+    type="text"
+    placeholder="Option C"
+>
+
+</div>
+
+
+
+<div class="input-box">
+
+<label>Option D</label>
+
+<input
+    id="optionD"
+    type="text"
+    placeholder="Option D"
+>
+
+</div>
+
+
+
+<div class="input-box">
+
+<label>Correct Answer</label>
+
+<select id="correctAnswer">
+
+<option value="">
+Select Correct Answer
+</option>
+
+<option value="0">
+Option A
+</option>
+
+<option value="1">
+Option B
+</option>
+
+<option value="2">
+Option C
+</option>
+
+<option value="3">
+Option D
+</option>
+
+</select>
+
+</div>
+
+
+
+<button
+    id="addQuestionButton"
+    class="primary-btn"
+    onclick="addQuestion()"
+>
+    + Add Question
+</button>
+
+
+
+<button
+    id="saveTestButton"
+    class="save-btn"
+    onclick="saveFinalTest()"
+    style="display:none;"
+>
+    💾 Save Test
+</button>
+
+
+
+<h3 style="margin-top:25px;">
+    Added Questions
+</h3>
+
+
+<div id="addedQuestions"></div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MANAGE TESTS
+===================================================== -->
+
+<section
+    id="manageTestsSection"
+    class="admin-section"
+>
+
+<div class="section-box">
+
+<button
+    class="back-btn"
+    onclick="backDashboard()"
+>
+    ← Dashboard
+</button>
+
+
+<h2>✍️(◔◡◔) Manage Tests</h2>
+
+
+<div
+    id="manageTestsList"
+    style="margin-top:20px;"
+></div>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SCHEDULE
+===================================================== -->
+
+<section
+    id="scheduleSection"
+    class="admin-section"
+>
+
+<div class="section-box">
+
+<button
+    class="back-btn"
+    onclick="backDashboard()"
+>
+    ← Dashboard
+</button>
+
+
+<h2>▣ Test Schedule</h2>
+
+
+<div style="margin-top:20px;">
+
+
+<div class="input-box">
+
+<label>Select Test</label>
+
+<select id="scheduleTestSelect">
+
+<option value="">
+Select Test
+</option>
+
+</select>
+
+</div>
+
+
+
+<div class="input-box">
+
+<label>Start Date & Time</label>
+
+<input
+    id="scheduleStart"
+    type="datetime-local"
+>
+
+</div>
+
+
+
+<div class="input-box">
+
+<label>End Date & Time</label>
+
+<input
+    id="scheduleEnd"
+    type="datetime-local"
+>
+
+</div>
+
+
+
+<button
+    class="primary-btn"
+    onclick="scheduleSelectedTest()"
+>
+    ◀ Schedule Test ▶
+</button>
+
+</div>
+
+
+<div
+    id="scheduledTestsList"
+    style="margin-top:25px;"
+></div>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     RESULTS
+===================================================== -->
+
+<section
+    id="resultsSection"
+    class="admin-section"
+>
+
+<div class="section-box">
+
+<button
+    class="back-btn"
+    onclick="backDashboard()"
+>
+    ← Dashboard
+</button>
+
+
+<h2>📊 Student Results</h2>
+
+
+<div
+    id="resultsList"
+    style="margin-top:20px;"
+></div>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     STUDENTS
+===================================================== -->
+
+<section
+    id="studentsSection"
+    class="admin-section"
+>
+
+<div class="section-box">
+
+<button
+    class="back-btn"
+    onclick="backDashboard()"
+>
+    ← Dashboard
+</button>
+
+
+<h2>👨‍🎓 All Students</h2>
+
+
+<div
+    id="studentsList"
+    style="margin-top:20px;"
+></div>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CLASSES
+===================================================== -->
+
+<section
+    id="classesSection"
+    class="admin-section"
+>
+
+<div class="section-box">
+
+<button
+    class="back-btn"
+    onclick="backDashboard()"
+>
+    ← Dashboard
+</button>
+
+
+<h2>🎓 Classes & Subjects</h2>
+
+
+<div
+    style="
+        margin-top:20px;
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+        gap:12px;
+    "
+>
+
+<div class="question-card" style="cursor:pointer;" onclick="openClassManager('6')">
+<strong>Class 6</strong>
+<p>Subjects & Chapters</p>
+</div>
+
+<div class="question-card" style="cursor:pointer;" onclick="openClassManager('7')">
+<strong>Class 7</strong>
+<p>Subjects & Chapters</p>
+</div>
+
+<div class="question-card" style="cursor:pointer;" onclick="openClassManager('8')">
+<strong>Class 8</strong>
+<p>Subjects & Chapters</p>
+</div>
+
+<div class="question-card" style="cursor:pointer;" onclick="openClassManager('9')">
+<strong>Class 9</strong>
+<p>Subjects & Chapters</p>
+</div>
+
+<div class="question-card" style="cursor:pointer;" onclick="openClassManager('10')">
+<strong>Class 10</strong>
+<p>Subjects & Chapters</p>
+</div>
+
+<div class="question-card" style="cursor:pointer;" onclick="openClassManager('11')">
+<strong>Class 11</strong>
+<p>Subjects & Chapters</p>
+</div>
+
+<div class="question-card" style="cursor:pointer;" onclick="openClassManager('12')">
+<strong>Class 12</strong>
+<p>Subjects & Chapters</p>
+</div>
+
+</div>
+
+<div id="classManagerContent" style="margin-top:22px;">
+    <div class="question-card" style="padding:18px;">
+        <h3>📁 Select a Class</h3>
+        <p style="margin-top:8px;color:#6b7280;">ऊपर किसी Class पर click करके उस class के Subjects और Chapters manage करें।</p>
+    </div>
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     VIDEOS
+===================================================== -->
+
+<section
+    id="videosSection"
+    class="admin-section"
+>
+
+<div class="section-box">
+
+<button
+    class="back-btn"
+    onclick="backDashboard()"
+>
+    ← Dashboard
+</button>
+
+
+<h2>🎥 Video Classes</h2>
+
+
+<p style="margin-top:12px;color:#6b7280;">Class → Subject → Chapter → Video Class को यहाँ manage करें।</p>
+<div style="margin-top:20px;">
+<div class="input-box"><label>Select Class</label><select id="videoClass"><option value="">Select Class</option><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option></select></div>
+<div class="input-box"><label>Subject</label><select id="videoSubject"><option value="">Select Subject</option></select></div>
+<div class="input-box"><label>Chapter</label><select id="videoChapter"><option value="">Select Chapter</option></select></div>
+<div class="input-box"><label>Video Title</label><input id="videoTitle" placeholder="Example: Real Numbers Lecture 1"></div>
+<div class="input-box"><label>Video URL / YouTube URL (optional if selecting a file)</label><input id="videoUrl" type="url" placeholder="https://...">
+<small style="display:block;margin-top:6px;color:#6b7280;">YouTube या direct MP4/video URL डाल सकते हैं।</small></div>
+<div class="input-box"><label>या Video File Select करें</label><input id="videoFile" type="file" accept="video/*" onchange="previewSelectedVideo(this)">
+<small id="videoFileStatus" style="display:block;margin-top:6px;color:#6b7280;">Computer से MP4/WebM/MOV आदि video चुनें।</small>
+<video id="adminVideoPreview" controls playsinline style="display:none;width:100%;max-height:260px;margin-top:12px;border-radius:12px;background:#000;"></video></div>
+<div class="input-box"><label>Video Description (optional)</label><textarea id="videoDescription" rows="3" placeholder="Short description"></textarea></div>
+<div class="input-box"><label>Publish / Schedule Time (optional)</label><input id="videoSchedule" type="datetime-local"></div>
+<button class="primary-btn" onclick="saveVideoClass()">🎥 Save Video Class</button>
+</div><div id="adminVideosList" style="margin-top:25px;"></div>
+
+</div>
+
+</section>
+
+
+
+</main>
+
+</div>
+
+
+
+<script type="module">
+/* =====================================================
+   FIREBASE STORAGE BRIDGE FOR VIDEO UPLOAD
+===================================================== */
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
+
+const sscFirebaseConfig = {
+    apiKey: "AIzaSyDGnQzr8AV8nVdIBO6tUDbNAoRqlxuF7N0",
+    authDomain: "ssc-classes-4e87d.firebaseapp.com",
+    projectId: "ssc-classes-4e87d",
+    storageBucket: "ssc-classes-4e87d.firebasestorage.app",
+    messagingSenderId: "65398917667",
+    appId: "1:65398917667:web:8f47fdf42001902db7ff96",
+    measurementId: "G-JQ4EK99HHN"
+};
+
+try {
+    const app = getApps().length ? getApps()[0] : initializeApp(sscFirebaseConfig);
+    const storage = getStorage(app);
+    window.sscStorageReady = Promise.resolve({storage, ref, uploadBytes, getDownloadURL});
+} catch (error) {
+    console.error("Firebase Storage initialization failed:", error);
+    window.sscStorageReady = Promise.reject(error);
+}
+</script>
+
+<script>
+
+/* =====================================================
+   ADMIN LOGIN
+===================================================== */
+
+const ADMIN_ID = "SSC7520";
+
+const ADMIN_PASSWORD = "sonusir@12";
+
+
+function adminLogin(){
+
+    const user =
+        document
+        .getElementById("adminUser")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("adminPassword")
+        .value;
+
+    const error =
+        document.getElementById("loginError");
+
+
+    if(
+        user === ADMIN_ID &&
+        password === ADMIN_PASSWORD
+    ){
+
+        localStorage.setItem(
+            "sscAdminLoggedIn",
+            "true"
+        );
+
+        error.style.display = "none";
+
+        showAdminPanel();
+
+    }else{
+
+        error.style.display = "block";
+
+    }
+
+}
+
+
+/* =====================================================
+   SHOW ADMIN
+===================================================== */
+
+function showAdminPanel(){
+
+    document.getElementById(
+        "loginBox"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "adminPanel"
+    ).style.display = "block";
+
+
+    loadAdminStats();
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function adminLogout(){
+
+    localStorage.removeItem(
+        "sscAdminLoggedIn"
+    );
+
+
+    document.getElementById(
+        "adminPanel"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "loginBox"
+    ).style.display = "flex";
+
+
+    document.getElementById(
+        "adminUser"
+    ).value = "";
+
+
+    document.getElementById(
+        "adminPassword"
+    ).value = "";
+
+
+    hideAllSections();
+
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+function showSection(id){
+
+    hideAllSections();
+
+    const section =
+        document.getElementById(id);
+
+    if(section){
+
+        section.classList.add("active");
+
+    }
+
+
+    if(id === "manageTestsSection"){
+        renderManageTests();
+    }
+
+    if(id === "scheduleSection"){
+        renderSchedule();
+    }
+
+    if(id === "resultsSection"){
+        renderResults();
+    }
+
+    if(id === "studentsSection"){
+        renderStudents();
+    }
+    if(id === "videosSection"){
+        renderAdminVideos();
+        updateVideoSubjects();
+    }
+
+}
+
+
+function hideAllSections(){
+
+    document
+    .querySelectorAll(".admin-section")
+    .forEach(section => {
+
+        section.classList.remove("active");
+
+    });
+
+}
+
+
+function backDashboard(){
+
+    hideAllSections();
+
+    loadAdminStats();
+
+}
+
+
+/* =====================================================
+   SAFE JSON
+===================================================== */
+
+function getJSON(key, fallback){
+
+    try{
+
+        const data =
+            JSON.parse(
+                localStorage.getItem(key) || "null"
+            );
+
+        return data ?? fallback;
+
+    }
+    catch(e){
+
+        return fallback;
+
+    }
+
+}
+
+
+/* =====================================================
+   ADMIN STATS
+===================================================== */
+
+function loadAdminStats(){
+
+    const students =
+        getJSON("sscStudents",[]);
+
+    const tests =
+        getJSON("sscScheduledTests",[]);
+
+    const results =
+        getJSON("sscResultHistory",[]);
+
+
+    document.getElementById(
+        "studentCount"
+    ).textContent =
+        Array.isArray(students)
+        ? students.length
+        : 0;
+
+
+    document.getElementById(
+        "testCount"
+    ).textContent =
+        Array.isArray(tests)
+        ? tests.length
+        : 0;
+
+
+    document.getElementById(
+        "resultCount"
+    ).textContent =
+        Array.isArray(results)
+        ? results.length
+        : 0;
+
+
+    const ready =
+        Array.isArray(tests)
+        ? tests.filter(
+            t => t.status === "Ready" ||
+                 t.status === "Scheduled"
+          ).length
+        : 0;
+
+
+    document.getElementById(
+        "readyCount"
+    ).textContent = ready;
+
+}
+
+
+/* =====================================================
+   CREATE TEST
+===================================================== */
+
+let editingTest = null;
+
+
+function createTest(){
+
+    const testName =
+        document.getElementById(
+            "testName"
+        ).value.trim();
+
+
+    const testClass =
+        document.getElementById(
+            "testClass"
+        ).value;
+
+
+    const subject =
+        document.getElementById(
+            "testSubject"
+        ).value;
+
+
+    const duration =
+        Number(
+            document.getElementById(
+                "testDuration"
+            ).value
+        );
+
+
+    const marks =
+        Number(
+            document.getElementById(
+                "marksPerQuestion"
+            ).value
+        );
+
+
+    const questionCount =
+        Number(
+            document.getElementById(
+                "questionCount"
+            ).value
+        );
+
+
+    if(!testName){
+
+        alert("Test Name भरें।");
+
+        return;
+
+    }
+
+
+    if(!testClass){
+
+        alert("Class select करें।");
+
+        return;
+
+    }
+
+
+    if(!subject){
+
+        alert("Subject select करें।");
+
+        return;
+
+    }
+
+
+    if(!duration || duration < 1){
+
+        alert("Valid duration डालें।");
+
+        return;
+
+    }
+
+
+    if(!marks || marks < 1){
+
+        alert("Valid marks डालें।");
+
+        return;
+
+    }
+
+
+    if(!questionCount || questionCount < 1){
+
+        alert("Number of Questions डालें।");
+
+        return;
+
+    }
+
+
+    editingTest = {
+
+        id:
+            "test_" + Date.now(),
+
+        testName:
+            testName,
+
+        name:
+            testName,
+
+        className:
+            testClass,
+
+        studentClass:
+            testClass,
+
+        subject:
+            subject,
+
+        duration:
+            duration,
+
+        durationMinutes:
+            duration,
+
+        marksPerQuestion:
+            marks,
+
+        questions:
+            questionCount,
+
+        questionList:
+            [],
+
+        status:
+            "Draft",
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+
+    saveEditingTest();
+
+
+    document.getElementById(
+        "questionArea"
+    ).style.display = "block";
+
+
+    document.getElementById(
+        "createTestButton"
+    ).style.display = "none";
+
+
+    updateQuestionProgress();
+
+    renderAddedQuestions();
+
+
+    alert(
+        "Test Created!\n\n" +
+        "अब " +
+        questionCount +
+        " Questions add करें।"
+    );
+
+}
+
+
+/* =====================================================
+   ADD QUESTION
+===================================================== */
+
+function addQuestion(){
+
+    if(!editingTest){
+
+        alert("पहले Create Test करें।");
+
+        return;
+
+    }
+
+
+    const maxQuestions =
+        Number(editingTest.questions);
+
+
+    if(
+        editingTest.questionList.length >=
+        maxQuestions
+    ){
+
+        finishQuestionEntry();
+
+        return;
+
+    }
+
+
+    const question =
+        document
+        .getElementById("questionText")
+        .value
+        .trim();
+
+
+    const optionA =
+        document
+        .getElementById("optionA")
+        .value
+        .trim();
+
+
+    const optionB =
+        document
+        .getElementById("optionB")
+        .value
+        .trim();
+
+
+    const optionC =
+        document
+        .getElementById("optionC")
+        .value
+        .trim();
+
+
+    const optionD =
+        document
+        .getElementById("optionD")
+        .value
+        .trim();
+
+
+    const correct =
+        document
+        .getElementById("correctAnswer")
+        .value;
+
+
+    if(!question){
+
+        alert("Question लिखें।");
+
+        return;
+
+    }
+
+
+    if(
+        !optionA ||
+        !optionB ||
+        !optionC ||
+        !optionD
+    ){
+
+        alert("चारों options भरें।");
+
+        return;
+
+    }
+
+
+    if(correct === ""){
+
+        alert(
+            "Correct Answer select करें।"
+        );
+
+        return;
+
+    }
+
+
+    editingTest.questionList.push({
+
+        id:
+            "q_" + Date.now(),
+
+        question:
+            question,
+
+        options:[
+            optionA,
+            optionB,
+            optionC,
+            optionD
+        ],
+
+        correct:
+            Number(correct)
+
+    });
+
+
+    saveEditingTest();
+
+
+    clearQuestionInputs();
+
+    renderAddedQuestions();
+
+    updateQuestionProgress();
+
+
+    if(
+        editingTest.questionList.length >=
+        maxQuestions
+    ){
+
+        finishQuestionEntry();
+
+    }
+
+}
+
+
+/* =====================================================
+   CLEAR QUESTION
+===================================================== */
+
+function clearQuestionInputs(){
+
+    document.getElementById(
+        "questionText"
+    ).value = "";
+
+
+    document.getElementById(
+        "optionA"
+    ).value = "";
+
+
+    document.getElementById(
+        "optionB"
+    ).value = "";
+
+
+    document.getElementById(
+        "optionC"
+    ).value = "";
+
+
+    document.getElementById(
+        "optionD"
+    ).value = "";
+
+
+    document.getElementById(
+        "correctAnswer"
+    ).value = "";
+
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+function updateQuestionProgress(){
+
+    if(!editingTest){
+
+        return;
+
+    }
+
+
+    const current =
+        editingTest.questionList.length;
+
+
+    const total =
+        Number(editingTest.questions);
+
+
+    document.getElementById(
+        "questionProgress"
+    ).textContent =
+        `Questions: ${current} / ${total}`;
+
+}
+
+
+/* =====================================================
+   FINISH QUESTION ENTRY
+===================================================== */
+
+function finishQuestionEntry(){
+
+    const addButton =
+        document.getElementById(
+            "addQuestionButton"
+        );
+
+
+    const saveButton =
+        document.getElementById(
+            "saveTestButton"
+        );
+
+
+    if(addButton){
+
+        addButton.style.display =
+            "none";
+
+    }
+
+
+    if(saveButton){
+
+        saveButton.style.display =
+            "block";
+
+    }
+
+
+    [
+        "questionText",
+        "optionA",
+        "optionB",
+        "optionC",
+        "optionD",
+        "correctAnswer"
+    ]
+    .forEach(id => {
+
+        const element =
+            document.getElementById(id);
+
+        if(element){
+
+            element.disabled = true;
+
+        }
+
+    });
+
+}
+
+
+/* =====================================================
+   SAVE EDITING TEST
+===================================================== */
+
+function saveEditingTest(){
+
+    let tests =
+        getJSON(
+            "sscScheduledTests",
+            []
+        );
+
+
+    if(!Array.isArray(tests)){
+
+        tests = [];
+
+    }
+
+
+    const index =
+        tests.findIndex(
+            t => t.id === editingTest.id
+        );
+
+
+    if(index === -1){
+
+        tests.push(editingTest);
+
+    }else{
+
+        tests[index] =
+            editingTest;
+
+    }
+
+
+    localStorage.setItem(
+        "sscScheduledTests",
+        JSON.stringify(tests)
+    );
+
+}
+
+
+/* =====================================================
+   FINAL SAVE TEST
+===================================================== */
+
+function saveFinalTest(){
+
+    if(!editingTest){
+
+        alert("Test मौजूद नहीं है।");
+
+        return;
+
+    }
+
+
+    const total =
+        editingTest.questionList.length;
+
+
+    const required =
+        Number(editingTest.questions);
+
+
+    if(total !== required){
+
+        alert(
+            "कुल " +
+            required +
+            " Questions चाहिए।\n\n" +
+            "अभी " +
+            total +
+            " Questions हैं।"
+        );
+
+        return;
+
+    }
+
+
+    editingTest.status =
+        "Ready";
+
+
+    editingTest.questions =
+        total;
+
+
+    saveEditingTest();
+
+
+    alert(
+        "✅ Test Successfully Saved!\n\n" +
+        "Test: " +
+        editingTest.testName +
+        "\n" +
+        "Class: " +
+        editingTest.className +
+        "\n" +
+        "Subject: " +
+        editingTest.subject +
+        "\n" +
+        "Questions: " +
+        total
+    );
+
+
+    resetCreateTest();
+
+    loadAdminStats();
+
+}
+
+
+/* =====================================================
+   RESET CREATE TEST
+===================================================== */
+
+function resetCreateTest(){
+
+    editingTest = null;
+
+
+    document.getElementById(
+        "questionArea"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "createTestButton"
+    ).style.display = "block";
+
+
+    document.getElementById(
+        "saveTestButton"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "addQuestionButton"
+    ).style.display = "block";
+
+
+    [
+        "questionText",
+        "optionA",
+        "optionB",
+        "optionC",
+        "optionD",
+        "correctAnswer"
+    ]
+    .forEach(id => {
+
+        const element =
+            document.getElementById(id);
+
+        if(element){
+
+            element.disabled = false;
+
+            if(element.tagName === "SELECT"){
+                element.selectedIndex = 0;
+            }else{
+                element.value = "";
+            }
+
+        }
+
+    });
+
+}
+
+
+/* =====================================================
+   SHOW QUESTIONS
+===================================================== */
+
+function renderAddedQuestions(){
+
+    const box =
+        document.getElementById(
+            "addedQuestions"
+        );
+
+
+    if(!box || !editingTest){
+
+        return;
+
+    }
+
+
+    const questions =
+        editingTest.questionList;
+
+
+    if(!questions.length){
+
+        box.innerHTML =
+            "<p style='color:#777;margin-top:10px;'>अभी कोई question नहीं है।</p>";
+
+        return;
+
+    }
+
+
+    box.innerHTML =
+        questions.map(
+            (q,index) => `
+
+            <div class="question-card">
+
+                <h3>
+                    Q${index + 1}.
+                    ${escapeHTML(q.question)}
+                </h3>
+
+                <p>
+                    A. ${escapeHTML(q.options[0])}
+                </p>
+
+                <p>
+                    B. ${escapeHTML(q.options[1])}
+                </p>
+
+                <p>
+                    C. ${escapeHTML(q.options[2])}
+                </p>
+
+                <p>
+                    D. ${escapeHTML(q.options[3])}
+                </p>
+
+                <div class="correct-answer">
+                    Correct:
+                    ${["A","B","C","D"][q.correct]}
+                </div>
+
+                <button
+                    class="delete-btn"
+                    onclick="deleteQuestion(${index})"
+                >
+                    Delete
+                </button>
+
+            </div>
+
+        `
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+   DELETE QUESTION
+===================================================== */
+
+function deleteQuestion(index){
+
+    if(!editingTest){
+
+        return;
+
+    }
+
+
+    if(
+        !confirm(
+            "क्या यह Question delete करना है?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    editingTest.questionList.splice(
+        index,
+        1
+    );
+
+
+    saveEditingTest();
+
+    renderAddedQuestions();
+
+    updateQuestionProgress();
+
+
+    const total =
+        Number(editingTest.questions);
+
+
+    if(
+        editingTest.questionList.length <
+        total
+    ){
+
+        document.getElementById(
+            "addQuestionButton"
+        ).style.display = "block";
+
+
+        document.getElementById(
+            "saveTestButton"
+        ).style.display = "none";
+
+
+        [
+            "questionText",
+            "optionA",
+            "optionB",
+            "optionC",
+            "optionD",
+            "correctAnswer"
+        ]
+        .forEach(id => {
+
+            document.getElementById(
+                id
+            ).disabled = false;
+
+        });
+
+    }
+
+}
+
+
+/* =====================================================
+   MANAGE TESTS
+===================================================== */
+
+function renderManageTests(){
+
+    const box =
+        document.getElementById(
+            "manageTestsList"
+        );
+
+
+    const tests =
+        getJSON(
+            "sscScheduledTests",
+            []
+        );
+
+
+    if(!Array.isArray(tests) || !tests.length){
+
+        box.innerHTML =
+            "<p style='color:#777;'>अभी कोई Test नहीं है।</p>";
+
+        return;
+
+    }
+
+
+    box.innerHTML =
+        tests.map(
+            (t,index) => `
+
+            <div class="question-card">
+
+                <h3>
+                    ${escapeHTML(
+                        t.testName ||
+                        t.name ||
+                        "Test"
+                    )}
+                </h3>
+
+                <p>
+                    Class:
+                    ${escapeHTML(
+                        String(
+                            t.className ||
+                            "-"
+                        )
+                    )}
+                </p>
+
+                <p>
+                    Subject:
+                    ${escapeHTML(
+                        t.subject ||
+                        "-"
+                    )}
+                </p>
+
+                <p>
+                    Questions:
+                    ${
+                        Array.isArray(t.questionList)
+                        ? t.questionList.length
+                        : 0
+                    }
+                </p>
+
+                <p>
+                    Status:
+                    ${escapeHTML(
+                        t.status ||
+                        "Draft"
+                    )}
+                </p>
+
+            </div>
+
+        `
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+   SCHEDULE
+===================================================== */
+
+function renderSchedule(){
+
+    const tests =
+        getJSON(
+            "sscScheduledTests",
+            []
+        );
+
+
+    const select =
+        document.getElementById(
+            "scheduleTestSelect"
+        );
+
+
+    select.innerHTML =
+        `<option value="">Select Test</option>`;
+
+
+    tests.filter(t=>t.status === "Ready").forEach(t => {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+
+        option.value =
+            t.id;
+
+
+        option.textContent =
+            `${t.testName || t.name} - Class ${t.className}`;
+
+
+        select.appendChild(option);
+
+    });
+
+
+    renderScheduledTests();
+
+}
+
+
+function scheduleSelectedTest(){
+
+    const id =
+        document.getElementById(
+            "scheduleTestSelect"
+        ).value;
+
+
+    const start =
+        document.getElementById(
+            "scheduleStart"
+        ).value;
+
+
+    const end =
+        document.getElementById(
+            "scheduleEnd"
+        ).value;
+
+
+    if(!id){
+
+        alert("Test select करें।");
+
+        return;
+
+    }
+
+
+    if(!start || !end){ alert("Start और End date/time भरें।"); return; }
+    if(new Date(end) <= new Date(start)){ alert("End time, Start time के बाद होना चाहिए।"); return; }
+
+
+    const tests =
+        getJSON(
+            "sscScheduledTests",
+            []
+        );
+
+
+    const test =
+        tests.find(
+            t => t.id === id
+        );
+
+
+    if(!test){
+
+        alert("Test नहीं मिला।");
+
+        return;
+
+    }
+
+
+    if(
+        !Array.isArray(test.questionList) ||
+        test.questionList.length !== Number(test.questions)
+    ){
+
+        alert(
+            "पहले सभी questions add करके Test Save करें।"
+        );
+
+        return;
+
+    }
+
+
+    test.startDateTime =
+        new Date(start).toISOString();
+
+
+    test.endDateTime =
+        new Date(end).toISOString();
+
+
+    test.status =
+        "Scheduled";
+
+
+    localStorage.setItem(
+        "sscScheduledTests",
+        JSON.stringify(tests)
+    );
+
+
+    alert(
+        "✅ Test Scheduled Successfully!"
+    );
+
+
+    renderSchedule();
+
+    loadAdminStats();
+
+}
+
+
+function renderScheduledTests(){
+
+    const box =
+        document.getElementById(
+            "scheduledTestsList"
+        );
+
+
+    const tests =
+        getJSON(
+            "sscScheduledTests",
+            []
+        );
+
+
+    const scheduled =
+        tests.filter(
+            t =>
+                t.status === "Scheduled"
+        );
+
+
+    if(!scheduled.length){
+
+        box.innerHTML =
+            "<p style='color:#777;'>अभी कोई scheduled test नहीं है।</p>";
+
+        return;
+
+    }
+
+
+    box.innerHTML =
+        scheduled.map(
+            t => `
+
+            <div class="question-card">
+
+                <h3>
+                    ${escapeHTML(
+                        t.testName ||
+                        t.name
+                    )}
+                </h3>
+
+                <p>
+                    Class:
+                    ${escapeHTML(
+                        String(t.className)
+                    )}
+                </p>
+
+                <p>
+                    Start:
+                    ${new Date(
+                        t.startDateTime
+                    ).toLocaleString("en-IN")}
+                </p>
+
+                <p>
+                    End:
+                    ${new Date(
+                        t.endDateTime
+                    ).toLocaleString("en-IN")}
+                </p>
+
+            </div>
+
+        `
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+   DYNAMIC CONTENT MANAGEMENT
+   Class 6–12 → Subject → Chapter → Learning Content
+===================================================== */
+
+const ADMIN_CLASSES=["6","7","8","9","10","11","12"];
+const CONTENT_KEY="sscClassContent";
+const MATERIAL_KEY="sscMaterials";
+
+function normalizeAdminClass(v){
+    const raw=String(v ?? "").trim();
+    const m=raw.match(/\d+/);
+    return m ? m[0] : raw;
+}
+function getContentStore(){
+    const data=getJSON(CONTENT_KEY,{});
+    return data && typeof data==="object" && !Array.isArray(data) ? data : {};
+}
+function saveContentStore(data){ localStorage.setItem(CONTENT_KEY,JSON.stringify(data||{})); }
+function ensureClassContent(cls){
+    const c=normalizeAdminClass(cls),data=getContentStore();
+    if(!data[c]||typeof data[c]!=="object") data[c]={subjects:{}};
+    if(!data[c].subjects||typeof data[c].subjects!=="object") data[c].subjects={};
+    return {data,c};
+}
+function getAdminVideos(){
+    const x=getJSON("sscVideos",[]);
+    return Array.isArray(x)?x:[];
+}
+function getAdminMaterials(){
+    const x=getJSON(MATERIAL_KEY,[]);
+    return Array.isArray(x)?x:[];
+}
+function saveAdminMaterials(x){ localStorage.setItem(MATERIAL_KEY,JSON.stringify(Array.isArray(x)?x:[])); }
+function getAdminSubjects(cls){
+    const c=normalizeAdminClass(cls),data=getContentStore(),subjects=Object.keys(data[c]?.subjects||{});
+    getAdminVideos().filter(v=>normalizeAdminClass(v.className??v.studentClass??v.class)===c).forEach(v=>{
+        const n=String(v.subject||"").trim(); if(n&&!subjects.includes(n))subjects.push(n);
+    });
+    getAdminMaterials().filter(v=>normalizeAdminClass(v.className??v.studentClass??v.class)===c).forEach(v=>{
+        const n=String(v.subject||"").trim(); if(n&&!subjects.includes(n))subjects.push(n);
+    });
+    return subjects;
+}
+function getAdminChapters(cls,subject){
+    const c=normalizeAdminClass(cls),stored=getContentStore()[c]?.subjects?.[subject];
+    const names=Array.isArray(stored?.chapters)?stored.chapters.map(x=>typeof x==="string"?x:x?.name).filter(Boolean):[];
+    const add=v=>{const n=String(v||"").trim();if(n&&!names.includes(n))names.push(n)};
+    getAdminVideos().filter(v=>normalizeAdminClass(v.className??v.studentClass??v.class)===c&&String(v.subject||"").trim()===String(subject||"").trim()).forEach(v=>add(v.chapter));
+    getAdminMaterials().filter(v=>normalizeAdminClass(v.className??v.studentClass??v.class)===c&&String(v.subject||"").trim()===String(subject||"").trim()).forEach(v=>add(v.chapter));
+    return names;
+}
+function getSubjectRecord(cls,subject){return getContentStore()[normalizeAdminClass(cls)]?.subjects?.[subject]||{chapters:[]};}
+function fillSubjectSelect(select,cls){
+    if(!select)return;
+    const current=select.value,subjects=getAdminSubjects(cls);
+    select.innerHTML='<option value="">Select Subject</option>'+subjects.map(x=>`<option value="${escapeHTML(x)}">${escapeHTML(x)}</option>`).join("");
+    if(subjects.includes(current))select.value=current;
+}
+function updateVideoSubjects(){
+    const cls=normalizeAdminClass(document.getElementById("videoClass")?.value),sub=document.getElementById("videoSubject");
+    if(!sub)return; fillSubjectSelect(sub,cls); updateVideoChapters();
+}
+function updateVideoChapters(){
+    const cls=normalizeAdminClass(document.getElementById("videoClass")?.value),subject=document.getElementById("videoSubject")?.value||"",ch=document.getElementById("videoChapter");
+    if(!ch)return;
+    const current=ch.value,chapters=getAdminChapters(cls,subject);
+    ch.innerHTML='<option value="">Select Chapter</option>'+chapters.map(x=>`<option value="${escapeHTML(x)}">${escapeHTML(x)}</option>`).join("");
+    if(chapters.includes(current))ch.value=current;
+}
+function updateTestSubjects(){fillSubjectSelect(document.getElementById("testSubject"),normalizeAdminClass(document.getElementById("testClass")?.value));}
+
+window.__sscAdminClass="";
+window.__sscAdminSubject="";
+function openClassManager(cls){window.__sscAdminClass=normalizeAdminClass(cls);window.__sscAdminSubject="";renderClassManager(window.__sscAdminClass);}
+
+function renderClassManager(cls,selectedSubject=""){
+    const box=document.getElementById("classManagerContent");if(!box)return;
+    cls=normalizeAdminClass(cls);window.__sscAdminClass=cls;
+    if(selectedSubject)window.__sscAdminSubject=selectedSubject;
+    const subjects=getAdminSubjects(cls);
+    box.innerHTML=`<div class="question-card" style="padding:18px;">
+      <h3>📁 Class ${escapeHTML(cls)} — Subjects & Learning Content</h3>
+      <p style="margin:7px 0 15px;color:#6b7280">Subject बनाएं → Chapter बनाएं → उसी Chapter में Video, Notes, PDF/Material जोड़ें।</p>
+      <div class="input-box"><label>New Subject Name</label><input id="newSubjectName" type="text" placeholder="Example: Mathematics"></div>
+      <button type="button" class="primary-btn" id="createSubjectBtn">➕ Create Subject</button>
+      <div id="subjectManagerList" style="margin-top:20px;"></div>
+      <div id="chapterManagerBox" style="margin-top:20px;"></div>
+    </div>`;
+    document.getElementById("createSubjectBtn")?.addEventListener("click",()=>createSubject(cls));
+    const list=document.getElementById("subjectManagerList");
+    if(!subjects.length){list.innerHTML='<p style="padding:15px;background:#f8fafc;border-radius:10px;color:#6b7280">इस class में अभी कोई subject नहीं है। ऊपर subject name डालकर Create Subject करें।</p>';}
+    else list.innerHTML=subjects.map((subject,i)=>{
+        const chapters=getAdminChapters(cls,subject),active=selectedSubject===subject;
+        return `<div style="border:1px solid ${active?'#2563eb':'#e5e7eb'};border-radius:12px;padding:13px;margin-top:10px;background:${active?'#eff6ff':'#fff'};">
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><strong style="flex:1;min-width:160px">${escapeHTML(subject)}</strong>
+          <button type="button" class="primary-btn manage-chapter-btn" data-subject="${escapeHTML(subject)}" style="width:auto;padding:8px 11px">📂 Chapters</button>
+          <button type="button" class="outline-btn edit-subject-btn" data-subject="${escapeHTML(subject)}" style="padding:8px 11px">✏️ Edit</button>
+          <button type="button" class="danger-btn delete-subject-btn" data-subject="${escapeHTML(subject)}">🗑 Delete</button></div>
+          <small style="display:block;color:#6b7280;margin-top:7px">${chapters.length} chapter${chapters.length===1?'':'s'}</small>
+        </div>`;
+    }).join("");
+    list.querySelectorAll(".manage-chapter-btn").forEach(b=>b.addEventListener("click",()=>manageChapters(cls,b.dataset.subject||"")));
+    list.querySelectorAll(".edit-subject-btn").forEach(b=>b.addEventListener("click",()=>editSubject(cls,b.dataset.subject||"")));
+    list.querySelectorAll(".delete-subject-btn").forEach(b=>b.addEventListener("click",()=>deleteSubject(cls,b.dataset.subject||"")));
+    if(selectedSubject)manageChapters(cls,selectedSubject);
+}
+function createSubject(cls){
+    cls=normalizeAdminClass(cls);const input=document.getElementById("newSubjectName"),subject=String(input?.value||"").trim();
+    if(!subject){alert("Subject name डालें।");return;}
+    const {data,c}=ensureClassContent(cls);
+    if(data[c].subjects[subject]){alert("यह Subject पहले से मौजूद है।");return;}
+    data[c].subjects[subject]={chapters:[]};saveContentStore(data);if(input)input.value="";
+    renderClassManager(c,subject);updateVideoSubjects();updateTestSubjects();
+    alert(`✅ Subject "${subject}" create हो गया।`);
+}
+function editSubject(cls,oldName){
+    const newName=prompt("Subject का नया नाम लिखें:",oldName);if(newName===null)return;const name=String(newName).trim();if(!name){alert("Subject name खाली नहीं हो सकता।");return;}if(name===oldName)return;
+    const {data,c}=ensureClassContent(cls);if(data[c].subjects[name]){alert("यह Subject पहले से मौजूद है।");return;}
+    data[c].subjects[name]=data[c].subjects[oldName]||{chapters:[]};delete data[c].subjects[oldName];
+    const videos=getAdminVideos();videos.forEach(v=>{if(normalizeAdminClass(v.className??v.studentClass??v.class)===c&&String(v.subject||"")===String(oldName))v.subject=name;});localStorage.setItem("sscVideos",JSON.stringify(videos));
+    const mats=getAdminMaterials();mats.forEach(v=>{if(normalizeAdminClass(v.className??v.studentClass??v.class)===c&&String(v.subject||"")===String(oldName))v.subject=name;});saveAdminMaterials(mats);
+    saveContentStore(data);renderClassManager(c,name);updateVideoSubjects();updateTestSubjects();
+}
+function deleteSubject(cls,subject){
+    if(!confirm(`Class ${cls} का "${subject}" Subject delete करना है?`))return;
+    const {data,c}=ensureClassContent(cls);delete data[c].subjects[subject];saveContentStore(data);
+    renderClassManager(c);updateVideoSubjects();updateTestSubjects();
+}
+function manageChapters(cls,subject){
+    cls=normalizeAdminClass(cls);window.__sscAdminClass=cls;window.__sscAdminSubject=subject;
+    const box=document.getElementById("chapterManagerBox");if(!box)return;const chapters=getAdminChapters(cls,subject);
+    box.innerHTML=`<div style="border-top:1px solid #e5e7eb;padding-top:18px"><h3>📚 ${escapeHTML(subject)} — Chapters</h3>
+      <div class="input-box" style="margin-top:12px"><label>New Chapter Name</label><input id="newChapterName" type="text" placeholder="Chapter name"></div>
+      <button type="button" class="primary-btn" id="createChapterBtn">➕ Create Chapter</button>
+      <div style="margin-top:15px">${chapters.length?chapters.map((chapter,index)=>`<div style="display:flex;gap:8px;align-items:center;border:1px solid #e5e7eb;border-radius:10px;padding:10px;margin-top:8px;flex-wrap:wrap">
+        <span style="flex:1;min-width:160px"><strong>Chapter ${index+1}</strong> — ${escapeHTML(chapter)}</span>
+        <button type="button" class="primary-btn add-video-chapter" data-chapter="${escapeHTML(chapter)}" style="width:auto;padding:7px 10px">🎥 Video</button>
+        <button type="button" class="outline-btn add-note-chapter" data-chapter="${escapeHTML(chapter)}" style="padding:7px 10px">📝 Notes</button>
+        <button type="button" class="outline-btn add-material-chapter" data-chapter="${escapeHTML(chapter)}" style="padding:7px 10px">📄 PDF/Material</button>
+        <button type="button" class="outline-btn content-chapter-btn" data-chapter="${escapeHTML(chapter)}" style="padding:7px 10px">📚 Content</button>
+        <button type="button" class="outline-btn edit-chapter-btn" data-chapter="${escapeHTML(chapter)}" style="padding:7px 10px">✏️ Edit</button>
+        <button type="button" class="danger-btn delete-chapter-btn" data-chapter="${escapeHTML(chapter)}">🗑 Delete</button>
+      </div>`).join(""):'<p style="color:#6b7280;padding:12px;background:#f8fafc;border-radius:10px">अभी कोई chapter नहीं है।</p>'}</div>
+      <div id="chapterContentEditor" style="margin-top:18px"></div></div>`;
+    document.getElementById("createChapterBtn")?.addEventListener("click",()=>createChapter(cls,subject));
+    box.querySelectorAll(".add-video-chapter").forEach(b=>b.addEventListener("click",()=>openVideoForChapter(cls,subject,b.dataset.chapter||"")));
+    box.querySelectorAll(".add-note-chapter").forEach(b=>b.addEventListener("click",()=>showMaterialEditor(cls,subject,b.dataset.chapter||"","note")));
+    box.querySelectorAll(".add-material-chapter").forEach(b=>b.addEventListener("click",()=>showMaterialEditor(cls,subject,b.dataset.chapter||"","pdf")));
+    box.querySelectorAll(".content-chapter-btn").forEach(b=>b.addEventListener("click",()=>showChapterContentManager(cls,subject,b.dataset.chapter||"")));
+    box.querySelectorAll(".edit-chapter-btn").forEach(b=>b.addEventListener("click",()=>editChapter(cls,subject,b.dataset.chapter||"")));
+    box.querySelectorAll(".delete-chapter-btn").forEach(b=>b.addEventListener("click",()=>deleteChapter(cls,subject,b.dataset.chapter||"")));
+    updateVideoSubjects();
+    const videoSubject=document.getElementById("videoSubject");if(videoSubject&&normalizeAdminClass(document.getElementById("videoClass")?.value)===cls){videoSubject.value=subject;updateVideoChapters();}
+}
+function createChapter(cls,subject){
+    cls=normalizeAdminClass(cls);const input=document.getElementById("newChapterName"),name=String(input?.value||"").trim();
+    if(!name){alert("Chapter name डालें।");return;}
+    const {data,c}=ensureClassContent(cls);const record=data[c].subjects[subject]||{chapters:[]};if(!Array.isArray(record.chapters))record.chapters=[];
+    if(record.chapters.some(x=>String(typeof x==='string'?x:x?.name||'').trim().toLowerCase()===name.toLowerCase())){alert("यह Chapter पहले से मौजूद है।");return;}
+    record.chapters.push({id:"chapter_"+Date.now(),name});data[c].subjects[subject]=record;saveContentStore(data);
+    renderClassManager(c,subject);updateVideoSubjects();
+    alert(`✅ Chapter "${name}" create हो गया। अब इसमें Video/Notes/PDF/Material जोड़ सकते हैं।`);
+}
+function editChapter(cls,subject,oldName){
+    const newName=prompt("Chapter का नया नाम लिखें:",oldName);if(newName===null)return;const name=String(newName).trim();if(!name||name===oldName)return;
+    const {data,c}=ensureClassContent(cls);const record=data[c].subjects[subject]||{chapters:[]};record.chapters=(Array.isArray(record.chapters)?record.chapters:[]).map(x=>{const old=typeof x==='string'?x:x?.name;return old===oldName?{id:x?.id||"chapter_"+Date.now(),name}:x;});data[c].subjects[subject]=record;
+    const videos=getAdminVideos();videos.forEach(v=>{if(normalizeAdminClass(v.className??v.studentClass??v.class)===c&&String(v.subject||"")===String(subject)&&String(v.chapter||"")===String(oldName))v.chapter=name;});localStorage.setItem("sscVideos",JSON.stringify(videos));
+    const mats=getAdminMaterials();mats.forEach(v=>{if(normalizeAdminClass(v.className??v.studentClass??v.class)===c&&String(v.subject||"")===String(subject)&&String(v.chapter||"")===String(oldName))v.chapter=name;});saveAdminMaterials(mats);
+    saveContentStore(data);renderClassManager(c,subject);updateVideoChapters();
+}
+function deleteChapter(cls,subject,chapter){
+    if(!confirm(`"${chapter}" Chapter delete करना है?`))return;const {data,c}=ensureClassContent(cls);const record=data[c].subjects[subject]||{chapters:[]};record.chapters=(Array.isArray(record.chapters)?record.chapters:[]).filter(x=>String(typeof x==='string'?x:x?.name||'')!==String(chapter));data[c].subjects[subject]=record;saveContentStore(data);renderClassManager(c,subject);updateVideoChapters();
+}
+function openVideoForChapter(cls,subject,chapter){
+    const vc=document.getElementById("videoClass"),vs=document.getElementById("videoSubject"),vch=document.getElementById("videoChapter");
+    if(vc){vc.value=cls;updateVideoSubjects();} if(vs){vs.value=subject;updateVideoChapters();} if(vch)vch.value=chapter;
+    showSection("videosSection");
+    setTimeout(()=>{const t=document.getElementById("videoTitle");if(t&&!t.value)t.focus();},50);
+}
+function showChapterContentManager(cls,subject,chapter){
+    const box=document.getElementById("chapterContentEditor");if(!box)return;
+    const videos=getAdminVideos().filter(v=>normalizeAdminClass(v.className??v.studentClass??v.class)===normalizeAdminClass(cls)&&String(v.subject||"")===String(subject||"")&&String(v.chapter||"")===String(chapter||""));
+    const mats=getAdminMaterials().filter(v=>normalizeAdminClass(v.className??v.studentClass??v.class)===normalizeAdminClass(cls)&&String(v.subject||"")===String(subject||"")&&String(v.chapter||"")===String(chapter||""));
+    box.innerHTML=`<div class="question-card" style="padding:16px"><h3>📚 ${escapeHTML(chapter)} — All Content</h3>
+      <div style="margin-top:12px"><h4>🎥 Videos (${videos.length})</h4>${videos.length?videos.map(v=>`<div style="border:1px solid #e5e7eb;border-radius:10px;padding:10px;margin-top:8px"><b>${escapeHTML(v.title||"Video Class")}</b><small style="display:block;color:#6b7280">${v.scheduledAt?"Scheduled: "+escapeHTML(new Date(v.scheduledAt).toLocaleString("en-IN")):"Available now"}</small><button type="button" class="danger-btn delete-chapter-video" data-id="${escapeHTML(v.id)}" style="margin-top:8px">🗑 Delete Video</button></div>`).join(""):'<p style="color:#6b7280">No videos yet.</p>'}</div>
+      <div style="margin-top:18px"><h4>📝 Notes / 📄 Materials (${mats.length})</h4>${mats.length?mats.map(m=>`<div style="border:1px solid #e5e7eb;border-radius:10px;padding:10px;margin-top:8px"><b>${m.type==='note'?'📝':'📄'} ${escapeHTML(m.title||"Material")}</b>${m.text?`<p style="white-space:pre-wrap;margin-top:6px">${escapeHTML(m.text)}</p>`:""}${m.url?`<a href="${escapeHTML(m.url)}" target="_blank" rel="noopener">Open</a>`:""}<div style="margin-top:8px"><button type="button" class="outline-btn edit-chapter-material" data-id="${escapeHTML(m.id)}">✏️ Edit</button> <button type="button" class="danger-btn delete-chapter-material" data-id="${escapeHTML(m.id)}">🗑 Delete</button></div></div>`).join(""):'<p style="color:#6b7280">No notes/materials yet.</p>'}</div></div>`;
+    box.querySelectorAll('.delete-chapter-video').forEach(b=>b.addEventListener('click',async()=>{if(!confirm('यह video delete करना है?'))return;await deleteVideoClass(b.dataset.id||'');showChapterContentManager(cls,subject,chapter);}));
+    box.querySelectorAll('.edit-chapter-material').forEach(b=>{const m=mats.find(x=>String(x.id)===String(b.dataset.id));b.addEventListener('click',()=>showMaterialEditor(cls,subject,chapter,m?.type||'note',b.dataset.id||''));});
+    box.querySelectorAll('.delete-chapter-material').forEach(b=>b.addEventListener('click',()=>{if(!confirm('यह material delete करना है?'))return;saveAdminMaterials(getAdminMaterials().filter(x=>String(x.id)!==String(b.dataset.id)));showChapterContentManager(cls,subject,chapter);}));
+}
+function showMaterialEditor(cls,subject,chapter,type="note",existingId=""){
+    const box=document.getElementById("chapterContentEditor");if(!box)return;
+    const old=getAdminMaterials().find(x=>String(x.id)===String(existingId));
+    box.innerHTML=`<div class="question-card" style="padding:16px;border:1px solid #bfdbfe;background:#f8fbff"><h3>${type==='note'?'📝 Add/Edit Notes':'📄 Add/Edit PDF / Material'}</h3>
+      <div class="input-box"><label>Title</label><input id="materialTitle" value="${escapeHTML(old?.title||'')}" placeholder="Example: Chapter Notes"></div>
+      <div class="input-box"><label>Content / Notes</label><textarea id="materialText" rows="5" placeholder="Notes यहाँ लिखें (PDF/Material के लिए optional)">${escapeHTML(old?.text||'')}</textarea></div>
+      <div class="input-box"><label>PDF / Material URL (optional)</label><input id="materialUrl" type="url" value="${escapeHTML(old?.url||'')}" placeholder="https://..."></div>
+      ${type==='pdf'?`<div class="input-box"><label>या PDF / Material File</label><input id="materialFile" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png"><small style="display:block;margin-top:6px;color:#6b7280">Firebase Storage में upload होगा।</small></div>`:''}
+      <button type="button" class="primary-btn" id="saveMaterialBtn">💾 Save ${type==='note'?'Notes':'Material'}</button>
+      <button type="button" class="outline-btn" id="cancelMaterialBtn" style="margin-left:8px">Cancel</button></div>`;
+    document.getElementById("saveMaterialBtn")?.addEventListener("click",()=>saveMaterial(cls,subject,chapter,type,existingId));
+    document.getElementById("cancelMaterialBtn")?.addEventListener("click",()=>{box.innerHTML="";});
+}
+async function saveMaterial(cls,subject,chapter,type,existingId=""){
+    const title=String(document.getElementById("materialTitle")?.value||"").trim();
+    const text=String(document.getElementById("materialText")?.value||"").trim();
+    let url=String(document.getElementById("materialUrl")?.value||"").trim();
+    const file=document.getElementById("materialFile")?.files?.[0]||null;
+    if(!title){alert("Title डालें।");return;}
+    if(type==='pdf'&&!text&&!url&&!file){alert("PDF/Material के लिए URL, content या file दें।");return;}
+    const button=document.getElementById("saveMaterialBtn");if(button){button.disabled=true;button.textContent="Saving...";}
+    try{
+        if(file){
+            if(window.sscStorageReady){
+                const {storage,ref,uploadBytes,getDownloadURL}=await window.sscStorageReady;
+                const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+                const fileRef=ref(storage,`ssc-materials/${normalizeAdminClass(cls)}/${encodeURIComponent(subject)}/${encodeURIComponent(chapter)}/${Date.now()}_${safeName}`);
+                await uploadBytes(fileRef,file);
+                url=await getDownloadURL(fileRef);
+            }else{
+                throw new Error("Firebase Storage ready नहीं है। URL से material add करें।");
+            }
+        }
+        const arr=getAdminMaterials();
+        const item={id:existingId||"material_"+Date.now(),className:normalizeAdminClass(cls),studentClass:normalizeAdminClass(cls),subject,chapter,type,title,text,url,originalFileName:file?.name||"",createdAt:new Date().toISOString()};
+        const idx=arr.findIndex(x=>String(x.id)===String(existingId));if(idx>=0)arr[idx]=item;else arr.unshift(item);
+        saveAdminMaterials(arr);manageChapters(cls,subject);alert(`✅ ${type==='note'?'Notes':'Material'} saved successfully.`);
+    }catch(e){console.error(e);alert(e?.message||"Material save नहीं हो पाया।");}
+    finally{if(button){button.disabled=false;button.textContent=`💾 Save ${type==='note'?'Notes':'Material'}`;}}
+}
+function renderChapterMaterials(cls,subject,chapter){
+    const box=document.getElementById("chapterContentEditor");if(!box)return;const arr=getAdminMaterials().filter(x=>normalizeAdminClass(x.className??x.studentClass??x.class)===normalizeAdminClass(cls)&&String(x.subject||"")===String(subject||"")&&String(x.chapter||"")===String(chapter||""));
+    if(!arr.length)return;
+    box.innerHTML=`<div class="question-card" style="padding:16px"><h3>📚 ${escapeHTML(chapter)} — Added Notes / Materials</h3>${arr.map(x=>`<div style="border:1px solid #e5e7eb;border-radius:10px;padding:10px;margin-top:8px"><b>${escapeHTML(x.title)}</b><small style="display:block;color:#6b7280">${x.type==='note'?'Notes':'PDF / Material'}</small>${x.text?`<p style="white-space:pre-wrap;margin-top:8px">${escapeHTML(x.text)}</p>`:''}${x.url?`<a href="${escapeHTML(x.url)}" target="_blank" rel="noopener">Open Material</a>`:''}<div style="margin-top:8px"><button type="button" class="outline-btn edit-material-btn" data-id="${escapeHTML(x.id)}">✏️ Edit</button> <button type="button" class="danger-btn delete-material-btn" data-id="${escapeHTML(x.id)}">🗑 Delete</button></div></div>`).join('')}</div>`;
+    box.querySelectorAll('.edit-material-btn').forEach(b=>{const m=arr.find(x=>String(x.id)===String(b.dataset.id));b.addEventListener('click',()=>showMaterialEditor(cls,subject,chapter,m?.type||'note',b.dataset.id||''));});
+    box.querySelectorAll('.delete-material-btn').forEach(b=>b.addEventListener('click',()=>{if(!confirm('यह material delete करना है?'))return;saveAdminMaterials(getAdminMaterials().filter(x=>String(x.id)!==String(b.dataset.id)));manageChapters(cls,subject); }));
+}
+function clearVideoForm(){
+    ["videoTitle","videoUrl","videoDescription","videoSchedule"].forEach(id=>{const e=document.getElementById(id);if(e)e.value="";});
+    const fileInput=document.getElementById("videoFile");if(fileInput)fileInput.value="";
+    const preview=document.getElementById("adminVideoPreview");
+    if(preview){preview.pause();preview.removeAttribute("src");preview.load();preview.style.display="none";}
+}
+
+function openSSCVideoDB(){
+    return new Promise((resolve,reject)=>{
+        const request=indexedDB.open("SSC_CLASSES_VIDEO_DB",1);
+        request.onupgradeneeded=()=>{const db=request.result;if(!db.objectStoreNames.contains("videos"))db.createObjectStore("videos");};
+        request.onsuccess=()=>resolve(request.result);
+        request.onerror=()=>reject(request.error||new Error("IndexedDB open failed"));
+    });
+}
+
+async function saveVideoBlobLocally(id,file){
+    const db=await openSSCVideoDB();
+    await new Promise((resolve,reject)=>{const tx=db.transaction("videos","readwrite");tx.objectStore("videos").put(file,id);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error||new Error("Local video save failed"));});
+    db.close();
+}
+
+async function saveVideoClass(){
+    const cls=normalizeAdminClass(document.getElementById("videoClass")?.value);
+    const subject=document.getElementById("videoSubject")?.value || "";
+    const chapter=document.getElementById("videoChapter")?.value || "";
+    const title=document.getElementById("videoTitle")?.value.trim() || "";
+    const url=document.getElementById("videoUrl")?.value.trim() || "";
+    const file=document.getElementById("videoFile")?.files?.[0] || null;
+    const description=document.getElementById("videoDescription")?.value.trim() || "";
+    const schedule=document.getElementById("videoSchedule")?.value || "";
+    const status=document.getElementById("videoFileStatus");
+
+    if(!cls||!subject||!chapter||!title||(!url&&!file)){
+        alert("Class, Subject, Chapter, Video Title और Video URL या Video File भरें।");return;
+    }
+    if(!getAdminSubjects(cls).includes(subject)){alert("पहले Subject create करें।");return;}
+    if(!getAdminChapters(cls,subject).includes(chapter)){alert("पहले Chapter create करें।");return;}
+
+    const saveButton=document.querySelector('#videosSection button[onclick="saveVideoClass()"]');
+    if(saveButton){saveButton.disabled=true;saveButton.textContent="⏳ Saving...";}
+    try{
+        let finalUrl=url, sourceType=url?"url":"file", localFileId="";
+        if(file){
+            if(!file.type.startsWith("video/"))throw new Error("कृपया केवल video file select करें।");
+            if(status){status.textContent="⏳ Video upload हो रहा है...";status.style.color="#2563eb";}
+            try{
+                const api=await window.sscStorageReady;
+                const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+                const path=`ssc-videos/class-${cls}/${Date.now()}-${safeName}`;
+                const storageRef=api.ref(api.storage,path);
+                const snapshot=await api.uploadBytes(storageRef,file,{contentType:file.type||"video/mp4"});
+                finalUrl=await api.getDownloadURL(snapshot.ref);
+                sourceType="firebase";
+            }catch(uploadError){
+                console.warn("Firebase upload failed; local browser storage used",uploadError);
+                localFileId="local_video_"+Date.now();
+                await saveVideoBlobLocally(localFileId,file);
+                finalUrl="";sourceType="local";
+            }
+        }
+
+        const videos=getAdminVideos();
+        videos.unshift({id:"video_"+Date.now(),className:cls,studentClass:cls,subject,chapter,title,videoUrl:finalUrl,sourceType,localFileId,originalFileName:file?file.name:"",description,scheduledAt:schedule?new Date(schedule).toISOString():"",createdAt:new Date().toISOString()});
+        localStorage.setItem("sscVideos",JSON.stringify(videos));
+        clearVideoForm();
+        if(status)status.textContent="✅ Video saved successfully.";
+        renderAdminVideos();
+        alert("✅ Video Class saved successfully.");
+    }catch(error){
+        alert(error.message||"Video save नहीं हो पाया।");
+        if(status)status.textContent="❌ Video save नहीं हुआ।";
+    }finally{
+        if(saveButton){saveButton.disabled=false;saveButton.textContent="🎥 Save Video Class";}
+    }
+}
+
+function previewSelectedVideo(input){
+    const file=input?.files?.[0],preview=document.getElementById("adminVideoPreview"),status=document.getElementById("videoFileStatus");
+    if(!file){if(preview){preview.pause();preview.removeAttribute("src");preview.load();preview.style.display="none";}return;}
+    if(!file.type.startsWith("video/")){input.value="";alert("कृपया केवल video file select करें।");return;}
+    const objectUrl=URL.createObjectURL(file);
+    if(preview){preview.src=objectUrl;preview.style.display="block";preview.load();}
+    if(status)status.textContent=`Selected: ${file.name} (${(file.size/1024/1024).toFixed(1)} MB)`;
+}
+
+async function deleteVideoClass(id){
+    if(!confirm("क्या यह Video Class delete करना है?"))return;
+    const videos=getAdminVideos();
+    const target=videos.find(v=>String(v.id)===String(id));
+    if(target?.sourceType==="local"&&target.localFileId){
+        try{const db=await openSSCVideoDB();await new Promise((resolve,reject)=>{const tx=db.transaction("videos","readwrite");tx.objectStore("videos").delete(target.localFileId);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);});db.close();}catch(e){console.warn(e);}
+    }
+    localStorage.setItem("sscVideos",JSON.stringify(videos.filter(v=>String(v.id)!==String(id))));
+    renderAdminVideos();
+}
+
+function renderAdminVideos(){
+    const box=document.getElementById("adminVideosList");if(!box)return;
+    const videos=getAdminVideos();
+    if(!videos.length){box.innerHTML='<p style="color:#777">अभी कोई Video Class नहीं है।</p>';return;}
+    box.innerHTML=videos.map(v=>`<div class="video-admin-card"><h3>${escapeHTML(v.title||"Video Class")}</h3><p>Class ${escapeHTML(normalizeAdminClass(v.className||v.studentClass))} • ${escapeHTML(v.subject||"")} • ${escapeHTML(v.chapter||"")}</p><small>${v.scheduledAt?"Scheduled: "+escapeHTML(new Date(v.scheduledAt).toLocaleString("en-IN")):"Available now"}</small><br>${v.sourceType==="local"?'<span style="display:inline-block;padding:7px 10px;border-radius:8px;background:#fff7ed;color:#9a3412;">💻 Local Browser Video</span>':v.videoUrl?`<a href="${escapeHTML(v.videoUrl)}" target="_blank" rel="noopener">Open Video</a>`:"Video file"}<br><button class="danger-btn" onclick="deleteVideoClass(${JSON.stringify(v.id)})">Delete</button></div>`).join("");
+}
+
+/* =====================================================
+   STUDENTS
+===================================================== */
+
+function renderStudents(){
+
+    const box =
+        document.getElementById(
+            "studentsList"
+        );
+
+
+    const students =
+        getJSON(
+            "sscStudents",
+            []
+        );
+
+
+    if(!Array.isArray(students) || !students.length){
+
+        box.innerHTML =
+            "<p style='color:#777;'>अभी कोई student registered नहीं है।</p>";
+
+        return;
+
+    }
+
+
+    box.innerHTML = `
+
+        <div class="table-wrap">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Name</th>
+                    <th>Class</th>
+                    <th>Mobile</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                ${
+                    students.map(
+                        s => `
+
+                        <tr>
+
+                            <td>
+                                ${escapeHTML(
+                                    s.name ||
+                                    s.studentName ||
+                                    "-"
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    String(
+                                        s.class ||
+                                        s.studentClass ||
+                                        "-"
+                                    )
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    s.mobile ||
+                                    s.phone ||
+                                    "-"
+                                )}
+                            </td>
+
+                        </tr>
+
+                        `
+                    ).join("")
+                }
+
+            </tbody>
+
+        </table>
+
+        </div>
+    `;
+
+}
+
+
+/* =====================================================
+   RESULTS
+===================================================== */
+
+function renderResults(){
+
+    const box =
+        document.getElementById(
+            "resultsList"
+        );
+
+
+    const results =
+        getJSON(
+            "sscResultHistory",
+            []
+        );
+
+
+    if(!Array.isArray(results) || !results.length){
+
+        box.innerHTML =
+            "<p style='color:#777;'>अभी कोई result नहीं है।</p>";
+
+        return;
+
+    }
+
+
+    box.innerHTML = `
+
+        <div class="table-wrap">
+
+        <table>
+
+        <thead>
+
+        <tr>
+            <th>Student</th>
+            <th>Test</th>
+            <th>Class</th>
+            <th>Marks</th>
+            <th>Percentage</th>
+            <th>Result</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        ${
+            results.map(
+                r => `
+
+                <tr>
+
+                    <td>
+                        ${escapeHTML(
+                            r.studentName ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            r.testName ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            String(
+                                r.studentClass ||
+                                "-"
+                            )
+                        )}
+                    </td>
+
+                    <td>
+                        ${r.obtainedMarks ?? 0}
+                        /
+                        ${r.totalMarks ?? 0}
+                    </td>
+
+                    <td>
+                        ${r.percentage ?? 0}%
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            r.result ||
+                            "-"
+                        )}
+                    </td>
+
+                </tr>
+
+                `
+            ).join("")
+        }
+
+        </tbody>
+
+        </table>
+
+        </div>
+    `;
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   ENTER KEY LOGIN
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Enter" &&
+            document.getElementById(
+                "loginBox"
+            ).style.display !== "none"
+        ){
+
+            adminLogin();
+
+        }
+
+    }
+);
+
+
+document.addEventListener("DOMContentLoaded",function(){
+
+    const videoClass=document.getElementById("videoClass");
+    const videoSubject=document.getElementById("videoSubject");
+    const testClass=document.getElementById("testClass");
+
+    if(videoClass){
+        videoClass.addEventListener("change",updateVideoSubjects);
+    }
+
+    if(videoSubject){
+        videoSubject.addEventListener("change",updateVideoChapters);
+    }
+
+    if(testClass){
+        testClass.addEventListener("change",updateTestSubjects);
+        updateTestSubjects();
+    }
+
+    updateVideoSubjects();
+    renderAdminVideos();
+
+});
+
+/* =====================================================
+   PAGE LOAD
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        const loggedIn =
+            localStorage.getItem(
+                "sscAdminLoggedIn"
+            );
+
+
+        if(loggedIn === "true"){
+
+            showAdminPanel();
+
+        }else{
+
+            document.getElementById(
+                "loginBox"
+            ).style.display = "flex";
+
+
+            document.getElementById(
+                "adminPanel"
+            ).style.display = "none";
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
