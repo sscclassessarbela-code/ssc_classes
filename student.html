@@ -1,0 +1,5801 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<meta name="theme-color" content="#082b5c">
+
+<title>SSC CLASSES | Learn Today • Succeed Tomorrow</title>
+
+<style>
+
+/* =========================================================
+   SSC CLASSES - DESIGN SYSTEM
+========================================================= */
+
+:root{
+    --navy:#082b5c;
+    --navy-dark:#061f45;
+    --blue:#1769e8;
+    --blue-light:#eaf2ff;
+
+    --green:#18a873;
+    --green-light:#e8f8ef;
+
+    --orange:#f59e0b;
+    --orange-light:#fff2dc;
+
+    --red:#e53935;
+    --red-light:#ffeded;
+
+    --purple:#7c4dff;
+    --purple-light:#f0eaff;
+
+    --teal:#119da4;
+    --teal-light:#e5fafb;
+
+    --bg:#f4f7fb;
+    --white:#ffffff;
+
+    --text:#172033;
+    --muted:#6b7280;
+    --border:#e5eaf0;
+
+    --shadow:0 7px 22px rgba(8,43,92,.09);
+    --radius:17px;
+}
+
+/* RESET */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:
+        Arial,
+        "Noto Sans Devanagari",
+        sans-serif;
+
+    background:var(--bg);
+    color:var(--text);
+}
+
+button,
+input{
+    font:inherit;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+}
+
+button:active{
+    transform:scale(.98);
+}
+/* =========================================================
+   QUESTION LEGEND
+========================================================= */
+
+.question-legend{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:18px;
+    margin:10px 0 5px;
+    flex-wrap:wrap;
+}
+
+.question-legend > div{
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.legend-box{
+    width:13px;
+    height:13px;
+    border-radius:4px;
+    display:inline-block;
+}
+
+.legend-box.current{
+    background:#1769e8;
+}
+
+.legend-box.answered{
+    background:#18a957;
+}
+
+.legend-box.remaining{
+    background:#ffffff;
+    border:1px solid #d7e0ea;
+}
+
+.question-legend small{
+    color:#667085;
+    font-size:10px;
+    font-weight:600;
+}
+/* =========================================================
+   COMMON
+========================================================= */
+
+.hidden{
+    display:none!important;
+}
+
+.card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+}
+
+.primary-btn{
+    background:var(--blue);
+    color:#fff;
+    border-radius:12px;
+    padding:13px 18px;
+    font-weight:700;
+}
+
+.primary-btn.full{
+    width:100%;
+}
+
+.outline-btn{
+    background:#fff;
+    color:var(--blue);
+    border:1px solid #ccd9eb;
+    border-radius:12px;
+    padding:12px 18px;
+    font-weight:700;
+}
+
+.outline-btn.full{
+    width:100%;
+}
+
+.section-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:18px 2px 10px;
+}
+
+.section-title h2{
+    font-size:17px;
+}
+
+.section-title button{
+    background:none;
+    color:var(--blue);
+    font-size:13px;
+    font-weight:700;
+}
+
+/* =========================================================
+   SPLASH
+========================================================= */
+
+.splash{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--navy-dark),
+            #0a3c7e
+        );
+
+    color:#fff;
+    text-align:center;
+}
+
+.splash-content{
+    padding:30px;
+}
+
+.splash-logo{
+    width:105px;
+    height:105px;
+    object-fit:contain;
+    display:block;
+    margin:auto;
+}
+
+.splash h1{
+    font-size:30px;
+    margin-top:12px;
+}
+
+.splash-tag{
+    color:#dbe7f8;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.splash-dream{
+    margin-top:55px;
+    line-height:1.8;
+    font-size:14px;
+}
+
+.spinner{
+    width:38px;
+    height:38px;
+
+    border:4px solid rgba(255,255,255,.3);
+    border-top-color:white;
+
+    border-radius:50%;
+
+    margin:25px auto 0;
+
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* =========================================================
+   SCREENS
+========================================================= */
+
+.screen{
+    display:none;
+    min-height:100vh;
+    padding-bottom:82px;
+}
+
+.screen.active{
+    display:block;
+}
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar{
+    height:67px;
+
+    background:var(--navy);
+    color:#fff;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 17px;
+
+    gap:12px;
+
+    position:sticky;
+    top:0;
+    z-index:50;
+}
+
+.topbar h1{
+    font-size:18px;
+    flex:1;
+}
+
+.back-btn{
+    width:38px;
+    height:38px;
+
+    border-radius:10px;
+
+    background:rgba(255,255,255,.1);
+
+    color:#fff;
+
+    font-size:28px;
+}
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page{
+    max-width:620px;
+    margin:auto;
+    padding:17px;
+}
+
+/* =========================================================
+   LOGIN / REGISTER
+========================================================= */
+
+.auth-screen{
+    min-height:100vh;
+    background:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+}
+
+.auth-box{
+    width:100%;
+    max-width:420px;
+    text-align:center;
+}
+
+.auth-logo{
+    width:92px;
+    height:92px;
+    object-fit:contain;
+}
+
+.auth-box h1{
+    color:var(--navy);
+    font-size:25px;
+    margin-top:8px;
+}
+
+.auth-tag{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.auth-box h2{
+    font-size:25px;
+    margin-top:32px;
+    margin-bottom:7px;
+}
+
+.auth-description{
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:20px;
+}
+
+.input-group{
+    position:relative;
+    margin:10px 0;
+}
+
+.input-group input{
+    width:100%;
+    height:48px;
+
+    border:1px solid #dbe2ec;
+
+    border-radius:12px;
+
+    padding:0 43px;
+
+    outline:none;
+}
+
+.input-group input:focus{
+    border-color:var(--blue);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(23,105,232,.1);
+}
+
+.input-icon{
+    position:absolute;
+    left:14px;
+    top:13px;
+}
+
+.password-eye{
+    position:absolute;
+    right:10px;
+    top:8px;
+
+    background:none;
+
+    font-size:18px;
+}
+
+.forgot{
+    text-align:right;
+    color:var(--blue);
+    font-size:12px;
+    margin:8px 2px 15px;
+    cursor:pointer;
+}
+
+.or{
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
+    color:#929baa;
+
+    font-size:12px;
+
+    margin:18px 0;
+}
+
+.or::before,
+.or::after{
+    content:"";
+    height:1px;
+    background:var(--border);
+    flex:1;
+}
+
+.google-btn{
+    width:100%;
+    padding:13px;
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    font-weight:700;
+}
+
+.auth-footer{
+    margin-top:22px;
+
+    font-size:12px;
+
+    color:var(--muted);
+}
+
+.auth-footer span{
+    color:var(--blue);
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* =========================================================
+   HOME HEADER
+========================================================= */
+
+.home-header{
+    background:var(--navy);
+    color:#fff;
+
+    padding:18px 17px 24px;
+
+    border-radius:
+        0 0 26px 26px;
+}
+
+.user-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.user-avatar{
+    width:43px;
+    height:43px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    background:#dce8fb;
+}
+
+.user-info{
+    flex:1;
+}
+
+.user-info strong{
+    font-size:15px;
+}
+
+.user-info small{
+    display:block;
+    color:#c8d7ef;
+    margin-top:4px;
+    font-size:10px;
+}
+
+.notification-button{
+    width:40px;
+    height:40px;
+
+    border-radius:11px;
+
+    color:#fff;
+
+    background:
+        rgba(255,255,255,.1);
+
+    position:relative;
+}
+
+.notification-badge{
+    position:absolute;
+
+    top:-3px;
+    right:-3px;
+
+    min-width:17px;
+    height:17px;
+
+    background:#ef2222;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    font-size:9px;
+
+    border:2px solid var(--navy);
+}
+
+/* =========================================================
+   HOME HERO
+========================================================= */
+
+.hero{
+    margin-top:18px;
+
+    min-height:151px;
+
+    border-radius:18px;
+
+    padding:18px;
+
+    display:flex;
+    align-items:center;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            120deg,
+            #164e9c,
+            #092a59
+        );
+}
+
+.hero-content{
+    flex:1;
+}
+
+.hero h2{
+    font-size:20px;
+    line-height:1.25;
+}
+
+.hero-image{
+    width:92px;
+    height:112px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    overflow:visible;
+}
+
+.sir-hero-photo{
+    width:88px;
+    height:106px;
+    object-fit:contain;
+    display:block;
+    transform:translateY(120%);
+    animation:sirPhotoRise .85s cubic-bezier(.22,.8,.25,1) both;
+    filter:drop-shadow(0 7px 7px rgba(0,0,0,.18));
+}
+
+@keyframes sirPhotoRise{
+    0%{transform:translateY(120%);opacity:0}
+    60%{opacity:1}
+    100%{transform:translateY(0);opacity:1}
+}
+
+.hero p{
+    color:#d5e4fa;
+    font-size:11px;
+    line-height:1.5;
+
+    margin:7px 0 13px;
+}
+
+.hero-btn{
+    background:var(--orange);
+    color:white;
+
+    padding:9px 13px;
+
+    border-radius:9px;
+
+    font-size:11px;
+    font-weight:bold;
+}
+
+
+/* =========================================================
+   QUICK MENU
+========================================================= */
+
+.home-page{
+    padding:0 17px;
+}
+
+.quick-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:10px;
+
+    margin-top:16px;
+}
+
+.quick-card{
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-radius:15px;
+
+    padding:13px 5px;
+
+    text-align:center;
+
+    box-shadow:
+        0 4px 14px
+        rgba(0,0,0,.05);
+}
+
+.quick-icon{
+    width:39px;
+    height:39px;
+
+    border-radius:11px;
+
+    margin:auto auto 7px;
+
+    display:grid;
+    place-items:center;
+
+    font-size:20px;
+
+    background:var(--blue-light);
+}
+
+.quick-card:nth-child(2)
+.quick-icon{
+    background:var(--purple-light);
+}
+
+.quick-card:nth-child(3)
+.quick-icon{
+    background:var(--green-light);
+}
+
+.quick-card:nth-child(4)
+.quick-icon{
+    background:var(--red-light);
+}
+
+.quick-card:nth-child(5)
+.quick-icon{
+    background:var(--green-light);
+}
+
+.quick-card:nth-child(6)
+.quick-icon{
+    background:var(--blue-light);
+}
+
+.quick-card b{
+    font-size:10px;
+}
+
+/* =========================================================
+   NOTIFICATION CARD
+========================================================= */
+
+.notice-card{
+    padding:13px;
+
+    margin:8px 0;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.notice-icon{
+    width:32px;
+    height:32px;
+
+    border-radius:50%;
+
+    background:var(--blue-light);
+
+    display:grid;
+    place-items:center;
+}
+
+.notice-content{
+    flex:1;
+}
+
+.notice-title{
+    font-size:12px;
+    font-weight:700;
+}
+
+.notice-time{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:3px;
+}
+
+.arrow{
+    color:#9aa3b1;
+    font-size:20px;
+}
+
+/* =========================================================
+   SUBJECT
+========================================================= */
+
+.subject-card{
+    padding:13px;
+
+    margin-bottom:10px;
+
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    cursor:pointer;
+}
+
+.subject-icon{
+    width:43px;
+    height:43px;
+
+    border-radius:12px;
+
+    display:grid;
+    place-items:center;
+
+    font-size:21px;
+}
+
+.subject-info{
+    flex:1;
+}
+
+.subject-info b{
+    font-size:14px;
+}
+
+.subject-info small{
+    display:block;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    margin:5px 0;
+}
+
+.progress{
+    height:5px;
+
+    background:#e9eef5;
+
+    border-radius:10px;
+
+    overflow:hidden;
+}
+
+.progress i{
+    display:block;
+
+    height:100%;
+
+    background:var(--blue);
+
+    border-radius:10px;
+}
+
+/* =========================================================
+   CHAPTER SUMMARY
+========================================================= */
+
+.summary-card{
+    padding:17px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:13px;
+}
+
+.summary-stat small{
+    color:var(--muted);
+    font-size:11px;
+}
+
+.summary-stat strong{
+    display:block;
+
+    font-size:25px;
+
+    margin-top:3px;
+}
+
+.progress-ring{
+    width:68px;
+    height:68px;
+
+    border-radius:50%;
+
+    background:
+        conic-gradient(
+            var(--blue) 80%,
+            #e6edf5 0
+        );
+
+    display:grid;
+    place-items:center;
+}
+
+.progress-ring::after{
+    content:"80%";
+
+    width:54px;
+    height:54px;
+
+    border-radius:50%;
+
+    background:white;
+
+    display:grid;
+    place-items:center;
+
+    font-size:12px;
+    font-weight:bold;
+}
+
+/* =========================================================
+   CHAPTER
+========================================================= */
+
+.chapter-card{
+    padding:14px;
+
+    margin-bottom:9px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    cursor:pointer;
+}
+
+.chapter-status{
+    width:30px;
+    height:30px;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    background:#edf1f6;
+
+    color:#8b95a5;
+}
+
+.chapter-status.done{
+    background:#dcf7e9;
+    color:var(--green);
+}
+
+.chapter-status.progress{
+    background:#fff1d5;
+    color:#d58b00;
+}
+
+.chapter-info{
+    flex:1;
+}
+
+.chapter-info b{
+    font-size:13px;
+}
+
+.chapter-info small{
+    display:block;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    margin-top:4px;
+}
+
+/* =========================================================
+   VIDEO
+========================================================= */
+
+.video-player{
+    background:#101923;
+
+    border-radius:17px;
+
+    overflow:hidden;
+
+    color:white;
+}
+
+.video-thumbnail{
+    height:210px;
+
+    display:grid;
+    place-items:center;
+
+    position:relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            #34404b,
+            #101820
+        );
+}
+
+.video-title{
+    position:absolute;
+
+    text-align:center;
+
+    font-size:16px;
+
+    line-height:1.5;
+}
+
+.play-button{
+    position:relative;
+
+    z-index:2;
+
+    width:58px;
+    height:58px;
+
+    border-radius:50%;
+
+    background:white;
+
+    color:var(--navy);
+
+    font-size:23px;
+}
+
+.video-controls{
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:9px 12px;
+
+    font-size:10px;
+
+    color:#ccd5df;
+}
+
+/* =========================================================
+   TABS
+========================================================= */
+
+.tabs{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:8px;
+
+    margin:12px 0;
+}
+
+.tab{
+    padding:10px;
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    background:white;
+
+    color:#526071;
+}
+
+.tab.active{
+    background:var(--blue-light);
+
+    color:var(--blue);
+
+    font-weight:bold;
+}
+
+/* =========================================================
+   LESSON
+========================================================= */
+
+.lesson-card{
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:12px;
+
+    margin-bottom:8px;
+}
+
+.lesson-number{
+    width:28px;
+    height:28px;
+
+    border-radius:8px;
+
+    background:var(--blue-light);
+
+    color:var(--blue);
+
+    display:grid;
+    place-items:center;
+
+    font-size:12px;
+    font-weight:bold;
+}
+
+.lesson-info{
+    flex:1;
+}
+
+.lesson-info b{
+    font-size:12px;
+}
+
+.lesson-info small{
+    display:block;
+
+    color:var(--muted);
+
+    margin-top:3px;
+
+    font-size:10px;
+}
+
+/* =========================================================
+   TEST
+========================================================= */
+
+.test-card{
+    padding:18px;
+
+    margin-bottom:15px;
+}
+
+.test-card h2{
+    font-size:17px;
+}
+
+.test-card p{
+    color:var(--muted);
+
+    font-size:12px;
+
+    margin-top:5px;
+}
+
+.test-meta{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:8px;
+
+    margin:18px 0;
+}
+
+.meta-box{
+    background:#f7f9fc;
+
+    border-radius:10px;
+
+    padding:10px;
+
+    text-align:center;
+}
+
+.meta-box strong{
+    display:block;
+    font-size:16px;
+}
+
+.meta-box small{
+    color:var(--muted);
+    font-size:9px;
+}
+
+.previous-test{
+    padding:14px;
+
+    margin-bottom:9px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.test-icon{
+    width:35px;
+    height:35px;
+
+    border-radius:10px;
+
+    background:var(--blue-light);
+
+    display:grid;
+    place-items:center;
+}
+
+.previous-test-info{
+    flex:1;
+}
+
+.previous-test-info b{
+    font-size:12px;
+}
+
+.previous-test-info small{
+    display:block;
+
+    color:var(--muted);
+
+    margin-top:4px;
+
+    font-size:10px;
+}
+
+/* =========================================================
+   TEST RUNNER
+========================================================= */
+
+.test-header{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:15px;
+}
+
+.timer{
+    background:#fff0f0;
+
+    color:var(--red);
+
+    padding:8px 12px;
+
+    border-radius:10px;
+
+    font-weight:bold;
+
+    font-size:13px;
+}
+
+.question-text{
+    font-size:17px;
+
+    line-height:1.6;
+
+    font-weight:bold;
+
+    margin:15px 0;
+}
+
+.option{
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:13px;
+
+    margin:9px 0;
+
+    border:1px solid var(--border);
+
+    border-radius:11px;
+
+    background:white;
+
+    text-align:left;
+}
+
+.option.selected{
+    border-color:var(--blue);
+
+    background:#edf5ff;
+}
+
+.option-letter{
+    width:27px;
+    height:27px;
+
+    border-radius:50%;
+
+    background:#f0f3f7;
+
+    display:grid;
+    place-items:center;
+
+    font-weight:bold;
+
+    font-size:12px;
+}
+
+.option.selected
+.option-letter{
+    background:var(--blue);
+    color:white;
+}
+
+.question-numbers{
+    display:grid;
+    grid-auto-flow:column;
+    grid-template-rows:repeat(2,40px);
+    grid-auto-columns:44px;
+    gap:7px;
+    margin:15px 0;
+    padding:8px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    white-space:nowrap;
+}
+
+.question-number{
+    width:40px;
+    height:40px;
+
+    border-radius:9px;
+
+    background:#eef1f5;
+
+    color:#566171;
+}
+
+.question-number.answered{
+    background:#dcf7e9;
+    color:#087c4e;
+}
+
+.question-number.current{
+    background:var(--blue);
+    color:white;
+}
+
+.test-actions{
+    display:flex;
+    gap:9px;
+}
+
+.test-actions button{
+    flex:1;
+}
+
+/* =========================================================
+   NEW RESULT DESIGN
+========================================================= */
+
+.result-page{
+    padding-top:16px;
+}
+
+.result-hero{
+    background:linear-gradient(135deg,#082b5c,#1769e8);
+    color:#fff;
+    border-radius:20px;
+    padding:22px 18px;
+    text-align:center;
+    margin-bottom:14px;
+    box-shadow:0 8px 25px rgba(8,43,92,.14);
+}
+
+.result-hero small{
+    opacity:.85;
+    font-size:11px;
+}
+
+.result-test-name{
+    font-size:18px;
+    font-weight:800;
+    margin-top:5px;
+}
+
+.result-status{
+    display:inline-block;
+    margin-top:9px;
+    padding:6px 14px;
+    border-radius:20px;
+    background:rgba(255,255,255,.15);
+    font-size:11px;
+    font-weight:800;
+}
+
+.result-ring-wrap{
+    margin:18px auto 8px;
+}
+
+.result-ring{
+    width:135px;
+    height:135px;
+    margin:auto;
+    border-radius:50%;
+    background:conic-gradient(
+        var(--green) 0%,
+        #dce6f2 0
+    );
+    display:grid;
+    place-items:center;
+}
+
+.result-ring::after{
+    content:attr(data-value);
+    width:105px;
+    height:105px;
+    border-radius:50%;
+    background:#fff;
+    color:var(--navy);
+    display:grid;
+    place-items:center;
+    font-size:27px;
+    font-weight:900;
+}
+
+.result-score-text{
+    margin-top:8px;
+    font-size:13px;
+    opacity:.9;
+}
+
+.result-stat-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-bottom:14px;
+}
+
+.result-stat{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:15px 10px;
+    text-align:center;
+    box-shadow:0 4px 15px rgba(0,0,0,.04);
+}
+
+.result-stat-icon{
+    font-size:22px;
+    margin-bottom:5px;
+}
+
+.result-stat b{
+    display:block;
+    font-size:21px;
+    margin-top:2px;
+}
+
+.result-stat small{
+    color:var(--muted);
+    font-size:10px;
+}
+
+.result-stat.correct{
+    background:var(--green-light);
+}
+
+.result-stat.wrong{
+    background:var(--red-light);
+}
+
+.result-stat.unattempted{
+    background:#f5f7fa;
+}
+
+.result-stat.marks{
+    background:var(--blue-light);
+}
+
+.result-details{
+    padding:17px;
+    margin-bottom:14px;
+}
+
+.result-details h3{
+    font-size:15px;
+    margin-bottom:13px;
+}
+
+.result-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid var(--border);
+    font-size:12px;
+}
+
+.result-row:last-child{
+    border-bottom:none;
+}
+
+.result-row span{
+    color:var(--muted);
+}
+
+.result-row strong{
+    color:var(--text);
+}
+
+.result-pass{
+    color:var(--green)!important;
+}
+
+.result-fail{
+    color:var(--red)!important;
+}
+
+.result-actions{
+    display:grid;
+    gap:9px;
+    margin-top:5px;
+}
+
+@media(max-width:360px){
+    .result-ring{
+        width:120px;
+        height:120px;
+    }
+
+    .result-ring::after{
+        width:94px;
+        height:94px;
+        font-size:24px;
+    }
+}
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.profile-header{
+    background:var(--navy);
+
+    color:#fff;
+
+    text-align:center;
+
+    padding:25px;
+
+    border-radius:
+        0 0 25px 25px;
+}
+
+.profile-header img{
+    width:76px;
+    height:76px;
+
+    border-radius:50%;
+
+    border:3px solid white;
+
+    object-fit:cover;
+}
+
+.profile-header h2{
+    font-size:19px;
+
+    margin:9px 0 4px;
+}
+
+.profile-header p{
+    font-size:11px;
+    color:#d5e2f6;
+}
+
+.profile-menu{
+    margin-top:15px;
+}
+
+.profile-item{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:16px;
+
+    background:white;
+
+    border-bottom:
+        1px solid var(--border);
+
+    cursor:pointer;
+}
+
+.profile-item:first-child{
+    border-radius:
+        16px 16px 0 0;
+}
+
+.profile-item:last-child{
+    border-radius:
+        0 0 16px 16px;
+
+    border-bottom:none;
+}
+
+.profile-icon{
+    width:34px;
+    height:34px;
+
+    border-radius:10px;
+
+    background:#eef4ff;
+
+    display:grid;
+    place-items:center;
+}
+
+.profile-item span:nth-child(2){
+    flex:1;
+
+    font-size:13px;
+}
+
+.logout{
+    color:var(--red);
+}
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+.notification-tabs{
+    display:flex;
+
+    background:white;
+
+    padding:4px;
+
+    border-radius:12px;
+
+    margin-bottom:13px;
+
+    border:1px solid var(--border);
+}
+
+.notification-tabs button{
+    flex:1;
+
+    background:none;
+
+    padding:9px;
+
+    border-radius:9px;
+
+    color:#657083;
+
+    font-size:11px;
+}
+
+.notification-tabs button.active{
+    background:var(--navy);
+    color:white;
+}
+
+.unread-dot{
+    width:8px;
+    height:8px;
+
+    background:red;
+
+    border-radius:50%;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(0,0,0,.62);
+
+    z-index:500;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+
+    max-width:420px;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:20px;
+
+    position:relative;
+
+    max-height:90vh;
+
+    overflow:auto;
+}
+
+.modal-box h2{
+    font-size:19px;
+
+    margin-bottom:15px;
+}
+
+.close-modal{
+    position:absolute;
+
+    right:14px;
+    top:12px;
+
+    width:32px;
+    height:32px;
+
+    border-radius:50%;
+
+    background:#f0f2f5;
+
+    font-size:22px;
+}
+
+.admin-error{
+    color:var(--red);
+
+    font-size:12px;
+
+    margin-top:8px;
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+    position:fixed;
+
+    left:50%;
+
+    bottom:90px;
+
+    transform:translateX(-50%);
+
+    background:#172033;
+
+    color:white;
+
+    padding:11px 16px;
+
+    border-radius:10px;
+
+    font-size:12px;
+
+    z-index:1000;
+
+    display:none;
+}
+
+.toast.show{
+    display:block;
+}
+
+/* =========================================================
+   BOTTOM NAVIGATION
+========================================================= */
+
+.bottom-nav{
+    position:fixed;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:74px;
+
+    background:#fff;
+
+    border-top:
+        1px solid var(--border);
+
+    display:none;
+
+    z-index:100;
+
+    box-shadow:
+        0 -5px 20px
+        rgba(0,0,0,.06);
+}
+
+.nav-item{
+    flex:1;
+
+    background:none;
+
+    color:#8a94a6;
+
+    font-size:10px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:4px;
+}
+
+.nav-item .nav-icon{
+    font-size:21px;
+}
+
+.nav-item.active{
+    color:var(--blue);
+
+    font-weight:bold;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:380px){
+
+    .quick-grid{
+        gap:7px;
+    }
+
+    .quick-card{
+        padding:11px 3px;
+    }
+
+    .hero-image{
+        font-size:50px;
+    }
+
+    .page{
+        padding:14px;
+    }
+}
+
+
+/* =========================================================
+   ANDROID PHONE / WEBVIEW LAYOUT
+========================================================= */
+html{
+    width:100%;
+    min-height:100%;
+    background:#f4f7fb;
+}
+
+body{
+    width:100%;
+    min-height:100vh;
+    min-height:100dvh;
+    overflow-x:hidden;
+    -webkit-text-size-adjust:100%;
+    -webkit-tap-highlight-color:transparent;
+    overscroll-behavior-x:none;
+}
+
+button,
+input{
+    touch-action:manipulation;
+}
+
+.screen{
+    width:100%;
+    max-width:480px;
+    min-height:100vh;
+    min-height:100dvh;
+    margin:0 auto;
+    background:var(--bg);
+}
+
+.home-page,
+.page{
+    width:100%;
+    max-width:480px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.bottom-nav{
+    width:100%;
+    max-width:480px;
+    left:50%;
+    right:auto;
+    transform:translateX(-50%);
+    height:calc(74px + env(safe-area-inset-bottom));
+    padding-bottom:env(safe-area-inset-bottom);
+}
+
+.modal{
+    width:100%;
+    max-width:480px;
+    margin:0 auto;
+}
+
+@media(max-width:480px){
+    .page{padding:14px;}
+    .home-page{padding:0 14px;}
+    .topbar{padding-left:14px;padding-right:14px;}
+    .hero{min-height:145px;padding:16px;}
+    .hero h2{font-size:19px;}
+    .video-thumbnail{height:auto;aspect-ratio:16/9;}
+}
+
+@media(min-width:481px){
+    body{background:#e9eef5;}
+    .screen{box-shadow:0 0 28px rgba(8,43,92,.08);}
+}
+
+@media(max-width:360px){
+    .page{padding:12px;}
+    .home-page{padding:0 12px;}
+    .quick-grid{gap:7px;}
+    .quick-card{padding:10px 3px;}
+    .quick-icon{width:36px;height:36px;font-size:18px;}
+    .hero{padding:14px;}
+    .hero-image{font-size:48px;}
+}
+/* =========================================================
+   QUESTION NUMBER BOXES
+========================================================= */
+
+#questionNumbers{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:8px;
+    margin-top:18px;
+    padding:12px;
+    background:#f5f8fc;
+    border-radius:14px;
+}
+
+#questionNumbers .q-number{
+    width:80%;
+    height:34px;
+    border:1px solid #d7e0ea;
+    border-radius:7px;
+    background:#ffffff;
+    color:#344054;
+    font-size:11px;
+    font-weight:100;
+    cursor:pointer;
+    transition:.2s;
+}
+
+/* अभी जिस question पर हैं */
+#questionNumbers .q-number.current{
+    background:#1769e8;
+    color:#ffffff;
+    border-color:#1769e8;
+    box-shadow:0 2px 5px rgba(23,105,232,.25);
+}
+
+/* Attempt किया हुआ question */
+#questionNumbers .q-number.answered{
+    background:#18a957;
+    color:#ffffff;
+    border-color:#18a957;
+}
+
+/* अगर current question पहले से attempted है,
+   तो current का blue रंग ही दिखाई दे */
+#questionNumbers .q-number.current.answered{
+    background:#1769e8;
+    color:#ffffff;
+    border-color:#1769e8;
+}
+
+/* Mobile */
+@media(max-width:360px){
+
+    #questionNumbers{
+    display:grid;
+    grid-auto-flow:column;
+    grid-template-rows:repeat(2,34px);
+    grid-auto-columns:42px;
+    gap:8px;
+    margin-top:18px;
+    padding:12px;
+    background:#f5f8fc;
+    border-radius:14px;
+    overflow-x:auto;
+    overflow-y:hidden;
+}
+
+    #questionNumbers .q-number{
+        height:40px;
+        font-size:12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =======================================================
+     SPLASH SCREEN
+======================================================= -->
+
+<div id="splash" class="splash">
+
+    <div class="splash-content">
+
+        <img
+            src="logo.png"
+            class="splash-logo"
+            alt="SSC Classes Logo">
+
+        <h1>SSC CLASSES</h1>
+
+        <div class="splash-tag">
+            Learn Today • Succeed Tomorrow
+        </div>
+
+        <div class="splash-dream">
+            Your Dream<br>
+            Our Responsibility
+        </div>
+
+        <div class="spinner"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =======================================================
+     LOGIN
+======================================================= -->
+
+<section id="loginScreen" class="screen">
+
+    <div class="auth-screen">
+
+        <div class="auth-box">
+
+            <img
+                src="logo.png"
+                class="auth-logo"
+                alt="SSC Classes">
+
+            <h1>SSC CLASSES</h1>
+
+            <div class="auth-tag">
+                Learn Today • Succeed Tomorrow
+            </div>
+
+            <h2>Welcome Back</h2>
+
+            <p class="auth-description">
+                Login to continue your learning journey
+            </p>
+
+
+            <div class="input-group">
+
+                <span class="input-icon">📞</span>
+
+                <input
+                    id="loginMobile"
+                    type="text"
+                    maxlength="10"
+                    placeholder="Enter Mobile Number / Admin ID">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <span class="input-icon">🔒</span>
+
+                <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="Enter Password">
+
+                <button
+                    class="password-eye"
+                    onclick="togglePassword(
+                        'loginPassword',
+                        this
+                    )">
+
+                    👁
+
+                </button>
+
+            </div>
+
+
+            <div
+                class="forgot"
+                onclick="forgotPassword()">
+
+                Forgot Password?
+
+            </div>
+
+
+            <button
+                class="primary-btn full"
+                onclick="studentLogin()">
+
+                Login
+
+            </button>
+
+
+            <div class="or">
+                OR
+            </div>
+
+
+            <button
+                class="google-btn"
+                onclick="googleLogin()">
+
+                🌈 Continue with Google
+
+            </button>
+
+
+            <div class="auth-footer">
+
+                Don't have an account?
+
+                <span onclick="showRegister()">
+                    Register Now
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     REGISTER
+======================================================= -->
+
+<section id="registerScreen" class="screen">
+
+    <div class="auth-screen">
+
+        <div class="auth-box">
+
+            <img
+                src="logo.png"
+                class="auth-logo"
+                alt="SSC Classes">
+
+            <h1>Create Account</h1>
+
+            <p class="auth-description">
+                Start your learning journey
+            </p>
+
+
+            <div class="input-group">
+
+                <span class="input-icon">👤</span>
+
+                <input
+                    id="registerName"
+                    placeholder="Full Name">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <span class="input-icon">📞</span>
+
+                <input
+                    id="registerMobile"
+                    maxlength="10"
+                    type="tel"
+                    placeholder="Mobile Number">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <span class="input-icon">🎓</span>
+
+                <select id="registerClass">
+                    <option value="">Select Class</option>
+                    <option value="6">Class 6</option>
+                    <option value="7">Class 7</option>
+                    <option value="8">Class 8</option>
+                    <option value="9">Class 9</option>
+                    <option value="10">Class 10</option>
+                    <option value="11">Class 11</option>
+                    <option value="12">Class 12</option>
+                </select>
+
+            </div>
+
+            <div class="input-group">
+                <span class="input-icon">📷</span>
+                <input
+                    id="registerPhoto"
+                    type="file"
+                    accept="image/*"
+                    style="height:auto;padding:12px 12px 12px 43px;">
+            </div>
+
+            <div id="registerPhotoPreviewWrap" style="display:none;text-align:center;margin:8px 0 12px;">
+                <img id="registerPhotoPreview" alt="Student Photo Preview" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #eaf2ff;">
+            </div>
+
+
+
+            <div class="input-group">
+
+                <span class="input-icon">🔒</span>
+
+                <input
+                    id="registerPassword"
+                    type="password"
+                    placeholder="Create Password">
+
+            </div>
+
+
+            <button
+                class="primary-btn full"
+                onclick="registerStudent()">
+
+                Register
+
+            </button>
+
+
+            <div class="auth-footer">
+
+                Already have an account?
+
+                <span onclick="showLogin()">
+                    Login
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     HOME
+======================================================= -->
+
+<section id="homeScreen" class="screen">
+
+    <div class="home-header">
+
+        <div class="user-header">
+
+            <img
+                id="homeStudentPhoto"
+                src="logo.png"
+                class="user-avatar"
+                alt="Student Photo"
+                onerror="this.src='logo.png'">
+
+            <div class="user-info">
+
+                <strong id="homeName">
+                    Hello, Aman 👋
+                </strong>
+
+                <small id="homeMeta">
+                    Class 6–12 | Roll No. -
+                </small>
+
+            </div>
+
+
+            <button
+                class="notification-button"
+                onclick="openScreen('notificationsScreen')">
+
+                🔔
+
+                <span id="notificationBadge" class="notification-badge" style="display:none"></span>
+
+            </button>
+
+        </div>
+
+
+        <div class="hero">
+
+            <div class="hero-content">
+
+                <h2>
+                    Study Today<br>
+                    Score Tomorrow
+                </h2>
+
+                <p>
+                    Best Concept for<br>
+                    Your Bright Future
+                </p>
+
+                <button
+                    class="hero-btn"
+                    onclick="openSubjectsScreen()">
+
+                    Start Learning
+
+                </button>
+
+            </div>
+
+            <div class="hero-image">
+                <img
+                    src="sonu sir.png"
+                    class="sir-hero-photo"
+                    alt="Sonu Sir"
+                    onerror="this.style.display='none'">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="home-page">
+
+
+        <!-- QUICK MENU -->
+
+        <div class="quick-grid">
+
+            <button
+                class="quick-card"
+                onclick="openSubjectsScreen()">
+
+                <div class="quick-icon">
+                    📖
+                </div>
+
+                <b>
+                    My Subjects
+                </b>
+
+            </button>
+
+
+            <button
+                class="quick-card"
+                onclick="openScreen('testScreen')">
+
+                <div class="quick-icon">
+                    📝
+                </div>
+
+                <b>
+                    Online Test
+                </b>
+
+            </button>
+
+
+            <button
+                class="quick-card"
+                onclick="openScreen('resultScreen')">
+
+                <div class="quick-icon">
+                    📊
+                </div>
+
+                <b>
+                    My Result
+                </b>
+
+            </button>
+
+
+            <button
+                class="quick-card"
+                onclick="toast('YouTube section opened')">
+
+                <div class="quick-icon">
+                    ▶️
+                </div>
+
+                <b>
+                    YouTube
+                </b>
+
+            </button>
+
+
+            <button
+                class="quick-card"
+                onclick="openWhatsApp()">
+
+                <div class="quick-icon">
+                    💬
+                </div>
+
+                <b>
+                    WhatsApp
+                </b>
+
+            </button>
+
+
+            <button
+                class="quick-card"
+                onclick="openCommunityChat()">
+
+                <div class="quick-icon">
+                    🗨️
+                </div>
+
+                <b>
+                    Community Chat
+                </b>
+
+            </button>
+
+        </div>
+
+
+        <!-- NOTIFICATIONS -->
+
+        <div class="section-title">
+            <h2>Latest Notifications</h2>
+            <button onclick="openScreen('notificationsScreen')">View All</button>
+        </div>
+
+        <div id="homeNotificationList">
+            <div class="card notice-card">
+                <div class="notice-icon">🔔</div>
+                <div class="notice-content">
+                    <div class="notice-title">No new notifications</div>
+                    <div class="notice-time">जब कोई नया notification आएगा, यहाँ दिखाई देगा।</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     NOTIFICATIONS
+======================================================= -->
+<section id="notificationsScreen" class="screen">
+    <div class="topbar">
+        <button class="back-btn" onclick="goHome()">‹</button>
+        <h1>Notifications</h1>
+    </div>
+    <div class="page">
+        <div class="notification-tabs">
+            <button id="notificationTabAll" class="active" onclick="filterNotifications('all',this)">All</button>
+            <button id="notificationTabUnread" onclick="filterNotifications('unread',this)">Unread (0)</button>
+            <button id="notificationTabMessage" onclick="filterNotifications('message',this)">Messages</button>
+        </div>
+        <div id="notificationList">
+            <div class="card notice-card">
+                <div class="notice-icon">🔔</div>
+                <div class="notice-content">
+                    <div class="notice-title">No notifications</div>
+                    <div class="notice-time">अभी कोई नया notification नहीं है।</div>
+                </div>
+            </div>
+        </div>
+        <button class="primary-btn full" onclick="markAllRead()">✓ Mark all as read</button>
+    </div>
+</section>
+
+
+<!-- =======================================================
+     SUBJECTS
+======================================================= -->
+
+<section id="subjectsScreen" class="screen">
+<div class="topbar"><button class="back-btn" onclick="goHome()">‹</button><h1>My Subjects</h1></div>
+<div class="page"><div id="dynamicSubjects"></div></div>
+</section>
+
+
+<!-- =======================================================
+     CHAPTER LIST
+======================================================= -->
+
+<section id="chaptersScreen" class="screen">
+<div class="topbar"><button class="back-btn" onclick="openSubjectsScreen()">‹</button><h1 id="chapterSubject">Chapters</h1></div>
+<div class="page"><div class="card summary-card"><div class="summary-stat"><small>Total Chapters</small><strong id="chapterTotal">0</strong></div><div class="summary-stat"><small>Videos</small><strong id="chapterVideoTotal">0</strong></div><div class="progress-ring" id="chapterProgressRing"></div></div><div id="dynamicChapters"></div></div>
+</section>
+
+
+<!-- =======================================================
+     LECTURE
+======================================================= -->
+
+<section id="lectureScreen" class="screen">
+<div class="topbar"><button class="back-btn" onclick="openScreen('chaptersScreen')">‹</button><h1 id="lectureTitle">Video Class</h1></div>
+<div class="page" id="dynamicLecture"></div>
+</section>
+
+
+<!-- =======================================================
+     ONLINE TEST
+======================================================= -->
+
+<section id="testScreen" class="screen">
+
+    <div class="topbar">
+        <button class="back-btn" onclick="goHome()">‹</button>
+        <h1>Online Test</h1>
+    </div>
+
+    <div class="page">
+        <div id="testList"></div>
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     TEST RUNNER
+======================================================= -->
+
+<section id="runnerScreen" class="screen">
+
+    <div class="topbar">
+        <button class="back-btn" onclick="confirmSubmit()">‹</button>
+        <h1 id="runnerTitle">Online Test</h1>
+        <span class="timer" id="timer">00:00</span>
+    </div>
+
+    <div class="page">
+        <div class="card test-card">
+            <div class="test-header">
+                <b id="questionCounter">Question 1 of 0</b>
+                <small id="answeredCount">0 Answered</small>
+            </div>
+            <div id="questionSubject" style="color:#1769e8;font-size:13px;font-weight:700;margin-bottom:8px"></div>
+            <div id="questionText" class="question-text"></div>
+            <div id="options"></div>
+            <div id="questionNumbers" class="question-numbers"></div>
+
+<div class="question-legend">
+
+    <div>
+        <span class="legend-box current"></span>
+        <small>Current</small>
+    </div>
+
+    <div>
+        <span class="legend-box answered"></span>
+        <small>Attempted</small>
+    </div>
+
+    <div>
+        <span class="legend-box remaining"></span>
+        <small>Remaining</small>
+    </div>
+
+</div>
+            <div class="test-actions">
+                <button class="outline-btn" onclick="previousQuestion()">Previous</button>
+                <button class="primary-btn" onclick="nextQuestion()">Next</button>
+            </div>
+            <button class="outline-btn full" style="margin-top:10px" onclick="confirmSubmit()">Submit Test</button>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     RESULT
+======================================================= -->
+
+<section id="resultScreen" class="screen">
+
+    <div class="topbar">
+
+        <button
+            class="back-btn"
+            onclick="goHome()">
+            ‹
+        </button>
+
+        <h1>My Result</h1>
+
+    </div>
+
+
+    <div class="page result-page">
+
+        <!-- RESULT HERO -->
+
+        <div class="result-hero">
+
+            <small>TEST RESULT</small>
+
+            <div
+                id="resultTestName"
+                class="result-test-name">
+                Online Test
+            </div>
+
+            <div
+                id="resultStatus"
+                class="result-status">
+                RESULT
+            </div>
+
+            <div class="result-ring-wrap">
+
+                <div
+                    id="resultRing"
+                    class="result-ring"
+                    data-value="0%">
+                </div>
+
+            </div>
+
+            <div
+                id="resultScoreText"
+                class="result-score-text">
+                Score: 0 / 0
+            </div>
+
+        </div>
+
+
+        <!-- SCORE STATISTICS -->
+
+        <div class="result-stat-grid">
+
+            <div class="result-stat correct">
+
+                <div class="result-stat-icon">
+                    ✓
+                </div>
+
+                <small>Correct</small>
+
+                <b id="resultCorrect">
+                    0
+                </b>
+
+            </div>
+
+
+            <div class="result-stat wrong">
+
+                <div class="result-stat-icon">
+                    ✕
+                </div>
+
+                <small>Wrong</small>
+
+                <b id="resultWrong">
+                    0
+                </b>
+
+            </div>
+
+
+            <div class="result-stat unattempted">
+
+                <div class="result-stat-icon">
+                    ○
+                </div>
+
+                <small>Unattempted</small>
+
+                <b id="resultUnattempted">
+                    0
+                </b>
+
+            </div>
+
+
+            <div class="result-stat marks">
+
+                <div class="result-stat-icon">
+                    ★
+                </div>
+
+                <small>Obtained Marks</small>
+
+                <b id="resultMarks">
+                    0
+                </b>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESULT DETAILS -->
+
+        <div class="card result-details">
+
+            <h3>Result Details</h3>
+
+
+            <div class="result-row">
+
+                <span>Student</span>
+
+                <strong id="resultStudent">
+                    Student
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>Class</span>
+
+                <strong id="resultClass">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>Total Questions</span>
+
+                <strong id="resultTotalQuestions">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>Attempted</span>
+
+                <strong id="resultAttempted">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>Total Marks</span>
+
+                <strong id="resultTotalMarks">
+                    0
+                </strong>
+
+            </div>
+
+
+
+
+
+            <div class="result-row">
+
+                <span>Percentage</span>
+
+                <strong id="resultPercentage">
+                    0%
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>Final Result</span>
+
+                <strong id="resultFinalStatus">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>Date</span>
+
+                <strong id="resultDate">
+                    -
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="result-actions">
+
+            <button
+                class="primary-btn full"
+                onclick="openScreen('testScreen')">
+
+                📝 Take Another Test
+
+            </button>
+
+
+            <button
+                class="outline-btn full"
+                onclick="goHome()">
+
+                ← Back to Home
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     PROFILE
+======================================================= -->
+
+<section id="profileScreen" class="screen">
+
+    <div class="profile-header">
+
+        <img
+            id="profileStudentPhoto"
+            src="logo.png"
+            alt="Student Profile Photo"
+            onerror="this.src='logo.png'">
+
+        <h2 id="profileName">
+            Student
+        </h2>
+
+        <p>
+            Class 6–12 | Roll No. -
+        </p>
+
+    </div>
+
+
+    <div class="page">
+
+        <div class="card profile-menu">
+
+
+            <div
+                class="profile-item"
+                onclick="editProfile()">
+
+                <span class="profile-icon">
+                    👤
+                </span>
+
+                <span>
+                    My Profile
+                </span>
+
+                <b>›</b>
+
+            </div>
+
+
+            <div
+                class="profile-item"
+                onclick="changePassword()">
+
+                <span class="profile-icon">
+                    🔒
+                </span>
+
+                <span>
+                    Change Password
+                </span>
+
+                <b>›</b>
+
+            </div>
+
+
+            <div
+                class="profile-item"
+                onclick="openScreen('resultScreen')">
+
+                <span class="profile-icon">
+                    📊
+                </span>
+
+                <span>
+                    My Result
+                </span>
+
+                <b>›</b>
+
+            </div>
+
+
+            <div
+                class="profile-item"
+                onclick="openScreen('notificationsScreen')">
+
+                <span class="profile-icon">
+                    🔔
+                </span>
+
+                <span>
+                    Notifications
+                </span>
+
+                <b>›</b>
+
+            </div>
+
+
+            <div
+                class="profile-item"
+                onclick="openCommunityChat()">
+
+                <span class="profile-icon">
+                    💬
+                </span>
+
+                <span>
+                    Community Chat
+                </span>
+
+                <b>›</b>
+
+            </div>
+
+
+            <div
+                class="profile-item"
+                onclick="toast('Help & Support: 7520414872')">
+
+                <span class="profile-icon">
+                    ❓
+                </span>
+
+                <span>
+                    Help & Support
+                </span>
+
+                <b>›</b>
+
+            </div>
+
+
+            <div
+                class="profile-item"
+                onclick="showAbout()">
+
+                <span class="profile-icon">
+                    ℹ️
+                </span>
+
+                <span>
+                    About Us
+                </span>
+
+                <b>›</b>
+
+            </div>
+
+
+            <div
+                class="profile-item logout"
+                onclick="logout()">
+
+                <span class="profile-icon">
+                    ↪
+                </span>
+
+                <span>
+                    Logout
+                </span>
+
+                <b>›</b>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     BOTTOM NAVIGATION
+======================================================= -->
+
+<nav
+    id="bottomNav"
+    class="bottom-nav">
+
+
+    <button
+        class="nav-item active"
+        data-screen="homeScreen"
+        onclick="navigateBottom('homeScreen',this)">
+
+        <span class="nav-icon">
+            ⌂
+        </span>
+
+        <span>
+            Home
+        </span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-screen="subjectsScreen"
+        onclick="navigateBottom('subjectsScreen',this)">
+
+        <span class="nav-icon">
+            📖
+        </span>
+
+        <span>
+            Subjects
+        </span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-screen="testScreen"
+        onclick="navigateBottom('testScreen',this)">
+
+        <span class="nav-icon">
+            📝
+        </span>
+
+        <span>
+            Test
+        </span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-screen="resultScreen"
+        onclick="navigateBottom('resultScreen',this)">
+
+        <span class="nav-icon">
+            📊
+        </span>
+
+        <span>
+            Result
+        </span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-screen="profileScreen"
+        onclick="navigateBottom('profileScreen',this)">
+
+        <span class="nav-icon">
+            👤
+        </span>
+
+        <span>
+            Profile
+        </span>
+
+    </button>
+
+</nav>
+
+
+<!-- Admin portal is intentionally separate in admin.html -->
+
+<div
+    id="generalModal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <button
+            class="close-modal"
+            onclick="closeModal('generalModal')">
+
+            ×
+
+        </button>
+
+        <div id="generalContent"></div>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    id="toast"
+    class="toast">
+</div>
+
+
+<script>
+
+/* =========================================================
+   SSC CLASSES JAVASCRIPT
+========================================================= */
+
+
+/* ---------------------------------------------------------
+   SCREEN MANAGEMENT
+--------------------------------------------------------- */
+
+const screens =
+    document.querySelectorAll(".screen");
+
+let currentScreen = "loginScreen";
+
+
+function openScreen(id){
+
+    screens.forEach(screen=>{
+        screen.classList.remove("active");
+    });
+
+    const screen =
+        document.getElementById(id);
+
+    if(screen){
+        screen.classList.add("active");
+    }
+
+    currentScreen=id;
+
+    const mainScreens=[
+        "homeScreen",
+        "subjectsScreen",
+        "testScreen",
+        "resultScreen",
+        "profileScreen"
+    ];
+
+    const nav = document.getElementById("bottomNav");
+
+    if(nav){
+        nav.style.display = mainScreens.includes(id) ? "flex" : "none";
+    }
+
+    updateBottomNav(id);
+
+    if(id==="subjectsScreen" && typeof renderSubjects==="function") renderSubjects();
+    if(id==="testScreen") renderTestList();
+    if(id==="resultScreen") renderStudentResult();
+    if(id==="notificationsScreen" && typeof renderNotifications==="function") renderNotifications("all");
+    if(typeof updateNotificationBadge==="function") updateNotificationBadge();
+    window.scrollTo(0,0);
+}
+
+
+function openSubjectsScreen(){
+    if(typeof renderSubjects==="function") renderSubjects();
+    openScreen("subjectsScreen");
+}
+
+function goHome(){
+    openScreen("homeScreen");
+}
+
+
+function showLogin(){
+    openScreen("loginScreen");
+}
+
+
+function showRegister(){
+    openScreen("registerScreen");
+}
+
+
+/* ---------------------------------------------------------
+   BOTTOM NAVIGATION
+--------------------------------------------------------- */
+
+function navigateBottom(id,button){
+
+    openScreen(id);
+}
+
+
+function updateBottomNav(id){
+
+    document
+        .querySelectorAll(".nav-item")
+        .forEach(button=>{
+
+            button.classList.toggle(
+                "active",
+                button.dataset.screen===id
+            );
+
+        });
+
+}
+
+
+/* ---------------------------------------------------------
+   SPLASH
+--------------------------------------------------------- */
+
+window.addEventListener(
+    "load",
+    function(){
+
+        const splash=document.getElementById("splash");
+        if(!splash) return;
+        const cameFromIndex=sessionStorage.getItem("sscSplashShown")==="1";
+
+        if(cameFromIndex){
+            splash.style.display="none";
+        }
+
+        setTimeout(
+            function(){
+
+                splash.style.display="none";
+
+                if(
+                    localStorage.getItem(
+                        "sscStudentLoggedIn"
+                    )==="true"
+                ){
+
+                    loadStudentData();
+                    renderStudentResult();
+                    const hash=location.hash.toLowerCase();
+                    const hashMap={"#login":"loginScreen","#register":"registerScreen","#home":"homeScreen","#notifications":"notificationsScreen","#subjects":"subjectsScreen","#profile":"profileScreen","#test":"testScreen","#runner":"runnerScreen","#result":"resultScreen"};
+                    openScreen(hashMap[hash]||"homeScreen");
+
+                }else{
+
+                    openScreen("loginScreen");
+
+                }
+
+            },
+            1200
+        );
+
+    }
+);
+
+
+/* ---------------------------------------------------------
+   PASSWORD
+--------------------------------------------------------- */
+
+function togglePassword(id,button){
+
+    const input =
+        document.getElementById(id);
+
+    if(input.type==="password"){
+
+        input.type="text";
+
+        button.textContent="🙈";
+
+    }else{
+
+        input.type="password";
+
+        button.textContent="👁";
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   LOGIN
+--------------------------------------------------------- */
+
+function studentLogin(){
+
+    const mobile =
+        document
+        .getElementById("loginMobile")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("loginPassword")
+        .value;
+
+    if(!/^\d{10}$/.test(mobile)){
+
+        toast(
+            "कृपया 10 अंकों का मोबाइल नंबर डालें"
+        );
+
+        return;
+    }
+
+
+    if(password.length<4){
+        toast("Password कम से कम 4 characters का होना चाहिए");
+        return;
+    }
+
+
+    let students=[];
+    try{ students=JSON.parse(localStorage.getItem("sscStudents"))||[]; }catch(e){}
+    const found=students.find(x=>String(x.mobile||"")===mobile && String(x.password||"")===String(password));
+    if(!found){ toast("Mobile number या password गलत है।"); return; }
+    localStorage.setItem("sscStudentLoggedIn","true");
+    localStorage.setItem("sscStudentName",found.name||"Student");
+    localStorage.setItem("sscStudent",JSON.stringify(found));
+
+    loadStudentData();
+
+    toast("Login successful ✓");
+
+
+    setTimeout(
+        ()=>{
+            openScreen("homeScreen");
+        },
+        400
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   REGISTER
+--------------------------------------------------------- */
+
+function registerStudent(){
+
+    const name=document.getElementById("registerName")?.value.trim()||"";
+    const mobile=document.getElementById("registerMobile")?.value.trim()||"";
+    const password=document.getElementById("registerPassword")?.value||"";
+    const cls=document.getElementById("registerClass")?.value||"";
+    const photoInput=document.getElementById("registerPhoto");
+
+    if(!name){
+        toast("कृपया नाम दर्ज करें");
+        return;
+    }
+
+    if(!/^\d{10}$/.test(mobile)){
+        toast("सही मोबाइल नंबर डालें");
+        return;
+    }
+
+    if(!cls){
+        toast("कृपया Class चुनें");
+        return;
+    }
+
+    if(password.length<4){
+        toast("Password कम से कम 4 characters रखें");
+        return;
+    }
+
+    const finishRegistration=(photoData)=>{
+        const studentObj={
+            id:Date.now(),
+            name,
+            mobile,
+            password,
+            studentClass:cls,
+            rollNumber:"",
+            fatherName:"",
+            photo:photoData||"",
+            registeredAt:new Date().toISOString()
+        };
+
+        let students=[];
+        try{ students=JSON.parse(localStorage.getItem("sscStudents"))||[]; }catch(e){}
+
+        students=students.filter(x=>String(x.mobile||"")!==mobile);
+        students.push(studentObj);
+
+        localStorage.setItem("sscStudents",JSON.stringify(students));
+        localStorage.setItem("sscStudent",JSON.stringify(studentObj));
+        localStorage.setItem("sscStudentLoggedIn","true");
+        localStorage.setItem("sscStudentName",name);
+        localStorage.setItem("sscStudentClass",cls);
+
+        loadStudentData();
+        toast("Registration successful ✓");
+
+        setTimeout(()=>openScreen("homeScreen"),400);
+    };
+
+    if(photoInput?.files?.[0]){
+        const file=photoInput.files[0];
+
+        if(!file.type.startsWith("image/")){
+            toast("कृपया केवल image photo चुनें");
+            return;
+        }
+
+        if(file.size>2*1024*1024){
+            toast("Photo 2 MB से कम रखें");
+            return;
+        }
+
+        const reader=new FileReader();
+        reader.onload=()=>finishRegistration(reader.result);
+        reader.onerror=()=>toast("Photo पढ़ा नहीं जा सका");
+        reader.readAsDataURL(file);
+    }else{
+        finishRegistration("");
+    }
+}
+
+
+/* ---------------------------------------------------------
+   STUDENT DATA/* ---------------------------------------------------------
+   STUDENT DATA
+--------------------------------------------------------- */
+
+function loadStudentData(){
+    let st={};
+    try{ st=JSON.parse(localStorage.getItem("sscStudent"))||{}; }catch(e){}
+
+    const name=st.name||st.studentName||localStorage.getItem("sscStudentName")||"Student";
+    const cls=st.studentClass||st.class||localStorage.getItem("sscStudentClass")||"6";
+    const roll=st.rollNumber||st.rollNo||"-";
+    const photo=st.photo||"logo.png";
+
+    const home=document.getElementById("homeName");
+    const meta=document.getElementById("homeMeta");
+    const profile=document.getElementById("profileName");
+    const profileMeta=document.querySelector("#profileScreen .profile-header p");
+    const homePhoto=document.getElementById("homeStudentPhoto");
+    const profilePhoto=document.getElementById("profileStudentPhoto");
+
+    if(home) home.textContent="Hello, "+name+" 👋";
+    if(meta) meta.textContent="Class "+cls+" | Roll No. "+roll;
+    if(profile) profile.textContent=name;
+    if(profileMeta) profileMeta.textContent="Class "+cls+" | Roll No. "+roll;
+
+    if(homePhoto){
+        homePhoto.src=photo;
+        homePhoto.onerror=function(){this.src="logo.png";};
+    }
+
+    if(profilePhoto){
+        profilePhoto.src=photo;
+        profilePhoto.onerror=function(){this.src="logo.png";};
+    }
+
+    updateNotificationBadge();
+    renderHomeNotifications();
+
+    if(typeof renderSubjects==="function") renderSubjects();
+}
+
+
+/* ---------------------------------------------------------
+   REGISTRATION PHOTO PREVIEW
+--------------------------------------------------------- */
+document.addEventListener("change",function(event){
+    if(event.target?.id!=="registerPhoto") return;
+    const file=event.target.files?.[0];
+    const wrap=document.getElementById("registerPhotoPreviewWrap");
+    const img=document.getElementById("registerPhotoPreview");
+    if(!file || !file.type.startsWith("image/")){
+        if(wrap) wrap.style.display="none";
+        return;
+    }
+    if(file.size>2*1024*1024){
+        toast("Photo 2 MB से कम रखें");
+        event.target.value="";
+        if(wrap) wrap.style.display="none";
+        return;
+    }
+    const reader=new FileReader();
+    reader.onload=()=>{
+        if(img) img.src=reader.result;
+        if(wrap) wrap.style.display="block";
+    };
+    reader.readAsDataURL(file);
+});
+
+/* ---------------------------------------------------------
+   GOOGLE LOGIN
+--------------------------------------------------------- */
+
+function googleLogin(){
+    toast("Google Login के लिए Firebase Google Auth connect करें। अभी Mobile Login इस्तेमाल करें।");
+}
+
+
+/* ---------------------------------------------------------
+   FORGOT PASSWORD
+--------------------------------------------------------- */
+
+function forgotPassword(){
+
+    toast(
+        "Password reset के लिए 7520414872 पर संपर्क करें"
+    );
+
+}
+
+
+function openCommunityChat(){
+    window.location.href = "community-chat.html";
+}
+
+
+/* ---------------------------------------------------------
+   LOGOUT
+--------------------------------------------------------- */
+
+function logout(){
+
+    if(
+        confirm(
+            "क्या आप logout करना चाहते हैं?"
+        )
+    ){
+
+        localStorage.removeItem(
+            "sscStudentLoggedIn"
+        );
+
+        openScreen("loginScreen");
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   DYNAMIC SUBJECT / CHAPTER / VIDEO SYSTEM
+--------------------------------------------------------- */
+const CONTENT_KEY="sscClassContent";
+function normalizeClassValue(value){return String(value??"").replace(/Class/ig,"").trim();}
+function getContentStore(){
+  const data=safeJSON(CONTENT_KEY,{});
+  return data && typeof data==="object" ? data : {};
+}
+function getClassContent(cls){
+  const c=normalizeClassValue(cls), store=getContentStore();
+  const item=store[c];
+  if(item && item.subjects && typeof item.subjects==="object") return item;
+  return {subjects:{}};
+}
+function getVideoStore(){const x=safeJSON("sscVideos",[]);return Array.isArray(x)?x:[];}
+function getVideoClassValue(v){return normalizeClassValue(v?.className??v?.studentClass??v?.class??"");}
+function getClassSubjects(cls){
+  const c=normalizeClassValue(cls), dynamic=Object.keys(getClassContent(c).subjects||{}).filter(Boolean);
+  const old=getVideoStore().filter(v=>getVideoClassValue(v)===c).map(v=>String(v.subject||"").trim()).filter(Boolean);
+  return [...new Set([...dynamic,...old])];
+}
+function getClassChapters(cls,subject){
+  const item=getClassContent(cls).subjects?.[subject];
+  const dynamic=Array.isArray(item?.chapters)?item.chapters.map(x=>typeof x==='string'?x:x?.name).filter(Boolean):[];
+  const old=getVideoStore().filter(v=>getVideoClassValue(v)===normalizeClassValue(cls)&&String(v.subject||"").trim()===String(subject||"").trim()).map(v=>String(v.chapter||"").trim()).filter(Boolean);
+  return [...new Set([...dynamic,...old])];
+}
+function getClassVideos(cls,subject,chapter){
+  const c=normalizeClassValue(cls), now=Date.now();
+  return getVideoStore().filter(v=>{
+    if(getVideoClassValue(v)!==c)return false;
+    if(String(v.subject||"").trim()!==String(subject||"").trim())return false;
+    if(String(v.chapter||"").trim()!==String(chapter||"").trim())return false;
+    if(!v.scheduledAt)return true;
+    const d=new Date(v.scheduledAt); return !Number.isNaN(d.getTime())&&d.getTime()<=now;
+  });
+}
+function renderSubjects(){
+  const box=document.getElementById("dynamicSubjects"); if(!box)return;
+  const cls=studentClassValue(), subjects=getClassSubjects(cls), icons=["∑","🧪","🌍","A","अ","ॐ","⚡","⚗","🧬"];
+  if(!subjects.length){box.innerHTML='<div class="card" style="padding:25px;text-align:center"><h2>📚 No Subjects</h2><p style="color:#6b7280;margin-top:8px">Admin ने अभी इस Class के लिए Subject नहीं बनाया है।</p></div>';return;}
+  box.innerHTML=subjects.map((subject,i)=>{
+    const count=getVideoStore().filter(v=>getVideoClassValue(v)===normalizeClassValue(cls)&&String(v.subject||"").trim()===String(subject).trim()).length;
+    return `<div class="card subject-card" data-subject="${escapeHTML(subject)}"><div class="subject-icon" style="background:#eaf2ff">${icons[i%icons.length]}</div><div class="subject-info"><b>${escapeHTML(subject)}</b><small>${count} Video Class${count===1?'':'es'} available</small><div class="progress"><i style="width:${count?100:0}%"></i></div></div><span>›</span></div>`;
+  }).join('');
+  box.querySelectorAll('.subject-card').forEach(el=>el.addEventListener('click',()=>openChapters(el.dataset.subject||'')));
+}
+function openChapters(subject){
+  const cls=studentClassValue(), chapters=getClassChapters(cls,subject), videos=getVideoStore().filter(v=>getVideoClassValue(v)===normalizeClassValue(cls)&&String(v.subject||"").trim()===String(subject||"").trim());
+  const title=document.getElementById('chapterSubject'), total=document.getElementById('chapterTotal'), vt=document.getElementById('chapterVideoTotal'), box=document.getElementById('dynamicChapters');
+  if(title)title.textContent=`${subject} • Class ${cls}`; if(total)total.textContent=chapters.length; if(vt)vt.textContent=videos.length; if(!box)return;
+  if(!chapters.length){box.innerHTML='<div class="card" style="padding:25px;text-align:center"><h2>No Chapters</h2><p style="color:#6b7280;margin-top:8px">इस Subject में अभी कोई Chapter नहीं है।</p></div>';openScreen('chaptersScreen');return;}
+  box.innerHTML=chapters.map((ch,i)=>{const n=videos.filter(v=>String(v.chapter||'').trim()===String(ch).trim()).length;return `<div class="card chapter-card" data-subject="${escapeHTML(subject)}" data-chapter="${escapeHTML(ch)}"><div class="chapter-status ${n?'done':''}">${n?'✓':'○'}</div><div class="chapter-info"><b>Chapter ${i+1} - ${escapeHTML(ch)}</b><small>${n} video${n===1?'':'s'} available</small></div><span>›</span></div>`;}).join('');
+  box.querySelectorAll('.chapter-card').forEach(el=>el.addEventListener('click',()=>openChapterContent(el.dataset.subject||'',el.dataset.chapter||'')));
+  openScreen('chaptersScreen');
+}
+function openChapterContent(subject,chapter){
+  const videos=getClassVideos(studentClassValue(),subject,chapter), box=document.getElementById('dynamicLecture');
+  const title=document.getElementById('lectureTitle'); if(title)title.textContent=chapter; if(!box)return;
+  if(!videos.length){box.innerHTML=`<div class="card" style="padding:25px;text-align:center"><h2>${escapeHTML(subject)}</h2><p style="margin:12px 0;color:#6b7280">इस chapter के लिए अभी कोई video class available नहीं है।</p></div>`;openScreen('lectureScreen');return;}
+  box.innerHTML=`<div class="section-title"><h2>${escapeHTML(subject)} • ${escapeHTML(chapter)}</h2><span>${videos.length} Video(s)</span></div>`+videos.map((v,i)=>`<div class="card video-item-card" style="padding:14px;margin-bottom:12px"><h3>${escapeHTML(v.title||`Video Class ${i+1}`)}</h3><p style="color:#6b7280;font-size:12px;margin:6px 0">${escapeHTML(v.description||'Video Class')}</p><button class="primary-btn full watch-video-btn" data-video-id="${escapeHTML(String(v.id||''))}">▶ Watch Video</button></div>`).join('');
+  box.querySelectorAll('.watch-video-btn').forEach(btn=>btn.addEventListener('click',()=>playStoredVideo(btn.dataset.videoId||'')));
+  openScreen('lectureScreen');
+}
+function openSSCStudentVideoDB(){return new Promise((resolve,reject)=>{const r=indexedDB.open('SSC_CLASSES_VIDEO_DB',1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('videos'))r.result.createObjectStore('videos');};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
+async function getLocalStudentVideo(id){const db=await openSSCStudentVideoDB();return new Promise((resolve,reject)=>{const tx=db.transaction('videos','readonly'),q=tx.objectStore('videos').get(id);q.onsuccess=()=>{db.close();resolve(q.result||null)};q.onerror=()=>{db.close();reject(q.error)}})}
+function getYouTubeId(url){const m=String(url||'').match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/i);return m?m[1]:'';}
+function commentsKey(videoId){return `sscVideoComments_${String(videoId)}`;}
+function loadVideoComments(videoId){const x=safeJSON(commentsKey(videoId),[]);return Array.isArray(x)?x:[];}
+function saveVideoComment(videoId){
+  const input=document.getElementById("videoCommentInput");
+  if(!input){toast("Comment box नहीं मिला।");return false;}
+  const text=String(input.value||"").trim();
+  if(!text){toast("पहले comment लिखें।");input.focus();return false;}
+  const name=localStorage.getItem("sscStudentName") || studentRecord().name || "Student";
+  const comments=loadVideoComments(videoId);
+  comments.push({id:"c_"+Date.now(),name,text,createdAt:new Date().toISOString()});
+  localStorage.setItem(commentsKey(videoId),JSON.stringify(comments));
+  input.value="";
+  renderVideoComments(videoId);
+  toast("✅ Comment भेज दिया गया।");
+  return false;
+}
+window.saveVideoComment=saveVideoComment;
+function renderVideoComments(videoId){
+  const box=document.getElementById("videoCommentsList");
+  if(!box)return;
+  const comments=loadVideoComments(videoId);
+  box.innerHTML=comments.length?comments.map(c=>`<div style="padding:10px 0;border-bottom:1px solid #e5e7eb"><b>${escapeHTML(c.name||"Student")}</b><p style="margin:5px 0 0;white-space:pre-wrap">${escapeHTML(c.text||"")}</p><small style="color:#94a3b8">${escapeHTML(new Date(c.createdAt||Date.now()).toLocaleString("en-IN"))}</small></div>`).join(""):"<p style=\"color:#6b7280;text-align:center\">अभी कोई comment नहीं है। पहला comment करें।</p>";
+}
+async function playStoredVideo(id){
+  const v=getVideoStore().find(x=>String(x.id)===String(id)); if(!v){toast('Video उपलब्ध नहीं है।');return;}
+  const box=document.getElementById('dynamicLecture'); if(!box)return; box.innerHTML='<div class="video-player"><p style="color:#fff;text-align:center;padding:30px">⏳ Video loading...</p></div>';
+  const url=String(v.videoUrl||v.url||'').trim(); let player='';
+  if(v.sourceType==='local'&&v.localFileId){try{const blob=await getLocalStudentVideo(v.localFileId);if(blob){const blobUrl=URL.createObjectURL(blob);player=`<video controls playsinline preload="metadata" style="display:block;width:100%;aspect-ratio:16/9;height:auto;object-fit:contain;background:#000;border-radius:12px" src="${blobUrl}"></video>`;}else player='<div style="color:#fff;padding:30px;text-align:center">यह local video इस browser में नहीं मिला।</div>';}catch(e){console.error(e);player='<div style="color:#fff;padding:30px;text-align:center">Local video load नहीं हो पाया।</div>';}}
+  else {const yt=getYouTubeId(url); if(yt)player=`<div style="position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden"><iframe src="https://www.youtube.com/embed/${encodeURIComponent(yt)}?rel=0" title="${escapeHTML(v.title||'Video Class')}" style="position:absolute;inset:0;width:100%;height:100%;border:0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`; else if(url)player=`<video controls playsinline preload="metadata" style="display:block;width:100%;aspect-ratio:16/9;height:auto;object-fit:contain;background:#000;border-radius:12px" src="${escapeHTML(url)}"></video>`; else player='<div style="color:#fff;padding:30px;text-align:center">Video URL उपलब्ध नहीं है।</div>';}
+  box.innerHTML=`<div class="card" style="padding:12px"><div class="video-player" style="width:100%;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden">${player}</div><h2 style="margin-top:15px">${escapeHTML(v.title||'Video Class')}</h2><p style="color:#6b7280;margin-top:7px">Class ${escapeHTML(studentClassValue())} • ${escapeHTML(v.subject||'')} • ${escapeHTML(v.chapter||'')}</p>${v.description?`<p style="margin-top:10px">${escapeHTML(v.description)}</p>`:''}</div><div class="card" style="padding:16px;margin-top:12px"><h3>💬 Comments</h3><textarea id="videoCommentInput" rows="3" placeholder="अपना comment लिखें..." style="width:100%;margin-top:10px;padding:10px;border:1px solid #d1d5db;border-radius:10px;resize:vertical"></textarea><button class="primary-btn full" style="margin-top:8px" onclick="saveVideoComment(${JSON.stringify(String(v.id||''))})">Comment भेजें</button><div id="videoCommentsList" style="margin-top:12px"></div></div><button class="primary-btn full" style="margin-top:12px" onclick="openChapters(${JSON.stringify(v.subject||'')})">← Back to Chapters</button>`;
+  renderVideoComments(String(v.id||''));
+}
+function openLecture(){const subject=document.getElementById('chapterSubject')?.textContent?.split(' • ')[0]||'';const ch=getClassChapters(studentClassValue(),subject)[0]||'';if(ch)openChapterContent(subject,ch);else toast('इस subject में chapter उपलब्ध नहीं है।');}
+function playVideo(){toast('Chapter खोलें और Watch Video दबाएँ।');}
+
+/* =========================================================
+   UNIFIED ONLINE TEST ENGINE
+   New UI + old test data/question/functionality
+========================================================= */
+
+let activeTest = null;
+let activeQuestions = [];
+let answers = [];
+let currentQuestion = 0;
+let testTimer = null;
+let secondsLeft = 0;
+let testSubmitted = false;
+
+const fallbackQuestions = [
+
+    /* MATHEMATICS */
+
+    {
+        subject:"Mathematics",
+        question:"36 और 48 का HCF क्या है?",
+        options:["6","12","18","24"],
+        correct:1
+    },
+
+    {
+        subject:"Mathematics",
+        question:"बहुपद x² - 5x + 6 के शून्यक हैं—",
+        options:["1, 6","2, 3","-2, -3","3, 4"],
+        correct:1
+    },
+
+    {
+        subject:"Mathematics",
+        question:"समीकरण x + y = 7 और x - y = 1 का हल है—",
+        options:[
+            "x=3, y=4",
+            "x=4, y=3",
+            "x=5, y=2",
+            "x=2, y=5"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"Mathematics",
+        question:"द्विघात समीकरण x² - 5x + 6 = 0 के मूल हैं—",
+        options:["1, 6","2, 3","-2, -3","3, 4"],
+        correct:1
+    },
+
+    {
+        subject:"Mathematics",
+        question:"समांतर श्रेणी 2, 5, 8, 11,... का सार्व अंतर है—",
+        options:["2","3","4","5"],
+        correct:1
+    },
+
+    {
+        subject:"Mathematics",
+        question:"यदि दो त्रिभुजों के तीनों संगत कोण बराबर हों, तो वे कहलाते हैं—",
+        options:[
+            "सर्वांगसम",
+            "समद्विबाहु",
+            "समरूप",
+            "समकोण"
+        ],
+        correct:2
+    },
+
+    {
+        subject:"Mathematics",
+        question:"बिंदु (3, 4) की मूल बिंदु से दूरी है—",
+        options:["3","4","5","7"],
+        correct:2
+    },
+
+    {
+        subject:"Mathematics",
+        question:"sin 30° का मान है—",
+        options:["0","1/2","√3/2","1"],
+        correct:1
+    },
+
+    {
+        subject:"Mathematics",
+        question:"वृत्त की त्रिज्या 7 cm है। उसका क्षेत्रफल (π = 22/7) होगा—",
+        options:[
+            "44 cm²",
+            "88 cm²",
+            "154 cm²",
+            "308 cm²"
+        ],
+        correct:2
+    },
+
+    {
+        subject:"Mathematics",
+        question:"एक सिक्का एक बार उछालने पर Head आने की प्रायिकता है—",
+        options:["0","1/4","1/2","1"],
+        correct:2
+    },
+
+
+    /* SCIENCE */
+
+    {
+        subject:"Science",
+        question:"निम्न में से कौन-सी रासायनिक अभिक्रिया का उदाहरण है?",
+        options:[
+            "बर्फ का पिघलना",
+            "पानी का जमना",
+            "लोहे में जंग लगना",
+            "पानी का वाष्पीकरण"
+        ],
+        correct:2
+    },
+
+    {
+        subject:"Science",
+        question:"अम्ल का pH सामान्यतः होता है—",
+        options:["7 से अधिक","7","7 से कम","14"],
+        correct:2
+    },
+
+    {
+        subject:"Science",
+        question:"निम्न में से कौन-सी धातु है?",
+        options:["ऑक्सीजन","सल्फर","लोहा","कार्बन"],
+        correct:2
+    },
+
+    {
+        subject:"Science",
+        question:"मीथेन का रासायनिक सूत्र है—",
+        options:["CH₃","CH₄","C₂H₆","CO₂"],
+        correct:1
+    },
+
+    {
+        subject:"Science",
+        question:"प्रकाश संश्लेषण मुख्यतः पौधे के किस भाग में होता है?",
+        options:["जड़","तना","पत्ती","फूल"],
+        correct:2
+    },
+
+    {
+        subject:"Science",
+        question:"मानव शरीर में रक्त का संचार किस अंग द्वारा किया जाता है?",
+        options:["फेफड़े","हृदय","गुर्दा","मस्तिष्क"],
+        correct:1
+    },
+
+    {
+        subject:"Science",
+        question:"मनुष्य में श्वसन के दौरान मुख्य रूप से कौन-सी गैस अंदर ली जाती है?",
+        options:[
+            "नाइट्रोजन",
+            "ऑक्सीजन",
+            "कार्बन डाइऑक्साइड",
+            "हाइड्रोजन"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"Science",
+        question:"विद्युत धारा की SI इकाई है—",
+        options:["वोल्ट","ओम","एम्पियर","वाट"],
+        correct:2
+    },
+
+    {
+        subject:"Science",
+        question:"विद्युत शक्ति की SI इकाई है—",
+        options:["जूल","वाट","वोल्ट","एम्पियर"],
+        correct:1
+    },
+
+    {
+        subject:"Science",
+        question:"विद्युत मोटर किस ऊर्जा को यांत्रिक ऊर्जा में बदलती है?",
+        options:[
+            "ऊष्मीय",
+            "विद्युत",
+            "रासायनिक",
+            "प्रकाश"
+        ],
+        correct:1
+    },
+
+
+    /* SOCIAL SCIENCE */
+
+    {
+        subject:"Social Science",
+        question:"भारत में राष्ट्रवाद के विकास में किस आंदोलन की महत्वपूर्ण भूमिका थी?",
+        options:[
+            "असहयोग आंदोलन",
+            "हरित क्रांति",
+            "श्वेत क्रांति",
+            "औद्योगिक क्रांति"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Social Science",
+        question:"भारत में असहयोग आंदोलन किसने शुरू किया था?",
+        options:[
+            "सुभाष चंद्र बोस",
+            "महात्मा गांधी",
+            "भगत सिंह",
+            "जवाहरलाल नेहरू"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"Social Science",
+        question:"भारत में सबसे अधिक क्षेत्र में कौन-सी फसल उगाई जाती है?",
+        options:["चाय","गेहूँ","चावल","कॉफी"],
+        correct:2
+    },
+
+    {
+        subject:"Social Science",
+        question:"भारत में संघीय व्यवस्था का अर्थ है—",
+        options:[
+            "केवल केंद्र की सरकार",
+            "केवल राज्य की सरकार",
+            "केंद्र और राज्यों के बीच सत्ता का विभाजन",
+            "न्यायपालिका का शासन"
+        ],
+        correct:2
+    },
+
+    {
+        subject:"Social Science",
+        question:"लोकतंत्र में अंतिम निर्णय लेने की शक्ति किसके पास होनी चाहिए?",
+        options:[
+            "सेना",
+            "निर्वाचित प्रतिनिधियों",
+            "न्यायाधीशों",
+            "अधिकारियों"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"Social Science",
+        question:"भारत में मुद्रा जारी करने का मुख्य अधिकार किस संस्था के पास है?",
+        options:["SBI","RBI","NABARD","SEBI"],
+        correct:1
+    },
+
+    {
+        subject:"Social Science",
+        question:"प्राथमिक क्षेत्र में कौन-सा कार्य आता है?",
+        options:["बैंकिंग","खेती","अध्यापन","परिवहन"],
+        correct:1
+    },
+
+    {
+        subject:"Social Science",
+        question:"वैश्वीकरण का प्रमुख अर्थ है—",
+        options:[
+            "देशों के बीच आर्थिक संबंधों में वृद्धि",
+            "केवल स्थानीय व्यापार",
+            "व्यापार पर पूर्ण प्रतिबंध",
+            "केवल कृषि उत्पादन"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Social Science",
+        question:"उपभोक्ता के अधिकारों की रक्षा के लिए भारत में कौन-सा कानून बनाया गया?",
+        options:[
+            "उपभोक्ता संरक्षण कानून",
+            "वन कानून",
+            "शिक्षा कानून",
+            "कृषि कानून"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Social Science",
+        question:"राजनीतिक दल का मुख्य उद्देश्य क्या होता है?",
+        options:[
+            "चुनाव लड़ना और सरकार बनाना",
+            "केवल व्यापार करना",
+            "न्यायालय चलाना",
+            "सेना चलाना"
+        ],
+        correct:0
+    },
+
+
+    /* HINDI */
+
+    {
+        subject:"Hindi",
+        question:"‘सूरदास’ किस भक्ति धारा के प्रमुख कवि हैं?",
+        options:[
+            "रामभक्ति",
+            "कृष्णभक्ति",
+            "निर्गुण भक्ति",
+            "सूफी भक्ति"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘राम-लक्ष्मण-परशुराम संवाद’ के रचनाकार कौन हैं?",
+        options:[
+            "तुलसीदास",
+            "सूरदास",
+            "कबीर",
+            "बिहारी"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘आत्मकथ्य’ कविता के कवि कौन हैं?",
+        options:[
+            "जयशंकर प्रसाद",
+            "नागार्जुन",
+            "निराला",
+            "मंगलेश डबराल"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘उत्साह’ कविता के रचनाकार हैं—",
+        options:[
+            "सूर्यकांत त्रिपाठी ‘निराला’",
+            "नागार्जुन",
+            "तुलसीदास",
+            "देव"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘यह दंतुरित मुस्कान’ के कवि कौन हैं?",
+        options:[
+            "नागार्जुन",
+            "प्रसाद",
+            "निराला",
+            "देव"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘नेताजी का चश्मा’ के लेखक कौन हैं?",
+        options:[
+            "स्वयं प्रकाश",
+            "मन्नू भंडारी",
+            "प्रेमचंद",
+            "हजारी प्रसाद द्विवेदी"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘बालगोबिन भगत’ के लेखक हैं—",
+        options:[
+            "रामवृक्ष बेनीपुरी",
+            "स्वयं प्रकाश",
+            "यतीन्द्र मिश्रा",
+            "प्रहलाद अग्रवाल"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘लखनवी अंदाज़’ के लेखक कौन हैं?",
+        options:[
+            "यतीन्द्र मिश्रा",
+            "मन्नू भंडारी",
+            "स्वयं प्रकाश",
+            "रामवृक्ष बेनीपुरी"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘एक कहानी यह भी’ की लेखिका हैं—",
+        options:[
+            "मन्नू भंडारी",
+            "महादेवी वर्मा",
+            "सुभद्रा कुमारी चौहान",
+            "कृष्णा सोबती"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘संस्कृति’ पाठ के लेखक हैं—",
+        options:[
+            "हजारी प्रसाद द्विवेदी",
+            "रामवृक्ष बेनीपुरी",
+            "स्वयं प्रकाश",
+            "प्रेमचंद"
+        ],
+        correct:0
+    },
+
+
+    /* ENGLISH */
+
+    {
+        subject:"English",
+        question:"Who wrote 'A Letter to God'?",
+        options:[
+            "Nelson Mandela",
+            "G.L. Fuentes",
+            "Anne Frank",
+            "Robert Frost"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"English",
+        question:"What was Lencho's profession?",
+        options:[
+            "Teacher",
+            "Farmer",
+            "Doctor",
+            "Postman"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"English",
+        question:"Nelson Mandela became the first black President of—",
+        options:[
+            "India",
+            "America",
+            "South Africa",
+            "England"
+        ],
+        correct:2
+    },
+
+    {
+        subject:"English",
+        question:"Anne Frank named her diary—",
+        options:[
+            "Kitty",
+            "Maria",
+            "Helen",
+            "Alice"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"English",
+        question:"Mijbil was a—",
+        options:[
+            "Dog",
+            "Cat",
+            "Otter",
+            "Rabbit"
+        ],
+        correct:2
+    },
+
+    {
+        subject:"English",
+        question:"Who wrote 'The Sermon at Benares'?",
+        options:[
+            "Betty Renshaw",
+            "James Herriot",
+            "Pearl S. Buck",
+            "Vicente Blasco Ibáñez"
+        ],
+        correct:2
+    },
+
+    {
+        subject:"English",
+        question:"In 'Madam Rides the Bus', Valli wanted to travel by—",
+        options:[
+            "Train",
+            "Bus",
+            "Car",
+            "Bicycle"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"English",
+        question:"Tricki was a—",
+        options:[
+            "Cat",
+            "Dog",
+            "Horse",
+            "Parrot"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"English",
+        question:"Who was Hari Singh in 'The Thief's Story'?",
+        options:[
+            "A teacher",
+            "A young thief",
+            "A doctor",
+            "A policeman"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"English",
+        question:"The necklace in 'The Necklace' was borrowed by—",
+        options:[
+            "Matilda Loisel",
+            "Mrs Hall",
+            "Bholi",
+            "Anne Frank"
+        ],
+        correct:0
+    },
+
+
+    /* SANSKRIT */
+
+    {
+        subject:"Sanskrit",
+        question:"‘शुचिपर्यावरणम्’ पाठ का मुख्य विषय है—",
+        options:[
+            "पर्यावरण की स्वच्छता",
+            "खेल",
+            "व्यापार",
+            "युद्ध"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘बुद्धिर्बलवती सदा’ का अर्थ है—",
+        options:[
+            "बुद्धि सदा बलवान होती है",
+            "शरीर बलवान है",
+            "धन बलवान है",
+            "राजा बलवान है"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘व्यायामः सर्वदा पथ्यः’ का संबंध किससे है?",
+        options:[
+            "भोजन",
+            "व्यायाम और स्वास्थ्य",
+            "शिक्षा",
+            "व्यापार"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘जननी तुल्यवत्सला’ में ‘जननी’ का अर्थ है—",
+        options:[
+            "पिता",
+            "माता",
+            "भाई",
+            "बहन"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘सुभाषितानि’ का अर्थ है—",
+        options:[
+            "अच्छे वचन",
+            "कठिन शब्द",
+            "कहानी",
+            "प्रश्न"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘सौहार्दं प्रकृतेः शोभा’ का संबंध किससे है?",
+        options:[
+            "प्रकृति और सौहार्द",
+            "युद्ध",
+            "व्यापार",
+            "राजनीति"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘विचित्रः साक्षी’ में ‘साक्षी’ का अर्थ है?",
+        options:[
+            "गवाह",
+            "शिक्षक",
+            "राजा",
+            "सैनिक"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘सूक्तयः’ का अर्थ है—",
+        options:[
+            "सुंदर/श्रेष्ठ उक्तियाँ",
+            "खेल",
+            "भोजन",
+            "वस्त्र"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘भूकम्पविभीषिका’ का संबंध किससे है?",
+        options:[
+            "बाढ़",
+            "भूकंप",
+            "सूखा",
+            "तूफान"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘सर्वदा’ शब्द का अर्थ है—",
+        options:[
+            "कभी नहीं",
+            "हमेशा",
+            "आज",
+            "कल"
+        ],
+        correct:1
+    }
+
+];
+
+function safeJSON(key, fallbackValue){
+    try { return JSON.parse(localStorage.getItem(key)) ?? fallbackValue; }
+    catch(e){ return fallbackValue; }
+}
+
+function escapeHTML(value){
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+function studentRecord(){
+    return safeJSON("sscStudent", {}) || {};
+}
+
+function studentClassValue(){
+    const s=studentRecord();
+    const raw=String(s.studentClass || s.class || "6").trim();
+    const m=raw.match(/\d+/);
+    return m ? m[0] : raw;
+}
+
+function normalizeClassValue(value){
+    const raw=String(value ?? "").trim();
+    const m=raw.match(/\d+/);
+    return m ? m[0] : raw;
+}
+
+function getQuestionArray(test){
+    if(!test) return [];
+    const fields=["questionList","questionsList","questionsData","items","questions"];
+    for(const field of fields){
+        if(Array.isArray(test[field]) && test[field].length) return test[field];
+    }
+    return [];
+}
+
+function normalizeQuestion(q){
+    if(!q) return null;
+    const question=String(q.question ?? q.text ?? q.questionText ?? q.title ?? "").trim();
+    let options=q.options ?? q.choices ?? q.answers ?? [];
+    if(!Array.isArray(options)) options=[q.optionA,q.optionB,q.optionC,q.optionD].filter(v=>v!==undefined && v!=="");
+    options=options.map(v=>String(v));
+    let raw=q.correct ?? q.correctAnswer ?? q.answer ?? q.correctIndex;
+    let correct=Number.isInteger(Number(raw)) ? Number(raw) : -1;
+    if(correct<0 || correct>=options.length){
+        const rawText=String(raw ?? "").trim().toLowerCase();
+        const idx=options.findIndex(v=>v.trim().toLowerCase()===rawText);
+        correct=idx;
+    }
+    return {subject:String(q.subject || q.topic || activeTest?.subject || "General"), question, options, correct};
+}
+
+function getAvailableTests(){
+    const tests=safeJSON("sscScheduledTests", []);
+    const cls=studentClassValue();
+    const now=new Date();
+    const filtered=Array.isArray(tests) ? tests.filter(t=>{
+        const sameClass=normalizeClassValue(t.className ?? t.studentClass ?? t.class ?? "")===normalizeClassValue(cls);
+        const ready=t.status==="Ready" || t.status==="Scheduled" || t.status==="Live now";
+        return sameClass && ready;
+    }) : [];
+    return filtered.map(t=>{
+        const start=t.startDateTime ? new Date(t.startDateTime) : null;
+        const end=t.endDateTime ? new Date(t.endDateTime) : null;
+        let status="Available";
+        if(start && !isNaN(start) && now<start) status="Scheduled";
+        else if(end && !isNaN(end) && now>end) status="Expired";
+        else if(start && end && now>=start && now<=end) status="Live now";
+        return {...t,status};
+    }).filter(t=>t.status!=="Expired");
+}
+function renderTestList(){
+
+    const box = document.getElementById("testList");
+
+    if(!box) return;
+
+    const tests = getAvailableTests();
+
+    let html = `
+        <div class="section-title">
+            <h2>Class ${studentClassValue()} Tests</h2>
+
+            <button
+                type="button"
+                onclick="renderTestList()">
+                Refresh
+            </button>
+        </div>
+    `;
+
+    if(!tests.length){
+
+        if(studentClassValue() === "10"){
+
+            html += `
+                <div class="card test-card">
+
+                    <h2>Class 10 Practice Test</h2>
+
+                    <p>
+                        Class 10 Practice Test
+                    </p>
+
+                    <div class="test-meta">
+
+                        <div class="meta-box">
+                            <strong>
+                                ${fallbackQuestions.length}
+                            </strong>
+                            <small>
+                                Total Questions
+                            </small>
+                        </div>
+
+                        <div class="meta-box">
+                            <strong>40</strong>
+                            <small>
+                                Minutes
+                            </small>
+                        </div>
+
+                        <div class="meta-box">
+                            <strong>0</strong>
+                            <small>
+                                Negative Marking
+                            </small>
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="primary-btn full"
+                        onclick="startUnifiedTest(null)">
+
+                        Start Test
+
+                    </button>
+
+                </div>
+            `;
+
+        }else{
+
+            html += `
+                <div class="card test-card">
+
+                    <h2>No Test Available</h2>
+
+                    <p>
+                        Class ${studentClassValue()}
+                        के लिए अभी कोई scheduled test नहीं है।
+                    </p>
+
+                </div>
+            `;
+        }
+
+    }else{
+
+        tests.forEach(function(t,i){
+
+            const qs = getQuestionArray(t);
+
+            const duration =
+                Number(
+                    t.duration ??
+                    t.durationMinutes ??
+                    40
+                ) || 40;
+
+            const qCount =
+                qs.length ||
+                Number(t.questions) ||
+                0;
+
+            const subject =
+                t.subject ||
+                "All Subjects";
+
+            let start = "";
+
+            if(t.startDateTime){
+
+                const d =
+                    new Date(t.startDateTime);
+
+                if(!isNaN(d.getTime())){
+
+                    start =
+                        d.toLocaleString("en-IN");
+
+                }
+
+            }
+
+            html += `
+
+                <div
+                    class="card test-card"
+                    style="margin-bottom:12px">
+
+                    <h2>
+                        ${escapeHTML(
+                            t.testName ||
+                            t.name ||
+                            "Online Test"
+                        )}
+                    </h2>
+
+                    <p>
+                        ${escapeHTML(subject)}
+                        •
+                        ${escapeHTML(t.status || "Available")}
+                    </p>
+
+                    <div class="test-meta">
+
+                        <div class="meta-box">
+
+                            <strong>
+                                ${qCount || "—"}
+                            </strong>
+
+                            <small>
+                                Total Questions
+                            </small>
+
+                        </div>
+
+                        <div class="meta-box">
+
+                            <strong>
+                                ${duration}
+                            </strong>
+
+                            <small>
+                                Minutes
+                            </small>
+
+                        </div>
+
+                        <div class="meta-box">
+
+                            <strong>
+                                ${Number(
+                                    t.marksPerQuestion ??
+                                    t.questionMarks ??
+                                    1
+                                )}
+                            </strong>
+
+                            <small>
+                                Marks / Question
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    ${
+                        start
+                        ?
+                        `
+                        <small
+                            style="
+                            display:block;
+                            margin:8px 0;
+                            color:#6b7280">
+
+                            Start:
+                            ${escapeHTML(start)}
+
+                        </small>
+                        `
+                        :
+                        ""
+                    }
+
+                    <button
+                        type="button"
+                        class="primary-btn full"
+                        onclick="startUnifiedTest(${i})">
+
+                        ${
+                            t.status === "Scheduled"
+                            ? "Open Test"
+                            : "Start Test"
+                        }
+
+                    </button>
+
+                </div>
+
+            `;
+
+        });
+
+        window._sscVisibleTests = tests;
+
+    }
+
+    box.innerHTML = html;
+
+    if(!tests.length){
+
+        window._sscVisibleTests = [];
+
+    }
+
+}
+function startUnifiedTest(index){
+    const tests=window._sscVisibleTests || getAvailableTests();
+    const selected=index===null ? null : tests[index];
+    activeTest=selected || {id:"practice-class-10",testName:"Class 10 Practice Test",className:"10",subject:"All Subjects",duration:40};
+    let raw=getQuestionArray(activeTest);
+    if(!raw.length && normalizeClassValue(activeTest.className||studentClassValue())==="10") raw=fallbackQuestions;
+    activeQuestions=raw.map(normalizeQuestion).filter(q=>q && q.question && q.options.length>=2 && q.correct>=0);
+    if(!activeQuestions.length){ toast("इस Test में valid questions उपलब्ध नहीं हैं।"); return; }
+    const duration=Number(activeTest.duration ?? activeTest.durationMinutes ?? 40) || 40;
+    secondsLeft=Math.floor(duration*60);
+    answers=new Array(activeQuestions.length).fill(null);
+    currentQuestion=0;
+    testSubmitted=false;
+    localStorage.setItem("currentTest",JSON.stringify(activeTest));
+    clearInterval(testTimer);
+    document.getElementById("runnerTitle").textContent=activeTest.testName||activeTest.name||"Online Test";
+    openScreen("runnerScreen");
+    renderQuestion();
+    renderTimer();
+    testTimer=setInterval(()=>{secondsLeft--;renderTimer();if(secondsLeft<=0){clearInterval(testTimer);submitTest(true);}},1000);
+}
+
+function renderTimer(){
+    const m=String(Math.floor(Math.max(0,secondsLeft)/60)).padStart(2,"0");
+    const s=String(Math.max(0,secondsLeft)%60).padStart(2,"0");
+    const el=document.getElementById("timer"); if(el) el.textContent=`${m}:${s}`;
+}
+
+function renderQuestion(){
+    if(!activeQuestions.length) return;
+    const q=activeQuestions[currentQuestion];
+    document.getElementById("questionCounter").textContent=`Question ${currentQuestion+1} of ${activeQuestions.length}`;
+    document.getElementById("answeredCount").textContent=`${answers.filter(v=>v!==null).length} Answered`;
+    document.getElementById("questionSubject").textContent=q.subject;
+    document.getElementById("questionText").textContent=q.question;
+    const box=document.getElementById("options"); box.innerHTML="";
+    q.options.forEach((option,i)=>{
+        const b=document.createElement("button");
+        b.type="button"; b.className="outline-btn full"; b.style.margin="7px 0"; b.style.textAlign="left";
+        b.textContent=`${String.fromCharCode(65+i)}. ${option}`;
+        if(answers[currentQuestion]===i){b.style.borderColor="var(--blue)";b.style.background="var(--blue-light)";}
+        b.onclick=()=>{answers[currentQuestion]=i;renderQuestion();};
+        box.appendChild(b);
+    });
+    const nums=document.getElementById("questionNumbers"); nums.innerHTML="";
+    answers.forEach((a,i)=>{const b=document.createElement("button");b.type="button";b.textContent=i+1;b.className="question-number"+(i===currentQuestion?" current":"")+(a!==null?" answered":"");b.onclick=()=>{currentQuestion=i;renderQuestion();};nums.appendChild(b);});
+}
+
+function previousQuestion(){if(currentQuestion>0){currentQuestion--;renderQuestion();}}
+function nextQuestion(){if(currentQuestion<activeQuestions.length-1){currentQuestion++;renderQuestion();}else{confirmSubmit();}}
+function confirmSubmit(){
+    if(testSubmitted) return;
+    if(!activeQuestions.length){ toast("कोई question उपलब्ध नहीं है।"); return; }
+    submitTest(false);
+}
+
+function submitTest(autoSubmitted){
+    if(testSubmitted) return;
+
+    testSubmitted = true;
+    clearInterval(testTimer);
+
+    let correct = 0;
+    let wrong = 0;
+    let unattempted = 0;
+
+    answers.forEach((ans, i) => {
+
+        if(ans === null){
+            unattempted++;
+        }
+        else if(ans === activeQuestions[i].correct){
+            correct++;
+        }
+        else{
+            wrong++;
+        }
+
+    });
+
+    const marks =
+        Number(
+            activeTest.marksPerQuestion ??
+            activeTest.questionMarks ??
+            1
+        ) || 1;
+
+    const obtained =
+        correct * marks;
+
+    const total =
+        activeQuestions.length * marks;
+
+    const percentage =
+        total ? (obtained / total) * 100 : 0;
+
+
+    const result = {
+
+        id: activeTest.id || Date.now(),
+
+        testName:
+            activeTest.testName ||
+            activeTest.name ||
+            "Online Test",
+
+        studentName:
+            studentRecord().name ||
+            studentRecord().studentName ||
+            "Student",
+
+        fatherName:
+            studentRecord().fatherName ||
+            "-",
+
+        studentClass:
+            studentClassValue(),
+
+        testClass:
+            String(
+                activeTest.className ||
+                studentClassValue()
+            ),
+
+        totalQuestions:
+            activeQuestions.length,
+
+        totalMarks:
+            total,
+
+        obtainedMarks:
+            Number(obtained.toFixed(2)),
+
+        correct:
+            correct,
+
+        wrong:
+            wrong,
+
+        unattempted:
+            unattempted,
+
+        attempted:
+            activeQuestions.length - unattempted,
+
+        percentage:
+            Number(percentage.toFixed(2)),
+
+        result:
+            percentage >= 33
+                ? "PASS"
+                : "FAIL",
+
+        submittedAt:
+            new Date().toISOString(),
+
+        date:
+            new Date().toLocaleDateString("en-IN")
+    };
+
+
+    localStorage.setItem(
+        "sscLastResult",
+        JSON.stringify(result)
+    );
+
+
+    let history =
+        safeJSON("sscResultHistory", []);
+
+    if(!Array.isArray(history)){
+        history = [];
+    }
+
+    history.unshift(result);
+
+    localStorage.setItem(
+        "sscResultHistory",
+        JSON.stringify(
+            history.slice(0, 100)
+        )
+    );
+
+
+    try{
+        renderStudentResult();
+    }
+    catch(e){
+        console.error(
+            "Result render error:",
+            e
+        );
+    }
+
+
+    toast(
+        autoSubmitted
+            ? "Time up! Test submitted."
+            : `Test submitted: ${obtained.toFixed(2)} marks`
+    );
+
+    openScreen("resultScreen");
+}
+function renderStudentResult(){
+
+    const r = safeJSON("sscLastResult", null);
+
+    if(!r) return;
+
+
+    const pct = Number(r.percentage || 0);
+
+
+    /* TEST NAME */
+
+    const testName =
+        document.getElementById("resultTestName");
+
+    if(testName){
+
+        testName.textContent =
+            r.testName || "Online Test";
+
+    }
+
+
+    /* STATUS */
+
+    const status =
+        document.getElementById("resultStatus");
+
+    if(status){
+
+        status.textContent =
+            r.result || "RESULT";
+
+    }
+
+
+    /* PERCENTAGE RING */
+
+    const ring =
+        document.getElementById("resultRing");
+
+    if(ring){
+
+        const safePct =
+            Math.max(0,Math.min(100,pct));
+
+        ring.dataset.value =
+            `${pct.toFixed(0)}%`;
+
+        ring.style.background =
+            `conic-gradient(
+                var(--green) ${safePct}%,
+                #dce6f2 ${safePct}%
+            )`;
+
+    }
+
+
+    /* SCORE */
+
+    const scoreText =
+        document.getElementById("resultScoreText");
+
+    if(scoreText){
+
+        scoreText.textContent =
+            `Score: ${r.obtainedMarks || 0} / ${r.totalMarks || 0}`;
+
+    }
+
+
+    /* CORRECT */
+
+    const correct =
+        document.getElementById("resultCorrect");
+
+    if(correct){
+
+        correct.textContent =
+            r.correct || 0;
+
+    }
+
+
+    /* WRONG */
+
+    const wrong =
+        document.getElementById("resultWrong");
+
+    if(wrong){
+
+        wrong.textContent =
+            r.wrong || 0;
+
+    }
+
+
+    /* UNATTEMPTED */
+
+    const unattempted =
+        document.getElementById("resultUnattempted");
+
+    if(unattempted){
+
+        unattempted.textContent =
+            r.unattempted || 0;
+
+    }
+
+
+    /* OBTAINED MARKS */
+
+    const marks =
+        document.getElementById("resultMarks");
+
+    if(marks){
+
+        marks.textContent =
+            r.obtainedMarks || 0;
+
+    }
+
+
+    /* STUDENT */
+
+    const student =
+        document.getElementById("resultStudent");
+
+    if(student){
+
+        student.textContent =
+            r.studentName || "Student";
+
+    }
+
+
+    /* CLASS */
+
+    const classEl =
+        document.getElementById("resultClass");
+
+    if(classEl){
+
+        classEl.textContent =
+            r.studentClass
+            ? `Class ${r.studentClass}`
+            : "-";
+
+    }
+
+
+    /* TOTAL QUESTIONS */
+
+    const totalQuestions =
+        document.getElementById(
+            "resultTotalQuestions"
+        );
+
+    if(totalQuestions){
+
+        totalQuestions.textContent =
+            r.totalQuestions || 0;
+
+    }
+
+
+    /* ATTEMPTED */
+
+    const attempted =
+        document.getElementById(
+            "resultAttempted"
+        );
+
+    if(attempted){
+
+        attempted.textContent =
+            r.attempted || 0;
+
+    }
+
+
+    /* TOTAL MARKS */
+
+    const totalMarks =
+        document.getElementById(
+            "resultTotalMarks"
+        );
+
+    if(totalMarks){
+
+        totalMarks.textContent =
+            r.totalMarks || 0;
+
+    }
+
+
+    /* PERCENTAGE */
+
+    const percentage =
+        document.getElementById(
+            "resultPercentage"
+        );
+
+    if(percentage){
+
+        percentage.textContent =
+            `${pct.toFixed(2)}%`;
+
+    }
+
+
+    /* FINAL RESULT */
+
+    const finalStatus =
+        document.getElementById(
+            "resultFinalStatus"
+        );
+
+    if(finalStatus){
+
+        finalStatus.textContent =
+            r.result || "-";
+
+        finalStatus.classList.remove(
+            "result-pass",
+            "result-fail"
+        );
+
+        if(r.result === "PASS"){
+
+            finalStatus.classList.add(
+                "result-pass"
+            );
+
+        }
+        else if(r.result === "FAIL"){
+
+            finalStatus.classList.add(
+                "result-fail"
+            );
+
+        }
+
+    }
+
+
+    /* DATE */
+
+    const date =
+        document.getElementById("resultDate");
+
+    if(date){
+
+        date.textContent =
+            r.date || "-";
+
+    }
+
+}
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+function filterNotifications(
+    type,
+    button
+){
+
+    document
+        .querySelectorAll(
+            ".notification-tabs button"
+        )
+        .forEach(
+            b=>b.classList.remove("active")
+        );
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    document
+        .querySelectorAll(
+            ".notification-item"
+        )
+        .forEach(
+            item=>{
+
+                if(type==="all"){
+
+                    item.style.display="flex";
+
+                }
+
+                else if(
+                    type==="unread"
+                ){
+
+                    item.style.display=
+                        item.dataset.type===
+                        "unread"
+                        ?
+                        "flex"
+                        :
+                        "none";
+
+                }
+
+                else if(
+                    type==="message"
+                ){
+
+                    item.style.display=
+                        item.dataset.type===
+                        "message"
+                        ?
+                        "flex"
+                        :
+                        "none";
+
+                }
+
+            }
+        );
+
+}
+
+
+/* ---------------------------------------------------------
+   MARK READ
+--------------------------------------------------------- */
+
+function markAllRead(){
+
+    document
+        .querySelectorAll(
+            ".unread-dot"
+        )
+        .forEach(
+            dot=>dot.remove()
+        );
+
+
+    document
+        .getElementById(
+            "notificationBadge"
+        )
+        .style.display="none";
+
+
+    toast(
+        "सभी notifications read हो गए"
+    );
+
+}
+
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+
+/* =========================================================
+   DYNAMIC NOTIFICATIONS
+========================================================= */
+
+const NOTIFICATION_KEY="sscNotifications";
+const NOTIFICATION_READ_PREFIX="sscNotificationRead_";
+
+function notificationStudentKey(){
+    const st=studentRecord ? studentRecord() : {};
+    return String(st.mobile||st.id||localStorage.getItem("sscStudentName")||"student");
+}
+
+function notificationReadKey(){
+    return NOTIFICATION_READ_PREFIX + notificationStudentKey();
+}
+
+function getReadNotificationIds(){
+    try{
+        const value=JSON.parse(localStorage.getItem(notificationReadKey()))||[];
+        return Array.isArray(value)?value.map(String):[];
+    }catch(e){ return []; }
+}
+
+function saveReadNotificationIds(ids){
+    localStorage.setItem(notificationReadKey(),JSON.stringify([...new Set(ids.map(String))]));
+}
+
+function notificationTimeText(value){
+    const d=new Date(value||Date.now());
+    if(isNaN(d.getTime())) return "";
+    const diff=Math.max(0,Date.now()-d.getTime());
+    const mins=Math.floor(diff/60000);
+    if(mins<1) return "अभी";
+    if(mins<60) return mins+" min ago";
+    const hrs=Math.floor(mins/60);
+    if(hrs<24) return hrs+" hours ago";
+    const days=Math.floor(hrs/24);
+    if(days<7) return days+" days ago";
+    return d.toLocaleDateString("en-IN");
+}
+
+function getDynamicNotifications(){
+    const st=studentRecord();
+    const cls=String(studentClassValue ? studentClassValue() : (st.studentClass||"")).replace(/Class/ig,"").trim();
+    const items=[];
+
+    // Admin-created notifications, if available.
+    const custom=safeJSON(NOTIFICATION_KEY,[]);
+    if(Array.isArray(custom)){
+        custom.forEach((n,i)=>{
+            const nClass=String(n.className||n.studentClass||n.class||"").replace(/Class/ig,"").trim();
+            if(nClass && nClass!==cls) return;
+            items.push({
+                id:String(n.id||("custom_"+i)),
+                type:n.type||"notice",
+                icon:n.icon||"📢",
+                title:n.title||"New Notification",
+                message:n.message||n.description||"",
+                createdAt:n.createdAt||n.date||new Date().toISOString(),
+                target:n.target||""
+            });
+        });
+    }
+
+    // Scheduled tests become real notifications for the student's class.
+    const tests=safeJSON("sscScheduledTests",[]);
+    if(Array.isArray(tests)){
+        tests.forEach(t=>{
+            const tClass=String(t.className||t.studentClass||t.class||"").replace(/Class/ig,"").trim();
+            if(tClass && tClass!==cls) return;
+            const end=t.endDateTime?new Date(t.endDateTime):null;
+            if(end && !isNaN(end.getTime()) && Date.now()>end.getTime()) return;
+            const testName=t.testName||t.name||"Online Test";
+            const subject=t.subject||"";
+            const id="test_"+String(t.id||testName);
+            const created=t.createdAt||t.startDateTime||new Date().toISOString();
+            items.push({
+                id,
+                type:"test",
+                icon:"📝",
+                title:"New test is available",
+                message:(subject?subject+" - ":"")+testName,
+                createdAt:created,
+                target:"testScreen"
+            });
+        });
+    }
+
+    // Latest result becomes a notification for the logged-in student.
+    const result=safeJSON("sscLastResult",safeJSON("sscResult",null));
+    if(result && typeof result==="object"){
+        const resultName=String(result.studentName||"").trim().toLowerCase();
+        const currentName=String(st.name||st.studentName||"").trim().toLowerCase();
+        const resultClass=String(result.studentClass||"").replace(/Class/ig,"").trim();
+        const belongs=!resultName || !currentName || resultName===currentName;
+        const classMatches=!resultClass || !cls || resultClass===cls;
+        if(belongs && classMatches){
+            const rid=String(result.id||result.testName||result.date||"latest");
+            items.push({
+                id:"result_"+rid,
+                type:"result",
+                icon:"📊",
+                title:"Your result has been updated",
+                message:result.testName||"Online Test Result",
+                createdAt:result.date||result.createdAt||new Date().toISOString(),
+                target:"resultScreen"
+            });
+        }
+    }
+
+    const seen=new Set();
+    return items
+        .filter(item=>{
+            if(seen.has(item.id)) return false;
+            seen.add(item.id);
+            return true;
+        })
+        .sort((a,b)=>new Date(b.createdAt||0)-new Date(a.createdAt||0));
+}
+
+function notificationHtml(item,isUnread=true,compact=false){
+    const safeTitle=escapeHTML(item.title||"Notification");
+    const safeMessage=escapeHTML(item.message||"");
+    const safeId=encodeURIComponent(String(item.id));
+    const unreadDot=isUnread?'<span class="unread-dot"></span>':'';
+    const arrow=compact?'<span class="arrow">›</span>':"";
+    return `
+        <div class="card notice-card notification-item"
+             data-type="${escapeHTML(item.type||"all")}"
+             data-id="${safeId}"
+             onclick="openNotification('${safeId}')">
+            <div class="notice-icon">${item.icon||"🔔"}</div>
+            <div class="notice-content">
+                <div class="notice-title">${safeTitle}</div>
+                <div class="notice-time">${safeMessage}${safeMessage?" • ":""}${notificationTimeText(item.createdAt)}</div>
+            </div>
+            ${unreadDot}${arrow}
+        </div>`;
+}
+
+function updateNotificationBadge(){
+    const badge=document.getElementById("notificationBadge");
+    if(!badge) return;
+    const items=getDynamicNotifications();
+    const read=new Set(getReadNotificationIds());
+    const unread=items.filter(x=>!read.has(String(x.id))).length;
+
+    if(unread>0){
+        badge.textContent=unread>99?"99+":String(unread);
+        badge.style.display="grid";
+    }else{
+        badge.style.display="none";
+    }
+
+    const unreadTab=document.getElementById("notificationTabUnread");
+    if(unreadTab) unreadTab.textContent=`Unread (${unread})`;
+}
+
+function renderHomeNotifications(){
+    const box=document.getElementById("homeNotificationList");
+    if(!box) return;
+
+    const items=getDynamicNotifications().slice(0,3);
+    const read=new Set(getReadNotificationIds());
+
+    if(!items.length){
+        box.innerHTML=`
+            <div class="card notice-card">
+                <div class="notice-icon">🔔</div>
+                <div class="notice-content">
+                    <div class="notice-title">No new notifications</div>
+                    <div class="notice-time">जब कोई नया notification आएगा, यहाँ दिखाई देगा।</div>
+                </div>
+            </div>`;
+        return;
+    }
+
+    box.innerHTML=items.map(item=>notificationHtml(item,!read.has(String(item.id)),true)).join("");
+}
+
+function renderNotifications(filter="all"){
+    const list=document.getElementById("notificationList");
+    if(!list) return;
+
+    const items=getDynamicNotifications();
+    const read=new Set(getReadNotificationIds());
+
+    let filtered=items;
+    if(filter==="unread") filtered=items.filter(x=>!read.has(String(x.id)));
+    if(filter==="message") filtered=items.filter(x=>x.type==="message");
+
+    if(!filtered.length){
+        list.innerHTML=`
+            <div class="card notice-card">
+                <div class="notice-icon">🔔</div>
+                <div class="notice-content">
+                    <div class="notice-title">No notifications</div>
+                    <div class="notice-time">इस category में अभी कोई notification नहीं है।</div>
+                </div>
+            </div>`;
+    }else{
+        list.innerHTML=filtered.map(item=>notificationHtml(item,!read.has(String(item.id)),false)).join("");
+    }
+
+    updateNotificationBadge();
+}
+
+function openNotification(encodedId){
+    const id=decodeURIComponent(encodedId);
+    const read=getReadNotificationIds();
+    if(!read.includes(id)){
+        read.push(id);
+        saveReadNotificationIds(read);
+    }
+
+    const item=getDynamicNotifications().find(x=>String(x.id)===String(id));
+    updateNotificationBadge();
+    renderHomeNotifications();
+
+    if(item?.target){
+        openScreen(item.target);
+    }else{
+        renderNotifications("all");
+    }
+}
+
+function filterNotifications(type,button){
+    document.querySelectorAll(".notification-tabs button").forEach(b=>b.classList.remove("active"));
+    if(button) button.classList.add("active");
+    renderNotifications(type);
+}
+
+function markAllRead(){
+    const ids=getDynamicNotifications().map(x=>String(x.id));
+    saveReadNotificationIds(getReadNotificationIds().concat(ids));
+    updateNotificationBadge();
+    renderNotifications("all");
+    renderHomeNotifications();
+    toast("सभी notifications read हो गए");
+}
+
+window.addEventListener("storage",function(event){
+    if(event.key==="sscNotifications" || event.key==="sscScheduledTests" || event.key==="sscLastResult" || event.key==="sscResult"){
+        updateNotificationBadge();
+        renderHomeNotifications();
+        if(document.getElementById("notificationsScreen")?.classList.contains("active")){
+            renderNotifications("all");
+        }
+    }
+});
+
+
+
+/* =========================================================
+   WHATSAPP
+========================================================= */
+
+function openWhatsApp(){
+
+    window.open(
+        "https://wa.me/917520414872",
+        "_blank"
+    );
+
+}
+
+
+/* =========================================================
+   PROFILE EDIT
+========================================================= */
+
+function editProfile(){
+
+    const name=
+        localStorage.getItem(
+            "sscStudentName"
+        ) ||
+        "Student";
+
+
+    document
+        .getElementById(
+            "generalContent"
+        )
+        .innerHTML=`
+
+            <h2>
+                👤 My Profile
+            </h2>
+
+            <div class="input-group">
+
+                <input
+                    id="editName"
+                    value="${name}"
+                    placeholder="Full Name">
+
+            </div>
+
+            <div class="input-group">
+
+                <select id="editClass">
+                    <option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option>
+                </select>
+
+            </div>
+
+            <div class="input-group">
+
+                <input
+                    value="Roll No. 12"
+                    placeholder="Roll Number">
+
+            </div>
+
+            <button
+                class="primary-btn full"
+                onclick="saveProfile()">
+
+                Save Profile
+
+            </button>
+
+        `;
+
+
+    document
+        .getElementById(
+            "generalModal"
+        )
+        .classList.add("show");
+
+}
+
+
+/* ---------------------------------------------------------
+   SAVE PROFILE
+--------------------------------------------------------- */
+
+function saveProfile(){
+
+    const name=document.getElementById("editName").value.trim() || "Student";
+    const cls=document.getElementById("editClass")?.value || "6";
+    let st={}; try{st=JSON.parse(localStorage.getItem("sscStudent"))||{};}catch(e){}
+    st.name=name; st.studentClass=cls;
+    localStorage.setItem("sscStudent",JSON.stringify(st));
+    localStorage.setItem("sscStudentName",name);
+
+
+    loadStudentData();
+
+    closeModal(
+        "generalModal"
+    );
+
+
+    toast(
+        "Profile updated ✓"
+    );
+
+}
+
+
+/* =========================================================
+   CHANGE PASSWORD
+========================================================= */
+
+function changePassword(){
+
+    document
+        .getElementById(
+            "generalContent"
+        )
+        .innerHTML=`
+
+            <h2>
+                🔒 Change Password
+            </h2>
+
+            <div class="input-group">
+
+                <input
+                    type="password"
+                    placeholder="Old Password">
+
+            </div>
+
+            <div class="input-group">
+
+                <input
+                    type="password"
+                    placeholder="New Password">
+
+            </div>
+
+            <div class="input-group">
+
+                <input
+                    type="password"
+                    placeholder="Confirm Password">
+
+            </div>
+
+            <button
+                class="primary-btn full"
+                onclick="
+                    closeModal('generalModal');
+                    toast('Password changed successfully ✓');
+                ">
+
+                Change Password
+
+            </button>
+
+        `;
+
+
+    document
+        .getElementById(
+            "generalModal"
+        )
+        .classList.add("show");
+
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+function showAbout(){
+
+    document
+        .getElementById(
+            "generalContent"
+        )
+        .innerHTML=`
+
+            <h2>
+                🏫 SSC CLASSES
+            </h2>
+
+            <p
+                style="
+                line-height:1.7;
+                color:#667085;
+                ">
+
+                <b>
+                    Learn Today • Succeed Tomorrow
+                </b>
+
+                <br><br>
+
+                S.S.C CLASSES विद्यार्थियों को
+                बेहतर शिक्षा, मार्गदर्शन और
+                परीक्षा की तैयारी के लिए
+                digital learning platform
+                प्रदान करता है।
+
+                <br><br>
+
+                <b>
+                    Sarbela, Bihar
+                </b>
+
+                <br>
+
+                Director:
+                Sonu Sir
+
+                <br>
+
+                📞 7520414872
+
+            </p>
+
+        `;
+
+
+    document
+        .getElementById(
+            "generalModal"
+        )
+        .classList.add("show");
+
+}
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+function closeModal(id){
+
+    document
+        .getElementById(id)
+        .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function toast(message){
+
+    const box=
+        document.getElementById(
+            "toast"
+        );
+
+
+    box.textContent=
+        message;
+
+
+    box.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        window.toastTimer
+    );
+
+
+    window.toastTimer=
+        setTimeout(
+            function(){
+
+                box.classList.remove(
+                    "show"
+                );
+
+            },
+            2200
+        );
+
+}
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key==="Escape"){
+
+            document
+                .querySelectorAll(
+                    ".modal.show"
+                )
+                .forEach(
+                    modal=>{
+                        modal.classList.remove(
+                            "show"
+                        );
+                    }
+                );
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
