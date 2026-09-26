@@ -559,7 +559,7 @@ button:active{
 .hero{
     margin-top:18px;
 
-    min-height:151px;
+    min-height:270px;
 
     border-radius:18px;
 
@@ -588,8 +588,8 @@ button:active{
 }
 
 .hero-image{
-    width:92px;
-    height:112px;
+    width:207px;
+    height:248px;
     display:flex;
     align-items:flex-end;
     justify-content:center;
@@ -597,8 +597,8 @@ button:active{
 }
 
 .sir-hero-photo{
-    width:88px;
-    height:106px;
+    width:198px;
+    height:239px;
     object-fit:contain;
     display:block;
     transform:translateY(120%);
@@ -631,6 +631,9 @@ button:active{
     font-size:11px;
     font-weight:bold;
 }
+
+.hero-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.location-btn{background:#14532d;color:#fff;padding:9px 12px;border-radius:9px;font-size:11px;font-weight:700}
 
 
 /* =========================================================
@@ -1901,7 +1904,7 @@ input{
     .page{padding:14px;}
     .home-page{padding:0 14px;}
     .topbar{padding-left:14px;padding-right:14px;}
-    .hero{min-height:145px;padding:16px;}
+    .hero{min-height:270px;padding:16px;}
     .hero h2{font-size:19px;}
     .video-thumbnail{height:auto;aspect-ratio:16/9;}
 }
@@ -2063,8 +2066,8 @@ input{
                 <input
                     id="loginMobile"
                     type="text"
-                    maxlength="10"
-                    placeholder="Enter Mobile Number / Admin ID">
+                    maxlength="120"
+                    placeholder="Enter Mobile Number or Email">
 
             </div>
 
@@ -2123,6 +2126,8 @@ input{
 
             </button>
 
+            <button class="google-btn" style="margin-top:9px" onclick="emailLogin()">✉️ Sign in with Email</button>
+
 
             <div class="auth-footer">
 
@@ -2173,6 +2178,11 @@ input{
 
             </div>
 
+            <div class="input-group">
+                <span class="input-icon">✉️</span>
+                <input id="registerEmail" type="email" placeholder="Email address (for email sign-in)">
+            </div>
+
 
             <div class="input-group">
 
@@ -2184,6 +2194,11 @@ input{
                     type="tel"
                     placeholder="Mobile Number">
 
+            </div>
+
+            <div class="input-group">
+                <span class="input-icon">🪪</span>
+                <input id="registerRollNumber" type="text" maxlength="20" placeholder="Roll Number" autocomplete="off">
             </div>
 
 
@@ -2289,7 +2304,7 @@ input{
 
             <button
                 class="notification-button"
-                onclick="openScreen('notificationsScreen')">
+                onclick="openAllNotifications()">
 
                 🔔
 
@@ -2314,13 +2329,10 @@ input{
                     Your Bright Future
                 </p>
 
-                <button
-                    class="hero-btn"
-                    onclick="openSubjectsScreen()">
-
-                    Start Learning
-
-                </button>
+                <div class="hero-actions">
+                    <button class="hero-btn" onclick="openSubjectsScreen()">Start Learning</button>
+                    <button class="location-btn" onclick="openSchoolLocation()">📍 Location</button>
+                </div>
 
             </div>
 
@@ -2391,10 +2403,10 @@ input{
 
             <button
                 class="quick-card"
-                onclick="toast('YouTube section opened')">
+                onclick="openYouTubeChannel()">
 
                 <div class="quick-icon">
-                    ▶️
+                    <svg width="34" height="25" viewBox="0 0 24 18" aria-label="YouTube" role="img"><path fill="#FF0033" d="M23.5 2.8a3 3 0 0 0-2.1-2.1C19.5.2 12 .2 12 .2s-7.5 0-9.4.5A3 3 0 0 0 .5 2.8 31 31 0 0 0 0 9s0 3.3.5 6.2a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 12.3 24 9 24 9s0-3.3-.5-6.2Z"/><path fill="#fff" d="m9.6 12.8 6.2-3.8-6.2-3.8v7.6Z"/></svg>
                 </div>
 
                 <b>
@@ -2409,7 +2421,7 @@ input{
                 onclick="openWhatsApp()">
 
                 <div class="quick-icon">
-                    💬
+                    <svg width="32" height="32" viewBox="0 0 32 32" aria-label="WhatsApp" role="img"><path fill="#25D366" d="M16 2.5A13.3 13.3 0 0 0 4.6 22.7L3 29l6.5-1.6A13.4 13.4 0 1 0 16 2.5Z"/><path fill="#fff" d="M22.8 19.3c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.7.2-.2.3-.8 1.1-1 1.3-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.6-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6l-1-2.4c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.1 1.4 3.3c.2.2 2.3 3.6 5.6 5 .8.3 1.4.5 1.9.6.8.3 1.5.2 2 .1.6-.1 2-.8 2.3-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4Z"/></svg>
                 </div>
 
                 <b>
@@ -2606,6 +2618,8 @@ input{
 
 
     <div class="page result-page">
+
+        <div id="resultContent">
 
         <!-- RESULT HERO -->
 
@@ -2831,6 +2845,13 @@ input{
 
             </button>
 
+        </div>
+
+        </div>
+        <div id="noClassResultMessage" class="card" style="display:none;padding:22px;text-align:center">
+            <h2>No Result Yet</h2>
+            <p id="noClassResultText" style="margin-top:8px;color:#667085"></p>
+            <button class="primary-btn full" style="margin-top:14px" onclick="openScreen('testScreen')">View Tests</button>
         </div>
 
     </div>
@@ -3124,6 +3145,10 @@ input{
 
 </div>
 
+<div id="testInstructionsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="testInstructionsTitle">
+    <div id="testInstructionsContent" class="modal-box"></div>
+</div>
+
 
 <!-- TOAST -->
 
@@ -3313,7 +3338,7 @@ function togglePassword(id,button){
    LOGIN
 --------------------------------------------------------- */
 
-function studentLogin(){
+async function studentLogin(){
 
     const mobile =
         document
@@ -3325,6 +3350,16 @@ function studentLogin(){
         document
         .getElementById("loginPassword")
         .value;
+
+    if(mobile.includes("@")){
+        if(password.length<6){toast("Email password में कम से कम 6 characters होने चाहिए।");return;}
+        try{
+            const bridge=await window.sscAuthBridge;
+            const credential=await bridge.signInWithEmailAndPassword(bridge.auth,mobile,password);
+            await handleExternalStudentAuth(credential.user,"email");
+        }catch(error){console.error(error);toast("Email या password सही नहीं है, या email account उपलब्ध नहीं है।");}
+        return;
+    }
 
     if(!/^\d{10}$/.test(mobile)){
 
@@ -3346,11 +3381,13 @@ function studentLogin(){
     try{ students=JSON.parse(localStorage.getItem("sscStudents"))||[]; }catch(e){}
     const found=students.find(x=>String(x.mobile||"")===mobile && String(x.password||"")===String(password));
     if(!found){ toast("Mobile number या password गलत है।"); return; }
+    if(!found.rollNumber&&!found.rollNo){showLegacyRollSetup(found);return;}
     localStorage.setItem("sscStudentLoggedIn","true");
     localStorage.setItem("sscStudentName",found.name||"Student");
     localStorage.setItem("sscStudent",JSON.stringify(found));
 
     loadStudentData();
+    window.dispatchEvent(new Event("ssc-student-class-changed"));
 
     toast("Login successful ✓");
 
@@ -3369,11 +3406,13 @@ function studentLogin(){
    REGISTER
 --------------------------------------------------------- */
 
-function registerStudent(){
+async function registerStudent(){
 
     const name=document.getElementById("registerName")?.value.trim()||"";
     const mobile=document.getElementById("registerMobile")?.value.trim()||"";
     const password=document.getElementById("registerPassword")?.value||"";
+    const email=document.getElementById("registerEmail")?.value.trim().toLowerCase()||"";
+    const roll=document.getElementById("registerRollNumber")?.value.trim()||"";
     const cls=document.getElementById("registerClass")?.value||"";
     const photoInput=document.getElementById("registerPhoto");
 
@@ -3392,19 +3431,34 @@ function registerStudent(){
         return;
     }
 
+    if(!roll){toast("कृपया Roll Number दर्ज करें");return;}
+    if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){toast("सही email address डालें");return;}
+
     if(password.length<4){
         toast("Password कम से कम 4 characters रखें");
         return;
     }
 
-    const finishRegistration=(photoData)=>{
+    const finishRegistration=async(photoData)=>{
+        let authUid="";
+        if(email){
+            if(password.length<6){toast("Email account के लिए password कम से कम 6 characters का रखें");return;}
+            try{
+                const bridge=await window.sscAuthBridge;
+                const credential=await bridge.createUserWithEmailAndPassword(bridge.auth,email,password);
+                try{await bridge.updateProfile(credential.user,{displayName:name});}catch(profileError){console.warn("Firebase display name update failed",profileError);}
+                authUid=credential.user.uid;
+            }catch(error){console.error(error);toast("Email account नहीं बन पाया। यह email पहले से registered हो सकता है।");return;}
+        }
         const studentObj={
             id:Date.now(),
+            uid:authUid,
             name,
+            email,
             mobile,
             password,
             studentClass:cls,
-            rollNumber:"",
+            rollNumber:roll,
             fatherName:"",
             photo:photoData||"",
             registeredAt:new Date().toISOString()
@@ -3421,6 +3475,7 @@ function registerStudent(){
         localStorage.setItem("sscStudentLoggedIn","true");
         localStorage.setItem("sscStudentName",name);
         localStorage.setItem("sscStudentClass",cls);
+        window.dispatchEvent(new Event("ssc-student-class-changed"));
 
         loadStudentData();
         toast("Registration successful ✓");
@@ -3524,9 +3579,82 @@ document.addEventListener("change",function(event){
    GOOGLE LOGIN
 --------------------------------------------------------- */
 
-function googleLogin(){
-    toast("Google Login के लिए Firebase Google Auth connect करें। अभी Mobile Login इस्तेमाल करें।");
+let pendingAuthStudent=null;
+
+function activateStudentSession(student){
+    localStorage.setItem("sscStudentLoggedIn","true");
+    localStorage.setItem("sscStudent",JSON.stringify(student));
+    localStorage.setItem("sscStudentName",student.name||"Student");
+    localStorage.setItem("sscStudentClass",String(student.studentClass||""));
+    loadStudentData();
+    window.dispatchEvent(new Event("ssc-student-class-changed"));
+    closeModal("generalModal");
+    toast("Login successful ✓");
+    setTimeout(()=>openScreen("homeScreen"),350);
 }
+
+function handleExternalStudentAuth(user,provider){
+    const email=String(user.email||"").trim().toLowerCase();
+    const list=safeJSON("sscStudents",[]);
+    const existing=(Array.isArray(list)?list:[]).find(s=>String(s.email||"").trim().toLowerCase()===email);
+    if(existing?.studentClass && existing?.rollNumber){
+        existing.uid=user.uid;existing.email=email;existing.authProvider=provider;
+        localStorage.setItem("sscStudents",JSON.stringify(list));
+        activateStudentSession(existing);
+        return;
+    }
+    if(existing?.studentClass&&!existing?.rollNumber){
+        pendingAuthStudent={uid:user.uid,email,provider,name:existing.name||user.displayName||email.split("@")[0],photo:user.photoURL||existing.photo||"",fixedClass:String(existing.studentClass),legacyStudent:existing};
+        document.getElementById("generalContent").innerHTML=`<h2>Complete Your Profile</h2><p style="margin:0 0 12px;color:#667085">Your registered name and class are locked. Add your roll number to continue.</p><div class="input-group"><input value="${escapeHTML(pendingAuthStudent.name)}" readonly></div><div class="input-group"><input value="Class ${escapeHTML(pendingAuthStudent.fixedClass)}" readonly></div><div class="input-group"><input value="${escapeHTML(email)}" readonly></div><div class="input-group"><input id="externalProfileRoll" placeholder="Roll Number" maxlength="20"></div><button class="primary-btn full" onclick="saveExternalStudentProfile()">Save Profile</button>`;
+        document.getElementById("generalModal").classList.add("show");return;
+    }
+    pendingAuthStudent={uid:user.uid,email,provider,name:user.displayName||email.split("@")[0],photo:user.photoURL||""};
+    const options=[6,7,8,9,10,11,12].map(n=>`<option value="${n}">Class ${n}</option>`).join("");
+    document.getElementById("generalContent").innerHTML=`<h2>Complete Your Profile</h2><p style="margin:0 0 12px;color:#667085">Your name is taken from your Google/email account. Select your class and enter your roll number.</p><div class="input-group"><input value="${escapeHTML(pendingAuthStudent.name)}" readonly aria-label="Account name"></div><div class="input-group"><input value="${escapeHTML(email)}" readonly aria-label="Email"></div><div class="input-group"><select id="externalProfileClass"><option value="">Select Class</option>${options}</select></div><div class="input-group"><input id="externalProfileRoll" placeholder="Roll Number" maxlength="20"></div><button class="primary-btn full" onclick="saveExternalStudentProfile()">Save Profile</button>`;
+    document.getElementById("generalModal").classList.add("show");
+}
+
+function saveExternalStudentProfile(){
+    if(!pendingAuthStudent)return;
+    const cls=pendingAuthStudent.fixedClass||document.getElementById("externalProfileClass")?.value||"";
+    const roll=document.getElementById("externalProfileRoll")?.value.trim()||"";
+    if(!cls||!roll){toast("कृपया Class और Roll Number दोनों भरें");return;}
+    const s={...(pendingAuthStudent.legacyStudent||{}),id:pendingAuthStudent.uid,uid:pendingAuthStudent.uid,email:pendingAuthStudent.email,name:pendingAuthStudent.name,studentClass:cls,rollNumber:roll,mobile:pendingAuthStudent.legacyStudent?.mobile||"",password:pendingAuthStudent.legacyStudent?.password||"",photo:pendingAuthStudent.photo,authProvider:pendingAuthStudent.provider,registeredAt:pendingAuthStudent.legacyStudent?.registeredAt||new Date().toISOString()};
+    const list=safeJSON("sscStudents",[]).filter(x=>String(x.email||"").toLowerCase()!==s.email);
+    list.push(s);localStorage.setItem("sscStudents",JSON.stringify(list));pendingAuthStudent=null;activateStudentSession(s);
+}
+
+async function googleLogin(){
+    try{
+        if(!window.sscGoogleLogin)throw new Error("Google sign-in is not ready");
+        await window.sscGoogleLogin();
+    }catch(error){console.error(error);toast("Google sign-in नहीं हो पाया। Firebase में Google provider चालू करें।");}
+}
+
+function emailLogin(){
+    const field=document.getElementById("loginMobile");
+    if(field && !field.value.includes("@")){field.focus();field.placeholder="Enter your email address";toast("Email address और password भरकर फिर क्लिक करें।");return;}
+    studentLogin();
+}
+
+let pendingLegacyRollStudent=null;
+function showLegacyRollSetup(student){
+    pendingLegacyRollStudent=student;
+    document.getElementById("generalContent").innerHTML=`<h2>Complete Your Profile</h2><p style="margin:0 0 12px;color:#667085">Your registered name and class are locked. Add your roll number once.</p><div class="input-group"><input value="${escapeHTML(student.name||student.studentName||"Student")}" readonly></div><div class="input-group"><input value="Class ${escapeHTML(student.studentClass||student.class||"-")}" readonly></div><div class="input-group"><input id="legacyRollNumber" placeholder="Roll Number" maxlength="20"></div><button class="primary-btn full" onclick="saveLegacyRollNumber()">Save Roll Number</button>`;
+    document.getElementById("generalModal").classList.add("show");
+}
+function saveLegacyRollNumber(){
+    const roll=document.getElementById("legacyRollNumber")?.value.trim()||"";
+    if(!roll||!pendingLegacyRollStudent){toast("कृपया Roll Number दर्ज करें");return;}
+    pendingLegacyRollStudent.rollNumber=roll;
+    const list=safeJSON("sscStudents",[]),i=list.findIndex(x=>String(x.mobile||"")===String(pendingLegacyRollStudent.mobile||""));
+    if(i>=0)list[i]=pendingLegacyRollStudent;
+    localStorage.setItem("sscStudents",JSON.stringify(list));
+    const saved=pendingLegacyRollStudent;pendingLegacyRollStudent=null;
+    activateStudentSession(saved);
+}
+
+function openSchoolLocation(){window.open("https://maps.app.goo.gl/cUzsvg5M5cPF12YQ8?g_st=aw","_blank","noopener,noreferrer");}
 
 
 /* ---------------------------------------------------------
@@ -3558,6 +3686,8 @@ function logout(){
             "क्या आप logout करना चाहते हैं?"
         )
     ){
+
+        if(window.sscAuthBridge)window.sscAuthBridge.then(b=>b.signOut(b.auth)).catch(e=>console.warn("Firebase sign-out failed",e));
 
         localStorage.removeItem(
             "sscStudentLoggedIn"
@@ -3640,18 +3770,32 @@ async function getLocalStudentVideo(id){const db=await openSSCStudentVideoDB();r
 function getYouTubeId(url){const m=String(url||'').match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/i);return m?m[1]:'';}
 function commentsKey(videoId){return `sscVideoComments_${String(videoId)}`;}
 function loadVideoComments(videoId){const x=safeJSON(commentsKey(videoId),[]);return Array.isArray(x)?x:[];}
-function saveVideoComment(videoId){
+async function saveVideoComment(videoId){
   const input=document.getElementById("videoCommentInput");
   if(!input){toast("Comment box नहीं मिला।");return false;}
   const text=String(input.value||"").trim();
   if(!text){toast("पहले comment लिखें।");input.focus();return false;}
   const name=localStorage.getItem("sscStudentName") || studentRecord().name || "Student";
+  const student=studentRecord();
+  let cloudFailed=false;
+  try{
+    const bridge=await window.sscVideoCommentsBridge;
+    if(bridge?.auth?.currentUser){
+      await bridge.addDoc(bridge.collection(bridge.db,"messages"),{
+        type:"video_comment",videoId:String(videoId),name,text,uid:bridge.auth.currentUser.uid,
+        studentClass:String(student.studentClass||student.class||""),createdAt:bridge.serverTimestamp()
+      });
+      input.value="";
+      toast("✅ Comment भेज दिया गया।");
+      return false;
+    }
+  }catch(error){cloudFailed=true;console.error("Shared video comment could not be sent",error);}
   const comments=loadVideoComments(videoId);
   comments.push({id:"c_"+Date.now(),name,text,createdAt:new Date().toISOString()});
   localStorage.setItem(commentsKey(videoId),JSON.stringify(comments));
   input.value="";
   renderVideoComments(videoId);
-  toast("✅ Comment भेज दिया गया।");
+  toast(cloudFailed?"Comment इस device पर save हुआ; Firebase sync में समस्या आई।":"Comment इस device पर save हुआ। Share करने के लिए Google/email से sign in करें।");
   return false;
 }
 window.saveVideoComment=saveVideoComment;
@@ -3661,6 +3805,20 @@ function renderVideoComments(videoId){
   const comments=loadVideoComments(videoId);
   box.innerHTML=comments.length?comments.map(c=>`<div style="padding:10px 0;border-bottom:1px solid #e5e7eb"><b>${escapeHTML(c.name||"Student")}</b><p style="margin:5px 0 0;white-space:pre-wrap">${escapeHTML(c.text||"")}</p><small style="color:#94a3b8">${escapeHTML(new Date(c.createdAt||Date.now()).toLocaleString("en-IN"))}</small></div>`).join(""):"<p style=\"color:#6b7280;text-align:center\">अभी कोई comment नहीं है। पहला comment करें।</p>";
 }
+async function watchSharedVideoComments(videoId){
+  try{
+    const bridge=await window.sscVideoCommentsBridge;
+    if(!bridge)return;
+    const q=bridge.query(bridge.collection(bridge.db,"messages"),bridge.where("videoId","==",String(videoId)));
+    bridge.onSnapshot(q,snapshot=>{
+      const box=document.getElementById("videoCommentsList");if(!box)return;
+      const local=loadVideoComments(videoId).map(c=>({...c,createdAt:new Date(c.createdAt||Date.now())}));
+      const shared=snapshot.docs.map(d=>{const c=d.data();return {...c,id:d.id,createdAt:c.createdAt?.toDate?c.createdAt.toDate():new Date(c.createdAt||Date.now())};});
+      const comments=[...shared,...local].sort((a,b)=>new Date(a.createdAt)-new Date(b.createdAt));
+      box.innerHTML=comments.length?comments.map(c=>`<div style="padding:10px 0;border-bottom:1px solid #e5e7eb"><b>${escapeHTML(c.name||"Student")}</b><p style="margin:5px 0 0;white-space:pre-wrap">${escapeHTML(c.text||"")}</p><small style="color:#94a3b8">${escapeHTML(new Date(c.createdAt||Date.now()).toLocaleString("en-IN"))}</small></div>`).join(""):"<p style=\"color:#6b7280;text-align:center\">अभी कोई comment नहीं है। पहला comment करें।</p>";
+    },error=>console.warn("Shared video comments could not be loaded",error));
+  }catch(error){console.warn("Shared video comments are unavailable",error);}
+}
 async function playStoredVideo(id){
   const v=getVideoStore().find(x=>String(x.id)===String(id)); if(!v){toast('Video उपलब्ध नहीं है।');return;}
   const box=document.getElementById('dynamicLecture'); if(!box)return; box.innerHTML='<div class="video-player"><p style="color:#fff;text-align:center;padding:30px">⏳ Video loading...</p></div>';
@@ -3669,6 +3827,7 @@ async function playStoredVideo(id){
   else {const yt=getYouTubeId(url); if(yt)player=`<div style="position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden"><iframe src="https://www.youtube.com/embed/${encodeURIComponent(yt)}?rel=0" title="${escapeHTML(v.title||'Video Class')}" style="position:absolute;inset:0;width:100%;height:100%;border:0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`; else if(url)player=`<video controls playsinline preload="metadata" style="display:block;width:100%;aspect-ratio:16/9;height:auto;object-fit:contain;background:#000;border-radius:12px" src="${escapeHTML(url)}"></video>`; else player='<div style="color:#fff;padding:30px;text-align:center">Video URL उपलब्ध नहीं है।</div>';}
   box.innerHTML=`<div class="card" style="padding:12px"><div class="video-player" style="width:100%;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden">${player}</div><h2 style="margin-top:15px">${escapeHTML(v.title||'Video Class')}</h2><p style="color:#6b7280;margin-top:7px">Class ${escapeHTML(studentClassValue())} • ${escapeHTML(v.subject||'')} • ${escapeHTML(v.chapter||'')}</p>${v.description?`<p style="margin-top:10px">${escapeHTML(v.description)}</p>`:''}</div><div class="card" style="padding:16px;margin-top:12px"><h3>💬 Comments</h3><textarea id="videoCommentInput" rows="3" placeholder="अपना comment लिखें..." style="width:100%;margin-top:10px;padding:10px;border:1px solid #d1d5db;border-radius:10px;resize:vertical"></textarea><button class="primary-btn full" style="margin-top:8px" onclick="saveVideoComment(${JSON.stringify(String(v.id||''))})">Comment भेजें</button><div id="videoCommentsList" style="margin-top:12px"></div></div><button class="primary-btn full" style="margin-top:12px" onclick="openChapters(${JSON.stringify(v.subject||'')})">← Back to Chapters</button>`;
   renderVideoComments(String(v.id||''));
+  watchSharedVideoComments(String(v.id||''));
 }
 function openLecture(){const subject=document.getElementById('chapterSubject')?.textContent?.split(' • ')[0]||'';const ch=getClassChapters(studentClassValue(),subject)[0]||'';if(ch)openChapterContent(subject,ch);else toast('इस subject में chapter उपलब्ध नहीं है।');}
 function playVideo(){toast('Chapter खोलें और Watch Video दबाएँ।');}
@@ -3687,370 +3846,659 @@ let secondsLeft = 0;
 let testSubmitted = false;
 
 const fallbackQuestions = [
-      /*SCIENCE*/
-      {
-    subject:"Science",
-    class:"10",
-    question:"मैग्नीशियम रिबन को जलाने पर कौन-सा पदार्थ बनता है?",
-    options:["मैग्नीशियम क्लोराइड","मैग्नीशियम सल्फेट","मैग्नीशियम ऑक्साइड","मैग्नीशियम नाइट्रेट"],
-    correct:2
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"जिस अभिक्रिया में ऑक्सीजन का योग होता है, उसे क्या कहते हैं?",
-    options:["अपचयन","विस्थापन","ऑक्सीकरण","उदासीनीकरण"],
-    correct:2
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"लोहे पर जंग लगना किसका उदाहरण है?",
-    options:["संक्षारण","अपचयन","उदासीनीकरण","विस्थापन"],
-    correct:0
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"वह अभिक्रिया जिसमें एक यौगिक टूटकर दो या अधिक पदार्थ बनाता है, क्या कहलाती है?",
-    options:["संयोजन अभिक्रिया","अपघटन अभिक्रिया","विस्थापन अभिक्रिया","द्विविस्थापन अभिक्रिया"],
-    correct:1
-},
 
-{
-    subject:"Science",
-    class:"10",
-    question:"उदासीन विलयन का pH मान कितना होता है?",
-    options:["0","7","10","14"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"बेकिंग सोडा का रासायनिक सूत्र क्या है?",
-    options:["NaCl","NaOH","NaHCO₃","Na₂CO₃"],
-    correct:2
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"अम्ल और क्षार की अभिक्रिया से नमक और जल बनता है। इसे क्या कहते हैं?",
-    options:["विस्थापन","उदासीनीकरण","अपघटन","ऑक्सीकरण"],
-    correct:1
-},
+    /* MATHEMATICS */
 
-{
-    subject:"Science",
-    class:"10",
-    question:"सोडियम धातु को किसमें रखा जाता है?",
-    options:["जल में","मिट्टी के तेल में","अल्कोहल में","हवा में"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"निम्न में से कौन-सा उभयधर्मी ऑक्साइड है?",
-    options:["Na₂O","MgO","Al₂O₃","CO₂"],
-    correct:2
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"आयनिक यौगिकों का गलनांक सामान्यतः अधिक क्यों होता है?",
-    options:["वे बहुत हल्के होते हैं","उनमें प्रबल वैद्युतस्थैतिक बल होता है","वे गैस होते हैं","वे जल में नहीं घुलते"],
-    correct:1
-},
+    {
+        subject:"Mathematics",
+        question:"36 और 48 का HCF क्या है?",
+        options:["6","12","18","24"],
+        correct:1
+    },
 
-{
-    subject:"Science",
-    class:"10",
-    question:"निम्नलिखित में से कौन-सी अधातु विद्युत की सुचालक है?",
-    options:["सल्फर","फॉस्फोरस","ग्रेफाइट","ऑक्सीजन"],
-    correct:2
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"कार्बन की संयोजकता कितनी होती है?",
-    options:["1","2","3","4"],
-    correct:3
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"एथेन का रासायनिक सूत्र क्या है?",
-    options:["CH₄","C₂H₆","C₂H₄","C₃H₈"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"सहसंयोजक बंध का निर्माण कैसे होता है?",
-    options:["इलेक्ट्रॉन त्यागने से","इलेक्ट्रॉन ग्रहण करने से","इलेक्ट्रॉनों की साझेदारी से","न्यूट्रॉन के विनिमय से"],
-    correct:2
-},
+    {
+        subject:"Mathematics",
+        question:"बहुपद x² - 5x + 6 के शून्यक हैं—",
+        options:["1, 6","2, 3","-2, -3","3, 4"],
+        correct:1
+    },
 
-{
-    subject:"Science",
-    class:"10",
-    question:"प्रकाश संश्लेषण के लिए आवश्यक हरा वर्णक कौन-सा है?",
-    options:["हीमोग्लोबिन","क्लोरोफिल","इंसुलिन","मेलनिन"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"पौधों में जल और खनिजों का परिवहन कौन करता है?",
-    options:["फ्लोएम","जाइलम","रंध्र","तंत्रिका"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"मानव शरीर में रक्त को छानने का कार्य कौन-सा अंग करता है?",
-    options:["हृदय","फेफड़ा","वृक्क","आमाशय"],
-    correct:2
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"पत्तियों में गैसों का आदान-प्रदान किसके द्वारा होता है?",
-    options:["जाइलम","फ्लोएम","रंध्र","जड़ रोम"],
-    correct:2
-},
+    {
+        subject:"Mathematics",
+        question:"समीकरण x + y = 7 और x - y = 1 का हल है—",
+        options:[
+            "x=3, y=4",
+            "x=4, y=3",
+            "x=5, y=2",
+            "x=2, y=5"
+        ],
+        correct:1
+    },
 
-{
-    subject:"Science",
-    class:"10",
-    question:"तंत्रिका तंत्र की संरचनात्मक और क्रियात्मक इकाई क्या है?",
-    options:["नेफ्रॉन","न्यूरॉन","एल्विओलाई","प्लेटलेट"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"प्रतिवर्ती क्रिया का नियंत्रण मुख्यतः कौन करता है?",
-    options:["मस्तिष्क","मेरुरज्जु","हृदय","फेफड़ा"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"पौधों के तने की प्रकाश की ओर वृद्धि किस हार्मोन के कारण होती है?",
-    options:["इंसुलिन","ऑक्सिन","थायरॉक्सिन","एड्रेनालिन"],
-    correct:1
-},
+    {
+        subject:"Mathematics",
+        question:"द्विघात समीकरण x² - 5x + 6 = 0 के मूल हैं—",
+        options:["1, 6","2, 3","-2, -3","3, 4"],
+        correct:1
+    },
 
-{
-    subject:"Science",
-    class:"10",
-    question:"अमीबा में अलैंगिक जनन किस विधि से होता है?",
-    options:["कली बनना","द्विखंडन","बीजाणु बनना","परागण"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"पुष्प का नर जनन अंग कौन-सा है?",
-    options:["वर्तिकाग्र","अंडाशय","पुंकेसर","बाह्यदल"],
-    correct:2
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"निषेचन के बाद पुष्प का अंडाशय किसमें बदलता है?",
-    options:["बीज में","फल में","पत्ती में","जड़ में"],
-    correct:1
-},
+    {
+        subject:"Mathematics",
+        question:"समांतर श्रेणी 2, 5, 8, 11,... का सार्व अंतर है—",
+        options:["2","3","4","5"],
+        correct:1
+    },
 
-{
-    subject:"Science",
-    class:"10",
-    question:"आनुवंशिकता की इकाई क्या कहलाती है?",
-    options:["कोशिका","जीन","ऊतक","अंग"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"मनुष्य में नर का लैंगिक गुणसूत्र संयोजन क्या है?",
-    options:["XX","XY","YY","XO"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"मटर के पौधों पर प्रयोग करने वाले वैज्ञानिक कौन थे?",
-    options:["चार्ल्स डार्विन","ग्रेगर मेंडल","न्यूटन","रॉबर्ट हुक"],
-    correct:1
-},
+    {
+        subject:"Mathematics",
+        question:"यदि दो त्रिभुजों के तीनों संगत कोण बराबर हों, तो वे कहलाते हैं—",
+        options:[
+            "सर्वांगसम",
+            "समद्विबाहु",
+            "समरूप",
+            "समकोण"
+        ],
+        correct:2
+    },
 
-{
-    subject:"Science",
-    class:"10",
-    question:"अवतल लेंस से गुजरने के बाद प्रकाश किरणें कैसी हो जाती हैं?",
-    options:["अभिसारी","अपसारी","रुक जाती हैं","परावर्तित हो जाती हैं"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"वाहन के rear-view mirror में कौन-सा दर्पण उपयोग होता है?",
-    options:["समतल दर्पण","अवतल दर्पण","उत्तल दर्पण","कोई दर्पण नहीं"],
-    correct:2
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"लेंस की क्षमता की SI इकाई क्या है?",
-    options:["मीटर","डायोप्टर","जूल","वाट"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"उत्तल लेंस के फोकस और प्रकाशिक केंद्र के बीच वस्तु रखने पर प्रतिबिंब कैसा बनता है?",
-    options:["वास्तविक और उल्टा","आभासी, सीधा और बड़ा","वास्तविक और छोटा","कोई प्रतिबिंब नहीं"],
-    correct:1
-},
+    {
+        subject:"Mathematics",
+        question:"बिंदु (3, 4) की मूल बिंदु से दूरी है—",
+        options:["3","4","5","7"],
+        correct:2
+    },
 
-{
-    subject:"Science",
-    class:"10",
-    question:"मानव नेत्र में प्रतिबिंब कहाँ बनता है?",
-    options:["कॉर्निया पर","परितारिका पर","रेटिना पर","पुतली पर"],
-    correct:2
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"निकट दृष्टिदोष को दूर करने के लिए कौन-सा लेंस लगाया जाता है?",
-    options:["उत्तल लेंस","अवतल लेंस","बेलनाकार लेंस","द्विफोकसी लेंस"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"आकाश का रंग नीला दिखाई देने का कारण क्या है?",
-    options:["परावर्तन","अपवर्तन","प्रकाश का प्रकीर्णन","वर्ण विक्षेपण"],
-    correct:2
-},
+    {
+        subject:"Mathematics",
+        question:"sin 30° का मान है—",
+        options:["0","1/2","√3/2","1"],
+        correct:1
+    },
 
-{
-    subject:"Science",
-    class:"10",
-    question:"विद्युत धारा की SI इकाई क्या है?",
-    options:["वोल्ट","एम्पियर","ओम","वाट"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"ओम के नियम के अनुसार V = ?",
-    options:["I/R","IR","R/I","I+R"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"श्रृंखला क्रम में जुड़े प्रतिरोधों का कुल प्रतिरोध क्या होता है?",
-    options:["सबसे छोटे प्रतिरोध के बराबर","प्रतिरोधों का योग","प्रतिरोधों का गुणनफल","शून्य"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"विद्युत ऊर्जा की व्यावसायिक इकाई क्या है?",
-    options:["जूल","किलोवाट-घंटा","वाट","एम्पियर"],
-    correct:1
-},
+    {
+        subject:"Mathematics",
+        question:"वृत्त की त्रिज्या 7 cm है। उसका क्षेत्रफल (π = 22/7) होगा—",
+        options:[
+            "44 cm²",
+            "88 cm²",
+            "154 cm²",
+            "308 cm²"
+        ],
+        correct:2
+    },
 
-{
-    subject:"Science",
-    class:"10",
-    question:"विद्युत मोटर किस सिद्धांत पर कार्य करती है?",
-    options:["धारा के रासायनिक प्रभाव पर","चुंबकीय क्षेत्र में धारा-वाहक चालक पर बल लगता है","अपवर्तन पर","परावर्तन पर"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"फ्लेमिंग के बाएँ हाथ का नियम किसकी दिशा बताता है?",
-    options:["प्रेरित धारा की दिशा","बल या गति की दिशा","प्रतिरोध की दिशा","ऊष्मा की दिशा"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"विद्युत चुंबक बनाने के लिए लोहे के किस प्रकार के टुकड़े का उपयोग किया जाता है?",
-    options:["कठोर इस्पात","नरम लोहा","तांबा","एल्यूमिनियम"],
-    correct:1
-},
+    {
+        subject:"Mathematics",
+        question:"एक सिक्का एक बार उछालने पर Head आने की प्रायिकता है—",
+        options:["0","1/4","1/2","1"],
+        correct:2
+    },
 
-{
-    subject:"Science",
-    class:"10",
-    question:"ओजोन परत हमें किस हानिकारक किरण से बचाती है?",
-    options:["अवरक्त किरणें","पराबैंगनी किरणें","रेडियो तरंगें","ध्वनि तरंगें"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"निम्न में से कौन जैव-अविघटनीय पदार्थ है?",
-    options:["कागज","सब्जी का छिलका","प्लास्टिक","कपास"],
-    correct:2
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"खाद्य श्रृंखला में ऊर्जा का प्रवाह कैसा होता है?",
-    options:["दोनों दिशाओं में","चक्रीय","एकदिशीय","ऊपर से नीचे और नीचे से ऊपर"],
-    correct:2
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"एक पोषी स्तर से अगले पोषी स्तर तक लगभग कितनी ऊर्जा पहुँचती है?",
-    options:["1%","10%","50%","100%"],
-    correct:1
-},
 
-{
-    subject:"Science",
-    class:"10",
-    question:"3R का सही क्रम क्या है?",
-    options:["Read, Run, Rest","Reduce, Reuse, Recycle","Repair, Remove, Return","React, Reduce, Restore"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"वर्षा जल संचयन का मुख्य लाभ क्या है?",
-    options:["हवा को गर्म करना","भूजल स्तर बढ़ाना","ध्वनि कम करना","प्लास्टिक बनाना"],
-    correct:1
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"निम्न में से कौन-सा अनवीकरणीय प्राकृतिक संसाधन है?",
-    options:["सौर ऊर्जा","पवन ऊर्जा","कोयला","जल"],
-    correct:2
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"वनों की कटाई से कौन-सी समस्या बढ़ती है?",
-    options:["मृदा अपरदन","ऑक्सीजन उत्पादन","वर्षा जल संचयन","भूजल निर्माण"],
-    correct:0
-},
-{
-    subject:"Science",
-    class:"10",
-    question:"सतत विकास का अर्थ क्या है?",
-    options:["संसाधनों का असीमित उपयोग","वर्तमान जरूरतें पूरी करते हुए भविष्य की जरूरतों का ध्यान रखना","केवल उद्योग बढ़ाना","सभी वन काट देना"],
-    correct:1
-}
+    /* SCIENCE */
+
+    {
+        subject:"Science",
+        question:"निम्न में से कौन-सी रासायनिक अभिक्रिया का उदाहरण है?",
+        options:[
+            "बर्फ का पिघलना",
+            "पानी का जमना",
+            "लोहे में जंग लगना",
+            "पानी का वाष्पीकरण"
+        ],
+        correct:2
+    },
+
+    {
+        subject:"Science",
+        question:"अम्ल का pH सामान्यतः होता है—",
+        options:["7 से अधिक","7","7 से कम","14"],
+        correct:2
+    },
+
+    {
+        subject:"Science",
+        question:"निम्न में से कौन-सी धातु है?",
+        options:["ऑक्सीजन","सल्फर","लोहा","कार्बन"],
+        correct:2
+    },
+
+    {
+        subject:"Science",
+        question:"मीथेन का रासायनिक सूत्र है—",
+        options:["CH₃","CH₄","C₂H₆","CO₂"],
+        correct:1
+    },
+
+    {
+        subject:"Science",
+        question:"प्रकाश संश्लेषण मुख्यतः पौधे के किस भाग में होता है?",
+        options:["जड़","तना","पत्ती","फूल"],
+        correct:2
+    },
+
+    {
+        subject:"Science",
+        question:"मानव शरीर में रक्त का संचार किस अंग द्वारा किया जाता है?",
+        options:["फेफड़े","हृदय","गुर्दा","मस्तिष्क"],
+        correct:1
+    },
+
+    {
+        subject:"Science",
+        question:"मनुष्य में श्वसन के दौरान मुख्य रूप से कौन-सी गैस अंदर ली जाती है?",
+        options:[
+            "नाइट्रोजन",
+            "ऑक्सीजन",
+            "कार्बन डाइऑक्साइड",
+            "हाइड्रोजन"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"Science",
+        question:"विद्युत धारा की SI इकाई है—",
+        options:["वोल्ट","ओम","एम्पियर","वाट"],
+        correct:2
+    },
+
+    {
+        subject:"Science",
+        question:"विद्युत शक्ति की SI इकाई है—",
+        options:["जूल","वाट","वोल्ट","एम्पियर"],
+        correct:1
+    },
+
+    {
+        subject:"Science",
+        question:"विद्युत मोटर किस ऊर्जा को यांत्रिक ऊर्जा में बदलती है?",
+        options:[
+            "ऊष्मीय",
+            "विद्युत",
+            "रासायनिक",
+            "प्रकाश"
+        ],
+        correct:1
+    },
+
+
+    /* SOCIAL SCIENCE */
+
+    {
+        subject:"Social Science",
+        question:"भारत में राष्ट्रवाद के विकास में किस आंदोलन की महत्वपूर्ण भूमिका थी?",
+        options:[
+            "असहयोग आंदोलन",
+            "हरित क्रांति",
+            "श्वेत क्रांति",
+            "औद्योगिक क्रांति"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Social Science",
+        question:"भारत में असहयोग आंदोलन किसने शुरू किया था?",
+        options:[
+            "सुभाष चंद्र बोस",
+            "महात्मा गांधी",
+            "भगत सिंह",
+            "जवाहरलाल नेहरू"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"Social Science",
+        question:"भारत में सबसे अधिक क्षेत्र में कौन-सी फसल उगाई जाती है?",
+        options:["चाय","गेहूँ","चावल","कॉफी"],
+        correct:2
+    },
+
+    {
+        subject:"Social Science",
+        question:"भारत में संघीय व्यवस्था का अर्थ है—",
+        options:[
+            "केवल केंद्र की सरकार",
+            "केवल राज्य की सरकार",
+            "केंद्र और राज्यों के बीच सत्ता का विभाजन",
+            "न्यायपालिका का शासन"
+        ],
+        correct:2
+    },
+
+    {
+        subject:"Social Science",
+        question:"लोकतंत्र में अंतिम निर्णय लेने की शक्ति किसके पास होनी चाहिए?",
+        options:[
+            "सेना",
+            "निर्वाचित प्रतिनिधियों",
+            "न्यायाधीशों",
+            "अधिकारियों"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"Social Science",
+        question:"भारत में मुद्रा जारी करने का मुख्य अधिकार किस संस्था के पास है?",
+        options:["SBI","RBI","NABARD","SEBI"],
+        correct:1
+    },
+
+    {
+        subject:"Social Science",
+        question:"प्राथमिक क्षेत्र में कौन-सा कार्य आता है?",
+        options:["बैंकिंग","खेती","अध्यापन","परिवहन"],
+        correct:1
+    },
+
+    {
+        subject:"Social Science",
+        question:"वैश्वीकरण का प्रमुख अर्थ है—",
+        options:[
+            "देशों के बीच आर्थिक संबंधों में वृद्धि",
+            "केवल स्थानीय व्यापार",
+            "व्यापार पर पूर्ण प्रतिबंध",
+            "केवल कृषि उत्पादन"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Social Science",
+        question:"उपभोक्ता के अधिकारों की रक्षा के लिए भारत में कौन-सा कानून बनाया गया?",
+        options:[
+            "उपभोक्ता संरक्षण कानून",
+            "वन कानून",
+            "शिक्षा कानून",
+            "कृषि कानून"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Social Science",
+        question:"राजनीतिक दल का मुख्य उद्देश्य क्या होता है?",
+        options:[
+            "चुनाव लड़ना और सरकार बनाना",
+            "केवल व्यापार करना",
+            "न्यायालय चलाना",
+            "सेना चलाना"
+        ],
+        correct:0
+    },
+
+
+    /* HINDI */
+
+    {
+        subject:"Hindi",
+        question:"‘सूरदास’ किस भक्ति धारा के प्रमुख कवि हैं?",
+        options:[
+            "रामभक्ति",
+            "कृष्णभक्ति",
+            "निर्गुण भक्ति",
+            "सूफी भक्ति"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘राम-लक्ष्मण-परशुराम संवाद’ के रचनाकार कौन हैं?",
+        options:[
+            "तुलसीदास",
+            "सूरदास",
+            "कबीर",
+            "बिहारी"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘आत्मकथ्य’ कविता के कवि कौन हैं?",
+        options:[
+            "जयशंकर प्रसाद",
+            "नागार्जुन",
+            "निराला",
+            "मंगलेश डबराल"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘उत्साह’ कविता के रचनाकार हैं—",
+        options:[
+            "सूर्यकांत त्रिपाठी ‘निराला’",
+            "नागार्जुन",
+            "तुलसीदास",
+            "देव"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘यह दंतुरित मुस्कान’ के कवि कौन हैं?",
+        options:[
+            "नागार्जुन",
+            "प्रसाद",
+            "निराला",
+            "देव"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘नेताजी का चश्मा’ के लेखक कौन हैं?",
+        options:[
+            "स्वयं प्रकाश",
+            "मन्नू भंडारी",
+            "प्रेमचंद",
+            "हजारी प्रसाद द्विवेदी"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘बालगोबिन भगत’ के लेखक हैं—",
+        options:[
+            "रामवृक्ष बेनीपुरी",
+            "स्वयं प्रकाश",
+            "यतीन्द्र मिश्रा",
+            "प्रहलाद अग्रवाल"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘लखनवी अंदाज़’ के लेखक कौन हैं?",
+        options:[
+            "यतीन्द्र मिश्रा",
+            "मन्नू भंडारी",
+            "स्वयं प्रकाश",
+            "रामवृक्ष बेनीपुरी"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘एक कहानी यह भी’ की लेखिका हैं—",
+        options:[
+            "मन्नू भंडारी",
+            "महादेवी वर्मा",
+            "सुभद्रा कुमारी चौहान",
+            "कृष्णा सोबती"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Hindi",
+        question:"‘संस्कृति’ पाठ के लेखक हैं—",
+        options:[
+            "हजारी प्रसाद द्विवेदी",
+            "रामवृक्ष बेनीपुरी",
+            "स्वयं प्रकाश",
+            "प्रेमचंद"
+        ],
+        correct:0
+    },
+
+
+    /* ENGLISH */
+
+    {
+        subject:"English",
+        question:"Who wrote 'A Letter to God'?",
+        options:[
+            "Nelson Mandela",
+            "G.L. Fuentes",
+            "Anne Frank",
+            "Robert Frost"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"English",
+        question:"What was Lencho's profession?",
+        options:[
+            "Teacher",
+            "Farmer",
+            "Doctor",
+            "Postman"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"English",
+        question:"Nelson Mandela became the first black President of—",
+        options:[
+            "India",
+            "America",
+            "South Africa",
+            "England"
+        ],
+        correct:2
+    },
+
+    {
+        subject:"English",
+        question:"Anne Frank named her diary—",
+        options:[
+            "Kitty",
+            "Maria",
+            "Helen",
+            "Alice"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"English",
+        question:"Mijbil was a—",
+        options:[
+            "Dog",
+            "Cat",
+            "Otter",
+            "Rabbit"
+        ],
+        correct:2
+    },
+
+    {
+        subject:"English",
+        question:"Who wrote 'The Sermon at Benares'?",
+        options:[
+            "Betty Renshaw",
+            "James Herriot",
+            "Pearl S. Buck",
+            "Vicente Blasco Ibáñez"
+        ],
+        correct:2
+    },
+
+    {
+        subject:"English",
+        question:"In 'Madam Rides the Bus', Valli wanted to travel by—",
+        options:[
+            "Train",
+            "Bus",
+            "Car",
+            "Bicycle"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"English",
+        question:"Tricki was a—",
+        options:[
+            "Cat",
+            "Dog",
+            "Horse",
+            "Parrot"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"English",
+        question:"Who was Hari Singh in 'The Thief's Story'?",
+        options:[
+            "A teacher",
+            "A young thief",
+            "A doctor",
+            "A policeman"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"English",
+        question:"The necklace in 'The Necklace' was borrowed by—",
+        options:[
+            "Matilda Loisel",
+            "Mrs Hall",
+            "Bholi",
+            "Anne Frank"
+        ],
+        correct:0
+    },
+
+
+    /* SANSKRIT */
+
+    {
+        subject:"Sanskrit",
+        question:"‘शुचिपर्यावरणम्’ पाठ का मुख्य विषय है—",
+        options:[
+            "पर्यावरण की स्वच्छता",
+            "खेल",
+            "व्यापार",
+            "युद्ध"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘बुद्धिर्बलवती सदा’ का अर्थ है—",
+        options:[
+            "बुद्धि सदा बलवान होती है",
+            "शरीर बलवान है",
+            "धन बलवान है",
+            "राजा बलवान है"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘व्यायामः सर्वदा पथ्यः’ का संबंध किससे है?",
+        options:[
+            "भोजन",
+            "व्यायाम और स्वास्थ्य",
+            "शिक्षा",
+            "व्यापार"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘जननी तुल्यवत्सला’ में ‘जननी’ का अर्थ है—",
+        options:[
+            "पिता",
+            "माता",
+            "भाई",
+            "बहन"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘सुभाषितानि’ का अर्थ है—",
+        options:[
+            "अच्छे वचन",
+            "कठिन शब्द",
+            "कहानी",
+            "प्रश्न"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘सौहार्दं प्रकृतेः शोभा’ का संबंध किससे है?",
+        options:[
+            "प्रकृति और सौहार्द",
+            "युद्ध",
+            "व्यापार",
+            "राजनीति"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘विचित्रः साक्षी’ में ‘साक्षी’ का अर्थ है?",
+        options:[
+            "गवाह",
+            "शिक्षक",
+            "राजा",
+            "सैनिक"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘सूक्तयः’ का अर्थ है—",
+        options:[
+            "सुंदर/श्रेष्ठ उक्तियाँ",
+            "खेल",
+            "भोजन",
+            "वस्त्र"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘भूकम्पविभीषिका’ का संबंध किससे है?",
+        options:[
+            "बाढ़",
+            "भूकंप",
+            "सूखा",
+            "तूफान"
+        ],
+        correct:1
+    },
+
+    {
+        subject:"Sanskrit",
+        question:"‘सर्वदा’ शब्द का अर्थ है—",
+        options:[
+            "कभी नहीं",
+            "हमेशा",
+            "आज",
+            "कल"
+        ],
+        correct:1
+    }
+
 ];
 
 function safeJSON(key, fallbackValue){
@@ -4110,282 +4558,186 @@ function normalizeQuestion(q){
     return {subject:String(q.subject || q.topic || activeTest?.subject || "General"), question, options, correct};
 }
 
-function getAvailableTests(){
-    const tests=safeJSON("sscScheduledTests", []);
-    const cls=studentClassValue();
-    const now=new Date();
-    const filtered=Array.isArray(tests) ? tests.filter(t=>{
-        const sameClass=normalizeClassValue(t.className ?? t.studentClass ?? t.class ?? "")===normalizeClassValue(cls);
-        const ready=t.status==="Ready" || t.status==="Scheduled" || t.status==="Live now";
-        return sameClass && ready;
+function getTestAttemptInfo(test){
+    const history=safeJSON("sscResultHistory",[]);
+    const testId=String(test?.id ?? "");
+    const testName=String(test?.testName || test?.name || "").trim().toLowerCase();
+    const cls=normalizeClassValue(test?.className ?? test?.studentClass ?? test?.class ?? "");
+    const attempts=Array.isArray(history) ? history.filter(r=>{
+        if(!r) return false;
+        const savedId=String(r.testId ?? r.id ?? "");
+        if(testId && savedId===testId) return true;
+        return !testId && String(r.testName || "").trim().toLowerCase()===testName
+            && normalizeClassValue(r.testClass ?? r.studentClass ?? "")===cls;
     }) : [];
-    return filtered.map(t=>{
+    return {count:attempts.length,last:attempts[0] || null};
+}
+
+function getTestAttemptInfo(test){
+    const history=safeJSON("sscResultHistory",[]);
+    const testId=String(test?.id ?? "");
+    const testName=String(test?.testName || test?.name || "").trim().toLowerCase();
+    const cls=normalizeClassValue(test?.className ?? test?.studentClass ?? test?.class ?? "");
+    const attempts=Array.isArray(history) ? history.filter(r=>{
+        if(!r) return false;
+        const savedId=String(r.testId ?? r.id ?? "");
+        if(testId && savedId===testId) return true;
+        return !testId && String(r.testName || "").trim().toLowerCase()===testName
+            && normalizeClassValue(r.testClass ?? r.studentClass ?? "")===cls;
+    }) : [];
+    return {count:attempts.length,last:attempts[0] || null};
+}
+
+function getAvailableTests(){
+    const local=safeJSON("sscScheduledTests",[]),cloud=safeJSON("sscCloudScheduledTests",[]);
+    const byId=new Map();
+    [...(Array.isArray(local)?local:[]),...(Array.isArray(cloud)?cloud:[])].forEach(t=>byId.set(String(t.id||t.testName),t));
+    const saved=[...byId.values()];
+    const cls=normalizeClassValue(studentClassValue());
+    const now=Date.now();
+    if(!Array.isArray(saved)) return [];
+    return saved.filter(t=>{
+        const sameClass=normalizeClassValue(t.className ?? t.studentClass ?? t.class ?? "")===cls;
+        const published=["Ready","Scheduled","Live now","Completed","Expired"].includes(String(t.status||""));
+        return sameClass && published;
+    }).map(t=>{
+        const start=t.startDateTime ? new Date(t.startDateTime).getTime() : NaN;
+        const end=t.endDateTime ? new Date(t.endDateTime).getTime() : NaN;
+        let status="Available";
+        if(Number.isFinite(end) && now>end) status="Expired";
+        else if(Number.isFinite(start) && now<start) status="Scheduled";
+        else if(Number.isFinite(start) || Number.isFinite(end)) status="Live now";
+        return {...t,status,duration:30,durationMinutes:30};
+    });
+}
+
+function renderTestList(){
+    const box=document.getElementById("testList");
+    if(!box) return;
+    const tests=getAvailableTests();
+    window._sscVisibleTests=tests;
+    let html=`<div class="section-title"><h2>Class ${escapeHTML(studentClassValue())} Tests</h2><button type="button" onclick="renderTestList()">Refresh</button></div>`;
+    if(!tests.length){
+        html+=`<div class="card test-card"><h2>अभी कोई परीक्षा उपलब्ध नहीं है</h2><p>आपकी कक्षा के लिए जारी या निर्धारित परीक्षा यहाँ दिखाई देगी।</p></div>`;
+        box.innerHTML=html;
+        return;
+    }
+    tests.forEach((t,i)=>{
+        const attempts=getTestAttemptInfo(t);
+        const questions=getQuestionArray(t);
+        const duration=30;
+        const count=questions.length || Number(t.questions) || 0;
+        const title=t.testName || t.name || "ऑनलाइन परीक्षा";
+        const subject=t.subject || "सभी विषय";
         const start=t.startDateTime ? new Date(t.startDateTime) : null;
         const end=t.endDateTime ? new Date(t.endDateTime) : null;
-        let status="Available";
-        if(start && !isNaN(start) && now<start) status="Scheduled";
-        else if(end && !isNaN(end) && now>end) status="Expired";
-        else if(start && end && now>=start && now<=end) status="Live now";
-        return {...t,status};
-    }).filter(t=>t.status!=="Expired");
+        const startText=start && !Number.isNaN(start.getTime()) ? start.toLocaleString("hi-IN") : "";
+        const endText=end && !Number.isNaN(end.getTime()) ? end.toLocaleString("hi-IN") : "";
+        const statusText=t.status==="Scheduled" ? "निर्धारित" : t.status==="Live now" ? "अभी चल रही है" : t.status==="Expired" ? "समय समाप्त" : "उपलब्ध";
+        const canStart=t.status!=="Scheduled" && t.status!=="Expired";
+        const buttonText=attempts.count ? "Completed" : "Start Test";
+        const last=attempts.last;
+        html+=`<div class="card test-card" style="margin-bottom:12px">
+            <h2>${escapeHTML(title)}</h2>
+            <p>${escapeHTML(subject)} • ${escapeHTML(statusText)}${attempts.count ? ` • पहले ${attempts.count} बार दे चुके हैं` : ""}</p>
+            <div class="test-meta">
+                <div class="meta-box"><strong>${count || "—"}</strong><small>कुल प्रश्न</small></div>
+                <div class="meta-box"><strong>${duration}</strong><small>मिनट</small></div>
+                <div class="meta-box"><strong>${Number(t.marksPerQuestion ?? t.questionMarks ?? 1)}</strong><small>अंक प्रति प्रश्न</small></div>
+            </div>
+            ${startText ? `<small style="display:block;margin:8px 0;color:#6b7280">शुरू: ${escapeHTML(startText)}</small>` : ""}
+            ${endText ? `<small style="display:block;margin:8px 0;color:#6b7280">समाप्त: ${escapeHTML(endText)}</small>` : ""}
+            ${attempts.count && last ? `<p style="margin:8px 0">पिछला परिणाम: ${escapeHTML(String(last.obtainedMarks ?? last.score ?? 0))} / ${escapeHTML(String(last.totalMarks ?? 0))} अंक (${escapeHTML(String(last.percentage ?? 0))}%)</p>` : ""}
+            ${canStart && !attempts.count ? `<button type="button" class="primary-btn full" onclick="startUnifiedTest(${i})">${buttonText}</button>` : `<button type="button" class="primary-btn full" disabled>${attempts.count ? buttonText : t.status==="Scheduled" ? "Starts at scheduled time" : "Test expired"}</button>`}
+        </div>`;
+    });
+    box.innerHTML=html;
 }
-function renderTestList(){
 
-    const box = document.getElementById("testList");
-
-    if(!box) return;
-
-    const tests = getAvailableTests();
-
-    let html = `
-        <div class="section-title">
-            <h2>Class ${studentClassValue()} Tests</h2>
-
-            <button
-                type="button"
-                onclick="renderTestList()">
-                Refresh
-            </button>
-        </div>
-    `;
-
-    if(!tests.length){
-
-        if(studentClassValue() === "10"){
-
-            html += `
-                <div class="card test-card">
-
-                    <h2>Class 10 Practice Test</h2>
-
-                    <p>
-                        Class 10 Practice Test
-                    </p>
-
-                    <div class="test-meta">
-
-                        <div class="meta-box">
-                            <strong>
-                                ${fallbackQuestions.length}
-                            </strong>
-                            <small>
-                                Total Questions
-                            </small>
-                        </div>
-
-                        <div class="meta-box">
-                            <strong>40</strong>
-                            <small>
-                                Minutes
-                            </small>
-                        </div>
-
-                        <div class="meta-box">
-                            <strong>0</strong>
-                            <small>
-                                Negative Marking
-                            </small>
-                        </div>
-
-                    </div>
-
-                    <button
-                        type="button"
-                        class="primary-btn full"
-                        onclick="startUnifiedTest(null)">
-
-                        Start Test
-
-                    </button>
-
-                </div>
-            `;
-
-        }else{
-
-            html += `
-                <div class="card test-card">
-
-                    <h2>No Test Available</h2>
-
-                    <p>
-                        Class ${studentClassValue()}
-                        के लिए अभी कोई scheduled test नहीं है।
-                    </p>
-
-                </div>
-            `;
-        }
-
-    }else{
-
-        tests.forEach(function(t,i){
-
-            const qs = getQuestionArray(t);
-
-            const duration =
-                Number(
-                    t.duration ??
-                    t.durationMinutes ??
-                    40
-                ) || 40;
-
-            const qCount =
-                qs.length ||
-                Number(t.questions) ||
-                0;
-
-            const subject =
-                t.subject ||
-                "All Subjects";
-
-            let start = "";
-
-            if(t.startDateTime){
-
-                const d =
-                    new Date(t.startDateTime);
-
-                if(!isNaN(d.getTime())){
-
-                    start =
-                        d.toLocaleString("en-IN");
-
-                }
-
-            }
-
-            html += `
-
-                <div
-                    class="card test-card"
-                    style="margin-bottom:12px">
-
-                    <h2>
-                        ${escapeHTML(
-                            t.testName ||
-                            t.name ||
-                            "Online Test"
-                        )}
-                    </h2>
-
-                    <p>
-                        ${escapeHTML(subject)}
-                        •
-                        ${escapeHTML(t.status || "Available")}
-                    </p>
-
-                    <div class="test-meta">
-
-                        <div class="meta-box">
-
-                            <strong>
-                                ${qCount || "—"}
-                            </strong>
-
-                            <small>
-                                Total Questions
-                            </small>
-
-                        </div>
-
-                        <div class="meta-box">
-
-                            <strong>
-                                ${duration}
-                            </strong>
-
-                            <small>
-                                Minutes
-                            </small>
-
-                        </div>
-
-                        <div class="meta-box">
-
-                            <strong>
-                                ${Number(
-                                    t.marksPerQuestion ??
-                                    t.questionMarks ??
-                                    1
-                                )}
-                            </strong>
-
-                            <small>
-                                Marks / Question
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                    ${
-                        start
-                        ?
-                        `
-                        <small
-                            style="
-                            display:block;
-                            margin:8px 0;
-                            color:#6b7280">
-
-                            Start:
-                            ${escapeHTML(start)}
-
-                        </small>
-                        `
-                        :
-                        ""
-                    }
-
-                    <button
-                        type="button"
-                        class="primary-btn full"
-                        onclick="startUnifiedTest(${i})">
-
-                        ${
-                            t.status === "Scheduled"
-                            ? "Open Test"
-                            : "Start Test"
-                        }
-
-                    </button>
-
-                </div>
-
-            `;
-
-        });
-
-        window._sscVisibleTests = tests;
-
-    }
-
-    box.innerHTML = html;
-
-    if(!tests.length){
-
-        window._sscVisibleTests = [];
-
-    }
-
-}
 function startUnifiedTest(index){
     const tests=window._sscVisibleTests || getAvailableTests();
     const selected=index===null ? null : tests[index];
-    activeTest=selected || {id:"practice-class-10",testName:"Class 10 Practice Test",className:"10",subject:"All Subjects",duration:40};
+    if(!selected){ toast("यह परीक्षा सूची में नहीं मिली।"); return; }
+    const now=Date.now();
+    const start=selected.startDateTime ? new Date(selected.startDateTime).getTime() : NaN;
+    const end=selected.endDateTime ? new Date(selected.endDateTime).getTime() : NaN;
+    if(Number.isFinite(start) && now<start){ toast("यह परीक्षा निर्धारित समय पर खुलेगी।"); return; }
+    if(Number.isFinite(end) && now>end){ toast("इस परीक्षा का समय समाप्त हो गया है।"); return; }
+    if(getTestAttemptInfo(selected).count){ toast("आप यह परीक्षा पहले ही पूरी कर चुके हैं। दोबारा प्रयास की अनुमति नहीं है।"); renderTestList(); return; }
+    activeTest=selected;
     let raw=getQuestionArray(activeTest);
-    if(!raw.length && normalizeClassValue(activeTest.className||studentClassValue())==="10") raw=fallbackQuestions;
     activeQuestions=raw.map(normalizeQuestion).filter(q=>q && q.question && q.options.length>=2 && q.correct>=0);
-    if(!activeQuestions.length){ toast("इस Test में valid questions उपलब्ध नहीं हैं।"); return; }
-    const duration=Number(activeTest.duration ?? activeTest.durationMinutes ?? 40) || 40;
+    if(!activeQuestions.length){ toast("इस परीक्षा में valid प्रश्न उपलब्ध नहीं हैं।"); return; }
+    const duration=30;
+    const marks=Number(activeTest.marksPerQuestion ?? activeTest.questionMarks ?? 1) || 1;
+    showTestInstructions(duration,marks);
+}
+
+function showTestInstructions(duration,marks){ 
+    const modal=document.getElementById("testInstructionsModal"); 
+    const name=escapeHTML(activeTest.testName||activeTest.name||"ऑनलाइन परीक्षा"); 
+
+    document.getElementById("testInstructionsContent").innerHTML=` 
+        <h2 id="testInstructionsTitle" style="margin:0 34px 12px 0">सामान्य निर्देश</h2> 
+
+        <h3 style="font-size:15px;margin:14px 0 8px">${name}</h3> 
+
+        <p>
+            <b>कुल प्रश्न:</b> ${activeQuestions.length} 
+            &nbsp; 
+            <b>समय:</b> ${duration} मिनट
+        </p> 
+
+        <p>
+            <b>अंक:</b> प्रत्येक सही उत्तर के लिए ${marks} अंक मिलेंगे। 
+            परीक्षा में कोई नकारात्मक अंकन (Negative Marking) नहीं है।
+        </p> 
+
+        <ul style="padding-left:20px;line-height:1.65;margin:12px 0"> 
+            <li>कुल ${activeQuestions.length} प्रश्न हैं।</li> 
+            <li>परीक्षा की अवधि ${duration} मिनट है।</li> 
+            <li>प्रत्येक सही उत्तर के लिए ${marks} अंक मिलेंगे।</li> 
+            <li>परीक्षा में कोई नकारात्मक अंकन (Negative Marking) नहीं है।</li> 
+            <li>प्रत्येक प्रश्न का केवल एक सही उत्तर है।</li> 
+            <li>एक बार उत्तर चुनने के बाद उसे बदला नहीं जा सकता।</li> 
+            <li>समय समाप्त होने पर परीक्षा स्वतः Submit हो जाएगी।</li> 
+            <li>आप प्रश्न संख्या पर क्लिक करके प्रश्नों के बीच जा सकते हैं।</li> 
+            <li>एक बार परीक्षा पूरी होने के बाद उसे दोबारा Attempt नहीं किया जा सकता।</li> 
+        </ul> 
+
+        <label style="display:flex;gap:9px;align-items:flex-start;margin:14px 0;font-size:13px;line-height:1.5"> 
+            <input id="acceptTestTerms" type="checkbox" style="margin-top:3px;width:18px;height:18px;flex:0 0 auto"> 
+            <span>मैंने परीक्षा के सभी निर्देश और नियम पढ़ लिए हैं तथा मैं उनसे सहमत हूँ।</span> 
+        </label> 
+
+        <div style="display:flex;gap:10px"> 
+            <button type="button" class="outline-btn" style="flex:1" onclick="cancelTestStart()">रद्द करें</button> 
+
+            <button type="button" id="confirmStartTestButton" class="primary-btn" style="flex:1" disabled onclick="beginUnifiedTest()">परीक्षा शुरू करें</button> 
+        </div>`; 
+
+    modal.classList.add("show"); 
+
+    document.getElementById("acceptTestTerms").addEventListener("change",function(){ 
+        document.getElementById("confirmStartTestButton").disabled=!this.checked; 
+    }); 
+}
+function cancelTestStart(){
+    document.getElementById("testInstructionsModal").classList.remove("show");
+    activeTest=null;activeQuestions=[];
+}
+
+function beginUnifiedTest(){
+    if(!document.getElementById("acceptTestTerms")?.checked){toast("Please accept the instructions before starting.");return;}
+    document.getElementById("testInstructionsModal").classList.remove("show");
+    const duration=30;
     secondsLeft=Math.floor(duration*60);
     answers=new Array(activeQuestions.length).fill(null);
     currentQuestion=0;
     testSubmitted=false;
     localStorage.setItem("currentTest",JSON.stringify(activeTest));
     clearInterval(testTimer);
-    document.getElementById("runnerTitle").textContent=activeTest.testName||activeTest.name||"Online Test";
+    document.getElementById("runnerTitle").textContent=activeTest.testName||activeTest.name||"ऑनलाइन परीक्षा";
     openScreen("runnerScreen");
     renderQuestion();
     renderTimer();
@@ -4411,7 +4763,9 @@ function renderQuestion(){
         b.type="button"; b.className="outline-btn full"; b.style.margin="7px 0"; b.style.textAlign="left";
         b.textContent=`${String.fromCharCode(65+i)}. ${option}`;
         if(answers[currentQuestion]===i){b.style.borderColor="var(--blue)";b.style.background="var(--blue-light)";}
-        b.onclick=()=>{answers[currentQuestion]=i;renderQuestion();};
+        b.disabled=answers[currentQuestion]!==null;
+        if(b.disabled){b.style.opacity=".82";b.style.cursor="default";}
+        b.onclick=()=>{if(answers[currentQuestion]!==null)return;answers[currentQuestion]=i;renderQuestion();};
         box.appendChild(b);
     });
     const nums=document.getElementById("questionNumbers"); nums.innerHTML="";
@@ -4470,6 +4824,8 @@ function submitTest(autoSubmitted){
     const result = {
 
         id: activeTest.id || Date.now(),
+
+        testId: activeTest.id || "",
 
         testName:
             activeTest.testName ||
@@ -4574,10 +4930,25 @@ function submitTest(autoSubmitted){
     openScreen("resultScreen");
 }
 function renderStudentResult(){
-
-    const r = safeJSON("sscLastResult", null);
-
-    if(!r) return;
+    const st=studentRecord();
+    const cls=normalizeClassValue(studentClassValue());
+    const name=String(st.name||st.studentName||localStorage.getItem("sscStudentName")||"").trim().toLowerCase();
+    const history=safeJSON("sscResultHistory",[]);
+    const candidates=Array.isArray(history)?history.slice():[];
+    const last=safeJSON("sscLastResult",null);
+    if(last && !candidates.some(x=>String(x.testId||x.id)===String(last.testId||last.id))) candidates.unshift(last);
+    const r=candidates
+        .filter(x=>normalizeClassValue(x.studentClass??x.testClass??"")===cls)
+        .filter(x=>!name || !x.studentName || String(x.studentName).trim().toLowerCase()===name)
+        .sort((a,b)=>new Date(b.submittedAt||b.createdAt||b.date||0)-new Date(a.submittedAt||a.createdAt||a.date||0))[0];
+    if(!r){
+        document.getElementById("resultContent").style.display="none";
+        document.getElementById("noClassResultText").textContent=`You have no completed test results for Class ${cls}.`;
+        document.getElementById("noClassResultMessage").style.display="block";
+        return;
+    }
+    document.getElementById("resultContent").style.display="";
+    document.getElementById("noClassResultMessage").style.display="none";
 
 
     const pct = Number(r.percentage || 0);
@@ -4979,14 +5350,15 @@ function notificationTimeText(value){
 
 function getDynamicNotifications(){
     const st=studentRecord();
-    const cls=String(studentClassValue ? studentClassValue() : (st.studentClass||"")).replace(/Class/ig,"").trim();
+    const cls=normalizeClassValue(studentClassValue ? studentClassValue() : (st.studentClass||""));
     const items=[];
 
     // Admin-created notifications, if available.
     const custom=safeJSON(NOTIFICATION_KEY,[]);
     if(Array.isArray(custom)){
         custom.forEach((n,i)=>{
-            const nClass=String(n.className||n.studentClass||n.class||"").replace(/Class/ig,"").trim();
+            const nClass=normalizeClassValue(n.className||n.studentClass||n.class||"");
+            if(n.type==="message" && (!nClass || nClass!==cls)) return;
             if(nClass && nClass!==cls) return;
             items.push({
                 id:String(n.id||("custom_"+i)),
@@ -5000,50 +5372,39 @@ function getDynamicNotifications(){
         });
     }
 
+    const classMessages=safeJSON("sscCloudClassAnnouncements",[]);
+    if(Array.isArray(classMessages)) classMessages.forEach(n=>{
+        if(normalizeClassValue(n.targetClass||n.className||"")!==cls) return;
+        items.push({id:String(n.id),type:"message",icon:"📢",title:n.title||"Message from SSC CLASSES",message:n.message||n.text||"",createdAt:n.createdAt||new Date().toISOString(),target:""});
+    });
+
     // Scheduled tests become real notifications for the student's class.
-    const tests=safeJSON("sscScheduledTests",[]);
+    const localTests=safeJSON("sscScheduledTests",[]),cloudTests=safeJSON("sscCloudScheduledTests",[]);
+    const tests=[...(Array.isArray(localTests)?localTests:[]),...(Array.isArray(cloudTests)?cloudTests:[])];
     if(Array.isArray(tests)){
         tests.forEach(t=>{
-            const tClass=String(t.className||t.studentClass||t.class||"").replace(/Class/ig,"").trim();
-            if(tClass && tClass!==cls) return;
+            const tClass=normalizeClassValue(t.className||t.studentClass||t.class||"");
+            if(!tClass || tClass!==cls) return;
+            const start=t.startDateTime?new Date(t.startDateTime):null;
+            if(!start || isNaN(start.getTime())) return;
             const end=t.endDateTime?new Date(t.endDateTime):null;
             if(end && !isNaN(end.getTime()) && Date.now()>end.getTime()) return;
+            if(!["Scheduled","Live now"].includes(String(t.status||""))) return;
             const testName=t.testName||t.name||"Online Test";
             const subject=t.subject||"";
             const id="test_"+String(t.id||testName);
-            const created=t.createdAt||t.startDateTime||new Date().toISOString();
+            const when=start.toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"});
+            const live=Date.now()>=start.getTime();
             items.push({
                 id,
                 type:"test",
                 icon:"📝",
-                title:"New test is available",
-                message:(subject?subject+" - ":"")+testName,
-                createdAt:created,
+                title:live?"Test available now":"Upcoming test",
+                message:`${testName}${subject?" • "+subject:""} • Starts ${when} • ${live?"Available now":"Available at scheduled time"}`,
+                createdAt:t.startDateTime,
                 target:"testScreen"
             });
         });
-    }
-
-    // Latest result becomes a notification for the logged-in student.
-    const result=safeJSON("sscLastResult",safeJSON("sscResult",null));
-    if(result && typeof result==="object"){
-        const resultName=String(result.studentName||"").trim().toLowerCase();
-        const currentName=String(st.name||st.studentName||"").trim().toLowerCase();
-        const resultClass=String(result.studentClass||"").replace(/Class/ig,"").trim();
-        const belongs=!resultName || !currentName || resultName===currentName;
-        const classMatches=!resultClass || !cls || resultClass===cls;
-        if(belongs && classMatches){
-            const rid=String(result.id||result.testName||result.date||"latest");
-            items.push({
-                id:"result_"+rid,
-                type:"result",
-                icon:"📊",
-                title:"Your result has been updated",
-                message:result.testName||"Online Test Result",
-                createdAt:result.date||result.createdAt||new Date().toISOString(),
-                target:"resultScreen"
-            });
-        }
     }
 
     const seen=new Set();
@@ -5143,6 +5504,13 @@ function renderNotifications(filter="all"){
     updateNotificationBadge();
 }
 
+function openAllNotifications(){
+    openScreen("notificationsScreen");
+    document.querySelectorAll(".notification-tabs button").forEach(b=>b.classList.remove("active"));
+    document.getElementById("notificationTabAll")?.classList.add("active");
+    renderNotifications("all");
+}
+
 function openNotification(encodedId){
     const id=decodeURIComponent(encodedId);
     const read=getReadNotificationIds();
@@ -5178,7 +5546,7 @@ function markAllRead(){
 }
 
 window.addEventListener("storage",function(event){
-    if(event.key==="sscNotifications" || event.key==="sscScheduledTests" || event.key==="sscLastResult" || event.key==="sscResult"){
+    if(event.key==="sscNotifications" || event.key==="sscScheduledTests" || event.key==="sscCloudScheduledTests" || event.key==="sscCloudClassAnnouncements" || event.key==="sscLastResult" || event.key==="sscResult"){
         updateNotificationBadge();
         renderHomeNotifications();
         if(document.getElementById("notificationsScreen")?.classList.contains("active")){
@@ -5192,6 +5560,10 @@ window.addEventListener("storage",function(event){
 /* =========================================================
    WHATSAPP
 ========================================================= */
+
+function openYouTubeChannel(){
+    window.open("https://www.youtube.com/@s.s.c.classes7520","_blank","noopener,noreferrer");
+}
 
 function openWhatsApp(){
 
@@ -5208,66 +5580,9 @@ function openWhatsApp(){
 ========================================================= */
 
 function editProfile(){
-
-    const name=
-        localStorage.getItem(
-            "sscStudentName"
-        ) ||
-        "Student";
-
-
-    document
-        .getElementById(
-            "generalContent"
-        )
-        .innerHTML=`
-
-            <h2>
-                👤 My Profile
-            </h2>
-
-            <div class="input-group">
-
-                <input
-                    id="editName"
-                    value="${name}"
-                    placeholder="Full Name">
-
-            </div>
-
-            <div class="input-group">
-
-                <select id="editClass">
-                    <option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option>
-                </select>
-
-            </div>
-
-            <div class="input-group">
-
-                <input
-                    value="Roll No. 12"
-                    placeholder="Roll Number">
-
-            </div>
-
-            <button
-                class="primary-btn full"
-                onclick="saveProfile()">
-
-                Save Profile
-
-            </button>
-
-        `;
-
-
-    document
-        .getElementById(
-            "generalModal"
-        )
-        .classList.add("show");
-
+    const st=studentRecord();
+    document.getElementById("generalContent").innerHTML=`<h2>👤 My Profile</h2><div class="input-group"><input value="${escapeHTML(st.name||st.studentName||"Student")}" readonly></div><div class="input-group"><input value="Class ${escapeHTML(st.studentClass||st.class||"-")}" readonly></div><div class="input-group"><input value="Roll Number: ${escapeHTML(st.rollNumber||st.rollNo||"Not set")}" readonly></div><p style="font-size:12px;color:#667085;margin:8px 0 14px">Name, class, and roll number are locked after registration.</p><button class="primary-btn full" onclick="closeModal('generalModal')">Close</button>`;
+    document.getElementById("generalModal").classList.add("show");
 }
 
 
@@ -5276,26 +5591,8 @@ function editProfile(){
 --------------------------------------------------------- */
 
 function saveProfile(){
-
-    const name=document.getElementById("editName").value.trim() || "Student";
-    const cls=document.getElementById("editClass")?.value || "6";
-    let st={}; try{st=JSON.parse(localStorage.getItem("sscStudent"))||{};}catch(e){}
-    st.name=name; st.studentClass=cls;
-    localStorage.setItem("sscStudent",JSON.stringify(st));
-    localStorage.setItem("sscStudentName",name);
-
-
-    loadStudentData();
-
-    closeModal(
-        "generalModal"
-    );
-
-
-    toast(
-        "Profile updated ✓"
-    );
-
+    toast("Profile name, class, and roll number are locked.");
+    closeModal("generalModal");
 }
 
 
@@ -5506,6 +5803,49 @@ document.addEventListener(
     }
 );
 
+</script>
+
+<script type="module">
+import {initializeApp,getApps} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import {getFirestore,collection,query,where,onSnapshot,addDoc,serverTimestamp} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+import {getAuth,GoogleAuthProvider,signInWithPopup,signInWithRedirect,getRedirectResult,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,updateProfile} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+const cfg={apiKey:"AIzaSyDGnQzr8AV8nVdIBO6tUDbNAoRqlxuF7N0",authDomain:"ssc-classes-4e87d.firebaseapp.com",projectId:"ssc-classes-4e87d",storageBucket:"ssc-classes-4e87d.firebasestorage.app",messagingSenderId:"65398917667",appId:"1:65398917667:web:8f47fdf42001902db7ff96",measurementId:"G-JQ4EK99HHN"};
+const app=getApps().length?getApps()[0]:initializeApp(cfg),db=getFirestore(app);
+const auth=getAuth(app),googleProvider=new GoogleAuthProvider();
+googleProvider.setCustomParameters({prompt:"select_account"});
+window.sscAuthBridge=Promise.resolve({auth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,updateProfile});
+window.sscVideoCommentsBridge=Promise.resolve({auth,db,collection,query,where,onSnapshot,addDoc,serverTimestamp});
+window.sscGoogleLogin=async function(){
+ try{const credential=await signInWithPopup(auth,googleProvider);window.handleExternalStudentAuth(credential.user,"google");}
+ catch(error){if(["auth/popup-blocked","auth/operation-not-supported-in-this-environment","auth/cancelled-popup-request"].includes(error.code)){await signInWithRedirect(auth,googleProvider);return;}throw error;}
+};
+getRedirectResult(auth).then(result=>{if(result?.user)window.handleExternalStudentAuth(result.user,"google");}).catch(error=>console.error("Google redirect sign-in failed",error));
+let stopClassMessages=null,stopScheduledTests=null,currentClass="";
+function listenForClassMessages(){
+ let student={};try{student=JSON.parse(localStorage.getItem("sscStudent")||"{}")}catch(e){}
+ const cls=String(student.studentClass||student.class||localStorage.getItem("sscStudentClass")||"").replace(/\D/g,"");
+ if(!cls||cls===currentClass)return;
+ if(stopClassMessages){stopClassMessages();stopClassMessages=null;}
+ if(stopScheduledTests){stopScheduledTests();stopScheduledTests=null;}
+ currentClass=cls;
+ const tq=query(collection(db,"sscScheduledTests"),where("className","==",cls));
+ stopScheduledTests=onSnapshot(tq,snapshot=>{
+  const tests=snapshot.docs.map(doc=>({...doc.data(),id:doc.id}));
+  localStorage.setItem("sscCloudScheduledTests",JSON.stringify(tests));
+  if(typeof renderTestList==="function")renderTestList();
+  if(typeof renderNotifications==="function")renderNotifications("all");
+ },error=>console.warn("Scheduled class tests could not be loaded",error));
+ const q=query(collection(db,"messages"),where("targetClass","==",cls));
+ stopClassMessages=onSnapshot(q,snapshot=>{
+  const records=snapshot.docs.map(doc=>{const d=doc.data();const ts=d.createdAt?.toDate?d.createdAt.toDate().toISOString():(d.createdAt||new Date().toISOString());return {...d,id:doc.id,createdAt:ts};}).filter(d=>d.type==="class_announcement");
+  localStorage.setItem("sscCloudClassAnnouncements",JSON.stringify(records));
+  if(typeof renderNotifications==="function")renderNotifications("all");
+  if(typeof renderHomeNotifications==="function")renderHomeNotifications();
+  if(typeof updateNotificationBadge==="function")updateNotificationBadge();
+ },error=>console.warn("Class notifications could not be loaded",error));
+}
+listenForClassMessages();
+window.addEventListener("ssc-student-class-changed",listenForClassMessages);
 </script>
 
 </body>
