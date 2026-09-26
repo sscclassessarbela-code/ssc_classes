@@ -599,6 +599,12 @@ th{
 
 </div>
 
+<div class="menu-card" onclick="showSection('sendMessageSection')">
+    <div class="menu-icon">✉️</div>
+    <h2>Send Message</h2>
+    <p>किसी चुनी हुई class के students को message भेजें।</p>
+</div>
+
 
 
 <div
@@ -692,6 +698,29 @@ th{
      CREATE TEST
 ===================================================== -->
 
+<section id="sendMessageSection" class="admin-section">
+    <div class="section-box">
+        <button class="back-btn" onclick="backDashboard()">← Dashboard</button>
+        <h2>✉️ Send Message</h2>
+        <div class="input-box" style="margin-top:20px">
+            <label>Send to Class</label>
+            <select id="announcementClass">
+                <option value="">Select Class</option>
+                <option value="6">Class 6</option><option value="7">Class 7</option>
+                <option value="8">Class 8</option><option value="9">Class 9</option>
+                <option value="10">Class 10</option><option value="11">Class 11</option>
+                <option value="12">Class 12</option>
+            </select>
+        </div>
+        <div class="input-box">
+            <label>Message</label>
+            <textarea id="announcementText" rows="5" maxlength="1000" placeholder="Write your message"></textarea>
+        </div>
+        <button id="sendClassMessageButton" class="primary-btn" type="button" onclick="sendClassMessage()">Send Message</button>
+        <p style="margin-top:10px;color:#667085;font-size:12px">The message will appear in notifications for the selected class.</p>
+    </div>
+</section>
+
 <section
     id="createTestSection"
     class="admin-section"
@@ -771,7 +800,8 @@ th{
     id="testDuration"
     type="number"
     min="1"
-    value="40"
+    value="30"
+    readonly
 >
 
 </div>
@@ -1005,7 +1035,7 @@ Option D
 </button>
 
 
-<h2>✍️(◔◡◔) Manage Tests</h2>
+<h2>✍️ Manage Tests</h2>
 
 
 <div
@@ -1310,6 +1340,7 @@ Select Test
 ===================================================== */
 import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
+import { getFirestore, collection, addDoc, serverTimestamp, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
 const sscFirebaseConfig = {
     apiKey: "AIzaSyDGnQzr8AV8nVdIBO6tUDbNAoRqlxuF7N0",
@@ -1324,10 +1355,13 @@ const sscFirebaseConfig = {
 try {
     const app = getApps().length ? getApps()[0] : initializeApp(sscFirebaseConfig);
     const storage = getStorage(app);
+    const db = getFirestore(app);
     window.sscStorageReady = Promise.resolve({storage, ref, uploadBytes, getDownloadURL});
+    window.sscMessageFirestoreReady = Promise.resolve({db, collection, addDoc, serverTimestamp, doc, setDoc, deleteDoc});
 } catch (error) {
     console.error("Firebase Storage initialization failed:", error);
     window.sscStorageReady = Promise.reject(error);
+    window.sscMessageFirestoreReady = Promise.reject(error);
 }
 </script>
 
@@ -1398,6 +1432,10 @@ function showAdminPanel(){
     ).style.display = "block";
 
 
+    ensureClass9ScienceGrandTest();
+    ensureClass8ScienceGrandTest();
+    ensureClass10ScienceGrandTest();
+    enforceThirtyMinuteTests();
     loadAdminStats();
 
 }
@@ -1479,6 +1517,37 @@ function showSection(id){
 
 }
 
+async function sendClassMessage(){
+    const cls=document.getElementById("announcementClass").value;
+    const input=document.getElementById("announcementText");
+    const message=input.value.trim();
+    const button=document.getElementById("sendClassMessageButton");
+    if(!cls){alert("Select a class first.");return;}
+    if(!message){alert("Write a message first.");return;}
+    button.disabled=true;
+    button.textContent="Sending...";
+    try{
+        const bridge=await window.sscMessageFirestoreReady;
+        const sent=await bridge.addDoc(bridge.collection(bridge.db,"messages"),{
+            type:"class_announcement",targetClass:cls,className:cls,studentClass:cls,
+            senderUid:"ssc_admin",senderName:"SSC CLASSES",text:message,message,
+            title:"Message from SSC CLASSES",createdAt:bridge.serverTimestamp()
+        });
+        const notices=getJSON("sscNotifications",[]);
+        const record={id:sent.id,type:"message",className:cls,title:"Message from SSC CLASSES",message,createdAt:new Date().toISOString()};
+        try{localStorage.setItem("sscNotifications",JSON.stringify([record,...(Array.isArray(notices)?notices:[])]));}
+        catch(storageError){console.warn("Message was sent, but local notification cache could not be updated",storageError);}
+        input.value="";
+        alert(`Message sent to Class ${cls} students.`);
+    }catch(error){
+        console.error("Class message send failed",error);
+        alert("Message could not be sent to students. Firebase permission or connection needs to be checked.");
+    }finally{
+        button.disabled=false;
+        button.textContent="Send Message";
+    }
+}
+
 
 function hideAllSections(){
 
@@ -1525,6 +1594,260 @@ function getJSON(key, fallback){
     }
 
 }
+
+/* One-time starter test: Class 9 Science Grand Test */
+function ensureClass9ScienceGrandTest(){
+    const tests=getJSON("sscScheduledTests",[]);
+    if(!Array.isArray(tests)) return;
+    const existing=tests.find(t=>String(t.id)==="class9_science_grand_test");
+    if(existing){existing.testName="🏆 Class 9th Science Grand Test";existing.name=existing.testName;existing.duration=30;existing.durationMinutes=30;localStorage.setItem("sscScheduledTests",JSON.stringify(tests));return;}
+    const q=(question,options,correct)=>({subject:"Science",class:"9",question,options,correct});
+    const questionList=[
+        q("पदार्थ के कणों के बीच रिक्त स्थान होने का प्रमाण क्या है?",["चीनी का पानी में घुलना","पत्थर का टूटना","लोहे का चमकना","लकड़ी का जलना"],0),
+        q("विसरण की दर सबसे अधिक किसमें होती है?",["ठोस","द्रव","गैस","सभी में समान"],2),
+        q("वाष्पीकरण से ठंडक क्यों होती है?",["कम ऊर्जा वाले कण निकलते हैं","अधिक ऊर्जा वाले कण सतह से निकल जाते हैं","द्रव का द्रव्यमान बढ़ता है","वायु का तापमान शून्य हो जाता है"],1),
+        q("जल का क्वथनांक सामान्य वायुदाब पर कितना होता है?",["0°C","50°C","100°C","273°C"],2),
+        q("ठोस का सीधे गैस में बदलना क्या कहलाता है?",["संघनन","ऊर्ध्वपातन","गलन","जमना"],1),
+        q("टिंडल प्रभाव किसमें दिखाई देता है?",["सच्चे विलयन में","कोलॉइड में","शुद्ध जल में","तत्व में"],1),
+        q("नमक और पानी के मिश्रण से नमक अलग करने की सरल विधि क्या है?",["छानना","वाष्पीकरण","चुंबकीय पृथक्करण","हाथ से चुनना"],1),
+        q("दूध से क्रीम अलग करने के लिए कौन-सी विधि अपनाई जाती है?",["अपकेंद्रण","ऊर्ध्वपातन","क्रिस्टलीकरण","छानना"],0),
+        q("वायु किस प्रकार का मिश्रण है?",["समांगी मिश्रण","विषमांगी मिश्रण","तत्व","यौगिक"],0),
+        q("एक मोल में कणों की संख्या लगभग कितनी होती है?",["6.022 × 10²³","6.022 × 10²²","3.011 × 10²³","9.8 × 10²³"],0),
+        q("जल का रासायनिक सूत्र क्या है?",["H₂O","HO₂","H₂O₂","OH"],0),
+        q("ऑक्सीजन अणु (O₂) का आणविक द्रव्यमान कितना है?",["8 u","16 u","32 u","64 u"],2),
+        q("कैल्शियम क्लोराइड का सही रासायनिक सूत्र कौन-सा है?",["CaCl","CaCl₂","Ca₂Cl","Ca₂Cl₂"],1),
+        q("द्रव्यमान संरक्षण के नियम के अनुसार रासायनिक अभिक्रिया में कुल द्रव्यमान क्या रहता है?",["बढ़ता है","घटता है","समान रहता है","शून्य हो जाता है"],2),
+        q("परमाणु क्रमांक किसके बराबर होता है?",["प्रोटॉनों की संख्या","न्यूट्रॉनों की संख्या","प्रोटॉन + न्यूट्रॉन","कक्षाओं की संख्या"],0),
+        q("इलेक्ट्रॉन पर कौन-सा आवेश होता है?",["धनात्मक","ऋणात्मक","उदासीन","दो इकाई धनात्मक"],1),
+        q("परमाणु का अधिकांश द्रव्यमान कहाँ केंद्रित होता है?",["इलेक्ट्रॉन बादल में","केंद्रक में","पहली कक्षा में","सब जगह बराबर"],1),
+        q("समस्थानिकों में क्या समान होता है?",["द्रव्यमान संख्या","न्यूट्रॉन संख्या","परमाणु क्रमांक","भौतिक गुण हमेशा"],2),
+        q("जीवन की मूल संरचनात्मक और क्रियात्मक इकाई क्या है?",["ऊतक","कोशिका","अंग","अंग तंत्र"],1),
+        q("कोशिका का नियंत्रण केंद्र किसे कहा जाता है?",["केंद्रक","राइबोसोम","रिक्तिका","कोशिका झिल्ली"],0),
+        q("कोशिका का ‘ऊर्जा गृह’ किसे कहते हैं?",["लाइसोसोम","माइटोकॉन्ड्रिया","राइबोसोम","गॉल्जी तंत्र"],1),
+        q("पादप कोशिका की कोशिका भित्ति मुख्यतः किसकी बनी होती है?",["सेल्यूलोज","प्रोटीन","वसा","ग्लाइकोजन"],0),
+        q("कोशिका झिल्ली से पदार्थों का चयनात्मक आवागमन किस गुण के कारण होता है?",["पूर्ण पारगम्यता","चयनात्मक पारगम्यता","कठोरता","रंग"],1),
+        q("पौधों में जल और खनिजों का परिवहन कौन करता है?",["फ्लोएम","जाइलम","एपिडर्मिस","मेरिस्टेम"],1),
+        q("पौधों में भोजन का परिवहन किस ऊतक द्वारा होता है?",["जाइलम","फ्लोएम","स्क्लेरेंकाइमा","एपिडर्मिस"],1),
+        q("रक्त किस प्रकार का ऊतक है?",["पेशीय ऊतक","तंत्रिका ऊतक","संयोजी ऊतक","उपकला ऊतक"],2),
+        q("मांसपेशियों को हड्डियों से जोड़ने वाला ऊतक क्या कहलाता है?",["स्नायुबंधन","कण्डरा","उपास्थि","एपिथीलियम"],1),
+        q("जीवों के वर्गीकरण में द्विनाम पद्धति किसने दी?",["डार्विन","लिनियस","मेंडल","लैमार्क"],1),
+        q("मॉस (काई) किस पादप समूह में आते हैं?",["शैवाल","ब्रायोफाइटा","टेरिडोफाइटा","जिम्नोस्पर्म"],1),
+        q("कवक सामान्यतः अपना भोजन किस प्रकार प्राप्त करते हैं?",["प्रकाश संश्लेषण से","मृत/सड़े पदार्थों से","केवल मिट्टी से","नाइट्रोजन स्थिरीकरण से"],1),
+        q("वेग का SI मात्रक क्या है?",["मीटर","मीटर/सेकंड","मीटर/सेकंड²","न्यूटन"],1),
+        q("वेग में परिवर्तन की दर को क्या कहते हैं?",["दूरी","विस्थापन","त्वरण","चाल"],2),
+        q("यदि वस्तु समान समय में समान दूरी तय करे, तो उसकी गति कैसी कहलाती है?",["असमान गति","समान गति","त्वरित गति","दोलन गति"],1),
+        q("वेग-समय ग्राफ के नीचे का क्षेत्रफल क्या बताता है?",["त्वरण","विस्थापन","बल","शक्ति"],1),
+        q("बल का SI मात्रक क्या है?",["जूल","वाट","न्यूटन","पास्कल"],2),
+        q("न्यूटन का प्रथम गति नियम किस गुण से संबंधित है?",["जड़त्व","ऊर्जा","दाब","घनत्व"],0),
+        q("संवेग का सूत्र क्या है?",["द्रव्यमान × वेग","बल × दूरी","द्रव्यमान ÷ वेग","वेग ÷ समय"],0),
+        q("क्रिया और प्रतिक्रिया बल किस नियम से संबंधित हैं?",["न्यूटन का प्रथम नियम","न्यूटन का द्वितीय नियम","न्यूटन का तृतीय नियम","गुरुत्वाकर्षण नियम"],2),
+        q("गुरुत्वाकर्षण बल किन वस्तुओं के बीच लगता है?",["केवल चुंबकों के बीच","द्रव्यमान वाली वस्तुओं के बीच","केवल आवेशों के बीच","केवल ग्रहों के बीच"],1),
+        q("किसी वस्तु का भार किसके बराबर होता है?",["द्रव्यमान × गुरुत्वीय त्वरण","द्रव्यमान ÷ आयतन","बल ÷ दूरी","द्रव्यमान × वेग"],0),
+        q("घनत्व निकालने का सूत्र क्या है?",["आयतन ÷ द्रव्यमान","द्रव्यमान ÷ आयतन","द्रव्यमान × आयतन","भार ÷ समय"],1),
+        q("द्रव में डूबी वस्तु पर ऊपर की ओर लगने वाला बल क्या कहलाता है?",["घर्षण बल","उत्प्लावन बल","चुंबकीय बल","अभिकेंद्रीय बल"],1),
+        q("कार्य का SI मात्रक क्या है?",["न्यूटन","जूल","वाट","मीटर"],1),
+        q("गतिज ऊर्जा किस कारण होती है?",["वस्तु की गति","वस्तु की ऊँचाई","वस्तु का रंग","वस्तु का आकार"],0),
+        q("शक्ति का SI मात्रक क्या है?",["जूल","न्यूटन","वाट","पास्कल"],2),
+        q("ध्वनि किस प्रकार की तरंग है?",["अनुप्रस्थ","अनुदैर्ध्य","विद्युत चुंबकीय","प्रकाश तरंग"],1),
+        q("ध्वनि निर्वात में क्यों नहीं चल सकती?",["वहाँ प्रकाश नहीं होता","ध्वनि को चलने के लिए माध्यम चाहिए","वहाँ गुरुत्व नहीं होता","वहाँ ताप नहीं होता"],1),
+        q("मनुष्य के कान की सामान्य श्रव्य सीमा क्या है?",["2–200 हर्ट्ज","20–20,000 हर्ट्ज","200–2,000 हर्ट्ज","20,000–40,000 हर्ट्ज"],1),
+        q("पौधे प्रकाश संश्लेषण के लिए कौन-सी गैस लेते हैं?",["ऑक्सीजन","नाइट्रोजन","कार्बन डाइऑक्साइड","हाइड्रोजन"],2),
+        q("फसल की उपज बढ़ाने के लिए उन्नत किस्मों के साथ कौन-सा तरीका उपयोगी है?",["संतुलित सिंचाई और पोषक तत्व प्रबंधन","सभी कीटों को छोड़ देना","खेत में पानी रोक देना","बीज न बोना"],0)
+    ];
+    tests.push({
+        id:"class9_science_grand_test",
+        testName:"🏆 Class 9th Science Grand Test",
+        name:"🏆 Class 9th Science Grand Test",
+        className:"9",
+        studentClass:"9",
+        subject:"Science",
+        duration:30,
+        durationMinutes:30,
+        marksPerQuestion:1,
+        questions:questionList.length,
+        questionList,
+        status:"Ready",
+        createdAt:new Date().toISOString()
+    });
+    localStorage.setItem("sscScheduledTests",JSON.stringify(tests));
+}
+/* One-time starter test: Class 10 Science Grand Test */
+function ensureClass10ScienceGrandTest(){
+    const tests=getJSON("sscScheduledTests",[]);
+    if(!Array.isArray(tests)) return;
+    const existing=tests.find(t=>String(t.id)==="class10_science_grand_test");
+    if(existing){existing.testName="🏆 Class 10th Science Grand Test";existing.name=existing.testName;existing.duration=30;existing.durationMinutes=30;localStorage.setItem("sscScheduledTests",JSON.stringify(tests));return;}
+    const q=(question,options,correct)=>({subject:"Science",class:"10",question,options,correct});
+     const questionList = [
+    q("प्रकाश का परावर्तन किस नियम के अनुसार होता है?",["न्यूटन के नियम","परावर्तन के नियम","ओम के नियम","आर्किमिडीज के नियम"],1),
+q("दर्पण में बनने वाला प्रतिबिंब किस कारण बनता है?",["प्रकाश के अपवर्तन से","प्रकाश के परावर्तन से","प्रकाश के प्रकीर्णन से","प्रकाश के अवशोषण से"],1),
+q("अवतल दर्पण का उपयोग दंत चिकित्सक किस रूप में करते हैं?",["छोटा प्रतिबिंब देखने के लिए","आवर्धित प्रतिबिंब देखने के लिए","वास्तविक प्रतिबिंब हटाने के लिए","रंग बदलने के लिए"],1),
+q("लेंस की शक्ति का SI मात्रक क्या है?",["मीटर","डायोप्टर","जूल","वाट"],1),
+q("निकट दृष्टिदोष को दूर करने के लिए किस लेंस का प्रयोग किया जाता है?",["उत्तल लेंस","अवतल लेंस","बेलनाकार लेंस","समतल लेंस"],1),
+
+q("मानव नेत्र में प्रकाश-संवेदी परत कौन-सी है?",["कॉर्निया","रेटिना","आइरिस","पुतली"],1),
+q("नेत्र की समंजन क्षमता किसके कारण होती है?",["रेटिना","पुतली","नेत्र लेंस की वक्रता में परिवर्तन","कॉर्निया"],2),
+q("आकाश का रंग नीला दिखाई देने का मुख्य कारण क्या है?",["प्रकाश का परावर्तन","प्रकाश का अपवर्तन","प्रकाश का प्रकीर्णन","प्रकाश का अवशोषण"],2),
+
+q("विद्युत धारा का SI मात्रक क्या है?",["वोल्ट","ओम","एम्पियर","वाट"],2),
+q("ओम का नियम किस संबंध को दर्शाता है?",["V = IR","P = VI","Q = It","R = VI"],0),
+q("विद्युत प्रतिरोध का SI मात्रक क्या है?",["वोल्ट","ओम","एम्पियर","कूलॉम"],1),
+q("विद्युत शक्ति का SI मात्रक क्या है?",["जूल","वाट","ओम","एम्पियर"],1),
+q("विद्युत ऊर्जा की व्यावसायिक इकाई क्या है?",["वाट","किलोवाट-घंटा","जूल/सेकंड","वोल्ट"],1),
+q("विद्युत धारा के तापीय प्रभाव का उपयोग किस उपकरण में होता है?",["विद्युत हीटर","कंपास","दर्पण","ट्रांसफॉर्मर"],0),
+
+q("चुंबकीय क्षेत्र की दिशा ज्ञात करने के लिए किस नियम का प्रयोग किया जाता है?",["दाएँ हाथ के अंगूठे का नियम","पास्कल का नियम","ओम का नियम","लेन्ज का नियम"],0),
+q("विद्युत मोटर किस ऊर्जा को यांत्रिक ऊर्जा में बदलती है?",["रासायनिक ऊर्जा","विद्युत ऊर्जा","ऊष्मीय ऊर्जा","सौर ऊर्जा"],1),
+q("विद्युत जनित्र किस ऊर्जा को विद्युत ऊर्जा में बदलता है?",["यांत्रिक ऊर्जा","विद्युत ऊर्जा","रासायनिक ऊर्जा","प्रकाश ऊर्जा"],0),
+
+q("रासायनिक अभिक्रिया में नए पदार्थों का निर्माण किसका संकेत है?",["भौतिक परिवर्तन","रासायनिक परिवर्तन","तापमान में कमी","आकार में परिवर्तन"],1),
+q("ऑक्सीकरण में सामान्यतः क्या होता है?",["ऑक्सीजन का जुड़ना","ऑक्सीजन का हटना","हाइड्रोजन का जुड़ना","तापमान का शून्य होना"],0),
+q("लोहे पर जंग लगना किस प्रकार की अभिक्रिया है?",["अपचयन","ऑक्सीकरण","उदासीनीकरण","विस्थापन"],1),
+q("अम्ल का pH सामान्यतः कितना होता है?",["7 से अधिक","7","7 से कम","14 से अधिक"],2),
+q("क्षार का pH सामान्यतः कितना होता है?",["7 से कम","7","7 से अधिक","0"],2),
+q("बेकिंग सोडा का रासायनिक सूत्र क्या है?",["NaCl","NaHCO₃","NaOH","CaCO₃"],1),
+q("धोने के सोडा का रासायनिक सूत्र क्या है?",["Na₂CO₃·10H₂O","NaHCO₃","CaCO₃","NaCl"],0),
+
+q("धातुएँ सामान्यतः कैसी होती हैं?",["भंगुर","अधात्विक","तन्य और आघातवर्धनीय","गैसीय"],2),
+q("कौन-सी धातु कमरे के तापमान पर द्रव होती है?",["लोहा","पारा","तांबा","एल्यूमिनियम"],1),
+q("धातु और अम्ल की अभिक्रिया से सामान्यतः कौन-सी गैस निकलती है?",["ऑक्सीजन","नाइट्रोजन","हाइड्रोजन","कार्बन डाइऑक्साइड"],2),
+q("कार्बन की संयोजकता कितनी होती है?",["1","2","3","4"],3),
+q("मीथेन का रासायनिक सूत्र क्या है?",["CH₄","C₂H₆","C₂H₄","CH₃OH"],0),
+q("एथेनॉल का रासायनिक सूत्र क्या है?",["CH₄","C₂H₅OH","CH₃COOH","C₂H₆"],1),
+q("साबुन के अणु का जल-प्रिय भाग क्या कहलाता है?",["हाइड्रोफिलिक सिर","हाइड्रोफोबिक पूँछ","कार्बन श्रृंखला","आयन"],0),
+
+q("प्रकाश संश्लेषण में पौधे किस गैस का उपयोग करते हैं?",["ऑक्सीजन","कार्बन डाइऑक्साइड","नाइट्रोजन","हाइड्रोजन"],1),
+q("पौधों में भोजन का परिवहन किस ऊतक द्वारा होता है?",["जाइलम","फ्लोएम","मेरिस्टेम","एपिडर्मिस"],1),
+q("मनुष्य में रक्त को पूरे शरीर में पंप करने वाला अंग कौन-सा है?",["फेफड़ा","हृदय","गुर्दा","यकृत"],1),
+q("मानव शरीर में पाचन की शुरुआत कहाँ से होती है?",["आमाशय","छोटी आंत","मुख","बड़ी आंत"],2),
+q("मानव शरीर में श्वसन के लिए मुख्य अंग कौन-से हैं?",["गुर्दे","फेफड़े","यकृत","हृदय"],1),
+
+q("पौधों में प्रकाश की दिशा में वृद्धि को क्या कहते हैं?",["जियोट्रोपिज्म","फोटोट्रोपिज्म","हाइड्रोट्रोपिज्म","केमोट्रोपिज्म"],1),
+q("अलैंगिक जनन में कितने जनक की आवश्यकता होती है?",["एक","दो","तीन","चार"],0),
+q("मानव में नर युग्मक क्या कहलाता है?",["अंडाणु","शुक्राणु","युग्मनज","भ्रूण"],1),
+q("मानव में मादा युग्मक क्या कहलाता है?",["शुक्राणु","अंडाणु","भ्रूण","युग्मनज"],1),
+
+q("आनुवंशिकता के जनक किसे कहा जाता है?",["चार्ल्स डार्विन","ग्रेगर मेंडल","न्यूटन","लैमार्क"],1),
+q("मनुष्य में लिंग निर्धारण मुख्यतः किस गुणसूत्र से संबंधित है?",["X और Y गुणसूत्र","केवल X","केवल Y","ऑटोसोम"],0),
+q("जीवों में विभिन्नता का एक प्रमुख कारण क्या है?",["आनुवंशिक परिवर्तन","केवल भोजन","केवल जल","केवल तापमान"],0),
+
+q("पारितंत्र में ऊर्जा का मुख्य स्रोत क्या है?",["चंद्रमा","सूर्य","मिट्टी","जल"],1),
+q("खाद्य श्रृंखला में प्रथम पोषी स्तर पर कौन होते हैं?",["उपभोक्ता","उत्पादक","अपघटक","परजीवी"],1),
+q("ओजोन परत हमें किससे बचाती है?",["अवरक्त किरणों से","पराबैंगनी किरणों से","रेडियो तरंगों से","ध्वनि तरंगों से"],1),
+q("जैव-अवक्रमणीय पदार्थ कौन-सा है?",["प्लास्टिक","काँच","सब्जियों के अवशेष","पॉलीथीन"],2),
+
+q("जीवाश्म ईंधन का उदाहरण कौन-सा है?",["सौर ऊर्जा","कोयला","पवन ऊर्जा","जल ऊर्जा"],1),
+q("नवीकरणीय ऊर्जा स्रोत कौन-सा है?",["कोयला","पेट्रोलियम","सौर ऊर्जा","प्राकृतिक गैस"],2),
+q("सौर कुकर में किस ऊर्जा का उपयोग होता है?",["सौर ऊर्जा","रासायनिक ऊर्जा","परमाणु ऊर्जा","ध्वनि ऊर्जा"],0)  ];
+    
+    tests.push({
+        id:"class10_science_grand_test",
+        testName:"🏆 Class 10th Science Grand Test",
+        name:"🏆 Class 10th Science Grand Test",
+        className:"10",
+        studentClass:"10",
+        subject:"Science",
+        duration:30,
+        durationMinutes:30,
+        marksPerQuestion:1,
+        questions:questionList.length,
+        questionList,
+        status:"Ready",
+        createdAt:new Date().toISOString()
+    });
+    localStorage.setItem("sscScheduledTests",JSON.stringify(tests));
+}
+
+/* One-time starter test: Class 8 Science Grand Test */
+function ensureClass8ScienceGrandTest(){
+    const tests=getJSON("sscScheduledTests",[]);
+    if(!Array.isArray(tests)) return;
+    const existing=tests.find(t=>String(t.id)==="class8_science_grand_test");
+    if(existing){existing.testName="🏆Class 8th Grand Test";existing.name=existing.testName;existing.duration=30;existing.durationMinutes=30;localStorage.setItem("sscScheduledTests",JSON.stringify(tests));return;}
+    const q=(question,options,correct)=>({subject:"Science",class:"8",question,options,correct});
+    const questionList=[
+        q("मिट्टी को ढीला और पलटने की प्रक्रिया क्या कहलाती है?",["कटाई","जुताई","निराई","भंडारण"],1),
+        q("बीजों को समान दूरी और गहराई पर बोने के लिए किसका उपयोग होता है?",["हल","सीड ड्रिल","दरांती","स्प्रेयर"],1),
+        q("फसल से खरपतवार हटाने की प्रक्रिया क्या कहलाती है?",["सिंचाई","निराई","कटाई","मड़ाई"],1),
+        q("दलहनी पौधों की जड़ों में नाइट्रोजन स्थिरीकरण करने वाला जीवाणु कौन है?",["लैक्टोबैसिलस","राइजोबियम","यीस्ट","प्लास्मोडियम"],1),
+        q("खाद मुख्यतः किससे बनती है?",["प्लास्टिक कचरे से","पौधों और पशुओं के अपशिष्ट के अपघटन से","केवल रेत से","धातु के टुकड़ों से"],1),
+        q("दूध से दही बनाने में कौन-सा सूक्ष्मजीव मदद करता है?",["लैक्टोबैसिलस","राइजोबियम","वायरस","अमीबा"],0),
+        q("ब्रेड के आटे को फुलाने में कौन-सा सूक्ष्मजीव उपयोगी है?",["यीस्ट","राइजोबियम","प्लास्मोडियम","शैवाल"],0),
+        q("मलेरिया किसके कारण होता है?",["जीवाणु","प्लास्मोडियम नामक प्रोटोजोआ","कवक","शैवाल"],1),
+        q("भोजन को लंबे समय तक सुरक्षित रखने के लिए कम तापमान पर रखने की विधि क्या है?",["किण्वन","शीतकरण","अंकुरण","निराई"],1),
+        q("कोयला और पेट्रोलियम किस प्रकार के प्राकृतिक संसाधन हैं?",["अक्षय","अनवीकरणीय","असीमित","कृत्रिम"],1),
+        q("पेट्रोलियम को विभिन्न उपयोगी पदार्थों में अलग करने की प्रक्रिया क्या कहलाती है?",["निस्यंदन","परिष्करण","जुताई","वाष्पीकरण"],1),
+        q("CNG का पूरा नाम क्या है?",["Compressed Natural Gas","Common Nitrogen Gas","Carbon Neutral Gas","Condensed Natural Gas"],0),
+        q("जंगलों की कटाई को क्या कहते हैं?",["वनीकरण","वनोन्मूलन","सिंचाई","परागण"],1),
+        q("लुप्तप्राय प्रजातियों की जानकारी किस पुस्तक में दर्ज होती है?",["ब्लू बुक","रेड डाटा बुक","ग्रीन डायरी","वन पुस्तक"],1),
+        q("वन्यजीवों और उनके प्राकृतिक आवास की रक्षा के लिए बनाया गया क्षेत्र क्या कहलाता है?",["कारखाना","वन्यजीव अभयारण्य","खदान","बाँध"],1),
+        q("कोशिका का नियंत्रण केंद्र किसे कहा जाता है?",["केंद्रक","रिक्तिका","कोशिका भित्ति","साइटोप्लाज्म"],0),
+        q("पादप कोशिका की कोशिका भित्ति मुख्यतः किसकी बनी होती है?",["सेल्यूलोज","वसा","हीमोग्लोबिन","स्टार्च"],0),
+        q("कोशिका का ‘ऊर्जा गृह’ किसे कहते हैं?",["माइटोकॉन्ड्रिया","केंद्रक","राइबोसोम","रिक्तिका"],0),
+        q("अमीबा में प्रजनन सामान्यतः किस विधि से होता है?",["मुकुलन","द्विखंडन","बीजाणु निर्माण","परागण"],1),
+        q("मानव में निषेचन सामान्यतः कहाँ होता है?",["अंडाशय","अंडवाहिनी","गर्भाशय","मूत्राशय"],1),
+        q("किशोरावस्था सामान्यतः किस आयु के आसपास शुरू होती है?",["5 वर्ष","11 वर्ष","25 वर्ष","40 वर्ष"],1),
+        q("किशोरावस्था में होने वाले शारीरिक परिवर्तनों का प्रमुख कारण क्या है?",["हार्मोन","विटामिन की कमी","केवल मौसम","रक्त समूह"],0),
+        q("बल लगाने से किसी वस्तु में क्या परिवर्तन हो सकता है?",["गति या आकार में परिवर्तन","केवल रंग बदलना","द्रव्यमान शून्य होना","तापमान हमेशा शून्य होना"],0),
+        q("दाब का सूत्र क्या है?",["बल × क्षेत्रफल","बल ÷ क्षेत्रफल","क्षेत्रफल ÷ बल","द्रव्यमान × आयतन"],1),
+        q("द्रव द्वारा लगाया गया दाब किस दिशा में लगता है?",["केवल नीचे","केवल ऊपर","सभी दिशाओं में","केवल दाईं ओर"],2),
+        q("घर्षण बल किस दिशा में कार्य करता है?",["गति की दिशा में","गति के विपरीत दिशा में","ऊपर की ओर ही","गुरुत्व के समान"],1),
+        q("मशीनों में घर्षण कम करने के लिए क्या उपयोग किया जाता है?",["रेत","स्नेहक","कागज","लकड़ी"],1),
+        q("ध्वनि किसके कंपन से उत्पन्न होती है?",["प्रकाश","वस्तुओं","छाया","चुंबक के रंग"],1),
+        q("ध्वनि की तीक्ष्णता मुख्यतः किस पर निर्भर करती है?",["आवृत्ति","आयाम","गति की दिशा","माध्यम का रंग"],0),
+        q("मनुष्य के कान के लिए सामान्य श्रव्य सीमा क्या है?",["2–200 Hz","20–20,000 Hz","200–2,000 Hz","20,000–40,000 Hz"],1),
+        q("विद्युत धारा के रासायनिक प्रभाव का उपयोग किसमें किया जाता है?",["विद्युतलेपन","वाष्पीकरण","जुताई","छानने"],0),
+        q("तरल में विद्युत धारा के प्रवाह का पता लगाने के लिए किसका उपयोग कर सकते हैं?",["LED","लकड़ी का टुकड़ा","कागज","रबर"],0),
+        q("बादलों में विद्युत आवेश के कारण होने वाली चमक क्या कहलाती है?",["इंद्रधनुष","बिजली/तड़ित","ओस","कोहरा"],1),
+        q("बिजली चमकने के समय सुरक्षित स्थान कौन-सा है?",["खुले मैदान का अकेला पेड़","बंद इमारत के अंदर","तालाब में","धातु की बाड़ के पास"],1),
+        q("भूकंप की तीव्रता मापने के लिए किस पैमाने का उपयोग किया जाता है?",["रिक्टर पैमाना","सेल्सियस पैमाना","मीटर पैमाना","डेसिबल पैमाना"],0),
+        q("समतल दर्पण में बना प्रतिबिंब कैसा होता है?",["वास्तविक और उल्टा","आभासी और सीधा","हमेशा छोटा","रंगहीन नहीं"],1),
+        q("परावर्तन के नियम के अनुसार आपतन कोण किसके बराबर होता है?",["अपवर्तन कोण","परावर्तन कोण","90° हमेशा","दुगुना परावर्तन कोण"],1),
+        q("सफेद प्रकाश कितने मुख्य रंगों में विभाजित हो सकता है?",["तीन","पाँच","सात","दस"],2),
+        q("आँख में प्रवेश करने वाले प्रकाश की मात्रा को कौन नियंत्रित करता है?",["परितारिका","रेटिना","दृष्टि तंत्रिका","कॉर्निया"],0),
+        q("चंद्रमा का अपना प्रकाश क्यों नहीं होता?",["वह सूर्य का प्रकाश परावर्तित करता है","वह पृथ्वी से प्रकाश लेता है","वह आग से चमकता है","उसमें हवा नहीं है"],0),
+        q("तारे आकाश में टिमटिमाते हुए क्यों दिखाई देते हैं?",["वायुमंडलीय अपवर्तन के कारण","उनका आकार बदलता है","वे बुझते-जलते हैं","पृथ्वी का रंग बदलता है"],0),
+        q("सूर्य के सबसे निकट ग्रह कौन-सा है?",["शुक्र","बुध","पृथ्वी","मंगल"],1),
+        q("वायु प्रदूषण में वृद्धि का एक प्रमुख कारण क्या है?",["वाहनों का धुआँ","पेड़ लगाना","वर्षा जल संचयन","साइकिल चलाना"],0),
+        q("ओजोन परत हमें मुख्यतः किससे बचाती है?",["पराबैंगनी किरणों से","ध्वनि से","दृश्य प्रकाश से","गुरुत्वाकर्षण से"],0),
+        q("ग्रीनहाउस गैसों की मात्रा बढ़ने से कौन-सी समस्या बढ़ती है?",["वैश्विक तापवृद्धि","मृदा निर्माण","ध्वनि का वेग","चंद्र ग्रहण"],0),
+        q("फसल में सिंचाई का अर्थ क्या है?",["खेत में पानी देना","खरपतवार काटना","अनाज पीसना","बीज छाँटना"],0),
+        q("मधुमक्खियाँ फूलों के परागण में कैसे सहायता करती हैं?",["परागकणों को एक फूल से दूसरे तक ले जाकर","जड़ों को काटकर","पत्तियों को सुखाकर","बीजों को जलाकर"],0),
+        q("दही जमाने के लिए दूध में थोड़ी मात्रा में क्या मिलाते हैं?",["दही का जामन","नमक","तेल","रेत"],0),
+        q("किस पदार्थ को जीवाश्म ईंधन कहते हैं?",["कोयला","लकड़ी का ताजा टुकड़ा","सूर्य का प्रकाश","पवन"],0),
+        q("जैव विविधता का अर्थ क्या है?",["किसी क्षेत्र में जीवों की विविधता","केवल पेड़ों की ऊँचाई","मिट्टी का रंग","वर्षा की मात्रा"],0)
+    ];
+    tests.push({
+        id:"class8_science_grand_test",
+        testName:"🏆Class 8th Grand Test",
+        name:"🏆Class 8th Grand Test",
+        className:"8",
+        studentClass:"8",
+        subject:"Science",
+        duration:30,
+        durationMinutes:30,
+        marksPerQuestion:1,
+        questions:questionList.length,
+        questionList,
+        status:"Ready",
+        createdAt:new Date().toISOString()
+    });
+    localStorage.setItem("sscScheduledTests",JSON.stringify(tests));
+}
+
+function enforceThirtyMinuteTests(){
+    const tests=getJSON("sscScheduledTests",[]);
+    if(!Array.isArray(tests))return;
+    let changed=false;
+    tests.forEach(t=>{
+        if(Number(t.duration)!==30 || Number(t.durationMinutes)!==30){t.duration=30;t.durationMinutes=30;changed=true;}
+        if(String(t.id)==="class9_science_grand_test" && t.testName!=="🏆 Class 9th Science Grand Test"){
+            t.testName="🏆 Class 9th Science Grand Test";t.name=t.testName;changed=true;
+        }
+    });
+    if(changed)localStorage.setItem("sscScheduledTests",JSON.stringify(tests));
+}
+
 
 
 /* =====================================================
@@ -2448,6 +2771,9 @@ function renderManageTests(){
                     )}
                 </p>
 
+                <button type="button" style="padding:8px 12px;border:0;border-radius:8px;background:#eaf2ff;color:#1769e8;cursor:pointer;margin-top:8px" onclick="rescheduleTest(${index})">Reschedule</button>
+                <button type="button" class="danger-btn" onclick="deleteScheduledTest(${index})">Delete Test</button>
+
             </div>
 
         `
@@ -2506,7 +2832,7 @@ function renderSchedule(){
 }
 
 
-function scheduleSelectedTest(){
+async function scheduleSelectedTest(){
 
     const id =
         document.getElementById(
@@ -2592,6 +2918,15 @@ function scheduleSelectedTest(){
         JSON.stringify(tests)
     );
 
+    try{
+        const bridge=await window.sscMessageFirestoreReady;
+        await bridge.setDoc(bridge.doc(bridge.db,"sscScheduledTests",String(test.id)),test);
+    }catch(error){
+        console.error("Scheduled test cloud sync failed",error);
+        alert("Test इस browser में schedule हो गया, लेकिन students के साथ share नहीं हो पाया। Firebase permissions check करें।");
+        renderSchedule();loadAdminStats();return;
+    }
+
 
     alert(
         "✅ Test Scheduled Successfully!"
@@ -2671,12 +3006,71 @@ function renderScheduledTests(){
                     ).toLocaleString("en-IN")}
                 </p>
 
+                <button type="button" style="padding:8px 12px;border:0;border-radius:8px;background:#eaf2ff;color:#1769e8;cursor:pointer;margin-top:8px" onclick="rescheduleTestById('${String(t.id).replace(/'/g, "\\'")}')">Reschedule</button>
+                <button type="button" class="danger-btn" onclick="deleteScheduledTestById('${String(t.id).replace(/'/g, "\\'")}')">Delete Test</button>
+
             </div>
 
         `
         )
         .join("");
 
+}
+
+function testDateTimeLocal(value){
+    const d=value?new Date(value):new Date();
+    if(Number.isNaN(d.getTime())) return "";
+    const pad=n=>String(n).padStart(2,"0");
+    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+function rescheduleTest(index){
+    const tests=getJSON("sscScheduledTests",[]);
+    const t=tests[index];
+    if(!t){alert("Test नहीं मिला।");return;}
+    rescheduleTestById(t.id);
+}
+
+async function rescheduleTestById(id){
+    const tests=getJSON("sscScheduledTests",[]);
+    const t=tests.find(x=>String(x.id)===String(id));
+    if(!t){alert("Test नहीं मिला।");return;}
+    const start=prompt("नई शुरू होने की तारीख और समय लिखें (YYYY-MM-DDTHH:mm)",testDateTimeLocal(t.startDateTime));
+    if(start===null)return;
+    const end=prompt("नई समाप्त होने की तारीख और समय लिखें (YYYY-MM-DDTHH:mm)",testDateTimeLocal(t.endDateTime));
+    if(end===null)return;
+    const startDate=new Date(start),endDate=new Date(end);
+    if(Number.isNaN(startDate.getTime())||Number.isNaN(endDate.getTime())||endDate<=startDate){alert("सही तारीख/समय भरें। समाप्ति समय, शुरू होने के समय के बाद होना चाहिए।");return;}
+    t.startDateTime=startDate.toISOString();
+    t.endDateTime=endDate.toISOString();
+    t.status="Scheduled";
+    localStorage.setItem("sscScheduledTests",JSON.stringify(tests));
+    try{
+        const bridge=await window.sscMessageFirestoreReady;
+        await bridge.setDoc(bridge.doc(bridge.db,"sscScheduledTests",String(t.id)),t);
+    }catch(error){console.error("Test reschedule cloud sync failed",error);alert("नई तारीख इस browser में save हुई, लेकिन students के साथ sync नहीं हो पाई।");}
+    alert("Test reschedule हो गया।");
+    renderManageTests();renderSchedule();loadAdminStats();
+}
+
+function deleteScheduledTest(index){
+    const tests=getJSON("sscScheduledTests",[]);
+    const t=tests[index];
+    if(t) deleteScheduledTestById(t.id);
+}
+
+async function deleteScheduledTestById(id){
+    const tests=getJSON("sscScheduledTests",[]);
+    const t=tests.find(x=>String(x.id)===String(id));
+    if(!t){alert("Test नहीं मिला।");return;}
+    if(!confirm(`“${t.testName||t.name||"Test"}” को scheduled tests से हटाएँ? पुराने results नहीं हटेंगे।`))return;
+    localStorage.setItem("sscScheduledTests",JSON.stringify(tests.filter(x=>String(x.id)!==String(id))));
+    try{
+        const bridge=await window.sscMessageFirestoreReady;
+        await bridge.deleteDoc(bridge.doc(bridge.db,"sscScheduledTests",String(id)));
+    }catch(error){console.error("Test deletion cloud sync failed",error);alert("Test इस browser से हट गया, लेकिन cloud से हट नहीं सका।");}
+    alert("Test delete हो गया। पुराने results सुरक्षित हैं।");
+    renderManageTests();renderSchedule();loadAdminStats();
 }
 
 
@@ -2867,7 +3261,7 @@ function showChapterContentManager(cls,subject,chapter){
     box.innerHTML=`<div class="question-card" style="padding:16px"><h3>📚 ${escapeHTML(chapter)} — All Content</h3>
       <div style="margin-top:12px"><h4>🎥 Videos (${videos.length})</h4>${videos.length?videos.map(v=>`<div style="border:1px solid #e5e7eb;border-radius:10px;padding:10px;margin-top:8px"><b>${escapeHTML(v.title||"Video Class")}</b><small style="display:block;color:#6b7280">${v.scheduledAt?"Scheduled: "+escapeHTML(new Date(v.scheduledAt).toLocaleString("en-IN")):"Available now"}</small><button type="button" class="danger-btn delete-chapter-video" data-id="${escapeHTML(v.id)}" style="margin-top:8px">🗑 Delete Video</button></div>`).join(""):'<p style="color:#6b7280">No videos yet.</p>'}</div>
       <div style="margin-top:18px"><h4>📝 Notes / 📄 Materials (${mats.length})</h4>${mats.length?mats.map(m=>`<div style="border:1px solid #e5e7eb;border-radius:10px;padding:10px;margin-top:8px"><b>${m.type==='note'?'📝':'📄'} ${escapeHTML(m.title||"Material")}</b>${m.text?`<p style="white-space:pre-wrap;margin-top:6px">${escapeHTML(m.text)}</p>`:""}${m.url?`<a href="${escapeHTML(m.url)}" target="_blank" rel="noopener">Open</a>`:""}<div style="margin-top:8px"><button type="button" class="outline-btn edit-chapter-material" data-id="${escapeHTML(m.id)}">✏️ Edit</button> <button type="button" class="danger-btn delete-chapter-material" data-id="${escapeHTML(m.id)}">🗑 Delete</button></div></div>`).join(""):'<p style="color:#6b7280">No notes/materials yet.</p>'}</div></div>`;
-    box.querySelectorAll('.delete-chapter-video').forEach(b=>b.addEventListener('click',async()=>{if(!confirm('यह video delete करना है?'))return;await deleteVideoClass(b.dataset.id||'');showChapterContentManager(cls,subject,chapter);}));
+    box.querySelectorAll('.delete-chapter-video').forEach(b=>b.addEventListener('click',async()=>{await deleteVideoClass(b.dataset.id||'');showChapterContentManager(cls,subject,chapter);}));
     box.querySelectorAll('.edit-chapter-material').forEach(b=>{const m=mats.find(x=>String(x.id)===String(b.dataset.id));b.addEventListener('click',()=>showMaterialEditor(cls,subject,chapter,m?.type||'note',b.dataset.id||''));});
     box.querySelectorAll('.delete-chapter-material').forEach(b=>b.addEventListener('click',()=>{if(!confirm('यह material delete करना है?'))return;saveAdminMaterials(getAdminMaterials().filter(x=>String(x.id)!==String(b.dataset.id)));showChapterContentManager(cls,subject,chapter);}));
 }
@@ -3008,11 +3402,13 @@ async function deleteVideoClass(id){
     if(!confirm("क्या यह Video Class delete करना है?"))return;
     const videos=getAdminVideos();
     const target=videos.find(v=>String(v.id)===String(id));
+    if(!target){alert("यह video list में नहीं मिला। Page refresh करके फिर कोशिश करें।");return false;}
     if(target?.sourceType==="local"&&target.localFileId){
-        try{const db=await openSSCVideoDB();await new Promise((resolve,reject)=>{const tx=db.transaction("videos","readwrite");tx.objectStore("videos").delete(target.localFileId);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);});db.close();}catch(e){console.warn(e);}
+        let db;try{db=await openSSCVideoDB();await new Promise((resolve,reject)=>{const tx=db.transaction("videos","readwrite");tx.objectStore("videos").delete(target.localFileId);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error||new Error("Local video delete failed"));tx.onabort=()=>reject(tx.error||new Error("Local video delete aborted"));});}catch(e){console.error("Local video file removal failed",e);alert("Video entry हटेगा, लेकिन इस browser की stored file पूरी तरह नहीं हट पाई।");}finally{if(db)db.close();}
     }
     localStorage.setItem("sscVideos",JSON.stringify(videos.filter(v=>String(v.id)!==String(id))));
     renderAdminVideos();
+    alert("✅ Video Class delete हो गई।");
 }
 
 function renderAdminVideos(){
@@ -3269,6 +3665,13 @@ document.addEventListener(
 
 
 document.addEventListener("DOMContentLoaded",function(){
+
+    // Seed built-in test records as soon as the admin page opens,
+    // so they are present before navigating to Manage Tests or Schedule.
+    ensureClass9ScienceGrandTest();
+    ensureClass10ScienceGrandTest();
+    ensureClass8ScienceGrandTest();
+    enforceThirtyMinuteTests();
 
     const videoClass=document.getElementById("videoClass");
     const videoSubject=document.getElementById("videoSubject");
