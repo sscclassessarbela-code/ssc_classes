@@ -4673,36 +4673,55 @@ function startUnifiedTest(index){
     showTestInstructions(duration,marks);
 }
 
-function showTestInstructions(duration,marks){
-    const modal=document.getElementById("testInstructionsModal");
-    const name=escapeHTML(activeTest.testName||activeTest.name||"Online Test");
-    document.getElementById("testInstructionsContent").innerHTML=`
-        <h2 id="testInstructionsTitle" style="margin:0 34px 12px 0">General Instructions</h2>
-        <h3 style="font-size:15px;margin:14px 0 8px">${name}</h3>
-        <p><b>Questions:</b> ${activeQuestions.length} &nbsp; <b>Duration:</b> ${duration} minutes</p>
-        <p><b>Marks:</b> ${marks} for each correct answer. There is no negative marking.</p>
-        <ul style="padding-left:20px;line-height:1.65;margin:12px 0">
-            <li>Each question has one correct option.</li>
-            <li>Once you select an answer, it is saved and cannot be changed.</li>
-            <li>Wrong and unanswered questions do not deduct marks.</li>
-            <li>The timer counts down and the test is submitted automatically when time ends.</li>
-            <li>You can move between questions using the question numbers.</li>
-            <li>You can submit before time ends. A completed test cannot be attempted again.</li>
-        </ul>
-        <label style="display:flex;gap:9px;align-items:flex-start;margin:14px 0;font-size:13px;line-height:1.5">
-            <input id="acceptTestTerms" type="checkbox" style="margin-top:3px;width:18px;height:18px;flex:0 0 auto">
-            <span>I have read and agree to the test instructions and terms.</span>
-        </label>
-        <div style="display:flex;gap:10px">
-            <button type="button" class="outline-btn" style="flex:1" onclick="cancelTestStart()">Cancel</button>
-            <button type="button" id="confirmStartTestButton" class="primary-btn" style="flex:1" disabled onclick="beginUnifiedTest()">Start Test</button>
-        </div>`;
-    modal.classList.add("show");
-    document.getElementById("acceptTestTerms").addEventListener("change",function(){
-        document.getElementById("confirmStartTestButton").disabled=!this.checked;
-    });
-}
+function showTestInstructions(duration,marks){ 
+    const modal=document.getElementById("testInstructionsModal"); 
+    const name=escapeHTML(activeTest.testName||activeTest.name||"ऑनलाइन परीक्षा"); 
 
+    document.getElementById("testInstructionsContent").innerHTML=` 
+        <h2 id="testInstructionsTitle" style="margin:0 34px 12px 0">सामान्य निर्देश</h2> 
+
+        <h3 style="font-size:15px;margin:14px 0 8px">${name}</h3> 
+
+        <p>
+            <b>कुल प्रश्न:</b> ${activeQuestions.length} 
+            &nbsp; 
+            <b>समय:</b> ${duration} मिनट
+        </p> 
+
+        <p>
+            <b>अंक:</b> प्रत्येक सही उत्तर के लिए ${marks} अंक मिलेंगे। 
+            परीक्षा में कोई नकारात्मक अंकन (Negative Marking) नहीं है।
+        </p> 
+
+        <ul style="padding-left:20px;line-height:1.65;margin:12px 0"> 
+            <li>कुल ${activeQuestions.length} प्रश्न हैं।</li> 
+            <li>परीक्षा की अवधि ${duration} मिनट है।</li> 
+            <li>प्रत्येक सही उत्तर के लिए ${marks} अंक मिलेंगे।</li> 
+            <li>परीक्षा में कोई नकारात्मक अंकन (Negative Marking) नहीं है।</li> 
+            <li>प्रत्येक प्रश्न का केवल एक सही उत्तर है।</li> 
+            <li>एक बार उत्तर चुनने के बाद उसे बदला नहीं जा सकता।</li> 
+            <li>समय समाप्त होने पर परीक्षा स्वतः Submit हो जाएगी।</li> 
+            <li>आप प्रश्न संख्या पर क्लिक करके प्रश्नों के बीच जा सकते हैं।</li> 
+            <li>एक बार परीक्षा पूरी होने के बाद उसे दोबारा Attempt नहीं किया जा सकता।</li> 
+        </ul> 
+
+        <label style="display:flex;gap:9px;align-items:flex-start;margin:14px 0;font-size:13px;line-height:1.5"> 
+            <input id="acceptTestTerms" type="checkbox" style="margin-top:3px;width:18px;height:18px;flex:0 0 auto"> 
+            <span>मैंने परीक्षा के सभी निर्देश और नियम पढ़ लिए हैं तथा मैं उनसे सहमत हूँ।</span> 
+        </label> 
+
+        <div style="display:flex;gap:10px"> 
+            <button type="button" class="outline-btn" style="flex:1" onclick="cancelTestStart()">रद्द करें</button> 
+
+            <button type="button" id="confirmStartTestButton" class="primary-btn" style="flex:1" disabled onclick="beginUnifiedTest()">परीक्षा शुरू करें</button> 
+        </div>`; 
+
+    modal.classList.add("show"); 
+
+    document.getElementById("acceptTestTerms").addEventListener("change",function(){ 
+        document.getElementById("confirmStartTestButton").disabled=!this.checked; 
+    }); 
+}
 function cancelTestStart(){
     document.getElementById("testInstructionsModal").classList.remove("show");
     activeTest=null;activeQuestions=[];
