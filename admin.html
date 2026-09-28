@@ -605,6 +605,12 @@ th{
     <p>किसी चुनी हुई class के students को message भेजें।</p>
 </div>
 
+<div class="menu-card" onclick="showSection('communityMessageSection')">
+    <div class="menu-icon">💬</div>
+    <h2>Community Chat</h2>
+    <p>सभी students के Firebase community chat में message भेजें।</p>
+</div>
+
 
 
 <div
@@ -718,6 +724,16 @@ th{
         </div>
         <button id="sendClassMessageButton" class="primary-btn" type="button" onclick="sendClassMessage()">Send Message</button>
         <p style="margin-top:10px;color:#667085;font-size:12px">The message will appear in notifications for the selected class.</p>
+    </div>
+</section>
+
+<section id="communityMessageSection" class="admin-section">
+    <div class="section-box">
+        <button class="back-btn" onclick="backDashboard()">← Dashboard</button>
+        <h2>💬 Community Chat Message</h2>
+        <div class="input-box" style="margin-top:20px"><label>Message for all logged-in students</label><textarea id="communityAdminText" rows="5" maxlength="1000" placeholder="Community में message लिखें"></textarea></div>
+        <button id="sendCommunityAdminButton" class="primary-btn" type="button" onclick="sendCommunityAdminMessage()">Send to Community</button>
+        <div id="adminCommunityMessages" style="margin-top:18px"></div>
     </div>
 </section>
 
@@ -1341,7 +1357,7 @@ Select Test
 import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
-import { getFirestore, collection, addDoc, serverTimestamp, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, serverTimestamp, doc, setDoc, deleteDoc, getDocs, query, orderBy, onSnapshot, where } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
 const sscFirebaseConfig = {
     apiKey: "AIzaSyDGnQzr8AV8nVdIBO6tUDbNAoRqlxuF7N0",
@@ -1380,7 +1396,12 @@ try {
         serverTimestamp,
         doc,
         setDoc,
-        deleteDoc
+        deleteDoc,
+        getDocs,
+        query,
+        orderBy,
+        onSnapshot,
+        where
     });
 } catch (firebaseInitError) {
     console.error("Firebase initialization failed:", firebaseInitError);
@@ -1682,6 +1703,8 @@ function showSection(id){
     }
 
 
+    if(id === "communityMessageSection") loadAdminCommunityMessages();
+
     if(id === "manageTestsSection"){
         renderManageTests();
     }
@@ -1736,6 +1759,14 @@ async function sendClassMessage(){
 }
 
 
+async function sendCommunityAdminMessage(){
+    const input=document.getElementById("communityAdminText"), text=input?.value.trim();
+    if(!text){alert("Message लिखें।");return;}
+    const btn=document.getElementById("sendCommunityAdminButton");if(btn)btn.disabled=true;
+    try{const bridge=await window.sscMessageFirestoreReady;await bridge.addDoc(bridge.collection(bridge.db,"messages"),{type:"community_chat",senderUid:"kdvxP19u9jgWlAO2NSYcUNWAamx2",senderName:"SSC CLASSES",text,message:text,createdAt:bridge.serverTimestamp()});input.value="";alert("Community message sent.");loadAdminCommunityMessages();}catch(e){console.error(e);alert("Community message send नहीं हुआ।");}finally{if(btn)btn.disabled=false;}}
+async function loadAdminCommunityMessages(){
+    const box=document.getElementById("adminCommunityMessages");if(!box)return;
+    try{const bridge=await window.sscMessageFirestoreReady;const q=bridge.query(bridge.collection(bridge.db,"messages"),bridge.where("type","==","community_chat"));bridge.onSnapshot(q,snap=>{const rows=snap.docs.map(d=>({...d.data(),id:d.id})).sort((a,b)=>{const aa=a.createdAt?.toMillis?a.createdAt.toMillis():0,bb=b.createdAt?.toMillis?b.createdAt.toMillis():0;return bb-aa;});box.innerHTML=rows.slice(0,50).map(m=>`<div class="card" style="padding:10px;margin:7px 0"><b>${escapeHTML(m.senderName||"Student")}</b><p style="margin:5px 0;white-space:pre-wrap">${escapeHTML(m.text||m.message||"")}</p></div>`).join("")||"<p style='color:#777'>No community messages yet.</p>";});}catch(e){console.warn(e);}}
 function hideAllSections(){
 
     document
@@ -3109,18 +3140,29 @@ async function scheduleSelectedTest(){
             String(test.id)
         );
 
+        const scheduledClass = String(
+            test.className || test.studentClass || test.class || ""
+        ).replace(/\D/g, "");
+
+        if(!scheduledClass){
+            throw new Error("Test में Class नहीं मिली। पहले test की class सेट करें।");
+        }
+
+        // Firebase में class की दोनों standard fields रखें,
+        // ताकि अलग-अलग पुराने/नए student clients भी test पहचान सकें।
+        test.className = scheduledClass;
+        test.studentClass = scheduledClass;
+
         await bridge.setDoc(
             testRef,
             {
                 ...test,
-
-                // Firebase में साफ पहचान
                 id: String(test.id),
+                className: scheduledClass,
+                studentClass: scheduledClass,
                 status: "Scheduled",
-
                 startDateTime: test.startDateTime,
                 endDateTime: test.endDateTime,
-
                 updatedAt: new Date().toISOString()
             },
             {
@@ -3649,94 +3691,21 @@ function renderAdminVideos(){
    STUDENTS
 ===================================================== */
 
-function renderStudents(){
-
-    const box =
-        document.getElementById(
-            "studentsList"
-        );
-
-
-    const students =
-        getJSON(
-            "sscStudents",
-            []
-        );
-
-
-    if(!Array.isArray(students) || !students.length){
-
-        box.innerHTML =
-            "<p style='color:#777;'>अभी कोई student registered नहीं है।</p>";
-
-        return;
-
+async function renderStudents(){
+    const box=document.getElementById("studentsList");
+    if(!box)return;
+    box.innerHTML="<p style='color:#667085'>Loading students from Firebase...</p>";
+    try{
+        const bridge=await window.sscMessageFirestoreReady;
+        const snap=await bridge.getDocs(bridge.collection(bridge.db,"students"));
+        const students=snap.docs.map(d=>({...d.data(),uid:d.id})).sort((x,y)=>String(x.name||x.studentName||"").localeCompare(String(y.name||y.studentName||"")));
+        localStorage.setItem("sscStudents",JSON.stringify(students));
+        box.innerHTML=`<div style="margin-bottom:12px;font-weight:700">Total Registered Students: ${students.length}</div>`+(students.length?`<div class="table-wrap"><table><thead><tr><th>Name</th><th>Class</th><th>Roll</th><th>Mobile</th></tr></thead><tbody>${students.map(s=>`<tr><td>${escapeHTML(s.name||s.studentName||"-")}</td><td>${escapeHTML(String(s.class||s.studentClass||"-"))}</td><td>${escapeHTML(String(s.rollNumber||s.roll||"-"))}</td><td>${escapeHTML(s.mobile||s.phone||"-")}</td></tr>`).join("")}</tbody></table></div>`:`<p style='color:#777;'>अभी कोई student registered नहीं है।</p>`);
+    }catch(error){
+        console.error("Firebase student list failed",error);
+        const students=getJSON("sscStudents",[]);
+        box.innerHTML=`<p style='color:#b91c1c'>Firebase student list load नहीं हुई। Local records: ${Array.isArray(students)?students.length:0}</p>`;
     }
-
-
-    box.innerHTML = `
-
-        <div class="table-wrap">
-
-        <table>
-
-            <thead>
-
-                <tr>
-                    <th>Name</th>
-                    <th>Class</th>
-                    <th>Mobile</th>
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                ${
-                    students.map(
-                        s => `
-
-                        <tr>
-
-                            <td>
-                                ${escapeHTML(
-                                    s.name ||
-                                    s.studentName ||
-                                    "-"
-                                )}
-                            </td>
-
-                            <td>
-                                ${escapeHTML(
-                                    String(
-                                        s.class ||
-                                        s.studentClass ||
-                                        "-"
-                                    )
-                                )}
-                            </td>
-
-                            <td>
-                                ${escapeHTML(
-                                    s.mobile ||
-                                    s.phone ||
-                                    "-"
-                                )}
-                            </td>
-
-                        </tr>
-
-                        `
-                    ).join("")
-                }
-
-            </tbody>
-
-        </table>
-
-        </div>
-    `;
-
 }
 
 
