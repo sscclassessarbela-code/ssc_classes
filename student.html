@@ -2178,11 +2178,6 @@ input{
 
             </div>
 
-            <div class="input-group">
-                <span class="input-icon">✉️</span>
-                <input id="registerEmail" type="email" placeholder="Email address (for email sign-in)">
-            </div>
-
 
             <div class="input-group">
 
@@ -3371,8 +3366,8 @@ async function studentLogin(){
     }
 
 
-    if(password.length<4){
-        toast("Password कम से कम 4 characters का होना चाहिए");
+    if(password.length<6){
+        toast("Password कम से कम 6 characters का होना चाहिए");
         return;
     }
 
@@ -3403,122 +3398,13 @@ async function studentLogin(){
         console.warn("Cloud mobile login failed; trying local account",error);
     }
 
-   let students=[];
-try{
-    students=JSON.parse(
-        localStorage.getItem("sscStudents")
-    ) || [];
-}catch(e){}
-
-const found=students.find(
-    x =>
-        String(x.mobile||"")===mobile &&
-        String(x.password||"")===String(password)
-);
-
-if(!found){
-    toast("Mobile number या password गलत है।");
-    return;
-}
-
-if(!found.rollNumber && !found.rollNo){
-    showLegacyRollSetup(found);
-    return;
-}
-
-/* ---------------------------------------------------------
-   IMPORTANT:
-   Local/old student account को भी Firebase Authentication
-   में sign-in कराएँ ताकि Firestore scheduled tests पढ़ सके.
---------------------------------------------------------- */
-
-try{
-
-    const bridge=await window.sscAuthBridge;
-
-    let credential=null;
-
-    try{
-
-        /* पहले existing Firebase account से login */
-        credential=
-            await bridge.signInWithEmailAndPassword(
-                bridge.auth,
-                `${mobile}@sscclasses.app`,
-                password
-            );
-
-    }catch(firebaseLoginError){
-
-        /*
-           अगर पुराना local student Firebase में अभी मौजूद नहीं है,
-           तो उसी mobile/password से Firebase account बनाएँ.
-        */
-
-        if(
-            firebaseLoginError?.code ===
-            "auth/user-not-found"
-            ||
-            firebaseLoginError?.code ===
-            "auth/invalid-credential"
-        ){
-
-            try{
-
-                credential=
-                    await bridge.createUserWithEmailAndPassword(
-                        bridge.auth,
-                        `${mobile}@sscclasses.app`,
-                        password
-                    );
-
-            }catch(createError){
-
-                console.error(
-                    "Firebase student account create failed:",
-                    createError
-                );
-
-                toast(
-                    "Student Firebase account connect नहीं हो पाया।"
-                );
-
-                return;
-            }
-
-        }else{
-
-            throw firebaseLoginError;
-
-        }
-
-    }
-
-    /* Firebase UID local student profile में रखें */
-    found.uid=credential.user.uid;
-    found.id=credential.user.uid;
-    found.authProvider="password";
-
-    localStorage.setItem(
-        "sscStudents",
-        JSON.stringify(students)
-    );
-
+    let students=[];
+    try{ students=JSON.parse(localStorage.getItem("sscStudents"))||[]; }catch(e){}
+    const found=students.find(x=>String(x.mobile||"")===mobile && String(x.password||"")===String(password));
+    if(!found){ toast("Mobile number या password गलत है।"); return; }
+    if(!found.rollNumber&&!found.rollNo){showLegacyRollSetup(found);return;}
     activateStudentSession(found);
 
-}catch(firebaseError){
-
-    console.error(
-        "Student Firebase authentication failed:",
-        firebaseError
-    );
-
-    toast(
-        "Firebase login नहीं हो पाया। कृपया दोबारा login करें।"
-    );
-
-    return;
-}
 }
 
 
@@ -3531,7 +3417,7 @@ async function registerStudent(){
     const name=document.getElementById("registerName")?.value.trim()||"";
     const mobile=document.getElementById("registerMobile")?.value.trim()||"";
     const password=document.getElementById("registerPassword")?.value||"";
-    const email=document.getElementById("registerEmail")?.value.trim().toLowerCase()||"";
+    const email="";
     const roll=document.getElementById("registerRollNumber")?.value.trim()||"";
     const cls=document.getElementById("registerClass")?.value||"";
     const photoInput=document.getElementById("registerPhoto");
@@ -3552,72 +3438,113 @@ async function registerStudent(){
     }
 
     if(!roll){toast("कृपया Roll Number दर्ज करें");return;}
-    if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){toast("सही email address डालें");return;}
 
-    if(password.length<4){
-        toast("Password कम से कम 4 characters रखें");
+    if(password.length<6){
+        toast("Password कम से कम 6 characters रखें");
         return;
     }
 
     const finishRegistration=async(photoData)=>{
         let authUid="";
-        let mobileUid="";
+        let firebaseUser=null;
+        const firebaseEmail=`${mobile}@sscclasses.app`;
 
-        /* Mobile registration also gets a Firebase Auth account.
-           This makes login portable across different phones. */
         try{
             const bridge=await window.sscAuthBridge;
-            if(password.length>=6){
+
+            /* First try to create the mobile-based Firebase account. */
+            try{
                 const credential=await bridge.createUserWithEmailAndPassword(
                     bridge.auth,
-                    `${mobile}@sscclasses.app`,
+                    firebaseEmail,
                     password
                 );
-                mobileUid=credential.user.uid;
-                authUid=mobileUid;
-            }
-        }catch(error){
-            if(error?.code!=="auth/email-already-in-use"){
-                console.warn("Mobile Firebase registration unavailable; using local fallback",error);
-            }else{
-                toast("यह मोबाइल नंबर पहले से registered है। उसी password से login करें।");
-                return;
-            }
-        }
-
-        if(email){
-            if(password.length<6){toast("Email account के लिए password कम से कम 6 characters का रखें");return;}
-            try{
-                const bridge=await window.sscAuthBridge;
-                const credential=await bridge.createUserWithEmailAndPassword(bridge.auth,email,password);
-                try{await bridge.updateProfile(credential.user,{displayName:name});}catch(profileError){console.warn("Firebase display name update failed",profileError);}
-                if(!mobileUid) authUid=credential.user.uid;
-            }catch(error){console.error(error);toast("Email account नहीं बन पाया। यह email पहले से registered हो सकता है।");return;}
-        }
-        const studentObj={
-            id:Date.now(),
-            uid:authUid,
-            name,
-            email,
-            mobile,
-            password,
-            studentClass:cls,
-            rollNumber:roll,
-            fatherName:"",
-            photo:photoData||"",
-            registeredAt:new Date().toISOString()
-        };
-
-        if(authUid){
-            try{
-                const bridge=await window.sscAuthBridge;
-                await bridge.saveStudentProfile(authUid,{
-                    uid:authUid,name,email,mobile,studentClass:cls,rollNumber:roll,
-                    photo:photoData||"",registeredAt:studentObj.registeredAt
-                });
+                firebaseUser=credential.user;
             }catch(error){
-                console.warn("Cloud student profile save failed; local profile retained",error);
+                /* If the Auth account already exists, recover it by signing in
+                   with the same mobile/password instead of creating a local-only account. */
+                if(error?.code==="auth/email-already-in-use"){
+                    const credential=await bridge.signInWithEmailAndPassword(
+                        bridge.auth,
+                        firebaseEmail,
+                        password
+                    );
+                    firebaseUser=credential.user;
+                }else{
+                    throw error;
+                }
             }
+
+            authUid=firebaseUser.uid;
+
+            try{
+                await bridge.updateProfile(firebaseUser,{displayName:name});
+            }catch(profileError){
+                console.warn("Firebase display name update failed",profileError);
+            }
+
+            const registeredAt=new Date().toISOString();
+            const studentObj={
+                id:Date.now(),
+                uid:authUid,
+                name,
+                email:"",
+                mobile,
+                password:"",
+                studentClass:cls,
+                rollNumber:roll,
+                fatherName:"",
+                photo:photoData||"",
+                registeredAt
+            };
+
+            /* Do NOT continue if Firestore profile save fails. The Auth account
+               already exists, so the next attempt will recover it safely. */
+            await bridge.saveStudentProfile(authUid,{
+                uid:authUid,
+                name,
+                email:"",
+                mobile,
+                studentClass:cls,
+                className:cls,
+                rollNumber:roll,
+                fatherName:"",
+                photo:photoData||"",
+                registeredAt
+            });
+
+            let students=[];
+            try{ students=JSON.parse(localStorage.getItem("sscStudents"))||[]; }catch(e){}
+
+            students=students.filter(x=>String(x.mobile||"")!==mobile);
+            students.push(studentObj);
+
+            localStorage.setItem("sscStudents",JSON.stringify(students));
+            localStorage.setItem("sscStudent",JSON.stringify(studentObj));
+            localStorage.setItem("sscStudentLoggedIn","true");
+            localStorage.setItem("sscStudentName",name);
+            localStorage.setItem("sscStudentClass",cls);
+            window.dispatchEvent(new Event("ssc-student-class-changed"));
+
+            loadStudentData();
+            toast("Registration successful ✓");
+            setTimeout(()=>openScreen("homeScreen"),400);
+
+        }catch(error){
+            console.error("Student registration failed:",error);
+
+            let message="Registration पूरा नहीं हो पाया। कृपया दोबारा कोशिश करें।";
+            if(error?.code==="auth/wrong-password" || error?.code==="auth/invalid-credential"){
+                message="यह मोबाइल नंबर पहले से registered है, लेकिन password सही नहीं है। सही password डालकर Login करें।";
+            }else if(error?.code==="auth/weak-password"){
+                message="Password कम से कम 6 characters का रखें।";
+            }else if(error?.code==="permission-denied" || error?.code==="failed-precondition"){
+                message="Student profile Firebase में save नहीं हुआ। Firestore Rules जाँचें और फिर दोबारा Register करें।";
+            }else if(error?.code==="auth/network-request-failed"){
+                message="Internet connection की समस्या है। Internet जाँचकर फिर कोशिश करें।";
+            }
+            toast(message);
+            return;
         }
 
         let students=[];
@@ -4954,7 +4881,12 @@ function previousQuestion(){if(currentQuestion>0){currentQuestion--;renderQuesti
 function nextQuestion(){if(currentQuestion<activeQuestions.length-1){currentQuestion++;renderQuestion();}else{confirmSubmit();}}
 function confirmSubmit(){
     if(testSubmitted) return;
-    if(!activeQuestions.length){ toast("कोई question उपलब्ध नहीं है।"); return; }
+    if(!activeQuestions.length){
+        toast("कोई question उपलब्ध नहीं है।");
+        return;
+    }
+    const confirmed=confirm("क्या आप test submit करना चाहते हैं?");
+    if(!confirmed) return;
     submitTest(false);
 }
 
