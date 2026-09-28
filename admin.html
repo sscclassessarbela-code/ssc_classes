@@ -1339,6 +1339,7 @@ Select Test
    FIREBASE STORAGE BRIDGE FOR VIDEO UPLOAD
 ===================================================== */
 import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
 import { getFirestore, collection, addDoc, serverTimestamp, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
@@ -1354,29 +1355,57 @@ const sscFirebaseConfig = {
 
 try {
     const app = getApps().length ? getApps()[0] : initializeApp(sscFirebaseConfig);
+    const auth = getAuth(app);
     const storage = getStorage(app);
     const db = getFirestore(app);
-    window.sscStorageReady = Promise.resolve({storage, ref, uploadBytes, getDownloadURL});
-    window.sscMessageFirestoreReady = Promise.resolve({db, collection, addDoc, serverTimestamp, doc, setDoc, deleteDoc});
-} catch (error) {
-    console.error("Firebase Storage initialization failed:", error);
-    window.sscStorageReady = Promise.reject(error);
-    window.sscMessageFirestoreReady = Promise.reject(error);
+
+    // Firebase Authentication bridge used by the Admin Login.
+    window.sscAuthReady = Promise.resolve({
+        auth,
+        signInWithEmailAndPassword,
+        signOut
+    });
+
+    window.sscStorageReady = Promise.resolve({
+        storage,
+        ref,
+        uploadBytes,
+        getDownloadURL
+    });
+
+    window.sscMessageFirestoreReady = Promise.resolve({
+        db,
+        collection,
+        addDoc,
+        serverTimestamp,
+        doc,
+        setDoc,
+        deleteDoc
+    });
+} catch (firebaseInitError) {
+    console.error("Firebase initialization failed:", firebaseInitError);
+    window.sscAuthReady = Promise.reject(firebaseInitError);
+    window.sscStorageReady = Promise.reject(firebaseInitError);
+    window.sscMessageFirestoreReady = Promise.reject(firebaseInitError);
 }
 </script>
 
 <script>
-
 /* =====================================================
    ADMIN LOGIN
 ===================================================== */
 
+
 const ADMIN_ID = "SSC7520";
 
-const ADMIN_PASSWORD = "sonusir@12";
+/*
+   Firebase Authentication Admin Email
+*/
+const ADMIN_FIREBASE_EMAIL =
+    "sscclassessarbela@gmail.com";
 
 
-function adminLogin(){
+async function adminLogin(){
 
     const user =
         document
@@ -1389,27 +1418,148 @@ function adminLogin(){
         .getElementById("adminPassword")
         .value;
 
-    const error =
+    const loginError =
         document.getElementById("loginError");
 
 
-    if(
-        user === ADMIN_ID &&
-        password === ADMIN_PASSWORD
-    ){
+    loginError.style.display = "none";
 
+
+    /*
+       पहले पुराना Admin ID check
+    */
+    if(user !== ADMIN_ID){
+
+        loginError.textContent =
+            "Invalid Admin ID or Password";
+
+        loginError.style.display = "block";
+
+        return;
+    }
+
+
+    if(!password){
+
+        loginError.textContent =
+            "Password डालें।";
+
+        loginError.style.display = "block";
+
+        return;
+    }
+
+
+    try{
+
+        /*
+           Firebase Auth ready
+        */
+        if(!window.sscAuthReady){
+
+            throw new Error(
+                "Firebase Authentication उपलब्ध नहीं है।"
+            );
+
+        }
+
+
+        const firebase =
+            await window.sscAuthReady;
+
+
+        if(!firebase || !firebase.auth){
+
+            throw new Error(
+                "Firebase Authentication initialize नहीं हुआ।"
+            );
+
+        }
+
+
+        /*
+           Firebase Authentication Login
+        */
+        const credential =
+            await firebase.signInWithEmailAndPassword(
+                firebase.auth,
+                ADMIN_FIREBASE_EMAIL,
+                password
+            );
+
+
+        const firebaseUser =
+            credential.user;
+
+
+        /*
+           बहुत जरूरी:
+           Firebase UID वही होना चाहिए
+        */
+        const ADMIN_UID =
+            "kdvxP19u9jgWlAO2NSYcUNWAamx2";
+
+
+        if(
+            !firebaseUser ||
+            firebaseUser.uid !== ADMIN_UID
+        ){
+
+            await firebase.signOut(
+                firebase.auth
+            );
+
+            throw new Error(
+                "यह Firebase account Admin UID से match नहीं करता।"
+            );
+
+        }
+
+
+        /*
+           Login successful
+        */
         localStorage.setItem(
             "sscAdminLoggedIn",
             "true"
         );
 
-        error.style.display = "none";
+
+        localStorage.setItem(
+            "sscAdminFirebaseUid",
+            firebaseUser.uid
+        );
+
+
+        loginError.style.display = "none";
+
+
+        console.log(
+            "✅ Admin Firebase login successful:",
+            firebaseUser.uid
+        );
+
 
         showAdminPanel();
 
-    }else{
 
-        error.style.display = "block";
+    }catch(firebaseLoginError){
+
+        console.error(
+            "❌ Admin Firebase Login Failed:",
+            firebaseLoginError
+        );
+
+
+        loginError.textContent =
+            "Firebase Login Failed: " +
+            (
+                firebaseLoginError?.message ||
+                "Invalid Firebase credentials"
+            );
+
+
+        loginError.style.display = "block";
 
     }
 
@@ -1433,9 +1583,13 @@ function showAdminPanel(){
 
 
     ensureClass9ScienceGrandTest();
+
     ensureClass8ScienceGrandTest();
+
     ensureClass10ScienceGrandTest();
+
     enforceThirtyMinuteTests();
+
     loadAdminStats();
 
 }
@@ -1445,10 +1599,42 @@ function showAdminPanel(){
    LOGOUT
 ===================================================== */
 
-function adminLogout(){
+async function adminLogout(){
+
+    try{
+
+        if(window.sscAuthReady){
+
+            const firebase =
+                await window.sscAuthReady;
+
+            if(firebase?.auth){
+
+                await firebase.signOut(
+                    firebase.auth
+                );
+
+            }
+
+        }
+
+    }catch(error){
+
+        console.error(
+            "Firebase logout error:",
+            error
+        );
+
+    }
+
 
     localStorage.removeItem(
         "sscAdminLoggedIn"
+    );
+
+
+    localStorage.removeItem(
+        "sscAdminFirebaseUid"
     );
 
 
@@ -1475,6 +1661,7 @@ function adminLogout(){
     hideAllSections();
 
 }
+
 
 
 /* =====================================================
@@ -2834,109 +3021,149 @@ function renderSchedule(){
 
 async function scheduleSelectedTest(){
 
-    const id =
-        document.getElementById(
-            "scheduleTestSelect"
-        ).value;
-
-
-    const start =
-        document.getElementById(
-            "scheduleStart"
-        ).value;
-
-
-    const end =
-        document.getElementById(
-            "scheduleEnd"
-        ).value;
-
+    const id = document.getElementById("scheduleTestSelect").value;
+    const start = document.getElementById("scheduleStart").value;
+    const end = document.getElementById("scheduleEnd").value;
 
     if(!id){
-
         alert("Test select करें।");
-
         return;
-
     }
 
+    if(!start || !end){
+        alert("Start और End date/time भरें।");
+        return;
+    }
 
-    if(!start || !end){ alert("Start और End date/time भरें।"); return; }
-    if(new Date(end) <= new Date(start)){ alert("End time, Start time के बाद होना चाहिए।"); return; }
+    if(new Date(end) <= new Date(start)){
+        alert("End time, Start time के बाद होना चाहिए।");
+        return;
+    }
 
-
-    const tests =
-        getJSON(
-            "sscScheduledTests",
-            []
-        );
-
-
-    const test =
-        tests.find(
-            t => t.id === id
-        );
-
+    const tests = getJSON("sscScheduledTests", []);
+    const test = tests.find(t => String(t.id) === String(id));
 
     if(!test){
-
         alert("Test नहीं मिला।");
-
         return;
-
     }
-
 
     if(
         !Array.isArray(test.questionList) ||
         test.questionList.length !== Number(test.questions)
     ){
-
-        alert(
-            "पहले सभी questions add करके Test Save करें।"
-        );
-
+        alert("पहले सभी questions add करके Test Save करें।");
         return;
-
     }
 
+    // --------------------------------------------------
+    // Schedule information
+    // --------------------------------------------------
 
-    test.startDateTime =
-        new Date(start).toISOString();
+    test.startDateTime = new Date(start).toISOString();
+    test.endDateTime = new Date(end).toISOString();
+    test.status = "Scheduled";
 
-
-    test.endDateTime =
-        new Date(end).toISOString();
-
-
-    test.status =
-        "Scheduled";
-
-
+    // Local backup
     localStorage.setItem(
         "sscScheduledTests",
         JSON.stringify(tests)
     );
 
+    // --------------------------------------------------
+    // Firebase sync
+    // --------------------------------------------------
+
     try{
-        const bridge=await window.sscMessageFirestoreReady;
-        await bridge.setDoc(bridge.doc(bridge.db,"sscScheduledTests",String(test.id)),test);
+
+        if(!window.sscMessageFirestoreReady){
+            throw new Error(
+                "Firebase Firestore bridge उपलब्ध नहीं है।"
+            );
+        }
+
+        const bridge =
+            await window.sscMessageFirestoreReady;
+
+        if(!bridge){
+            throw new Error(
+                "Firestore bridge initialize नहीं हुआ।"
+            );
+        }
+
+        if(!bridge.db){
+            throw new Error(
+                "Firestore database उपलब्ध नहीं है।"
+            );
+        }
+
+        if(!bridge.doc || !bridge.setDoc){
+            throw new Error(
+                "Firestore document functions उपलब्ध नहीं हैं।"
+            );
+        }
+
+        const testRef = bridge.doc(
+            bridge.db,
+            "sscScheduledTests",
+            String(test.id)
+        );
+
+        await bridge.setDoc(
+            testRef,
+            {
+                ...test,
+
+                // Firebase में साफ पहचान
+                id: String(test.id),
+                status: "Scheduled",
+
+                startDateTime: test.startDateTime,
+                endDateTime: test.endDateTime,
+
+                updatedAt: new Date().toISOString()
+            },
+            {
+                merge: true
+            }
+        );
+
+        console.log(
+            "✅ Scheduled test Firebase में save हो गया:",
+            test
+        );
+
     }catch(error){
-        console.error("Scheduled test cloud sync failed",error);
-        alert("Test इस browser में schedule हो गया, लेकिन students के साथ share नहीं हो पाया। Firebase permissions check करें।");
-        renderSchedule();loadAdminStats();return;
+
+        console.error(
+            "❌ Scheduled test Firebase sync failed:",
+            error
+        );
+
+        alert(
+            "❌ Firebase में Test Save नहीं हुआ.\n\n" +
+            "Code: " +
+            (error?.code || "unknown") +
+            "\n\nMessage: " +
+            (error?.message || error)
+        );
+
+        renderSchedule();
+        loadAdminStats();
+        return;
     }
 
+    // --------------------------------------------------
+    // Success
+    // --------------------------------------------------
 
     alert(
-        "✅ Test Scheduled Successfully!"
+        "✅ Test Scheduled Successfully!\n\n" +
+        "अब यह Firebase में students के लिए उपलब्ध है।"
     );
 
-
     renderSchedule();
-
     loadAdminStats();
-
 }
 
 
@@ -3701,7 +3928,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
 document.addEventListener(
     "DOMContentLoaded",
-    function(){
+    async function(){
 
         const loggedIn =
             localStorage.getItem(
@@ -3709,22 +3936,65 @@ document.addEventListener(
             );
 
 
-        if(loggedIn === "true"){
+        /*
+           Firebase current user check
+        */
+        try{
 
-            showAdminPanel();
+            if(window.sscAuthReady){
 
-        }else{
+                const firebase =
+                    await window.sscAuthReady;
 
-            document.getElementById(
-                "loginBox"
-            ).style.display = "flex";
+                const currentUser =
+                    firebase.auth.currentUser;
 
 
-            document.getElementById(
-                "adminPanel"
-            ).style.display = "none";
+                if(
+                    loggedIn === "true" &&
+                    currentUser &&
+                    currentUser.uid ===
+                    "kdvxP19u9jgWlAO2NSYcUNWAamx2"
+                ){
+
+                    showAdminPanel();
+
+                    return;
+                }
+
+            }
+
+        }catch(error){
+
+            console.error(
+                "Firebase session check failed:",
+                error
+            );
 
         }
+
+
+        /*
+           Valid Firebase session नहीं है
+        */
+        localStorage.removeItem(
+            "sscAdminLoggedIn"
+        );
+
+
+        localStorage.removeItem(
+            "sscAdminFirebaseUid"
+        );
+
+
+        document.getElementById(
+            "loginBox"
+        ).style.display = "flex";
+
+
+        document.getElementById(
+            "adminPanel"
+        ).style.display = "none";
 
     }
 );
