@@ -3403,13 +3403,122 @@ async function studentLogin(){
         console.warn("Cloud mobile login failed; trying local account",error);
     }
 
-    let students=[];
-    try{ students=JSON.parse(localStorage.getItem("sscStudents"))||[]; }catch(e){}
-    const found=students.find(x=>String(x.mobile||"")===mobile && String(x.password||"")===String(password));
-    if(!found){ toast("Mobile number या password गलत है।"); return; }
-    if(!found.rollNumber&&!found.rollNo){showLegacyRollSetup(found);return;}
+   let students=[];
+try{
+    students=JSON.parse(
+        localStorage.getItem("sscStudents")
+    ) || [];
+}catch(e){}
+
+const found=students.find(
+    x =>
+        String(x.mobile||"")===mobile &&
+        String(x.password||"")===String(password)
+);
+
+if(!found){
+    toast("Mobile number या password गलत है।");
+    return;
+}
+
+if(!found.rollNumber && !found.rollNo){
+    showLegacyRollSetup(found);
+    return;
+}
+
+/* ---------------------------------------------------------
+   IMPORTANT:
+   Local/old student account को भी Firebase Authentication
+   में sign-in कराएँ ताकि Firestore scheduled tests पढ़ सके.
+--------------------------------------------------------- */
+
+try{
+
+    const bridge=await window.sscAuthBridge;
+
+    let credential=null;
+
+    try{
+
+        /* पहले existing Firebase account से login */
+        credential=
+            await bridge.signInWithEmailAndPassword(
+                bridge.auth,
+                `${mobile}@sscclasses.app`,
+                password
+            );
+
+    }catch(firebaseLoginError){
+
+        /*
+           अगर पुराना local student Firebase में अभी मौजूद नहीं है,
+           तो उसी mobile/password से Firebase account बनाएँ.
+        */
+
+        if(
+            firebaseLoginError?.code ===
+            "auth/user-not-found"
+            ||
+            firebaseLoginError?.code ===
+            "auth/invalid-credential"
+        ){
+
+            try{
+
+                credential=
+                    await bridge.createUserWithEmailAndPassword(
+                        bridge.auth,
+                        `${mobile}@sscclasses.app`,
+                        password
+                    );
+
+            }catch(createError){
+
+                console.error(
+                    "Firebase student account create failed:",
+                    createError
+                );
+
+                toast(
+                    "Student Firebase account connect नहीं हो पाया।"
+                );
+
+                return;
+            }
+
+        }else{
+
+            throw firebaseLoginError;
+
+        }
+
+    }
+
+    /* Firebase UID local student profile में रखें */
+    found.uid=credential.user.uid;
+    found.id=credential.user.uid;
+    found.authProvider="password";
+
+    localStorage.setItem(
+        "sscStudents",
+        JSON.stringify(students)
+    );
+
     activateStudentSession(found);
 
+}catch(firebaseError){
+
+    console.error(
+        "Student Firebase authentication failed:",
+        firebaseError
+    );
+
+    toast(
+        "Firebase login नहीं हो पाया। कृपया दोबारा login करें।"
+    );
+
+    return;
+}
 }
 
 
