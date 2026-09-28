@@ -1995,6 +1995,92 @@ input{
         font-size:12px;
     }
 }
+
+/* =========================================================
+   RESULT FILE PREVIEW / QUESTION REVIEW / PDF PRINT
+========================================================= */
+.result-file-card{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    width:100%;
+    text-align:left;
+    border:1px solid #dfe5ec;
+    margin:10px 0;
+    padding:12px;
+    cursor:pointer;
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 3px 12px rgba(0,0,0,.05);
+}
+.result-file-icon{
+    width:46px;height:54px;border-radius:7px;
+    background:#f2f5f8;border:1px solid #d9e0e7;
+    display:grid;place-items:center;font-size:25px;flex:none;
+    position:relative;
+}
+.result-file-icon::after{
+    content:'PDF';position:absolute;bottom:3px;left:7px;right:7px;
+    font-size:8px;font-weight:900;text-align:center;color:#b91c1c;
+}
+.result-file-meta{min-width:0;flex:1}
+.result-file-meta b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.result-file-meta small{display:block;color:#667085;margin-top:5px}
+.result-file-score{font-weight:800;text-align:right;flex:none}
+.parent-signature-row{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    padding-top:18px;margin-top:8px;gap:20px;font-size:12px;
+}
+.signature-line{display:inline-block;width:150px;border-bottom:1px solid #555;height:20px}
+.question-review-modal{position:fixed;inset:0;z-index:9999}
+.question-review-backdrop{position:absolute;inset:0;background:rgba(3,15,31,.58)}
+.question-review-sheet{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:min(680px,94vw);max-height:90vh;overflow:auto;background:#fff;
+    border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.25);padding:16px;
+}
+.question-review-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;border-bottom:1px solid #e5e7eb;padding-bottom:12px}
+.question-review-head small{font-size:10px;font-weight:800;color:#667085}
+.question-review-head h3{margin:5px 0 0;font-size:16px}
+.review-question-text{font-size:16px;font-weight:700;line-height:1.55;margin:16px 0}
+.review-option{padding:12px;border:1px solid #dfe5ec;border-radius:10px;margin:8px 0;font-size:14px;line-height:1.4}
+.review-option.correct{background:#d1fae5;border:2px solid #166534;color:#14532d}
+.review-option.wrong{background:#fee2e2;border:2px solid #dc2626;color:#991b1b}
+.review-option.neutral{background:#f8fafc}
+.review-option-label{font-weight:800;margin-right:5px}
+.review-answer-note{margin-top:12px;padding:10px 12px;border-radius:10px;font-size:12px;font-weight:700}
+.review-answer-note.correct{background:#d1fae5;color:#14532d}
+.review-answer-note.wrong{background:#fee2e2;color:#991b1b}
+.review-answer-note.unattempted{background:#fef3c7;color:#92400e}
+.question-review-footer{margin-top:14px}
+
+@media print{
+    @page{size:A4 portrait;margin:8mm}
+    body{background:#fff!important}
+    body *{visibility:hidden!important}
+    #resultContent,#resultContent *{visibility:visible!important}
+    #resultContent{
+        position:absolute!important;left:0!important;top:0!important;width:100%!important;
+        margin:0!important;padding:0!important;display:block!important;
+    }
+    #resultContent .result-hero{padding:10px 12px!important;margin-bottom:7px!important;border-radius:8px!important}
+    #resultContent .result-ring-wrap{margin:5px auto 2px!important}
+    #resultContent .result-ring{width:65px!important;height:65px!important}
+    #resultContent .result-ring::after{width:50px!important;height:50px!important;font-size:14px!important}
+    #resultContent .result-score-text{margin-top:3px!important}
+    #resultContent .result-stat-grid{gap:5px!important;margin-bottom:7px!important}
+    #resultContent .result-stat{padding:6px!important;border-radius:7px!important;box-shadow:none!important}
+    #resultContent .result-stat-icon{font-size:13px!important;margin-bottom:1px!important}
+    #resultContent .result-stat b{font-size:13px!important}
+    #resultContent .result-stat small{font-size:7px!important}
+    #resultContent .result-details{padding:8px!important;margin-bottom:0!important;box-shadow:none!important}
+    #resultContent .result-details h3{font-size:11px!important;margin-bottom:3px!important}
+    #resultContent .result-row{padding:4px 0!important;font-size:9px!important}
+    #resultContent .parent-signature-row{padding-top:8px!important;margin-top:3px!important;font-size:9px!important}
+    #resultContent .signature-line{width:110px!important;height:12px!important}
+    #resultContent .result-actions,#questionReviewPanel{display:none!important}
+}
+
 </style>
 </head>
 
@@ -2411,18 +2497,14 @@ input{
             </button>
 
 
-            <button
-                class="quick-card"
-                onclick="openWhatsApp()">
-
+            <button class="quick-card" onclick="openTelegramChannel()">
                 <div class="quick-icon">
-                    <svg width="32" height="32" viewBox="0 0 32 32" aria-label="WhatsApp" role="img"><path fill="#25D366" d="M16 2.5A13.3 13.3 0 0 0 4.6 22.7L3 29l6.5-1.6A13.4 13.4 0 1 0 16 2.5Z"/><path fill="#fff" d="M22.8 19.3c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.7.2-.2.3-.8 1.1-1 1.3-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.6-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6l-1-2.4c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.1 1.4 3.3c.2.2 2.3 3.6 5.6 5 .8.3 1.4.5 1.9.6.8.3 1.5.2 2 .1.6-.1 2-.8 2.3-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4Z"/></svg>
+                    <svg width="34" height="34" viewBox="0 0 48 48" aria-label="Telegram" role="img">
+                        <circle cx="24" cy="24" r="24" fill="#229ED9"/>
+                        <path fill="#fff" d="M36.8 12.9 30.9 35c-.45 1.56-1.28 1.94-2.6 1.2l-7.15-5.27-3.45 3.32c-.38.38-.7.7-1.43.7l.51-7.28 13.25-11.97c.58-.51-.13-.8-.9-.29L12.75 25.8l-6.97-2.18c-1.52-.48-1.55-1.52.32-2.25l27.25-10.5c1.26-.46 2.37.3 1.45 2.03Z"/>
+                    </svg>
                 </div>
-
-                <b>
-                    WhatsApp
-                </b>
-
+                <b>Telegram</b>
             </button>
 
 
@@ -2613,6 +2695,13 @@ input{
 
 
     <div class="page result-page">
+
+        <div id="resultHistoryPanel" class="card" style="padding:16px;margin-bottom:14px">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+                <h3 style="margin:0">📄 All Test Results</h3>
+            </div>
+            <div id="resultHistoryList" style="margin-top:12px"></div>
+        </div>
 
         <div id="resultContent">
 
@@ -2816,12 +2905,27 @@ input{
 
             </div>
 
+            <div class="parent-signature-row">
+                <span>Parent Signature</span>
+                <span class="signature-line"></span>
+            </div>
+
         </div>
 
+
+        <div id="questionReviewPanel" class="card" style="display:none;padding:14px;margin-bottom:14px">
+            <h3 style="margin:0 0 8px">🔎 Correct / Wrong Questions</h3>
+            <div style="font-size:12px;color:#667085;margin-bottom:8px">किसी भी question पर click करके उसे test की तरह detail में देखें।</div>
+            <div id="questionReviewList"></div>
+        </div>
 
         <!-- ACTIONS -->
 
         <div class="result-actions">
+
+            <button class="primary-btn full" onclick="showQuestionReview()">🔎 View Correct / Wrong Questions</button>
+            <button class="outline-btn full" onclick="shareCurrentResult()">📤 Share Result</button>
+            <button class="outline-btn full" onclick="downloadCurrentResult()">📥 Download / Save PDF</button>
 
             <button
                 class="primary-btn full"
@@ -2852,6 +2956,26 @@ input{
     </div>
 
 </section>
+
+<!-- =======================================================
+     QUESTION REVIEW MODAL
+======================================================= -->
+<div id="questionReviewModal" class="question-review-modal" style="display:none" aria-hidden="true">
+    <div class="question-review-backdrop" onclick="closeQuestionReview()"></div>
+    <div class="question-review-sheet">
+        <div class="question-review-head">
+            <div>
+                <small id="reviewStatusLabel">ANSWER REVIEW</small>
+                <h3 id="reviewQuestionTitle">Question</h3>
+            </div>
+            <button type="button" class="back-btn" onclick="closeQuestionReview()">×</button>
+        </div>
+        <div id="reviewQuestionBody"></div>
+        <div class="question-review-footer">
+            <button type="button" class="outline-btn" onclick="closeQuestionReview()">Close</button>
+        </div>
+    </div>
+</div>
 
 
 <!-- =======================================================
@@ -3203,7 +3327,7 @@ function openScreen(id){
 
     if(id==="subjectsScreen" && typeof renderSubjects==="function") renderSubjects();
     if(id==="testScreen") renderTestList();
-    if(id==="resultScreen") renderStudentResult();
+    if(id==="resultScreen"){ loadCloudStudentResults().finally(()=>loadAndRenderAllResults()); }
     if(id==="notificationsScreen" && typeof renderNotifications==="function") renderNotifications("all");
     if(typeof updateNotificationBadge==="function") updateNotificationBadge();
     window.scrollTo(0,0);
@@ -3755,6 +3879,9 @@ function forgotPassword(){
 
 function openCommunityChat(){
     window.location.href = "community-chat.html";
+}
+function openTelegramChannel(){
+    window.open("https://t.me/sscclassessarbela","_blank","noopener,noreferrer");
 }
 
 
@@ -4997,7 +5124,15 @@ async function submitTest(autoSubmitted){
             new Date().toISOString(),
 
         date:
-            new Date().toLocaleDateString("en-IN")
+            new Date().toLocaleDateString("en-IN"),
+
+        questionReview: activeQuestions.map((q,i)=>({
+            number:i+1,
+            question:q.question||"",
+            options:Array.isArray(q.options)?q.options:[],
+            correctIndex:Number(q.correct),
+            selectedIndex:answers[i]===null?null:Number(answers[i])
+        }))
     };
 
 
@@ -5053,290 +5188,139 @@ async function submitTest(autoSubmitted){
     );
 
     openScreen("resultScreen");
+    selectedResultForView=result;
+    renderStudentResult(result);
 }
-function renderStudentResult(){
-    const st=studentRecord();
-    const cls=normalizeClassValue(studentClassValue());
-    const name=String(st.name||st.studentName||localStorage.getItem("sscStudentName")||"").trim().toLowerCase();
-    const history=safeJSON("sscResultHistory",[]);
-    const me=studentRecord();
-    const myUid=String(me.uid||"");
-    const myMobile=String(me.mobile||"");
-    const candidates=(Array.isArray(history)?history:[]).filter(x=>{
-        const uid=String(x.studentUid||"");
-        const mob=String(x.studentMobile||"");
-        return (uid && myUid && uid===myUid) || (mob && myMobile && mob===myMobile);
+function getLocalMyResults(){
+    const st=studentRecord(), uid=String(st.uid||""), mobile=String(st.mobile||"");
+    const local=safeJSON("sscResultHistory",[]);
+    const cloud=safeJSON("sscCloudResultHistory",[]);
+    const all=[...(Array.isArray(local)?local:[]),...(Array.isArray(cloud)?cloud:[])];
+    const map=new Map();
+    all.forEach(r=>{
+        const ruid=String(r.studentUid||""), rmob=String(r.studentMobile||"");
+        if((uid&&ruid===uid)||(mobile&&rmob===mobile)){
+            const key=`${r.testId||r.id||r.testName}__${ruid||rmob}`;
+            map.set(key,r);
+        }
     });
-    const last=safeJSON("sscLastResult",null);
-    if(last){
-        const uid=String(last.studentUid||"");
-        const mob=String(last.studentMobile||"");
-        if(((uid && myUid && uid===myUid)||(mob && myMobile && mob===myMobile)) && !candidates.some(x=>String(x.testId||x.id)===String(last.testId||last.id))) candidates.unshift(last);
-    }
-    const r=candidates
-        .filter(x=>normalizeClassValue(x.studentClass??x.testClass??"")===cls)
-        .sort((a,b)=>new Date(b.submittedAt||b.createdAt||b.date||0)-new Date(a.submittedAt||a.createdAt||a.date||0))[0];
-    if(!r){
-        document.getElementById("resultContent").style.display="none";
-        document.getElementById("noClassResultText").textContent=`You have no completed test results for Class ${cls}.`;
-        document.getElementById("noClassResultMessage").style.display="block";
+    return [...map.values()].sort((a,b)=>new Date(b.submittedAt||b.createdAt||0)-new Date(a.submittedAt||a.createdAt||0));
+}
+
+let selectedResultForView=null;
+function loadAndRenderAllResults(){
+    const rows=getLocalMyResults();
+    const box=document.getElementById("resultHistoryList");
+    const content=document.getElementById("resultContent");
+    if(!box)return;
+    if(!rows.length){
+        box.innerHTML='<div style="padding:18px;text-align:center;color:#667085">अभी कोई completed test result नहीं है।</div>';
+        if(content)content.style.display="none";
         return;
     }
-    document.getElementById("resultContent").style.display="";
-    document.getElementById("noClassResultMessage").style.display="none";
-
-
-    const pct = Number(r.percentage || 0);
-
-
-    /* TEST NAME */
-
-    const testName =
-        document.getElementById("resultTestName");
-
-    if(testName){
-
-        testName.textContent =
-            r.testName || "Online Test";
-
+    if(content)content.style.display="none";
+    box.innerHTML=rows.map((r,i)=>{
+        const pct=Number(r.percentage||0).toFixed(1);
+        const date=r.date||new Date(r.submittedAt||Date.now()).toLocaleDateString("en-IN");
+        return `<button type="button" class="result-file-card" onclick="selectResultForView(${i})">
+            <div class="result-file-icon">📄</div>
+            <div class="result-file-meta">
+                <b>${escapeHTML(r.testName||"Online Test")}</b>
+                <small>S.S.C. CLASSES • Class ${escapeHTML(String(r.studentClass||r.testClass||"-"))} • ${escapeHTML(date)}</small>
+            </div>
+            <div class="result-file-score"><strong>${escapeHTML(String(pct))}%</strong><small style="display:block;color:#667085">${escapeHTML(String(r.obtainedMarks||0))}/${escapeHTML(String(r.totalMarks||0))}</small></div>
+        </button>`;
+    }).join("");
+    window.__sscMyResults=rows;
+}
+function selectResultForView(index){
+    const rows=window.__sscMyResults||getLocalMyResults();
+    const r=rows[index]; if(!r)return;
+    selectedResultForView=r;
+    renderStudentResult(r);
+    const content=document.getElementById("resultContent");
+    if(content)content.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function renderStudentResult(rOverride){
+    const st=studentRecord();
+    const cls=normalizeClassValue(studentClassValue());
+    const rows=getLocalMyResults();
+    const r=rOverride||selectedResultForView||rows.find(x=>normalizeClassValue(x.studentClass??x.testClass??"")===cls)||rows[0];
+    const content=document.getElementById("resultContent"), empty=document.getElementById("noClassResultMessage");
+    if(!r){
+        if(content)content.style.display="none";
+        if(empty){empty.style.display="block";document.getElementById("noClassResultText").textContent=`You have no completed test results for Class ${cls}.`;}
+        return;
     }
-
-
-    /* STATUS */
-
-    const status =
-        document.getElementById("resultStatus");
-
-    if(status){
-
-        status.textContent =
-            r.result || "RESULT";
-
-    }
-
-
-    /* PERCENTAGE RING */
-
-    const ring =
-        document.getElementById("resultRing");
-
-    if(ring){
-
-        const safePct =
-            Math.max(0,Math.min(100,pct));
-
-        ring.dataset.value =
-            `${pct.toFixed(0)}%`;
-
-        ring.style.background =
-            `conic-gradient(
-                var(--green) ${safePct}%,
-                #dce6f2 ${safePct}%
-            )`;
-
-    }
-
-
-    /* SCORE */
-
-    const scoreText =
-        document.getElementById("resultScoreText");
-
-    if(scoreText){
-
-        scoreText.textContent =
-            `Score: ${r.obtainedMarks || 0} / ${r.totalMarks || 0}`;
-
-    }
-
-
-    /* CORRECT */
-
-    const correct =
-        document.getElementById("resultCorrect");
-
-    if(correct){
-
-        correct.textContent =
-            r.correct || 0;
-
-    }
-
-
-    /* WRONG */
-
-    const wrong =
-        document.getElementById("resultWrong");
-
-    if(wrong){
-
-        wrong.textContent =
-            r.wrong || 0;
-
-    }
-
-
-    /* UNATTEMPTED */
-
-    const unattempted =
-        document.getElementById("resultUnattempted");
-
-    if(unattempted){
-
-        unattempted.textContent =
-            r.unattempted || 0;
-
-    }
-
-
-    /* OBTAINED MARKS */
-
-    const marks =
-        document.getElementById("resultMarks");
-
-    if(marks){
-
-        marks.textContent =
-            r.obtainedMarks || 0;
-
-    }
-
-
-    /* STUDENT */
-
-    const student =
-        document.getElementById("resultStudent");
-
-    if(student){
-
-        student.textContent =
-            r.studentName || "Student";
-
-    }
-
-
-    /* CLASS */
-
-    const classEl =
-        document.getElementById("resultClass");
-
-    if(classEl){
-
-        classEl.textContent =
-            r.studentClass
-            ? `Class ${r.studentClass}`
-            : "-";
-
-    }
-
-
-    /* TOTAL QUESTIONS */
-
-    const totalQuestions =
-        document.getElementById(
-            "resultTotalQuestions"
-        );
-
-    if(totalQuestions){
-
-        totalQuestions.textContent =
-            r.totalQuestions || 0;
-
-    }
-
-
-    /* ATTEMPTED */
-
-    const attempted =
-        document.getElementById(
-            "resultAttempted"
-        );
-
-    if(attempted){
-
-        attempted.textContent =
-            r.attempted || 0;
-
-    }
-
-
-    /* TOTAL MARKS */
-
-    const totalMarks =
-        document.getElementById(
-            "resultTotalMarks"
-        );
-
-    if(totalMarks){
-
-        totalMarks.textContent =
-            r.totalMarks || 0;
-
-    }
-
-
-    /* PERCENTAGE */
-
-    const percentage =
-        document.getElementById(
-            "resultPercentage"
-        );
-
-    if(percentage){
-
-        percentage.textContent =
-            `${pct.toFixed(2)}%`;
-
-    }
-
-
-    /* FINAL RESULT */
-
-    const finalStatus =
-        document.getElementById(
-            "resultFinalStatus"
-        );
-
-    if(finalStatus){
-
-        finalStatus.textContent =
-            r.result || "-";
-
-        finalStatus.classList.remove(
-            "result-pass",
-            "result-fail"
-        );
-
-        if(r.result === "PASS"){
-
-            finalStatus.classList.add(
-                "result-pass"
-            );
-
-        }
-        else if(r.result === "FAIL"){
-
-            finalStatus.classList.add(
-                "result-fail"
-            );
-
-        }
-
-    }
-
-
-    /* DATE */
-
-    const date =
-        document.getElementById("resultDate");
-
-    if(date){
-
-        date.textContent =
-            r.date || "-";
-
-    }
-
+    if(content)content.style.display="";
+    if(empty)empty.style.display="none";
+    selectedResultForView=r;
+    const pct=Number(r.percentage||0);
+    const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+    set("resultTestName",r.testName||"Online Test"); set("resultStatus",r.result||"RESULT");
+    const ring=document.getElementById("resultRing"); if(ring){const p=Math.max(0,Math.min(100,pct));ring.dataset.value=`${pct.toFixed(0)}%`;ring.style.background=`conic-gradient(var(--green) ${p}%,#dce6f2 ${p}%)`;}
+    set("resultScoreText",`Score: ${r.obtainedMarks||0} / ${r.totalMarks||0}`); set("resultCorrect",r.correct||0); set("resultWrong",r.wrong||0); set("resultUnattempted",r.unattempted||0); set("resultMarks",r.obtainedMarks||0);
+    set("resultStudent",r.studentName||st.name||"Student"); set("resultClass",r.studentClass?`Class ${r.studentClass}`:"-"); set("resultTotalQuestions",r.totalQuestions||0); set("resultAttempted",r.attempted||0); set("resultTotalMarks",r.totalMarks||0); set("resultPercentage",`${pct.toFixed(2)}%`); set("resultFinalStatus",r.result||"-"); set("resultDate",r.date||"-");
+    const final=document.getElementById("resultFinalStatus");if(final){final.classList.remove("result-pass","result-fail");if(r.result==="PASS")final.classList.add("result-pass");if(r.result==="FAIL")final.classList.add("result-fail");}
+}
+function showQuestionReview(){
+    const r=selectedResultForView||getLocalMyResults()[0];
+    const list=Array.isArray(r?.questionReview)?r.questionReview:[];
+    if(!list.length){toast("इस result में question-wise data उपलब्ध नहीं है।");return;}
+    const box=document.getElementById("questionReviewList");
+    if(!box){toast("Question review उपलब्ध नहीं है।");return;}
+    box.innerHTML=list.map((q,i)=>{
+        const sel=q.selectedIndex===null?null:Number(q.selectedIndex), cor=Number(q.correctIndex);
+        const status=sel===null?'UNATTEMPTED':(sel===cor?'CORRECT':'WRONG');
+        const statusClass=status==='CORRECT'?'color:#14532d;background:#d1fae5':status==='WRONG'?'color:#991b1b;background:#fee2e2':'color:#92400e;background:#fef3c7';
+        return `<button type="button" class="card" style="width:100%;text-align:left;padding:14px;margin:8px 0;border:1px solid #e5e7eb;background:#fff;cursor:pointer" onclick="openQuestionReview(${i})"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><b>Q${q.number||i+1}. ${escapeHTML(q.question||'')}</b><span style="padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700;${statusClass}">${status}</span></div><div style="margin-top:6px;color:#667085;font-size:11px">Tap to view this question</div></button>`;
+    }).join('');
+    document.getElementById("questionReviewPanel").style.display="block";
+    document.getElementById("questionReviewPanel").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function openQuestionReview(index){
+    const r=selectedResultForView||getLocalMyResults()[0];
+    const q=Array.isArray(r?.questionReview)?r.questionReview[index]:null;
+    if(!q)return;
+    const sel=q.selectedIndex===null?null:Number(q.selectedIndex), cor=Number(q.correctIndex);
+    const status=sel===null?'UNATTEMPTED':(sel===cor?'CORRECT':'WRONG');
+    const modal=document.getElementById('questionReviewModal');
+    const title=document.getElementById('reviewQuestionTitle');
+    const label=document.getElementById('reviewStatusLabel');
+    const body=document.getElementById('reviewQuestionBody');
+    if(!modal||!title||!label||!body)return;
+    title.textContent=`Question ${q.number||index+1}`;
+    label.textContent=status==='CORRECT'?'✓ CORRECT':status==='WRONG'?'✕ WRONG':'○ NOT ATTEMPTED';
+    label.style.color=status==='CORRECT'?'#166534':status==='WRONG'?'#dc2626':'#a16207';
+    const opts=(q.options||[]).map((o,i)=>{
+        let cls='review-option neutral';
+        let note='';
+        if(i===cor){cls='review-option correct';note=' ✓ Correct Answer';}
+        if(i===sel && i!==cor){cls='review-option wrong';note=' ✕ Your Answer';}
+        if(i===sel && i===cor)note=' ✓ Your Answer • Correct';
+        return `<div class="${cls}"><span class="review-option-label">${String.fromCharCode(65+i)}.</span>${escapeHTML(String(o))}<b>${note}</b></div>`;
+    }).join('');
+    const noteClass=status==='CORRECT'?'correct':status==='WRONG'?'wrong':'unattempted';
+    const noteText=status==='CORRECT'?'आपका answer सही था।':status==='WRONG'?'आपका answer गलत था। सही answer ऊपर dark green में दिखाया गया है।':'आपने यह question attempt नहीं किया था।';
+    body.innerHTML=`<div class="review-question-text">${escapeHTML(q.question||'')}</div>${opts}<div class="review-answer-note ${noteClass}">${noteText}</div>`;
+    modal.style.display='block';modal.setAttribute('aria-hidden','false');
+}
+function closeQuestionReview(){
+    const modal=document.getElementById('questionReviewModal');
+    if(modal){modal.style.display='none';modal.setAttribute('aria-hidden','true');}
+}
+function getResultShareText(r){return `S.S.C. CLASSES\nTest: ${r.testName||"Online Test"}\nStudent: ${r.studentName||"Student"}\nClass: ${r.studentClass||r.testClass||"-"}\nScore: ${r.obtainedMarks||0}/${r.totalMarks||0}\nCorrect: ${r.correct||0} | Wrong: ${r.wrong||0}\nPercentage: ${Number(r.percentage||0).toFixed(2)}%\nResult: ${r.result||"-"}`;}
+async function shareCurrentResult(){
+    const r=selectedResultForView||getLocalMyResults()[0];if(!r)return toast("Result उपलब्ध नहीं है।");
+    const text=getResultShareText(r);
+    try{if(navigator.share){await navigator.share({title:`${r.testName||"Test"} Result - S.S.C. CLASSES`,text});}else{await navigator.clipboard.writeText(text);toast("Result text copy हो गया।");}}catch(e){if(e?.name!=="AbortError")toast("Share नहीं हो पाया।");}
+}
+function downloadCurrentResult(){
+    const r=selectedResultForView||getLocalMyResults()[0];if(!r)return toast("Result उपलब्ध नहीं है।");
+    const oldTitle=document.title;document.title=`${r.testName||"Test"} - S.S.C. CLASSES Result`;
+    const panel=document.getElementById("resultContent");if(panel)panel.setAttribute("data-printing","true");
+    window.print();
+    setTimeout(()=>{document.title=oldTitle;if(panel)panel.removeAttribute("data-printing");},800);
 }
 /* =========================================================
    NOTIFICATIONS
@@ -5955,7 +5939,6 @@ window.sscAuthBridge=Promise.resolve({auth,createUserWithEmailAndPassword,signIn
   loadStudentResults:async(uid,mobile)=>{
     const out=[];
     if(uid){const q1=query(collection(db,"testResults"),where("studentUid","==",uid));const s1=await getDocs(q1);s1.forEach(d=>out.push({...d.data(),id:d.id}));}
-    if(mobile){const q2=query(collection(db,"testResults"),where("studentMobile","==",mobile));const s2=await getDocs(q2);s2.forEach(d=>out.push({...d.data(),id:d.id}));}
     return out;
   }
 });
@@ -5985,13 +5968,30 @@ function listenForClassMessages(){
  if(stopScheduledTests){stopScheduledTests();stopScheduledTests=null;}
  currentClass=cls;
  loadCloudStudentResults();
- const tq=query(collection(db,"sscScheduledTests"),where("className","==",cls));
- stopScheduledTests=onSnapshot(tq,snapshot=>{
-  const tests=snapshot.docs.map(doc=>({...doc.data(),id:doc.id}));
-  localStorage.setItem("sscCloudScheduledTests",JSON.stringify(tests));
-  if(typeof renderTestList==="function")renderTestList();
-  if(typeof renderNotifications==="function")renderNotifications("all");
- },error=>console.warn("Scheduled class tests could not be loaded",error));
+ // Scheduled tests are stored in Firebase. Read both className and
+ // studentClass so older tests and newly scheduled tests both work.
+ const cloudTestsById=new Map();
+ const renderCloudTests=()=>{
+   const tests=[...cloudTestsById.values()];
+   localStorage.setItem("sscCloudScheduledTests",JSON.stringify(tests));
+   if(typeof renderTestList==="function")renderTestList();
+   if(typeof renderNotifications==="function")renderNotifications("all");
+ };
+ const handleTestSnapshot=(snapshot)=>{
+   snapshot.docs.forEach(snap=>{
+     cloudTestsById.set(String(snap.id),{...snap.data(),id:snap.id});
+   });
+   renderCloudTests();
+ };
+ const handleTestError=(error)=>{
+   console.warn("Scheduled class tests could not be loaded",error);
+   if(typeof toast==="function")toast("Test sync नहीं हो पाया। कृपया internet/login check करें।");
+ };
+ const tq1=query(collection(db,"sscScheduledTests"),where("className","==",cls));
+ const tq2=query(collection(db,"sscScheduledTests"),where("studentClass","==",cls));
+ const stopTest1=onSnapshot(tq1,handleTestSnapshot,handleTestError);
+ const stopTest2=onSnapshot(tq2,handleTestSnapshot,handleTestError);
+ stopScheduledTests=()=>{stopTest1();stopTest2();};
  const q=query(collection(db,"messages"),where("targetClass","==",cls));
  stopClassMessages=onSnapshot(q,snapshot=>{
   const records=snapshot.docs.map(doc=>{const d=doc.data();const ts=d.createdAt?.toDate?d.createdAt.toDate().toISOString():(d.createdAt||new Date().toISOString());return {...d,id:doc.id,createdAt:ts};}).filter(d=>d.type==="class_announcement");
