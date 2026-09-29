@@ -2204,16 +2204,22 @@ input{
             </div>
 
 
-            <button
-                class="google-btn"
-                onclick="googleLogin()">
+          <button
+    class="google-btn"
+    onclick="googleLogin()"
+    style="display:flex;align-items:center;justify-content:center;gap:10px;">
 
-                🌈 Continue with Google
+    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#4285F4" d="M21.35 12.23c0-.79-.07-1.55-.23-2.27H12v4.3h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.42z"/>
+        <path fill="#34A853" d="M12 21.99c2.63 0 4.84-.87 6.45-2.34l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.53A9.74 9.74 0 0 0 12 21.99z"/>
+        <path fill="#FBBC05" d="M6.54 14.09A5.85 5.85 0 0 1 6.24 12c0-.73.13-1.44.3-2.09V7.38H3.3A9.99 9.99 0 0 0 2 12c0 1.61.39 3.13 1.3 4.62l3.24-2.53z"/>
+        <path fill="#EA4335" d="M12 5.88c1.43 0 2.71.49 3.72 1.46l2.79-2.79C16.84 2.91 14.63 2 12 2a9.74 9.74 0 0 0-8.7 5.38l3.24 2.53C7.31 7.6 9.46 5.88 12 5.88z"/>
+    </svg>
 
-            </button>
+    <span>Continue with Google</span>
+</button>
 
-            <button class="google-btn" style="margin-top:9px" onclick="emailLogin()">✉️ Sign in with Email</button>
-
+            
 
             <div class="auth-footer">
 
@@ -2433,96 +2439,209 @@ input{
     <div class="home-page">
 
 
-        <!-- QUICK MENU -->
+        <!-- =====================================================
+     PREMIUM QUICK MENU
+===================================================== -->
 
-        <div class="quick-grid">
+<div class="quick-grid">
 
-            <button
-                class="quick-card"
-                onclick="openSubjectsScreen()">
+    <!-- MY SUBJECTS -->
+    <button
+        class="quick-card"
+        onclick="openSubjectsScreen()">
 
-                <div class="quick-icon">
-                    📖
-                </div>
+        <div class="quick-icon">
 
-                <b>
-                    My Subjects
-                </b>
+            <svg viewBox="0 0 24 24" fill="none">
+                <path
+                    d="M4 5.5C4 4.67 4.67 4 5.5 4H10C11.1 4 12 4.9 12 6V20C12 18.9 11.1 18 10 18H5.5C4.67 18 4 17.33 4 16.5V5.5Z"
+                    stroke="#1769e8"
+                    stroke-width="1.8"
+                    stroke-linejoin="round"/>
 
-            </button>
+                <path
+                    d="M20 5.5C20 4.67 19.33 4 18.5 4H14C12.9 4 12 4.9 12 6V20C12 18.9 12.9 18 14 18H18.5C19.33 18 20 17.33 20 16.5V5.5Z"
+                    stroke="#1769e8"
+                    stroke-width="1.8"
+                    stroke-linejoin="round"/>
 
-
-            <button
-                class="quick-card"
-                onclick="openScreen('testScreen')">
-
-                <div class="quick-icon">
-                    📝
-                </div>
-
-                <b>
-                    Online Test
-                </b>
-
-            </button>
-
-
-            <button
-                class="quick-card"
-                onclick="openScreen('resultScreen')">
-
-                <div class="quick-icon">
-                    📊
-                </div>
-
-                <b>
-                    My Result
-                </b>
-
-            </button>
-
-
-            <button
-                class="quick-card"
-                onclick="openYouTubeChannel()">
-
-                <div class="quick-icon">
-                    <svg width="34" height="25" viewBox="0 0 24 18" aria-label="YouTube" role="img"><path fill="#FF0033" d="M23.5 2.8a3 3 0 0 0-2.1-2.1C19.5.2 12 .2 12 .2s-7.5 0-9.4.5A3 3 0 0 0 .5 2.8 31 31 0 0 0 0 9s0 3.3.5 6.2a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 12.3 24 9 24 9s0-3.3-.5-6.2Z"/><path fill="#fff" d="m9.6 12.8 6.2-3.8-6.2-3.8v7.6Z"/></svg>
-                </div>
-
-                <b>
-                    YouTube
-                </b>
-
-            </button>
-
-
-            <button class="quick-card" onclick="openTelegramChannel()">
-                <div class="quick-icon">
-                    <svg width="34" height="34" viewBox="0 0 48 48" aria-label="Telegram" role="img">
-                        <circle cx="24" cy="24" r="24" fill="#229ED9"/>
-                        <path fill="#fff" d="M36.8 12.9 30.9 35c-.45 1.56-1.28 1.94-2.6 1.2l-7.15-5.27-3.45 3.32c-.38.38-.7.7-1.43.7l.51-7.28 13.25-11.97c.58-.51-.13-.8-.9-.29L12.75 25.8l-6.97-2.18c-1.52-.48-1.55-1.52.32-2.25l27.25-10.5c1.26-.46 2.37.3 1.45 2.03Z"/>
-                    </svg>
-                </div>
-                <b>Telegram</b>
-            </button>
-
-
-            <button
-                class="quick-card"
-                onclick="openCommunityChat()">
-
-                <div class="quick-icon">
-                    🗨️
-                </div>
-
-                <b>
-                    Community Chat
-                </b>
-
-            </button>
+                <path
+                    d="M7 8H9.5M7 11H9.5M14.5 8H17M14.5 11H17"
+                    stroke="#1769e8"
+                    stroke-width="1.5"
+                    stroke-linecap="round"/>
+            </svg>
 
         </div>
+
+        <b>My Subjects</b>
+
+    </button>
+
+
+    <!-- ONLINE TEST -->
+    <button
+        class="quick-card"
+        onclick="openScreen('testScreen')">
+
+        <div class="quick-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+                <rect
+                    x="5"
+                    y="3"
+                    width="14"
+                    height="18"
+                    rx="2.5"
+                    stroke="#f08a24"
+                    stroke-width="1.8"/>
+
+                <path
+                    d="M8 7H16M8 11H16M8 15H12"
+                    stroke="#f08a24"
+                    stroke-width="1.6"
+                    stroke-linecap="round"/>
+
+                <path
+                    d="M14.5 15.2L16 16.7L18.5 13.8"
+                    stroke="#f08a24"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+            </svg>
+
+        </div>
+
+        <b>Online Test</b>
+
+    </button>
+
+
+    <!-- MY RESULT -->
+    <button
+        class="quick-card"
+        onclick="openScreen('resultScreen')">
+
+        <div class="quick-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+                <path
+                    d="M5 20V10"
+                    stroke="#16a765"
+                    stroke-width="2"
+                    stroke-linecap="round"/>
+
+                <path
+                    d="M12 20V5"
+                    stroke="#16a765"
+                    stroke-width="2"
+                    stroke-linecap="round"/>
+
+                <path
+                    d="M19 20V8"
+                    stroke="#16a765"
+                    stroke-width="2"
+                    stroke-linecap="round"/>
+
+                <path
+                    d="M3 20H21"
+                    stroke="#16a765"
+                    stroke-width="1.8"
+                    stroke-linecap="round"/>
+            </svg>
+
+        </div>
+
+        <b>My Result</b>
+
+    </button>
+
+
+    <!-- YOUTUBE -->
+    <button
+        class="quick-card"
+        onclick="openYouTubeChannel()">
+
+        <div class="quick-icon">
+
+            <svg
+                width="30"
+                height="30"
+                viewBox="0 0 24 24">
+
+                <path
+                    fill="#ff0033"
+                    d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12s0 3.3.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.3 24 12 24 12s0-3.3-.5-5.8Z"/>
+
+                <path
+                    fill="#fff"
+                    d="M10 15.5L16 12l-6-3.5v7Z"/>
+            </svg>
+
+        </div>
+
+        <b>YouTube</b>
+
+    </button>
+
+
+    <!-- WHATSAPP -->
+    <button
+        class="quick-card"
+        onclick="openWhatsApp()">
+
+        <div class="quick-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+                <path
+                    fill="#25D366"
+                    d="M12 2.2a9.8 9.8 0 0 0-8.4 14.9L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2Z"/>
+
+                <path
+                    fill="#fff"
+                    d="M17.1 14.2c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.3-.1-1-.4-1.9-1.2-.7-.6-1.2-1.3-1.3-1.6-.1-.2 0-.3.1-.4l.4-.4c.1-.1.2-.3.2-.4.1-.1 0-.3 0-.4l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.8s.8 2.1.9 2.2c.1.2 1.6 2.5 4 3.5.6.3 1.1.4 1.4.5.6.2 1.1.2 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.3-.2-.5-.3Z"/>
+            </svg>
+
+        </div>
+
+        <b>WhatsApp</b>
+
+    </button>
+
+
+    <!-- COMMUNITY CHAT -->
+    <button
+        class="quick-card"
+        onclick="openCommunityChat()">
+
+        <div class="quick-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+                <path
+                    d="M4 5.5C4 4.67 4.67 4 5.5 4H18.5C19.33 4 20 4.67 20 5.5V14.5C20 15.33 19.33 16 18.5 16H10L6 20V16H5.5C4.67 16 4 15.33 4 14.5V5.5Z"
+                    stroke="#7c5ce6"
+                    stroke-width="1.8"
+                    stroke-linejoin="round"/>
+
+                <path
+                    d="M8 8H16M8 11H14"
+                    stroke="#7c5ce6"
+                    stroke-width="1.6"
+                    stroke-linecap="round"/>
+            </svg>
+
+        </div>
+
+        <b>Community Chat</b>
+
+    </button>
+    
+
+</div>
 
 
         <!-- NOTIFICATIONS -->
@@ -2541,7 +2660,7 @@ input{
                 </div>
             </div>
         </div>
-
+     
     </div>
 
 </section>
@@ -3023,7 +3142,21 @@ input{
                 <b>›</b>
 
             </div>
+           <div
+    class="profile-item"
+    onclick="changeProfilePhoto()">
 
+    <span class="profile-icon">
+        📷
+    </span>
+
+    <span>
+        Change Profile Photo
+    </span>
+
+    <b>›</b>
+
+</div>
 
             <div
                 class="profile-item"
@@ -3531,6 +3664,246 @@ async function studentLogin(){
 
 }
 
+/* ---------------------------------------------------------
+   CHANGE PROFILE PHOTO
+--------------------------------------------------------- */
+
+function changeProfilePhoto(){
+
+    const input =
+        document.createElement("input");
+
+    input.type = "file";
+    input.accept = "image/*";
+
+    input.onchange = async function(){
+
+        const file =
+            input.files?.[0];
+
+        if(!file){
+            return;
+        }
+
+        if(!file.type.startsWith("image/")){
+
+            toast("कृपया image file चुनें।");
+
+            return;
+        }
+
+        if(file.size > 5 * 1024 * 1024){
+
+            toast(
+                "Photo 5 MB से छोटी रखें।"
+            );
+
+            return;
+        }
+
+        try{
+
+            toast("Photo तैयार हो रही है...");
+
+            const photoData =
+                await compressStudentPhoto(file);
+
+            const student =
+                safeJSON("sscStudent", {});
+
+            const uid =
+                String(student.uid || "");
+
+            if(!uid){
+
+                toast(
+                    "Firebase student account नहीं मिला।"
+                );
+
+                return;
+            }
+
+            /*
+             * Firebase Firestore में photo save
+             */
+            const bridge =
+                await window.sscAuthBridge;
+
+            await bridge.saveStudentProfile(
+                uid,
+                {
+                    photo: photoData,
+                    updatedAt:
+                        new Date().toISOString()
+                }
+            );
+
+            /*
+             * Local student session update
+             */
+            student.photo = photoData;
+
+            localStorage.setItem(
+                "sscStudent",
+                JSON.stringify(student)
+            );
+
+            /*
+             * Local student list भी update
+             */
+            const students =
+                safeJSON("sscStudents", []);
+
+            if(Array.isArray(students)){
+
+                const index =
+                    students.findIndex(
+                        x =>
+                            String(x.uid || "") === uid
+                    );
+
+                if(index >= 0){
+
+                    students[index].photo =
+                        photoData;
+
+                    localStorage.setItem(
+                        "sscStudents",
+                        JSON.stringify(students)
+                    );
+                }
+            }
+
+            /*
+             * Screen पर नया photo दिखाएँ
+             */
+            loadStudentData();
+
+            toast(
+                "✅ Profile photo successfully changed!"
+            );
+
+        }catch(error){
+
+            console.error(
+                "Profile photo save error:",
+                error
+            );
+
+            toast(
+                "Photo save नहीं हो पाया। Firebase connection check करें।"
+            );
+        }
+    };
+
+    input.click();
+}
+
+
+/* ---------------------------------------------------------
+   COMPRESS PROFILE PHOTO
+--------------------------------------------------------- */
+
+function compressStudentPhoto(file){
+
+    return new Promise(
+        (resolve,reject)=>{
+
+            const reader =
+                new FileReader();
+
+            reader.onload = function(){
+
+                const img =
+                    new Image();
+
+                img.onload = function(){
+
+                    const maxSize = 500;
+
+                    let width =
+                        img.width;
+
+                    let height =
+                        img.height;
+
+                    if(width > height){
+
+                        if(width > maxSize){
+
+                            height =
+                                Math.round(
+                                    height *
+                                    maxSize /
+                                    width
+                                );
+
+                            width =
+                                maxSize;
+                        }
+
+                    }else{
+
+                        if(height > maxSize){
+
+                            width =
+                                Math.round(
+                                    width *
+                                    maxSize /
+                                    height
+                                );
+
+                            height =
+                                maxSize;
+                        }
+                    }
+
+                    const canvas =
+                        document.createElement(
+                            "canvas"
+                        );
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    const ctx =
+                        canvas.getContext("2d");
+
+                    ctx.drawImage(
+                        img,
+                        0,
+                        0,
+                        width,
+                        height
+                    );
+
+                    /*
+                     * JPEG quality 0.75
+                     * इससे Firestore document छोटा रहेगा
+                     */
+                    const result =
+                        canvas.toDataURL(
+                            "image/jpeg",
+                            0.75
+                        );
+
+                    resolve(result);
+                };
+
+                img.onerror =
+                    reject;
+
+                img.src =
+                    reader.result;
+            };
+
+            reader.onerror =
+                reject;
+
+            reader.readAsDataURL(file);
+        }
+    );
+}
 
 /* ---------------------------------------------------------
    REGISTER
@@ -3820,45 +4193,104 @@ function handleExternalStudentAuth(user,provider){
     document.getElementById("generalContent").innerHTML=`<h2>Complete Your Profile</h2><p style="margin:0 0 12px;color:#667085">Your name is taken from your Google/email account. Select your class and enter your roll number.</p><div class="input-group"><input value="${escapeHTML(pendingAuthStudent.name)}" readonly aria-label="Account name"></div><div class="input-group"><input value="${escapeHTML(email)}" readonly aria-label="Email"></div><div class="input-group"><select id="externalProfileClass"><option value="">Select Class</option>${options}</select></div><div class="input-group"><input id="externalProfileRoll" placeholder="Roll Number" maxlength="20"></div><button class="primary-btn full" onclick="saveExternalStudentProfile()">Save Profile</button>`;
     document.getElementById("generalModal").classList.add("show");
 }
+async function saveExternalStudentProfile(){
 
-function saveExternalStudentProfile(){
-    if(!pendingAuthStudent)return;
-    const cls=pendingAuthStudent.fixedClass||document.getElementById("externalProfileClass")?.value||"";
-    const roll=document.getElementById("externalProfileRoll")?.value.trim()||"";
-    if(!cls||!roll){toast("कृपया Class और Roll Number दोनों भरें");return;}
-    const s={...(pendingAuthStudent.legacyStudent||{}),id:pendingAuthStudent.uid,uid:pendingAuthStudent.uid,email:pendingAuthStudent.email,name:pendingAuthStudent.name,studentClass:cls,rollNumber:roll,mobile:pendingAuthStudent.legacyStudent?.mobile||"",password:pendingAuthStudent.legacyStudent?.password||"",photo:pendingAuthStudent.photo,authProvider:pendingAuthStudent.provider,registeredAt:pendingAuthStudent.legacyStudent?.registeredAt||new Date().toISOString()};
-    const list=safeJSON("sscStudents",[]).filter(x=>String(x.email||"").toLowerCase()!==s.email);
-    list.push(s);localStorage.setItem("sscStudents",JSON.stringify(list));pendingAuthStudent=null;activateStudentSession(s);
-}
+    if(!pendingAuthStudent){
+        toast("Google profile session नहीं मिला।");
+        return;
+    }
 
-async function googleLogin(){
+    const cls =
+        pendingAuthStudent.fixedClass ||
+        document.getElementById("externalProfileClass")?.value ||
+        "";
+
+    const roll =
+        document.getElementById("externalProfileRoll")?.value.trim() ||
+        "";
+
+    if(!cls || !roll){
+        toast("कृपया Class और Roll Number दोनों भरें");
+        return;
+    }
+
+    const s = {
+        ...(pendingAuthStudent.legacyStudent || {}),
+        id: pendingAuthStudent.uid,
+        uid: pendingAuthStudent.uid,
+        email: pendingAuthStudent.email,
+        name: pendingAuthStudent.name,
+        studentClass: cls,
+        rollNumber: roll,
+        mobile: pendingAuthStudent.legacyStudent?.mobile || "",
+        password: "",
+        photo: pendingAuthStudent.photo || "",
+        authProvider: pendingAuthStudent.provider || "google",
+        registeredAt:
+            pendingAuthStudent.legacyStudent?.registeredAt ||
+            new Date().toISOString()
+    };
+
     try{
-        if(!window.sscGoogleLogin)throw new Error("Google sign-in is not ready");
-        await window.sscGoogleLogin();
-    }catch(error){console.error(error);toast("Google sign-in नहीं हो पाया। Firebase में Google provider चालू करें।");}
-}
 
-function emailLogin(){
-    const field=document.getElementById("loginMobile");
-    if(field && !field.value.includes("@")){field.focus();field.placeholder="Enter your email address";toast("Email address और password भरकर फिर क्लिक करें।");return;}
-    studentLogin();
-}
+        /*
+         * Firebase Firestore में student profile save करें.
+         * Document ID = Firebase Authentication UID
+         */
+        const bridge = await window.sscAuthBridge;
 
-let pendingLegacyRollStudent=null;
-function showLegacyRollSetup(student){
-    pendingLegacyRollStudent=student;
-    document.getElementById("generalContent").innerHTML=`<h2>Complete Your Profile</h2><p style="margin:0 0 12px;color:#667085">Your registered name and class are locked. Add your roll number once.</p><div class="input-group"><input value="${escapeHTML(student.name||student.studentName||"Student")}" readonly></div><div class="input-group"><input value="Class ${escapeHTML(student.studentClass||student.class||"-")}" readonly></div><div class="input-group"><input id="legacyRollNumber" placeholder="Roll Number" maxlength="20"></div><button class="primary-btn full" onclick="saveLegacyRollNumber()">Save Roll Number</button>`;
-    document.getElementById("generalModal").classList.add("show");
-}
-function saveLegacyRollNumber(){
-    const roll=document.getElementById("legacyRollNumber")?.value.trim()||"";
-    if(!roll||!pendingLegacyRollStudent){toast("कृपया Roll Number दर्ज करें");return;}
-    pendingLegacyRollStudent.rollNumber=roll;
-    const list=safeJSON("sscStudents",[]),i=list.findIndex(x=>String(x.mobile||"")===String(pendingLegacyRollStudent.mobile||""));
-    if(i>=0)list[i]=pendingLegacyRollStudent;
-    localStorage.setItem("sscStudents",JSON.stringify(list));
-    const saved=pendingLegacyRollStudent;pendingLegacyRollStudent=null;
-    activateStudentSession(saved);
+        await bridge.saveStudentProfile(
+            pendingAuthStudent.uid,
+            {
+                uid: pendingAuthStudent.uid,
+                name: s.name,
+                email: s.email,
+                mobile: s.mobile,
+                studentClass: s.studentClass,
+                rollNumber: s.rollNumber,
+                photo: s.photo,
+                authProvider: "google",
+                registeredAt: s.registeredAt
+            }
+        );
+
+        /*
+         * Local storage भी update करें
+         */
+        const list = safeJSON("sscStudents", []);
+
+        const newList = Array.isArray(list)
+            ? list.filter(
+                x =>
+                    String(x.email || "").toLowerCase() !==
+                    String(s.email || "").toLowerCase()
+              )
+            : [];
+
+        newList.push(s);
+
+        localStorage.setItem(
+            "sscStudents",
+            JSON.stringify(newList)
+        );
+
+        pendingAuthStudent = null;
+
+        activateStudentSession(s);
+
+        toast("Profile saved successfully ✓");
+
+    }catch(error){
+
+        console.error(
+            "Google student profile save failed:",
+            error
+        );
+
+        toast(
+            "Profile save नहीं हुआ। Internet/Firebase connection check करें।"
+        );
+    }
 }
 
 function openSchoolLocation(){window.open("https://maps.app.goo.gl/cUzsvg5M5cPF12YQ8?g_st=aw","_blank","noopener,noreferrer");}
