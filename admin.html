@@ -3361,7 +3361,56 @@ function getContentStore(){
     const data=getJSON(CONTENT_KEY,{});
     return data && typeof data==="object" && !Array.isArray(data) ? data : {};
 }
-function saveContentStore(data){ localStorage.setItem(CONTENT_KEY,JSON.stringify(data||{})); }
+async function saveContentStore(data){
+    // Local backup
+    localStorage.setItem(
+        CONTENT_KEY,
+        JSON.stringify(data || {})
+    );
+
+    // Firebase sync
+    try{
+        if(!window.sscMessageFirestoreReady){
+            throw new Error("Firebase Firestore bridge उपलब्ध नहीं है।");
+        }
+
+        const bridge = await window.sscMessageFirestoreReady;
+
+        if(!bridge?.db || !bridge?.doc || !bridge?.setDoc){
+            throw new Error("Firestore functions उपलब्ध नहीं हैं।");
+        }
+
+        const contentRef = bridge.doc(
+            bridge.db,
+            "sscClassContent",
+            "main"
+        );
+
+        await bridge.setDoc(
+            contentRef,
+            {
+                content: data || {},
+                updatedAt: new Date().toISOString()
+            },
+            {
+                merge: true
+            }
+        );
+
+        console.log("✅ SSC Class Content Firebase में save हो गया।");
+
+    }catch(error){
+        console.error(
+            "❌ SSC Class Content Firebase sync failed:",
+            error
+        );
+
+        alert(
+            "⚠️ Content local में save हुआ, लेकिन Firebase में save नहीं हुआ।\n\n" +
+            (error?.message || error)
+        );
+    }
+}
 function ensureClassContent(cls){
     const c=normalizeAdminClass(cls),data=getContentStore();
     if(!data[c]||typeof data[c]!=="object") data[c]={subjects:{}};
@@ -3450,14 +3499,65 @@ function renderClassManager(cls,selectedSubject=""){
     list.querySelectorAll(".delete-subject-btn").forEach(b=>b.addEventListener("click",()=>deleteSubject(cls,b.dataset.subject||"")));
     if(selectedSubject)manageChapters(cls,selectedSubject);
 }
-function createSubject(cls){
-    cls=normalizeAdminClass(cls);const input=document.getElementById("newSubjectName"),subject=String(input?.value||"").trim();
-    if(!subject){alert("Subject name डालें।");return;}
-    const {data,c}=ensureClassContent(cls);
-    if(data[c].subjects[subject]){alert("यह Subject पहले से मौजूद है।");return;}
-    data[c].subjects[subject]={chapters:[]};saveContentStore(data);if(input)input.value="";
-    renderClassManager(c,subject);updateVideoSubjects();updateTestSubjects();
-    alert(`✅ Subject "${subject}" create हो गया।`);
+async function createSubject(cls){
+
+    cls = normalizeAdminClass(cls);
+
+    const input =
+        document.getElementById("newSubjectName");
+
+    const subject =
+        String(input?.value || "").trim();
+
+    if(!subject){
+        alert("Subject name डालें।");
+        return;
+    }
+
+    const {data,c} =
+        ensureClassContent(cls);
+
+    if(data[c].subjects[subject]){
+        alert("यह Subject पहले से मौजूद है।");
+        return;
+    }
+
+    // Subject create
+    data[c].subjects[subject] = {
+        chapters: [],
+        createdAt: new Date().toISOString()
+    };
+
+    // Firebase + local save
+    try{
+
+        await saveContentStore(data);
+
+        if(input){
+            input.value = "";
+        }
+
+        renderClassManager(c,subject);
+        updateVideoSubjects();
+        updateTestSubjects();
+
+        alert(
+            `✅ Subject "${subject}" Firebase में save हो गया।\n\n` +
+            `Class ${c} के students को यह subject उपलब्ध कराया जा सकता है।`
+        );
+
+    }catch(error){
+
+        console.error(
+            "Subject Firebase save error:",
+            error
+        );
+
+        alert(
+            "❌ Subject Firebase में save नहीं हो पाया।\n\n" +
+            (error?.message || error)
+        );
+    }
 }
 function editSubject(cls,oldName){
     const newName=prompt("Subject का नया नाम लिखें:",oldName);if(newName===null)return;const name=String(newName).trim();if(!name){alert("Subject name खाली नहीं हो सकता।");return;}if(name===oldName)return;
@@ -3482,7 +3582,6 @@ function manageChapters(cls,subject){
         <span style="flex:1;min-width:160px"><strong>Chapter ${index+1}</strong> — ${escapeHTML(chapter)}</span>
         <button type="button" class="primary-btn add-video-chapter" data-chapter="${escapeHTML(chapter)}" style="width:auto;padding:7px 10px">🎥 Video</button>
         <button type="button" class="outline-btn add-note-chapter" data-chapter="${escapeHTML(chapter)}" style="padding:7px 10px">📝 Notes</button>
-        <button type="button" class="outline-btn add-material-chapter" data-chapter="${escapeHTML(chapter)}" style="padding:7px 10px">📄 PDF/Material</button>
         <button type="button" class="outline-btn content-chapter-btn" data-chapter="${escapeHTML(chapter)}" style="padding:7px 10px">📚 Content</button>
         <button type="button" class="outline-btn edit-chapter-btn" data-chapter="${escapeHTML(chapter)}" style="padding:7px 10px">✏️ Edit</button>
         <button type="button" class="danger-btn delete-chapter-btn" data-chapter="${escapeHTML(chapter)}">🗑 Delete</button>
@@ -3534,45 +3633,449 @@ function showChapterContentManager(cls,subject,chapter){
     box.querySelectorAll('.edit-chapter-material').forEach(b=>{const m=mats.find(x=>String(x.id)===String(b.dataset.id));b.addEventListener('click',()=>showMaterialEditor(cls,subject,chapter,m?.type||'note',b.dataset.id||''));});
     box.querySelectorAll('.delete-chapter-material').forEach(b=>b.addEventListener('click',()=>{if(!confirm('यह material delete करना है?'))return;saveAdminMaterials(getAdminMaterials().filter(x=>String(x.id)!==String(b.dataset.id)));showChapterContentManager(cls,subject,chapter);}));
 }
-function showMaterialEditor(cls,subject,chapter,type="note",existingId=""){
-    const box=document.getElementById("chapterContentEditor");if(!box)return;
-    const old=getAdminMaterials().find(x=>String(x.id)===String(existingId));
-    box.innerHTML=`<div class="question-card" style="padding:16px;border:1px solid #bfdbfe;background:#f8fbff"><h3>${type==='note'?'📝 Add/Edit Notes':'📄 Add/Edit PDF / Material'}</h3>
-      <div class="input-box"><label>Title</label><input id="materialTitle" value="${escapeHTML(old?.title||'')}" placeholder="Example: Chapter Notes"></div>
-      <div class="input-box"><label>Content / Notes</label><textarea id="materialText" rows="5" placeholder="Notes यहाँ लिखें (PDF/Material के लिए optional)">${escapeHTML(old?.text||'')}</textarea></div>
-      <div class="input-box"><label>PDF / Material URL (optional)</label><input id="materialUrl" type="url" value="${escapeHTML(old?.url||'')}" placeholder="https://..."></div>
-      ${type==='pdf'?`<div class="input-box"><label>या PDF / Material File</label><input id="materialFile" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png"><small style="display:block;margin-top:6px;color:#6b7280">Firebase Storage में upload होगा।</small></div>`:''}
-      <button type="button" class="primary-btn" id="saveMaterialBtn">💾 Save ${type==='note'?'Notes':'Material'}</button>
-      <button type="button" class="outline-btn" id="cancelMaterialBtn" style="margin-left:8px">Cancel</button></div>`;
-    document.getElementById("saveMaterialBtn")?.addEventListener("click",()=>saveMaterial(cls,subject,chapter,type,existingId));
-    document.getElementById("cancelMaterialBtn")?.addEventListener("click",()=>{box.innerHTML="";});
-}
-async function saveMaterial(cls,subject,chapter,type,existingId=""){
-    const title=String(document.getElementById("materialTitle")?.value||"").trim();
-    const text=String(document.getElementById("materialText")?.value||"").trim();
-    let url=String(document.getElementById("materialUrl")?.value||"").trim();
-    const file=document.getElementById("materialFile")?.files?.[0]||null;
-    if(!title){alert("Title डालें।");return;}
-    if(type==='pdf'&&!text&&!url&&!file){alert("PDF/Material के लिए URL, content या file दें।");return;}
-    const button=document.getElementById("saveMaterialBtn");if(button){button.disabled=true;button.textContent="Saving...";}
-    try{
-        if(file){
-            if(window.sscStorageReady){
-                const {storage,ref,uploadBytes,getDownloadURL}=await window.sscStorageReady;
-                const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
-                const fileRef=ref(storage,`ssc-materials/${normalizeAdminClass(cls)}/${encodeURIComponent(subject)}/${encodeURIComponent(chapter)}/${Date.now()}_${safeName}`);
-                await uploadBytes(fileRef,file);
-                url=await getDownloadURL(fileRef);
-            }else{
-                throw new Error("Firebase Storage ready नहीं है। URL से material add करें।");
+function showMaterialEditor(
+    cls,
+    subject,
+    chapter,
+    type = "note",
+    existingId = ""
+){
+
+    const box =
+        document.getElementById(
+            "chapterContentEditor"
+        );
+
+    if(!box) return;
+
+    const old =
+        getAdminMaterials().find(
+            x => String(x.id) === String(existingId)
+        );
+
+    box.innerHTML = `
+        <div
+            class="question-card"
+            style="
+                padding:16px;
+                border:1px solid #bfdbfe;
+                background:#f8fbff;
+            "
+        >
+
+            <h3>📝 Add / Edit Notes</h3>
+
+            <div class="input-box">
+
+                <label>Notes Title</label>
+
+                <input
+                    id="materialTitle"
+                    value="${escapeHTML(old?.title || "")}"
+                    placeholder="Example: Chapter Notes"
+                >
+
+            </div>
+
+
+            <div class="input-box">
+
+                <label>Notes</label>
+
+                <textarea
+                    id="materialText"
+                    rows="7"
+                    placeholder="यहाँ Notes लिखें..."
+                >${escapeHTML(old?.text || "")}</textarea>
+
+            </div>
+
+
+            <div class="input-box">
+
+                <label>
+                    📄 PDF File
+                </label>
+
+                <input
+                    id="materialFile"
+                    type="file"
+                    accept="application/pdf,.pdf"
+                >
+
+                <small
+                    style="
+                        display:block;
+                        margin-top:6px;
+                        color:#6b7280;
+                    "
+                >
+                    अपने laptop/mobile से PDF select करें।
+                    PDF Firebase Storage में upload होगी।
+                </small>
+
+                ${
+                    old?.originalFileName
+                    ?
+                    `<small
+                        style="
+                            display:block;
+                            margin-top:8px;
+                            color:#2563eb;
+                        "
+                    >
+                        Current PDF:
+                        ${escapeHTML(old.originalFileName)}
+                    </small>`
+                    :
+                    ""
+                }
+
+            </div>
+
+
+            <button
+                type="button"
+                class="primary-btn"
+                id="saveMaterialBtn"
+            >
+                💾 Save Notes
+            </button>
+
+
+            <button
+                type="button"
+                class="outline-btn"
+                id="cancelMaterialBtn"
+                style="margin-left:8px"
+            >
+                Cancel
+            </button>
+
+        </div>
+    `;
+
+
+    document
+        .getElementById("saveMaterialBtn")
+        ?.addEventListener(
+            "click",
+            () =>
+                saveMaterial(
+                    cls,
+                    subject,
+                    chapter,
+                    "note",
+                    existingId
+                )
+        );
+
+
+    document
+        .getElementById("cancelMaterialBtn")
+        ?.addEventListener(
+            "click",
+            () => {
+                box.innerHTML = "";
             }
+        );
+}
+async function saveMaterial(
+    cls,
+    subject,
+    chapter,
+    type,
+    existingId = ""
+){
+
+    const title =
+        String(
+            document.getElementById("materialTitle")?.value || ""
+        ).trim();
+
+    const text =
+        String(
+            document.getElementById("materialText")?.value || ""
+        ).trim();
+
+    const file =
+        document.getElementById("materialFile")
+        ?.files?.[0] || null;
+
+
+    if(!title){
+
+        alert("Notes Title डालें।");
+        return;
+
+    }
+
+
+    if(!text && !file){
+
+        alert(
+            "Notes लिखें या PDF file select करें।"
+        );
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById("saveMaterialBtn");
+
+
+    if(button){
+
+        button.disabled = true;
+        button.textContent = "Uploading...";
+
+    }
+
+
+    try{
+
+        let url = "";
+
+        /*
+        =========================================
+        PDF → Firebase Storage
+        =========================================
+        */
+
+        if(file){
+
+            if(
+                file.type !== "application/pdf" &&
+                !file.name.toLowerCase().endsWith(".pdf")
+            ){
+
+                throw new Error(
+                    "सिर्फ PDF file select करें।"
+                );
+
+            }
+
+
+            if(!window.sscStorageReady){
+
+                throw new Error(
+                    "Firebase Storage ready नहीं है।"
+                );
+
+            }
+
+
+            const {
+                storage,
+                ref,
+                uploadBytes,
+                getDownloadURL
+            } = await window.sscStorageReady;
+
+
+            const safeName =
+                file.name.replace(
+                    /[^a-zA-Z0-9._-]/g,
+                    "_"
+                );
+
+
+            const fileRef =
+                ref(
+                    storage,
+                    `ssc-notes/class-${normalizeAdminClass(cls)}/${encodeURIComponent(subject)}/${encodeURIComponent(chapter)}/${Date.now()}_${safeName}`
+                );
+
+
+            await uploadBytes(
+                fileRef,
+                file,
+                {
+                    contentType:
+                        "application/pdf"
+                }
+            );
+
+
+            url =
+                await getDownloadURL(
+                    fileRef
+                );
+
         }
-        const arr=getAdminMaterials();
-        const item={id:existingId||"material_"+Date.now(),className:normalizeAdminClass(cls),studentClass:normalizeAdminClass(cls),subject,chapter,type,title,text,url,originalFileName:file?.name||"",createdAt:new Date().toISOString()};
-        const idx=arr.findIndex(x=>String(x.id)===String(existingId));if(idx>=0)arr[idx]=item;else arr.unshift(item);
-        saveAdminMaterials(arr);manageChapters(cls,subject);alert(`✅ ${type==='note'?'Notes':'Material'} saved successfully.`);
-    }catch(e){console.error(e);alert(e?.message||"Material save नहीं हो पाया।");}
-    finally{if(button){button.disabled=false;button.textContent=`💾 Save ${type==='note'?'Notes':'Material'}`;}}
+
+
+        /*
+        =========================================
+        Notes object
+        =========================================
+        */
+
+        const arr =
+            getAdminMaterials();
+
+
+        const item = {
+
+            id:
+                existingId ||
+                "note_" + Date.now(),
+
+            className:
+                normalizeAdminClass(cls),
+
+            studentClass:
+                normalizeAdminClass(cls),
+
+            subject:
+                subject,
+
+            chapter:
+                chapter,
+
+            type:
+                "note",
+
+            title:
+                title,
+
+            text:
+                text,
+
+            url:
+                url,
+
+            originalFileName:
+                file?.name || "",
+
+            createdAt:
+                new Date().toISOString()
+
+        };
+
+
+        const index =
+            arr.findIndex(
+                x =>
+                    String(x.id) ===
+                    String(existingId)
+            );
+
+
+        if(index >= 0){
+
+            arr[index] = item;
+
+        }else{
+
+            arr.unshift(item);
+
+        }
+
+
+        /*
+        =========================================
+        Local backup
+        =========================================
+        */
+
+        saveAdminMaterials(arr);
+
+
+        /*
+        =========================================
+        Firebase Firestore
+        =========================================
+        */
+
+        if(!window.sscMessageFirestoreReady){
+
+            throw new Error(
+                "Firebase Firestore bridge उपलब्ध नहीं है।"
+            );
+
+        }
+
+
+        const bridge =
+            await window.sscMessageFirestoreReady;
+
+
+        const materialRef =
+            bridge.doc(
+                bridge.db,
+                "sscMaterials",
+                String(item.id)
+            );
+
+
+        await bridge.setDoc(
+            materialRef,
+            {
+                ...item,
+
+                updatedAt:
+                    new Date().toISOString()
+
+            },
+            {
+                merge: true
+            }
+        );
+
+
+        /*
+        =========================================
+        Refresh
+        =========================================
+        */
+
+        manageChapters(
+            cls,
+            subject
+        );
+
+
+        showChapterContentManager(
+            cls,
+            subject,
+            chapter
+        );
+
+
+        alert(
+            "✅ Notes successfully save हो गए।\n\n" +
+            "PDF Firebase Storage में upload हो गई है।"
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "❌ Notes save failed:",
+            error
+        );
+
+
+        alert(
+            "❌ Notes save नहीं हो पाए।\n\n" +
+            (error?.message || error)
+        );
+
+    }finally{
+
+        if(button){
+
+            button.disabled = false;
+            button.textContent =
+                "💾 Save Notes";
+
+        }
+
+    }
+
 }
 function renderChapterMaterials(cls,subject,chapter){
     const box=document.getElementById("chapterContentEditor");if(!box)return;const arr=getAdminMaterials().filter(x=>normalizeAdminClass(x.className??x.studentClass??x.class)===normalizeAdminClass(cls)&&String(x.subject||"")===String(subject||"")&&String(x.chapter||"")===String(chapter||""));
