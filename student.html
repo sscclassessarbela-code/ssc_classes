@@ -2081,7 +2081,617 @@ input{
     #resultContent .result-actions,#questionReviewPanel{display:none!important}
 }
 
+
+/* =========================================================
+   S.S.C. CLASSES - HOME HEADER
+   Logo + Coaching Name EXACT CENTER
+========================================================= */
+
+.ssc-home-topline{
+    position:relative !important;
+    min-height:58px;
+    width:100%;
+    padding:0 !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+}
+
+/* LEFT - MENU */
+.ssc-home-topline .home-menu-button{
+    position:absolute !important;
+    left:0 !important;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:10;
+
+    width:42px;
+    height:42px;
+    flex:none;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:5px;
+
+    padding:9px;
+    border-radius:12px;
+    background:rgba(255,255,255,.10);
+}
+
+.ssc-home-topline .home-menu-button span{
+    display:block;
+    height:2.5px;
+    width:23px;
+    margin:auto;
+    border-radius:10px;
+    background:#fff;
+}
+
+
+/* =========================================================
+   CENTER - LOGO + S.S.C. CLASSES + TAGLINE
+   यह हमेशा screen के exact center में रहेगा
+========================================================= */
+
+.ssc-home-topline .ssc-brand{
+    position:absolute !important;
+
+    left:50% !important;
+    top:50% !important;
+
+    transform:translate(-50%,-50%) !important;
+
+    width:max-content !important;
+    max-width:calc(100% - 150px);
+
+    min-width:0 !important;
+
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    gap:8px;
+
+    margin:0 !important;
+    padding:0 !important;
+
+    flex:none !important;
+
+    z-index:5;
+}
+
+.ssc-home-topline .ssc-brand img{
+    width:39px;
+    height:39px;
+    object-fit:contain;
+    flex:none;
+}
+
+.ssc-home-topline .ssc-brand > div{
+    text-align:left;
+}
+
+.ssc-home-topline .ssc-brand strong{
+    display:block;
+    font-size:16px;
+    line-height:1.05;
+    white-space:nowrap;
+}
+
+.ssc-home-topline .ssc-brand strong span{
+    color:#fff;
+}
+
+.ssc-home-topline .ssc-brand small{
+    display:block;
+    color:#d7e6fb;
+    font-size:8px;
+    margin-top:3px;
+    letter-spacing:.15px;
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   RIGHT - BELL
+========================================================= */
+
+.ssc-home-topline .notification-button{
+    position:absolute !important;
+
+    right:50px !important;
+    top:50%;
+    transform:translateY(-50%);
+
+    z-index:10;
+
+    width:40px;
+    height:40px;
+
+    border-radius:11px;
+    color:#fff;
+    background:rgba(255,255,255,.10);
+
+    flex:none;
+}
+
+
+/* =========================================================
+   RIGHT - PROFILE
+========================================================= */
+
+.ssc-home-topline .home-profile-button{
+    position:absolute !important;
+
+    right:0 !important;
+    top:50%;
+    transform:translateY(-50%);
+
+    z-index:10;
+
+    width:42px;
+    height:42px;
+
+    flex:none;
+    padding:2px;
+
+    border-radius:50%;
+    background:rgba(255,255,255,.10);
+    border:2px solid rgba(255,255,255,.45);
+}
+
+.ssc-home-topline .home-profile-button .user-avatar{
+    width:100%;
+    height:100%;
+    display:block;
+
+    border:0;
+    border-radius:50%;
+
+    background:#dce8fb;
+}
+
+
+/* =========================================================
+   MOBILE SAFETY
+========================================================= */
+
+@media(max-width:380px){
+
+    .ssc-home-topline .ssc-brand{
+        max-width:calc(100% - 120px);
+        gap:5px;
+    }
+
+    .ssc-home-topline .ssc-brand img{
+        width:34px;
+        height:34px;
+    }
+
+    .ssc-home-topline .ssc-brand strong{
+        font-size:14px;
+    }
+
+    .ssc-home-topline .ssc-brand small{
+        font-size:7px;
+    }
+
+    .ssc-home-topline .notification-button{
+        right:45px !important;
+        width:37px;
+        height:37px;
+    }
+
+    .ssc-home-topline .home-profile-button{
+        width:39px;
+        height:39px;
+    }
+}
+/* =========================================================
+   HOME DASHBOARD CARDS - REFERENCE SCREENSHOT STYLE
+   The six colored cards keep their own colors in dark mode.
+========================================================= */
+
+.quick-grid{
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:10px !important;
+    margin-top:18px !important;
+}
+
+.quick-card{
+    position:relative;
+    min-width:0;
+    min-height:152px;
+    padding:13px 10px 12px !important;
+    border:0 !important;
+    border-radius:20px !important;
+    color:#fff !important;
+    text-align:left !important;
+    overflow:hidden;
+    box-shadow:0 7px 18px rgba(8,43,92,.14) !important;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:flex-start;
+}
+
+.quick-card:nth-child(1){background:linear-gradient(145deg,#2196f3,#0865df) !important;}
+.quick-card:nth-child(2){background:linear-gradient(145deg,#ffb300,#f57c00) !important;}
+.quick-card:nth-child(3){background:linear-gradient(145deg,#16c768,#08a64e) !important;}
+.quick-card:nth-child(4){background:linear-gradient(145deg,#7b3ff0,#5324cf) !important;}
+.quick-card:nth-child(5){background:linear-gradient(145deg,#ff3c5a,#ef173b) !important;}
+.quick-card:nth-child(6){background:linear-gradient(145deg,#18b7d4,#0798b8) !important;}
+
+.quick-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:radial-gradient(circle at 85% 10%,rgba(255,255,255,.18),transparent 34%);
+}
+
+.quick-illustration{
+    position:relative;
+    width:100%;
+    height:65px;
+    margin-bottom:4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:1;
+}
+
+/* ---- Books / subjects ---- */
+.books-illustration{
+    height:68px;
+    justify-content:center;
+}
+.books-illustration .book{
+    position:absolute;
+    width:76px;
+    height:14px;
+    border-radius:4px 7px 5px 4px;
+    box-shadow:0 3px 3px rgba(0,0,0,.22);
+}
+.books-illustration .book-1{background:#183a76;transform:rotate(8deg) translateY(16px);}
+.books-illustration .book-2{background:#fff;transform:rotate(-4deg) translateY(5px);width:78px;}
+.books-illustration .book-3{background:#e66b32;transform:rotate(6deg) translateY(-7px);width:72px;}
+.cap-shape{
+    position:absolute;
+    top:1px;
+    left:50%;
+    transform:translateX(-50%) rotate(45deg);
+    width:29px;
+    height:29px;
+    background:#173d78;
+    border:3px solid #f4c300;
+    box-shadow:0 3px 5px rgba(0,0,0,.18);
+    font-size:0;
+}
+.cap-shape:after{
+    content:"";
+    position:absolute;
+    width:4px;height:15px;
+    background:#f4c300;
+    right:-6px;top:20px;
+    transform:rotate(-45deg);
+}
+
+/* ---- Test clipboard ---- */
+.clipboard{
+    position:relative;
+    width:54px;height:59px;
+    background:#fff;
+    border:4px solid #17385e;
+    border-radius:7px;
+    box-shadow:4px 5px 0 rgba(0,0,0,.15);
+    padding-top:14px;
+}
+.clip-top{
+    position:absolute;
+    width:25px;height:9px;
+    top:-8px;left:11px;
+    background:#17385e;
+    border-radius:5px;
+}
+.clipboard i{
+    display:block;
+    width:9px;height:9px;
+    margin:3px 0 0 8px;
+    background:#10b95a;
+    color:#fff;
+    border-radius:2px;
+    font-size:7px;
+    line-height:9px;
+    text-align:center;
+    font-style:normal;
+}
+.clip-lines{
+    position:absolute;
+    right:6px;top:18px;
+    width:22px;height:28px;
+    background:repeating-linear-gradient(to bottom,#a8b9cf 0 2px,transparent 2px 7px);
+}
+.pencil{
+    position:absolute;
+    right:calc(50% - 43px);
+    top:12px;
+    font-size:43px;
+    color:#174b8f;
+    transform:rotate(-35deg);
+    font-weight:bold;
+}
+.clock{
+    position:absolute;
+    width:26px;height:26px;
+    border-radius:50%;
+    background:#fff;
+    border:4px solid #17385e;
+    right:calc(50% - 50px);
+    bottom:3px;
+}
+.clock:before{
+    content:"";
+    position:absolute;
+    left:10px;top:4px;
+    width:2px;height:9px;
+    background:#17385e;
+}
+.clock:after{
+    content:"";
+    position:absolute;
+    left:10px;top:12px;
+    width:7px;height:2px;
+    background:#17385e;
+    transform:rotate(25deg);
+    transform-origin:left center;
+}
+
+/* ---- Result ---- */
+.result-paper{
+    position:relative;
+    width:57px;height:60px;
+    border-radius:4px;
+    background:#fff;
+    border:3px solid #b8c7da;
+    transform:rotate(-3deg);
+    box-shadow:2px 4px 0 rgba(0,0,0,.13);
+}
+.result-paper b{
+    position:absolute;
+    right:4px;top:4px;
+    width:24px;height:24px;
+    border-radius:50%;
+    background:#ef233c;
+    color:#fff;
+    display:grid;place-items:center;
+    font-size:12px;
+}
+.result-paper .bar{
+    position:absolute;
+    bottom:8px;
+    width:7px;
+    background:#1f73d7;
+    border-radius:2px 2px 0 0;
+}
+.result-paper .b1{left:8px;height:18px;}
+.result-paper .b2{left:19px;height:28px;}
+.result-paper .b3{left:30px;height:22px;}
+.trophy{
+    position:absolute;
+    font-size:37px;
+    right:calc(50% - 53px);
+    bottom:0;
+    filter:drop-shadow(2px 3px 2px rgba(0,0,0,.18));
+}
+
+/* ---- Community ---- */
+.community-illustration .person{
+    position:absolute;
+    width:29px;height:29px;
+    border-radius:50%;
+    color:#fff;
+    background:#3cc6ff;
+    font-size:18px;
+    line-height:22px;
+    text-align:center;
+    box-shadow:0 4px 6px rgba(0,0,0,.15);
+}
+.community-illustration .p1{left:29%;bottom:2px;background:#fff;color:#7b3ff0;}
+.community-illustration .p2{left:46%;bottom:8px;background:#19aee8;color:#fff;}
+.community-illustration .p3{left:63%;bottom:2px;background:#d9f4ff;color:#7b3ff0;}
+.chat-bubble{
+    position:absolute;
+    top:0;
+    left:46%;
+    transform:translateX(-50%);
+    padding:4px 8px;
+    border-radius:8px;
+    background:#fff;
+    color:#7b3ff0;
+    font-size:13px;
+    font-weight:bold;
+    box-shadow:0 3px 5px rgba(0,0,0,.15);
+}
+.chat-bubble:after{
+    content:"";
+    position:absolute;
+    left:7px;bottom:-5px;
+    border:5px solid transparent;
+    border-top-color:#fff;
+    border-left-width:0;
+}
+
+/* ---- YouTube ---- */
+.youtube-logo{
+    width:78px;height:48px;
+    border-radius:14px;
+    background:#fff;
+    display:grid;place-items:center;
+    box-shadow:0 4px 8px rgba(0,0,0,.16);
+}
+.youtube-logo span{
+    color:#f3264f;
+    font-size:28px;
+    margin-left:3px;
+}
+.youtube-rays{
+    position:absolute;
+    right:calc(50% - 56px);
+    top:2px;
+    color:#fff;
+    font-size:22px;
+}
+
+/* ---- Telegram ---- */
+.telegram-circle{
+    width:72px;height:72px;
+    border-radius:50%;
+    background:#fff;
+    color:#13a9d0;
+    display:grid;place-items:center;
+    font-size:38px;
+    transform:rotate(-15deg);
+    box-shadow:0 4px 8px rgba(0,0,0,.15);
+    padding-bottom:5px;
+}
+
+/* Text */
+.quick-title{
+    position:relative;
+    z-index:1;
+    width:100%;
+    color:#fff !important;
+    font-size:15px !important;
+    line-height:1.12;
+    font-weight:800 !important;
+    margin-top:1px;
+}
+.quick-subtitle{
+    position:relative;
+    z-index:1;
+    color:rgba(255,255,255,.93) !important;
+    font-size:10px !important;
+    line-height:1.35;
+    margin-top:5px;
+}
+.quick-arrow{
+    position:absolute;
+    right:8px;
+    bottom:8px;
+    width:30px;height:30px;
+    border-radius:50%;
+    background:#fff;
+    display:grid;
+    place-items:center;
+    color:#1769e8;
+    font-size:26px;
+    line-height:1;
+    z-index:2;
+}
+.quick-card:nth-child(2) .quick-arrow{color:#f08a24;}
+.quick-card:nth-child(3) .quick-arrow{color:#16a765;}
+.quick-card:nth-child(4) .quick-arrow{color:#6d36e8;}
+.quick-card:nth-child(5) .quick-arrow{color:#ef173b;}
+.quick-card:nth-child(6) .quick-arrow{color:#129dbd;}
+
+/* ---- Notification section ---- */
+.home-page > .section-title{
+    margin-top:20px;
+    padding:0 2px;
+}
+.home-page > .section-title h2{
+    font-size:17px;
+    color:#172033;
+}
+.home-page > .section-title button{
+    font-size:12px;
+}
+.homeNotificationList .notice-card,
+#homeNotificationList .notice-card{
+    min-height:70px;
+    border-radius:18px;
+    background:#fff;
+    border:1px solid #edf1f6;
+    box-shadow:0 5px 18px rgba(8,43,92,.07);
+}
+
+/* ---- My Subjects screen cards ---- */
+#dynamicSubjects{
+    display:grid;
+    gap:11px;
+}
+#dynamicSubjects .subject-card{
+    position:relative;
+    min-height:84px;
+    margin:0;
+    padding:13px 14px;
+    border-radius:17px;
+    background:#fff;
+    border:1px solid #e8edf4;
+    box-shadow:0 5px 17px rgba(8,43,92,.08);
+}
+#dynamicSubjects .subject-icon{
+    width:52px;
+    height:52px;
+    border-radius:15px;
+    flex:none;
+    background:linear-gradient(145deg,#e9f2ff,#d7e8ff);
+    box-shadow:inset 0 0 0 1px rgba(23,105,232,.06);
+}
+#dynamicSubjects .subject-info b{
+    font-size:14px;
+    color:#172033;
+}
+#dynamicSubjects .subject-info small{
+    font-size:10px;
+    margin:4px 0;
+    color:#6b7280;
+}
+#dynamicSubjects .subject-card:after{
+    content:"›";
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    width:29px;height:29px;
+    border-radius:50%;
+    background:#1769e8;
+    color:#fff;
+    display:grid;
+    place-items:center;
+    font-size:23px;
+    line-height:1;
+}
+
+/* Small phones */
+@media(max-width:380px){
+    .quick-grid{gap:8px !important;}
+    .quick-card{min-height:145px;padding:10px 8px 11px !important;border-radius:17px !important;}
+    .quick-illustration{height:58px;}
+    .quick-title{font-size:13px !important;}
+    .quick-subtitle{font-size:9px !important;}
+    .quick-arrow{width:27px;height:27px;font-size:23px;right:7px;bottom:7px;}
+}
+
+/* Dark mode: colored cards stay colored; subject cards remain white.
+   Only the page/background area turns black. */
+body.ssc-dark #dynamicSubjects .subject-card{
+    background:#fff;
+    color:#172033;
+}
+body.ssc-dark #dynamicSubjects .subject-info b{color:#172033;}
+body.ssc-dark #dynamicSubjects .subject-info small{color:#6b7280;}
+body.ssc-dark .home-page > .section-title h2{color:#fff;}
+body.ssc-dark #homeNotificationList .notice-card{
+    background:#fff;
+    color:#172033;
+}
+
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 
 <body>
@@ -2143,7 +2753,6 @@ input{
             <p class="auth-description">
                 Login to continue your learning journey
             </p>
-
 
             <div class="input-group">
 
@@ -2269,6 +2878,23 @@ input{
                     placeholder="Full Name">
 
             </div>
+            <div class="input-group">
+    <span class="input-icon">👨‍👦</span>
+    <input
+        id="registerFatherName"
+        type="text"
+        placeholder="Father Name"
+        autocomplete="off">
+</div>
+
+<div class="input-group">
+    <span class="input-icon">🏠</span>
+    <input
+        id="registerVillageName"
+        type="text"
+        placeholder="Village Name"
+        autocomplete="off">
+</div>
 
 
             <div class="input-group">
@@ -2285,7 +2911,15 @@ input{
 
             <div class="input-group">
                 <span class="input-icon">🪪</span>
-                <input id="registerRollNumber" type="text" maxlength="20" placeholder="Roll Number" autocomplete="off">
+                <input
+    id="registerRollNumber"
+    type="text"
+    inputmode="numeric"
+    pattern="[0-9]*"
+    maxlength="10"
+    placeholder="Roll Number"
+    autocomplete="off"
+    oninput="this.value=this.value.replace(/[^0-9]/g,'')">
             </div>
 
 
@@ -2367,39 +3001,35 @@ input{
 
     <div class="home-header">
 
-        <div class="user-header">
+        <div class="user-header ssc-home-topline">
 
-            <img
-                id="homeStudentPhoto"
-                src="logo.png"
-                class="user-avatar"
-                alt="Student Photo"
-                onerror="this.src='logo.png'">
-
-            <div class="user-info">
-
-                <strong id="homeName">
-                    Hello, Aman 👋
-                </strong>
-
-                <small id="homeMeta">
-                    Class 6–12 | Roll No. -
-                </small>
-
-            </div>
-
-
-            <button
-                class="notification-button"
-                onclick="openAllNotifications()">
-
-                🔔
-
-                <span id="notificationBadge" class="notification-badge" style="display:none"></span>
-
+            <button type="button" class="home-menu-button" aria-label="Open menu"
+                    onclick="toggleStudentMenu()">
+                <span></span><span></span><span></span>
             </button>
 
-        </div>
+            <div class="ssc-brand">
+                <img src="logo.png" alt="S.S.C. CLASSES">
+                <div>
+                    <strong>S.S.C. <span>CLASSES</span></strong>
+                    <small>Learn • Practice • Success</small>
+                </div>
+            </div>
+
+            <button type="button" class="notification-button"
+                    onclick="openAllNotifications()" aria-label="Notifications">
+                🔔
+                <span id="notificationBadge" class="notification-badge" style="display:none"></span>
+            </button>
+
+            <button type="button"
+        class="home-profile-button"
+        onclick="openStudentProfile()"
+        aria-label="Profile">
+                <img id="homeStudentPhoto" src="logo.png" class="user-avatar"
+                     alt="Student Photo" onerror="this.src='logo.png'">
+            </button>
+</div>
 
 
         <div class="hero">
@@ -2446,189 +3076,83 @@ input{
 <div class="quick-grid">
 
     <!-- MY SUBJECTS -->
-    <button
-        class="quick-card"
-        onclick="openSubjectsScreen()">
-
-        <div class="quick-icon">
-
-            <svg viewBox="0 0 24 24" fill="none">
-                <path
-                    d="M4 5.5C4 4.67 4.67 4 5.5 4H10C11.1 4 12 4.9 12 6V20C12 18.9 11.1 18 10 18H5.5C4.67 18 4 17.33 4 16.5V5.5Z"
-                    stroke="#1769e8"
-                    stroke-width="1.8"
-                    stroke-linejoin="round"/>
-
-                <path
-                    d="M20 5.5C20 4.67 19.33 4 18.5 4H14C12.9 4 12 4.9 12 6V20C12 18.9 12.9 18 14 18H18.5C19.33 18 20 17.33 20 16.5V5.5Z"
-                    stroke="#1769e8"
-                    stroke-width="1.8"
-                    stroke-linejoin="round"/>
-
-                <path
-                    d="M7 8H9.5M7 11H9.5M14.5 8H17M14.5 11H17"
-                    stroke="#1769e8"
-                    stroke-width="1.5"
-                    stroke-linecap="round"/>
-            </svg>
-
+    <button class="quick-card quick-subjects-card" onclick="openSubjectsScreen()">
+        <div class="quick-illustration books-illustration" aria-hidden="true">
+            <div class="book book-1"></div>
+            <div class="book book-2"></div>
+            <div class="book book-3"></div>
+            <div class="cap-shape">◆</div>
         </div>
-
-        <b>My Subjects</b>
-
+        <div class="quick-title">My Subjects</div>
+        <div class="quick-subtitle">All Subjects Study<br>Material</div>
+        <span class="quick-arrow">›</span>
     </button>
-
 
     <!-- ONLINE TEST -->
-    <button
-        class="quick-card"
-        onclick="openScreen('testScreen')">
-
-        <div class="quick-icon">
-
-            <svg viewBox="0 0 24 24" fill="none">
-
-                <rect
-                    x="5"
-                    y="3"
-                    width="14"
-                    height="18"
-                    rx="2.5"
-                    stroke="#f08a24"
-                    stroke-width="1.8"/>
-
-                <path
-                    d="M8 7H16M8 11H16M8 15H12"
-                    stroke="#f08a24"
-                    stroke-width="1.6"
-                    stroke-linecap="round"/>
-
-                <path
-                    d="M14.5 15.2L16 16.7L18.5 13.8"
-                    stroke="#f08a24"
-                    stroke-width="1.7"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"/>
-            </svg>
-
+    <button class="quick-card quick-test-card" onclick="openScreen('testScreen')">
+        <div class="quick-illustration test-illustration" aria-hidden="true">
+            <div class="clipboard">
+                <div class="clip-top"></div>
+                <i>✓</i><i>✓</i><i>✓</i>
+                <div class="clip-lines"></div>
+            </div>
+            <div class="pencil">╱</div>
+            <div class="clock"></div>
         </div>
-
-        <b>Online Test</b>
-
+        <div class="quick-title">Online Test</div>
+        <div class="quick-subtitle">Practice &amp; Improve<br>Your Score</div>
+        <span class="quick-arrow">›</span>
     </button>
-
 
     <!-- MY RESULT -->
-    <button
-        class="quick-card"
-        onclick="openScreen('resultScreen')">
-
-        <div class="quick-icon">
-
-            <svg viewBox="0 0 24 24" fill="none">
-
-                <path
-                    d="M5 20V10"
-                    stroke="#16a765"
-                    stroke-width="2"
-                    stroke-linecap="round"/>
-
-                <path
-                    d="M12 20V5"
-                    stroke="#16a765"
-                    stroke-width="2"
-                    stroke-linecap="round"/>
-
-                <path
-                    d="M19 20V8"
-                    stroke="#16a765"
-                    stroke-width="2"
-                    stroke-linecap="round"/>
-
-                <path
-                    d="M3 20H21"
-                    stroke="#16a765"
-                    stroke-width="1.8"
-                    stroke-linecap="round"/>
-            </svg>
-
+    <button class="quick-card quick-result-card" onclick="openScreen('resultScreen')">
+        <div class="quick-illustration result-illustration" aria-hidden="true">
+            <div class="result-paper">
+                <b>A+</b>
+                <span class="bar b1"></span>
+                <span class="bar b2"></span>
+                <span class="bar b3"></span>
+            </div>
+            <div class="trophy">🏆</div>
         </div>
-
-        <b>My Result</b>
-
+        <div class="quick-title">My Result</div>
+        <div class="quick-subtitle">Check Your<br>Performance</div>
+        <span class="quick-arrow">›</span>
     </button>
-
-
-    <!-- YOUTUBE -->
-    <button
-        class="quick-card"
-        onclick="openYouTubeChannel()">
-
-        <div class="quick-icon">
-
-            <svg
-                width="30"
-                height="30"
-                viewBox="0 0 24 24">
-
-                <path
-                    fill="#ff0033"
-                    d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12s0 3.3.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.3 24 12 24 12s0-3.3-.5-5.8Z"/>
-
-                <path
-                    fill="#fff"
-                    d="M10 15.5L16 12l-6-3.5v7Z"/>
-            </svg>
-
-        </div>
-
-        <b>YouTube</b>
-
-    </button>
-
-
-    <!-- Telegram -->
-<div class="quick-card" onclick="openTelegram()">
-    <div class="quick-icon telegram-icon">
-    <svg viewBox="0 0 24 24" width="34" height="34">
-        <circle cx="12" cy="12" r="12" fill="#229ED9"/>
-        <path d="M17.9 6.8L15.7 17c-.17.72-.59.9-1.2.56l-3.3-2.43-1.59 1.53c-.18.18-.33.33-.67.33l.24-3.37 6.13-5.54c.27-.24-.06-.38-.42-.14L7.32 12.8l-3.27-1.02c-.71-.22-.73-.71.15-1.06l12.78-4.93c.59-.22 1.11.14.92 1.01Z"
-              fill="white"/>
-    </svg>
-</div>
-    <div class="quick-title">Telegram</div>
-    <div class="quick-subtitle">Join Channel</div>
-</div>
-
 
     <!-- COMMUNITY CHAT -->
-    <button
-        class="quick-card"
-        onclick="openCommunityChat()">
-
-        <div class="quick-icon">
-
-            <svg viewBox="0 0 24 24" fill="none">
-
-                <path
-                    d="M4 5.5C4 4.67 4.67 4 5.5 4H18.5C19.33 4 20 4.67 20 5.5V14.5C20 15.33 19.33 16 18.5 16H10L6 20V16H5.5C4.67 16 4 15.33 4 14.5V5.5Z"
-                    stroke="#7c5ce6"
-                    stroke-width="1.8"
-                    stroke-linejoin="round"/>
-
-                <path
-                    d="M8 8H16M8 11H14"
-                    stroke="#7c5ce6"
-                    stroke-width="1.6"
-                    stroke-linecap="round"/>
-            </svg>
-
+    <button class="quick-card quick-community-card" onclick="openCommunityChat()">
+        <div class="quick-illustration community-illustration" aria-hidden="true">
+            <div class="person p1">●</div>
+            <div class="person p2">●</div>
+            <div class="person p3">●</div>
+            <div class="chat-bubble">•••</div>
         </div>
-
-        <b>Community Chat</b>
-
+        <div class="quick-title">Community Chat</div>
+        <div class="quick-subtitle">Connect • Discuss<br>• Grow</div>
+        <span class="quick-arrow">›</span>
     </button>
-    
+
+    <!-- YOUTUBE -->
+    <button class="quick-card quick-youtube-card" onclick="openYouTubeChannel()">
+        <div class="quick-illustration youtube-illustration" aria-hidden="true">
+            <div class="youtube-logo"><span>▶</span></div>
+            <div class="youtube-rays">✦</div>
+        </div>
+        <div class="quick-title">YouTube</div>
+        <div class="quick-subtitle">Video Lectures &amp;<br>More</div>
+        <span class="quick-arrow">›</span>
+    </button>
+
+    <!-- TELEGRAM -->
+    <button class="quick-card quick-telegram-card" onclick="openTelegram()">
+        <div class="quick-illustration telegram-illustration" aria-hidden="true">
+            <div class="telegram-circle">➤</div>
+        </div>
+        <div class="quick-title">Telegram<br>Join Channel</div>
+        <div class="quick-subtitle">Get Updates<br>Instantly</div>
+        <span class="quick-arrow">›</span>
+    </button>
 
 </div>
 
@@ -2636,7 +3160,7 @@ input{
         <!-- NOTIFICATIONS -->
 
         <div class="section-title">
-            <h2>Latest Notifications</h2>
+            <h2>🔔Latest Notifications</h2>
             <button onclick="openScreen('notificationsScreen')">View All</button>
         </div>
 
@@ -2806,7 +3330,7 @@ input{
 
         <div id="resultHistoryPanel" class="card" style="padding:16px;margin-bottom:14px">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
-                <h3 style="margin:0">📄 All Test Results</h3>
+                <h3 style="margin:0">🎓 All Test Results</h3>
             </div>
             <div id="resultHistoryList" style="margin-top:12px"></div>
         </div>
@@ -3039,7 +3563,7 @@ input{
                 class="primary-btn full"
                 onclick="openScreen('testScreen')">
 
-                📝 Take Another Test
+                🏷️ Take Another Test
 
             </button>
 
@@ -3136,7 +3660,7 @@ input{
     onclick="changeProfilePhoto()">
 
     <span class="profile-icon">
-        📷
+        👨‍🎓
     </span>
 
     <span>
@@ -3203,7 +3727,7 @@ input{
                 onclick="openCommunityChat()">
 
                 <span class="profile-icon">
-                    💬
+                    👥
                 </span>
 
                 <span>
@@ -3288,7 +3812,7 @@ input{
         onclick="navigateBottom('homeScreen',this)">
 
         <span class="nav-icon">
-            ⌂
+            🛖
         </span>
 
         <span>
@@ -3316,15 +3840,21 @@ input{
 
     <button
         class="nav-item"
-        data-screen="testScreen"
-        onclick="navigateBottom('testScreen',this)">
+        data-screen="communityChatScreen"
+        onclick="openCommunityChat()">
 
-        <span class="nav-icon">
-            📝
+        <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" width="25" height="25">
+                <circle cx="32" cy="18" r="9" fill="currentColor"/>
+                <circle cx="16" cy="27" r="7" fill="currentColor" opacity=".9"/>
+                <circle cx="48" cy="27" r="7" fill="currentColor" opacity=".9"/>
+                <path d="M14 49c1-10 6-15 12-15s11 5 12 15" fill="currentColor"/>
+                <path d="M36 49c1-8 5-12 11-12 5 0 9 4 10 12" fill="currentColor" opacity=".9"/>
+            </svg>
         </span>
 
         <span>
-            Test
+            Community
         </span>
 
     </button>
@@ -3366,6 +3896,62 @@ input{
 
 <!-- Admin portal is intentionally separate in admin.html -->
 
+
+<!-- =======================================================
+     STUDENT SIDE MENU
+======================================================= -->
+<div id="studentMenuBackdrop" class="student-menu-backdrop" onclick="closeStudentMenu()"></div>
+
+<aside id="studentSideMenu" class="student-side-menu" aria-label="Student menu">
+    <div class="student-menu-head">
+        <div class="student-menu-brand">
+            <img src="logo.png" alt="S.S.C. CLASSES">
+            <div>
+                <strong>S.S.C. CLASSES</strong>
+                <small>Student Menu</small>
+            </div>
+        </div>
+        <button type="button" class="student-menu-close"
+                onclick="closeStudentMenu()" aria-label="Close menu">×</button>
+    </div>
+
+    <div class="student-menu-list">
+        <button type="button" class="student-menu-item"
+                onclick="closeStudentMenu();openScreen('homeScreen')">
+            <span>🏠</span><b>Home</b><i>›</i>
+        </button>
+        <button type="button" class="student-menu-item"
+                onclick="closeStudentMenu();openScreen('subjectsScreen')">
+            <span>📖</span><b>My Subjects</b><i>›</i>
+        </button>
+        <button type="button" class="student-menu-item"
+                onclick="closeStudentMenu();openScreen('testScreen')">
+            <span>💻</span><b>Online Test</b><i>›</i>
+        </button>
+        <button type="button" class="student-menu-item"
+                onclick="closeStudentMenu();openScreen('resultScreen')">
+            <span>🎓</span><b>My Result</b><i>›</i>
+        </button>
+        <button type="button" class="student-menu-item"
+                onclick="closeStudentMenu();openScreen('notificationsScreen')">
+            <span>🔔</span><b>Notifications</b><i>›</i>
+        </button>
+        <button type="button" class="student-menu-item"
+                onclick="closeStudentMenu();openCommunityChat()">
+            <span>👥</span><b>Community Chat</b><i>›</i>
+        </button>
+
+        <div class="student-menu-divider"></div>
+
+        <button type="button" class="student-menu-item dark-mode-row"
+                onclick="toggleDarkMode()">
+            <span id="darkModeMenuIcon">🌙</span>
+            <b id="darkModeMenuText">Dark Mode</b>
+            <span class="dark-mode-switch" id="darkModeSwitch"><span></span></span>
+        </button>
+    </div>
+</aside>
+
 <div
     id="generalModal"
     class="modal">
@@ -3400,6 +3986,65 @@ input{
 
 
 <script>
+
+
+/* =========================================================
+   SIDE MENU + LIMITED DARK MODE
+========================================================= */
+(function(){
+    const DARK_KEY = "sscStudentDarkMode";
+
+    window.toggleStudentMenu = function(){
+        const menu = document.getElementById("studentSideMenu");
+        const backdrop = document.getElementById("studentMenuBackdrop");
+        if(!menu || !backdrop) return;
+        const open = !menu.classList.contains("show");
+        menu.classList.toggle("show", open);
+        backdrop.classList.toggle("show", open);
+        document.body.style.overflow = open ? "hidden" : "";
+    };
+
+    window.closeStudentMenu = function(){
+        const menu = document.getElementById("studentSideMenu");
+        const backdrop = document.getElementById("studentMenuBackdrop");
+        if(menu) menu.classList.remove("show");
+        if(backdrop) backdrop.classList.remove("show");
+        document.body.style.overflow = "";
+    };
+
+    window.setStudentDarkMode = function(enabled){
+        const on = !!enabled;
+        document.documentElement.classList.toggle("ssc-dark", on);
+        document.body.classList.toggle("ssc-dark", on);
+        localStorage.setItem(DARK_KEY, on ? "1" : "0");
+
+        const icon = document.getElementById("darkModeMenuIcon");
+        const label = document.getElementById("darkModeMenuText");
+        if(icon) icon.textContent = on ? "☀️" : "🌙";
+        if(label) label.textContent = on ? "Light Mode" : "Dark Mode";
+    };
+
+    window.toggleDarkMode = function(){
+        window.setStudentDarkMode(
+            !document.documentElement.classList.contains("ssc-dark")
+        );
+    };
+
+    function restoreTheme(){
+        window.setStudentDarkMode(localStorage.getItem(DARK_KEY) === "1");
+    }
+
+    if(document.readyState === "loading"){
+        document.addEventListener("DOMContentLoaded", restoreTheme, {once:true});
+    }else{
+        restoreTheme();
+    }
+
+    document.addEventListener("keydown", function(e){
+        if(e.key === "Escape") window.closeStudentMenu();
+    });
+})();
+
 
 /* =========================================================
    SSC CLASSES JAVASCRIPT
@@ -3901,17 +4546,33 @@ function compressStudentPhoto(file){
 async function registerStudent(){
 
     const name=document.getElementById("registerName")?.value.trim()||"";
-    const mobile=document.getElementById("registerMobile")?.value.trim()||"";
-    const password=document.getElementById("registerPassword")?.value||"";
-    const email="";
-    const roll=document.getElementById("registerRollNumber")?.value.trim()||"";
-    const cls=document.getElementById("registerClass")?.value||"";
-    const photoInput=document.getElementById("registerPhoto");
+const fatherName=document.getElementById("registerFatherName")?.value.trim()||"";
+const villageName=document.getElementById("registerVillageName")?.value.trim()||"";
+const mobile=document.getElementById("registerMobile")?.value.trim()||"";
+const password=document.getElementById("registerPassword")?.value||"";
+const email="";
+const roll=document.getElementById("registerRollNumber")?.value.trim()||"";
+const cls=document.getElementById("registerClass")?.value||"";
 
     if(!name){
+        
         toast("कृपया नाम दर्ज करें");
         return;
     }
+    if(!fatherName){
+    toast("कृपया Father Name दर्ज करें");
+    return;
+}
+
+if(!villageName){
+    toast("कृपया Village Name दर्ज करें");
+    return;
+}
+
+if(!/^\d+$/.test(roll)){
+    toast("Roll Number में केवल Number डालें");
+    return;
+}
 
     if(!/^\d{10}$/.test(mobile)){
         toast("सही मोबाइल नंबर डालें");
@@ -3979,7 +4640,8 @@ async function registerStudent(){
                 password:"",
                 studentClass:cls,
                 rollNumber:roll,
-                fatherName:"",
+                fatherName,
+                villageName,
                 photo:photoData||"",
                 registeredAt
             };
@@ -3994,7 +4656,8 @@ async function registerStudent(){
                 studentClass:cls,
                 className:cls,
                 rollNumber:roll,
-                fatherName:"",
+                fatherName,
+                villageName,
                 photo:photoData||"",
                 registeredAt
             });
@@ -6343,27 +7006,87 @@ document.addEventListener(
 <script type="module">
 import {initializeApp,getApps} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 import {getFirestore,collection,query,where,onSnapshot,addDoc,serverTimestamp,doc,getDoc,setDoc,getDocs} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-import {getAuth,GoogleAuthProvider,signInWithPopup,signInWithRedirect,getRedirectResult,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,updateProfile} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+import {getAuth,setPersistence,browserLocalPersistence,GoogleAuthProvider,signInWithPopup,signInWithRedirect,getRedirectResult,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,updateProfile,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 const cfg={apiKey:"AIzaSyDGnQzr8AV8nVdIBO6tUDbNAoRqlxuF7N0",authDomain:"ssc-classes-4e87d.firebaseapp.com",projectId:"ssc-classes-4e87d",storageBucket:"ssc-classes-4e87d.firebasestorage.app",messagingSenderId:"65398917667",appId:"1:65398917667:web:8f47fdf42001902db7ff96",measurementId:"G-JQ4EK99HHN"};
-const app=getApps().length?getApps()[0]:initializeApp(cfg),db=getFirestore(app);
-const auth=getAuth(app),googleProvider=new GoogleAuthProvider();
-googleProvider.setCustomParameters({prompt:"select_account"});
-window.sscAuthBridge=Promise.resolve({auth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,updateProfile,
-  getStudentProfile:async(uid)=>{const snap=await getDoc(doc(db,"students",uid));return snap.exists()?snap.data():null;},
-  saveStudentProfile:async(uid,data)=>setDoc(doc(db,"students",uid),data,{merge:true}),
-  saveTestResult:async(result)=>{const key=`${result.studentUid||result.studentMobile||"student"}__${result.testId||result.id}`;return setDoc(doc(db,"testResults",key),result,{merge:true});},
-  loadStudentResults:async(uid,mobile)=>{
-    const out=[];
-    if(uid){const q1=query(collection(db,"testResults"),where("studentUid","==",uid));const s1=await getDocs(q1);s1.forEach(d=>out.push({...d.data(),id:d.id}));}
+const app=getApps().length?getApps()[0]:initializeApp(cfg),db=getFirestore(app); 
+const auth=getAuth(app),googleProvider=new GoogleAuthProvider(); 
+
+/* ========================================================= 
+   PERMANENT LOGIN SESSION 
+   Student तब तक logged-in रहेगा जब तक वह खुद Logout न करे.
+========================================================= */
+
+await setPersistence(auth,browserLocalPersistence);
+
+googleProvider.setCustomParameters({prompt:"select_account"}); 
+
+window.sscAuthBridge=Promise.resolve({
+  auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+
+  getStudentProfile:async(uid)=>{
+    const snap=await getDoc(doc(db,"students",uid));
+    return snap.exists()?snap.data():null;
+  },
+
+  saveStudentProfile:async(uid,data)=>
+    setDoc(doc(db,"students",uid),data,{merge:true}),
+
+  saveTestResult:async(result)=>{
+    const key=`${result.studentUid||result.studentMobile||"student"}__${result.testId||result.id}`;
+    return setDoc(doc(db,"testResults",key),result,{merge:true});
+  },
+
+  loadStudentResults:async(uid,mobile)=>{ 
+    const out=[]; 
+
+    if(uid){
+      const q1=query(
+        collection(db,"testResults"),
+        where("studentUid","==",uid)
+      );
+
+      const s1=await getDocs(q1);
+      s1.forEach(d=>out.push({...d.data(),id:d.id}));
+    }
+
     return out;
   }
 });
+
 window.sscVideoCommentsBridge=Promise.resolve({auth,db,collection,query,where,onSnapshot,addDoc,serverTimestamp});
 window.sscGoogleLogin=async function(){
  try{const credential=await signInWithPopup(auth,googleProvider);window.handleExternalStudentAuth(credential.user,"google");}
  catch(error){if(["auth/popup-blocked","auth/operation-not-supported-in-this-environment","auth/cancelled-popup-request"].includes(error.code)){await signInWithRedirect(auth,googleProvider);return;}throw error;}
 };
 getRedirectResult(auth).then(result=>{if(result?.user)window.handleExternalStudentAuth(result.user,"google");}).catch(error=>console.error("Google redirect sign-in failed",error));
+onAuthStateChanged(auth,async user=>{
+
+  /* User ने Firebase से logout किया हो तभी login हटाएँ.
+     Normal refresh/reopen पर Firebase persistent session वापस user देगा. */
+
+  if(!user){
+      return;
+  }
+  try{
+    const current=safeJSON("sscStudent",{});
+    if(current?.uid===user.uid && localStorage.getItem("sscStudentLoggedIn")==="true")return;
+    const profile=await getDoc(doc(db,"students",user.uid));
+    if(profile.exists()){
+      const student={...profile.data(),uid:user.uid,email:profile.data().email||user.email||"",name:profile.data().name||user.displayName||"Student",photo:profile.data().photo||user.photoURL||""};
+      localStorage.setItem("sscStudent",JSON.stringify(student));
+      localStorage.setItem("sscStudentLoggedIn","true");
+      localStorage.setItem("sscStudentName",student.name||"Student");
+      localStorage.setItem("sscStudentClass",String(student.studentClass||student.className||""));
+      if(typeof loadStudentData==="function")loadStudentData();
+      if(typeof window.activateStudentSessionSilent==="function")window.activateStudentSessionSilent(student);
+      else if(typeof openScreen==="function" && !document.getElementById("homeScreen")?.classList.contains("active"))openScreen("homeScreen");
+    }
+  }catch(e){console.warn("Firebase session restore failed",e);}
+});
 let stopClassMessages=null,stopScheduledTests=null,currentClass="";
 async function loadCloudStudentResults(){
   try{
@@ -6420,6 +7143,2011 @@ function listenForClassMessages(){
 listenForClassMessages();
 window.addEventListener("ssc-student-class-changed",listenForClassMessages);
 </script>
+
+
+<style id="ssc-final-overrides">
+/* ===== SSC CLASSES FINAL MOBILE OVERRIDES ===== */
+html,body{padding:0;margin:0;overflow-x:hidden}
+body{padding-top:env(safe-area-inset-top)}
+.home-header{padding-top:4px}
+.ssc-home-topline{min-height:54px!important;height:54px!important;padding:0 8px!important;gap:7px!important}
+/* Bell + Profile ko left side shift */
+.ssc-home-topline{
+    position:relative!important;
+}
+
+.ssc-home-topline .home-menu-button{
+    order:0!important;
+}
+
+.ssc-home-topline .notification-button{
+    order:1!important;
+    margin-right:4px!important;
+}
+
+.ssc-home-topline .home-profile-button{
+    order:2!important;
+    margin-right:2px!important;
+}
+
+
+.home-menu-button{width:38px!important;height:38px!important;padding:7px!important}
+.ssc-brand{position:absolute!important;left:50%;transform:translateX(-50%);justify-content:center;gap:6px!important;width:max-content;max-width:58vw}
+.ssc-brand img{width:34px!important;height:34px!important}
+.ssc-brand strong{font-size:15px!important}
+.ssc-brand small{font-size:7px!important}
+.notification-button{width:38px!important;height:38px!important;font-size:20px!important;padding:0!important}
+.home-profile-button{width:38px!important;height:38px!important}
+.hero{margin-top:10px!important;min-height:245px!important;height:245px!important;padding:15px!important;background:#fff!important;color:#172033!important;box-shadow:0 7px 22px rgba(8,43,92,.09)!important;border:1px solid #e5eaf0!important}
+.hero-content{z-index:2}
+.hero h2{color:#172033!important;font-size:19px!important}
+.hero p{color:#667085!important;font-size:10px!important}
+.hero-image{width:45%!important;height:220px!important;align-self:stretch!important;overflow:hidden!important;align-items:flex-end!important}
+.sir-hero-photo{width:100%!important;height:205px!important;max-width:190px!important;object-fit:contain!important;transform:none!important;animation:none!important;filter:drop-shadow(0 7px 7px rgba(0,0,0,.14))!important}
+.quick-grid{margin-top:14px!important;gap:9px!important}
+.quick-card{min-height:132px!important;padding:10px 5px!important;border-radius:17px!important}
+.quick-illustration{height:61px!important}
+.quick-title{font-size:13px!important}
+.quick-subtitle{font-size:9px!important}
+.community-illustration .chat-bubble{display:none!important}
+.community-illustration .person{width:26px!important;height:26px!important}
+.home-page>.section-title{margin-top:16px!important}
+.notice-title{font-size:14px!important}
+.notice-time{font-size:11px!important}
+.student-side-menu{padding-top:env(safe-area-inset-top)}
+.topbar{padding-top:env(safe-area-inset-top);height:calc(61px + env(safe-area-inset-top));}
+/* Result flow */
+#resultContent{display:none}
+#resultContent.ssc-result-visible{display:block}
+#resultHistoryPanel{margin-bottom:12px!important}
+#resultHistoryPanel h3{font-size:16px!important}
+.result-file-card{width:100%;display:flex;align-items:center;gap:10px;text-align:left;background:#fff;border:1px solid #e5eaf0;border-radius:14px;padding:12px;margin:8px 0;box-shadow:0 4px 12px rgba(8,43,92,.06)}
+.result-file-icon{width:38px;height:38px;border-radius:10px;background:#eaf2ff;display:grid;place-items:center;font-size:20px;flex:none}
+.result-file-meta{flex:1;min-width:0}.result-file-meta b{display:block;font-size:13px;color:#172033}.result-file-meta small{display:block;font-size:9px;color:#667085;margin-top:3px}.result-file-score{text-align:right;flex:none}.result-file-score strong{font-size:13px;color:#1769e8}
+.ssc-result-card{position:relative;background:#fff;border:1px solid #dfe6ef;border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(8,43,92,.10);padding:16px;margin-bottom:10px}
+.ssc-result-head{text-align:center;position:relative;padding-bottom:10px;border-bottom:1px solid #e8edf4}
+.ssc-result-logo{width:58px;height:58px;object-fit:contain;display:block;margin:0 auto 3px}
+.ssc-result-brand{font-weight:900;font-size:16px;color:#082b5c}.ssc-result-tag{font-size:8px;color:#667085}.ssc-result-test{font-size:15px;font-weight:900;color:#172033;margin-top:10px}.ssc-result-watermark{position:absolute;left:50%;top:86px;transform:translateX(-50%);font-size:25px;font-weight:900;color:rgba(8,43,92,.055);white-space:nowrap;pointer-events:none}
+.ssc-result-student{display:flex;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid #edf1f6}.ssc-result-student img{width:64px;height:64px;border-radius:10px;object-fit:cover;border:1px solid #dbe4ef;background:#f2f6fb}.ssc-result-student-info{flex:1}.ssc-result-student-info b{display:block;font-size:14px}.ssc-result-student-info div{font-size:10px;color:#667085;margin-top:4px;line-height:1.6}.ssc-score-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.ssc-score-box{background:#f7faff;border:1px solid #e5edf8;border-radius:10px;padding:9px;text-align:center}.ssc-score-box small{display:block;font-size:8px;color:#667085}.ssc-score-box b{font-size:17px;color:#082b5c}.ssc-result-table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}.ssc-result-table th,.ssc-result-table td{border:1px solid #dfe6ef;padding:7px;text-align:left}.ssc-result-table th{background:#f1f6fc;color:#082b5c}.ssc-result-foot{margin-top:12px;text-align:center;font-size:10px;color:#667085}.ssc-download-wrap{margin:0 0 14px}.ssc-download-wrap button{width:100%}
+/* only the single download action is shown */
+#resultContent .result-actions,#resultContent #questionReviewPanel{display:none!important}
+/* larger message/notification text */
+#homeNotificationList .notice-title,#notificationList .notice-title{font-size:14px!important}
+#homeNotificationList .notice-time,#notificationList .notice-time{font-size:11px!important}
+@media(max-width:380px){.hero{height:225px!important;min-height:225px!important}.hero-image{height:205px!important}.sir-hero-photo{height:185px!important}.quick-card{min-height:125px!important}.quick-illustration{height:55px!important}}
+@media print{body *{visibility:hidden!important}#sscPdfExport,#sscPdfExport *{visibility:visible!important}#sscPdfExport{position:absolute!important;left:0!important;top:0!important;width:190mm!important;height:277mm!important;margin:0!important;display:block!important;background:#fff!important;color:#172033!important;box-shadow:none!important;border:0!important;border-radius:0!important;padding:10mm!important}}
+
+/* =========================================================
+   STUDENT SIDE MENU — FIX
+   Prevents the menu from appearing as normal page content.
+========================================================= */
+.student-menu-backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(8,20,45,.42);
+    z-index:9998;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:opacity .22s ease, visibility .22s ease;
+}
+.student-menu-backdrop.open{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+}
+
+.student-side-menu{
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    width:min(330px,88vw);
+    max-width:330px;
+    background:#fff;
+    color:#172033;
+    z-index:9999;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    box-shadow:12px 0 35px rgba(8,43,92,.22);
+    transform:translateX(-105%);
+    transition:transform .25s ease;
+    visibility:hidden;
+}
+.student-side-menu.open{
+    transform:translateX(0);
+    visibility:visible;
+}
+
+.student-menu-head{
+    min-height:78px;
+    padding:14px 14px 12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    background:linear-gradient(135deg,#0b63ce,#1689ef);
+    color:#fff;
+}
+.student-menu-brand{
+    min-width:0;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+.student-menu-brand img{
+    width:52px;
+    height:52px;
+    object-fit:contain;
+    flex:none;
+    border-radius:50%;
+    background:#fff;
+}
+.student-menu-brand div{
+    min-width:0;
+}
+.student-menu-brand strong{
+    display:block;
+    font-size:15px;
+    line-height:1.2;
+    white-space:nowrap;
+}
+.student-menu-brand small{
+    display:block;
+    margin-top:3px;
+    font-size:10px;
+    opacity:.9;
+}
+.student-menu-close{
+    width:38px;
+    height:38px;
+    flex:none;
+    border:0;
+    border-radius:50%;
+    background:rgba(255,255,255,.16);
+    color:#fff;
+    font-size:26px;
+    line-height:1;
+    cursor:pointer;
+}
+
+.student-menu-list{
+    padding:12px;
+}
+.student-menu-item{
+    width:100%;
+    min-height:52px;
+    padding:10px 12px;
+    margin:3px 0;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    border:0;
+    border-radius:14px;
+    background:transparent;
+    color:#172033;
+    text-align:left;
+    font:inherit;
+    cursor:pointer;
+}
+.student-menu-item:hover{
+    background:#eef5ff;
+}
+.student-menu-item > span:first-child{
+    width:30px;
+    flex:none;
+    text-align:center;
+    font-size:21px;
+}
+.student-menu-item b{
+    flex:1;
+    font-size:14px;
+    font-weight:600;
+}
+.student-menu-item i{
+    font-style:normal;
+    font-size:23px;
+    color:#7a879b;
+}
+.student-menu-divider{
+    height:1px;
+    margin:9px 4px;
+    background:#e5eaf2;
+}
+.dark-mode-row{
+    justify-content:flex-start;
+}
+.dark-mode-switch{
+    width:42px;
+    height:24px;
+    padding:3px;
+    margin-left:auto;
+    border-radius:20px;
+    background:#d7deea;
+}
+.dark-mode-switch span{
+    display:block;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 1px 3px rgba(0,0,0,.2);
+    transition:transform .2s ease;
+}
+body.ssc-dark .student-side-menu{
+    background:#101a2d;
+    color:#fff;
+}
+body.ssc-dark .student-menu-item{
+    color:#fff;
+}
+body.ssc-dark .student-menu-item:hover{
+    background:#1b2942;
+}
+body.ssc-dark .student-menu-divider{
+    background:#2a3952;
+}
+body.ssc-dark .dark-mode-switch{
+    background:#2563eb;
+}
+body.ssc-dark .dark-mode-switch span{
+    transform:translateX(18px);
+}
+
+/* Mobile: keep the menu compact */
+@media(max-width:380px){
+    .student-side-menu{
+        width:88vw;
+    }
+    .student-menu-brand img{
+        width:46px;
+        height:46px;
+    }
+}
+
+</style>
+
+<script>
+/* ===== FINAL STUDENT APP PATCH ===== */
+(function(){
+  function q(id){return document.getElementById(id)}
+  function esc(v){return (window.escapeHTML?window.escapeHTML(String(v??'')):String(v??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m])))}
+  window.selectResultForView=function(index){
+    const rows=window.__sscMyResults||getLocalMyResults(); const r=rows[index]; if(!r)return;
+    selectedResultForView=r; renderStudentResult(r);
+    const c=q('resultContent'); if(c){c.classList.add('ssc-result-visible');c.scrollIntoView({behavior:'smooth',block:'start'})}
+    const h=q('resultHistoryPanel'); if(h)h.style.display='none';
+  };
+  window.loadAndRenderAllResults=function(){
+    const rows=getLocalMyResults(); const box=q('resultHistoryList'), c=q('resultContent'), h=q('resultHistoryPanel'); if(!box)return;
+    window.__sscMyResults=rows;
+    if(c)c.classList.remove('ssc-result-visible'); if(h)h.style.display='block';
+    if(!rows.length){box.innerHTML='<div style="padding:18px;text-align:center;color:#667085">अभी कोई completed test result नहीं है।</div>';return;}
+    box.innerHTML=rows.map((r,i)=>{const pct=Number(r.percentage||0).toFixed(1);const date=r.date||new Date(r.submittedAt||Date.now()).toLocaleDateString('en-IN');return `<button type="button" class="result-file-card" onclick="selectResultForView(${i})"><div class="result-file-icon">📄</div><div class="result-file-meta"><b>${esc(r.testName||'Online Test')}</b><small>S.S.C. CLASSES • Class ${esc(r.studentClass||r.testClass||'-')} • ${esc(date)}</small></div><div class="result-file-score"><strong>${esc(pct)}%</strong><small style="display:block;color:#667085">${esc(r.obtainedMarks||0)}/${esc(r.totalMarks||0)}</small></div><span style="font-size:22px;color:#9aa3b1">›</span></button>`}).join('');
+  };
+  window.renderStudentResult=function(rOverride){
+    const st=studentRecord(), rows=getLocalMyResults(); const r=rOverride||selectedResultForView||rows[0]; const c=q('resultContent'), empty=q('noClassResultMessage');
+    if(!r){if(c)c.classList.remove('ssc-result-visible');if(empty){empty.style.display='block';q('noClassResultText').textContent=`You have no completed test results.`;}return;}
+    if(empty)empty.style.display='none'; if(c)c.classList.add('ssc-result-visible'); selectedResultForView=r;
+    const pct=Number(r.percentage||0), total=Number(r.totalMarks||0), obtained=Number(r.obtainedMarks||0);
+    const photo=st.photo||'logo.png', father=r.fatherName||st.fatherName||'-', cls=r.studentClass||r.testClass||st.studentClass||'-', roll=r.rollNumber||r.rollNo||st.rollNumber||'-', subject=r.subject||r.testSubject||'-';
+    c.innerHTML=`<div class="ssc-result-card" id="sscPdfExport"><div class="ssc-result-head"><img class="ssc-result-logo" src="logo.png" alt="S.S.C. CLASSES"><div class="ssc-result-brand">S.S.C. CLASSES</div><div class="ssc-result-tag">Learn • Practice • Success</div><div class="ssc-result-test">${esc(r.testName||'Online Test')}</div><div class="ssc-result-watermark">S.S.C. CLASSES</div></div><div class="ssc-result-student"><img src="${esc(photo)}" onerror="this.src='logo.png'" alt="Student Photo"><div class="ssc-result-student-info"><b>${esc(r.studentName||st.name||'Student')}</b><div>Father Name: ${esc(father)}<br>Class: ${esc(cls)} &nbsp; | &nbsp; Roll No.: ${esc(roll)}<br>Subject: ${esc(subject)}</div></div></div><div class="ssc-score-row"><div class="ssc-score-box"><small>Marks Obtained</small><b>${esc(obtained)} / ${esc(total)}</b></div><div class="ssc-score-box"><small>Percentage</small><b>${pct.toFixed(2)}%</b></div><div class="ssc-score-box"><small>Correct</small><b>${esc(r.correct||0)}</b></div><div class="ssc-score-box"><small>Wrong</small><b>${esc(r.wrong||0)}</b></div></div><table class="ssc-result-table"><thead><tr><th>Result</th><th>Value</th></tr></thead><tbody><tr><td>Total Questions</td><td>${esc(r.totalQuestions||0)}</td></tr><tr><td>Attempted</td><td>${esc(r.attempted||0)}</td></tr><tr><td>Unattempted</td><td>${esc(r.unattempted||0)}</td></tr><tr><td>Final Result</td><td>${esc(r.result||'-')}</td></tr><tr><td>Date</td><td>${esc(r.date||'-')}</td></tr></tbody></table><div class="ssc-result-foot">S.S.C. CLASSES • Learn • Practice • Success</div></div><div class="ssc-download-wrap"><button class="primary-btn full" onclick="downloadCurrentResult()">📥 Download PDF</button></div>`;
+  };
+  window.downloadCurrentResult=async function(){
+    const r=selectedResultForView||getLocalMyResults()[0]; if(!r)return toast('Result उपलब्ध नहीं है।');
+    const el=q('sscPdfExport'); if(!el)return toast('Result PDF तैयार नहीं है।');
+    if(window.html2pdf){try{toast('PDF तैयार हो रहा है...');const opt={margin:0,filename:`${String(r.testName||'SSC-Result').replace(/[^a-z0-9]+/gi,'-')}-Result.pdf`,image:{type:'jpeg',quality:.98},html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['avoid-all']}};await html2pdf().set(opt).from(el).save();toast('✅ PDF download हो गया।');return;}catch(e){console.error(e);}}
+    const oldTitle=document.title;document.title=`${r.testName||'Test'} Result - S.S.C. CLASSES`;window.print();setTimeout(()=>document.title=oldTitle,800);
+  };
+  /* Father name: add to existing registration flow without replacing the tested function. */
+  const oldRegister=window.registerStudent;
+  window.registerStudent=async function(){
+    const f=q('registerFatherName');
+    if(f && !f.value.trim()){toast('कृपया Father Name दर्ज करें');return;}
+    const original=q('registerName');
+    /* The original function currently hardcodes fatherName:'', so temporarily patch the function source only for this call. */
+    if(typeof oldRegister==='function'){
+      const fn=oldRegister.toString();
+      if(fn.includes('fatherName:""')){
+        const patched=new Function('return ('+fn.replace(/fatherName:\"\"/g,'fatherName:'+JSON.stringify(f?.value.trim()||''))+')')();
+        return patched();
+      }
+      return oldRegister();
+    }
+  };
+  window.activateStudentSessionSilent=function(student){
+    localStorage.setItem("sscStudentLoggedIn","true");
+    localStorage.setItem("sscStudent",JSON.stringify(student));
+    localStorage.setItem("sscStudentName",student.name||"Student");
+    localStorage.setItem("sscStudentClass",String(student.studentClass||""));
+    if(typeof loadStudentData==="function")loadStudentData();
+    if(typeof openScreen==="function")openScreen("homeScreen");
+  };
+  /* Profile shows complete student details. */
+  window.editProfile=function(){
+    const st=studentRecord();
+    q('generalContent').innerHTML=`<h2>👤 My Profile</h2><div class="input-group"><input value="${esc(st.name||'Student')}" readonly></div><div class="input-group"><input value="Father Name: ${esc(st.fatherName||'-')}" readonly></div><div class="input-group"><input value="Class ${esc(st.studentClass||'-')}" readonly></div><div class="input-group"><input value="Roll Number: ${esc(st.rollNumber||st.rollNo||'-')}" readonly></div><div class="input-group"><input value="Mobile: ${esc(st.mobile||'-')}" readonly></div><button class="primary-btn full" onclick="closeModal('generalModal')">Close</button>`;
+    q('generalModal').classList.add('show');
+  };
+  /* Put Community in bottom nav and keep Online Test as the large dashboard card. */
+  function fixBottomNav(){
+    const nav=q('bottomNav'); if(!nav)return;
+    const buttons=[...nav.querySelectorAll('.nav-item')]; const community=buttons.find(b=>b.dataset.screen==='communityChatScreen');
+    if(community){community.onclick=()=>openCommunityChat();}
+    nav.querySelectorAll('.nav-item').forEach(b=>{b.classList.remove('active');if(b.dataset.screen===currentScreen)b.classList.add('active')});
+  }
+  document.addEventListener('DOMContentLoaded',()=>{fixBottomNav();});
+})();
+</script>
+<!-- =========================================================
+     SSC CLASSES HOME UI FINAL FIX
+     केवल UI / icons / menu behaviour
+     Existing Firebase / Test / Result functions को नहीं छेड़ता
+========================================================= -->
+
+<style id="ssc-home-final-ui-fix">
+
+/* =========================================================
+   HOME HEADER
+========================================================= */
+
+.ssc-home-topline{
+    background:#063b91 !important;
+    min-height:78px !important;
+    height:78px !important;
+    padding:0 14px !important;
+    border-radius:0 0 28px 28px !important;
+    display:flex !important;
+    align-items:center !important;
+    position:relative !important;
+    box-shadow:0 5px 18px rgba(0,40,100,.22) !important;
+}
+
+/* Hamburger */
+
+.home-menu-button{
+    width:48px !important;
+    height:48px !important;
+    border:0 !important;
+    background:transparent !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    align-items:center !important;
+    gap:6px !important;
+    z-index:5 !important;
+}
+
+.home-menu-button span{
+    display:block !important;
+    width:30px !important;
+    height:4px !important;
+    border-radius:10px !important;
+    background:#fff !important;
+}
+
+/* Brand */
+
+.ssc-brand{
+    position:absolute !important;
+    left:50% !important;
+    top:50% !important;
+    transform:translate(-50%,-50%) !important;
+
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    gap:8px !important;
+    width:max-content !important;
+    max-width:60% !important;
+}
+.ssc-brand img{
+    width:46px !important;
+    height:46px !important;
+    object-fit:contain !important;
+}
+
+.ssc-brand strong{
+    display:block !important;
+    color:#fff !important;
+    font-size:21px !important;
+    font-weight:900 !important;
+    white-space:nowrap !important;
+}
+
+.ssc-brand strong span{
+    color:#fff !important;
+}
+
+.ssc-brand small{
+    display:block !important;
+    color:#fff !important;
+    font-size:10px !important;
+    margin-top:2px !important;
+    white-space:nowrap !important;
+}
+
+/* Notification */
+
+.notification-button{
+    margin-left:auto !important;
+    width:44px !important;
+    height:44px !important;
+    border:0 !important;
+    background:transparent !important;
+    color:#fff !important;
+    font-size:27px !important;
+    position:relative !important;
+    z-index:5 !important;
+}
+
+/* Profile */
+
+.home-profile-button{
+    width:48px !important;
+    height:48px !important;
+    margin-left:4px !important;
+    border-radius:50% !important;
+    border:2px solid rgba(255,255,255,.45) !important;
+    background:rgba(255,255,255,.12) !important;
+    padding:3px !important;
+    z-index:5 !important;
+}
+
+.home-profile-button .user-avatar{
+    width:100% !important;
+    height:100% !important;
+    border-radius:50% !important;
+    object-fit:cover !important;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    margin:16px 0 0 !important;
+    min-height:260px !important;
+    height:260px !important;
+    padding:18px 18px 12px !important;
+
+    border-radius:25px !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0649b8 0%,
+            #073b91 55%,
+            #092d6e 100%
+        ) !important;
+
+    color:#fff !important;
+    border:0 !important;
+
+    box-shadow:
+        0 8px 24px rgba(4,45,110,.20) !important;
+
+    overflow:hidden !important;
+
+    position:relative !important;
+}
+
+.hero:before{
+    content:"" !important;
+    position:absolute !important;
+    width:260px !important;
+    height:260px !important;
+    right:-90px !important;
+    top:-80px !important;
+    border-radius:50% !important;
+    background:rgba(255,255,255,.07) !important;
+}
+
+.hero-content{
+    position:relative !important;
+    z-index:3 !important;
+    width:55% !important;
+}
+
+.hero h2{
+    color:#fff !important;
+    font-size:27px !important;
+    line-height:1.05 !important;
+    margin:18px 0 15px !important;
+    font-weight:900 !important;
+}
+
+.hero h2 br:first-of-type + *{
+    color:#ffd900 !important;
+}
+
+.hero p{
+    color:#fff !important;
+    font-size:12px !important;
+    line-height:1.5 !important;
+}
+
+.hero-actions{
+    margin-top:15px !important;
+}
+
+.hero-btn{
+    background:#ffd600 !important;
+    color:#13213d !important;
+    border:0 !important;
+    border-radius:30px !important;
+    padding:12px 18px !important;
+    font-size:14px !important;
+    font-weight:900 !important;
+    box-shadow:0 5px 12px rgba(0,0,0,.15) !important;
+}
+
+.location-btn{
+    display:none !important;
+}
+
+.hero-image{
+    position:absolute !important;
+    right:5px !important;
+    bottom:0 !important;
+    width:49% !important;
+    height:100% !important;
+    display:flex !important;
+    align-items:flex-end !important;
+    justify-content:center !important;
+    z-index:2 !important;
+}
+
+.sir-hero-photo{
+    width:100% !important;
+    height:245px !important;
+    max-width:215px !important;
+    object-fit:contain !important;
+    object-position:center bottom !important;
+    transform:none !important;
+    animation:none !important;
+    filter:drop-shadow(0 8px 8px rgba(0,0,0,.18)) !important;
+}
+
+
+/* =========================================================
+   QUICK CARDS
+========================================================= */
+
+.quick-grid{
+    margin-top:17px !important;
+    display:grid !important;
+    grid-template-columns:repeat(3,1fr) !important;
+    gap:10px !important;
+}
+
+.quick-card{
+    min-height:145px !important;
+    border-radius:19px !important;
+    padding:11px 8px !important;
+    position:relative !important;
+    overflow:hidden !important;
+    border:0 !important;
+    box-shadow:0 7px 18px rgba(8,43,92,.14) !important;
+}
+
+.quick-card:nth-child(1){
+    background:linear-gradient(145deg,#2196f3,#0865df) !important;
+}
+
+.quick-card:nth-child(2){
+    background:linear-gradient(145deg,#ffb300,#f57c00) !important;
+}
+
+.quick-card:nth-child(3){
+    background:linear-gradient(145deg,#16c768,#08a64e) !important;
+}
+
+.quick-card:nth-child(4){
+    background:linear-gradient(145deg,#7b3ff0,#5324cf) !important;
+}
+
+.quick-card:nth-child(5){
+    background:linear-gradient(145deg,#ff3c5a,#ef173b) !important;
+}
+
+.quick-card:nth-child(6){
+    background:linear-gradient(145deg,#18b7d4,#0798b8) !important;
+}
+
+.quick-title{
+    font-size:15px !important;
+    font-weight:900 !important;
+    color:#fff !important;
+}
+
+.quick-subtitle{
+    font-size:10px !important;
+    line-height:1.35 !important;
+    color:rgba(255,255,255,.95) !important;
+}
+
+
+/* =========================================================
+   COMMUNITY — THREE PEOPLE ICON
+========================================================= */
+
+.community-illustration{
+    position:relative !important;
+    height:65px !important;
+}
+
+.community-illustration .person{
+    display:block !important;
+    position:absolute !important;
+
+    width:28px !important;
+    height:28px !important;
+
+    border-radius:50% !important;
+
+    font-size:0 !important;
+    color:transparent !important;
+
+    background:#fff !important;
+
+    box-shadow:0 3px 8px rgba(0,0,0,.18) !important;
+}
+
+/* Head */
+
+.community-illustration .person:before{
+    content:"" !important;
+    position:absolute !important;
+    width:11px !important;
+    height:11px !important;
+    border-radius:50% !important;
+    background:#5324cf !important;
+    left:50% !important;
+    top:5px !important;
+    transform:translateX(-50%) !important;
+}
+
+/* Body */
+
+.community-illustration .person:after{
+    content:"" !important;
+    position:absolute !important;
+    width:18px !important;
+    height:10px !important;
+    border-radius:12px 12px 5px 5px !important;
+    background:#5324cf !important;
+    left:50% !important;
+    bottom:4px !important;
+    transform:translateX(-50%) !important;
+}
+
+.community-illustration .p1{
+    left:26% !important;
+    bottom:5px !important;
+}
+
+.community-illustration .p2{
+    left:50% !important;
+    bottom:12px !important;
+    transform:translateX(-50%) scale(1.15) !important;
+}
+
+.community-illustration .p3{
+    right:26% !important;
+    bottom:5px !important;
+}
+
+
+/* Remove old chat bubble */
+
+.community-illustration .chat-bubble{
+    display:none !important;
+}
+
+
+/* =========================================================
+   ORIGINAL-STYLE YOUTUBE LOGO
+========================================================= */
+
+.youtube-illustration{
+    position:relative !important;
+}
+
+.youtube-logo{
+    width:78px !important;
+    height:52px !important;
+    border-radius:15px !important;
+    background:#fff !important;
+    display:grid !important;
+    place-items:center !important;
+    box-shadow:0 4px 9px rgba(0,0,0,.17) !important;
+}
+
+.youtube-logo span{
+    color:#ff0033 !important;
+    font-size:31px !important;
+    line-height:1 !important;
+    margin-left:4px !important;
+}
+
+.youtube-rays{
+    color:#fff !important;
+}
+
+
+/* =========================================================
+   ORIGINAL-STYLE TELEGRAM LOGO
+========================================================= */
+
+.telegram-illustration{
+    position:relative !important;
+}
+
+.telegram-circle{
+    width:72px !important;
+    height:72px !important;
+    border-radius:50% !important;
+
+    background:#fff !important;
+
+    color:#229ED9 !important;
+
+    display:grid !important;
+    place-items:center !important;
+
+    font-size:0 !important;
+
+    transform:none !important;
+
+    box-shadow:0 4px 9px rgba(0,0,0,.16) !important;
+
+    position:relative !important;
+}
+
+/* Telegram paper-plane */
+
+.telegram-circle:before{
+    content:"" !important;
+    width:0 !important;
+    height:0 !important;
+
+    border-top:14px solid transparent !important;
+    border-bottom:14px solid transparent !important;
+    border-left:34px solid #229ED9 !important;
+
+    transform:rotate(-25deg) !important;
+
+    position:absolute !important;
+    left:20px !important;
+    top:22px !important;
+}
+
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+.home-page > .section-title{
+    margin-top:20px !important;
+    padding:0 3px !important;
+}
+
+.home-page > .section-title h2{
+    font-size:18px !important;
+    color:#172033 !important;
+    font-weight:900 !important;
+}
+
+.home-page > .section-title button{
+    color:#1769e8 !important;
+    font-weight:800 !important;
+}
+
+
+/* =========================================================
+   BOTTOM NAVIGATION
+========================================================= */
+
+.bottom-nav{
+    background:#fff !important;
+    border-top:1px solid #e8edf4 !important;
+    box-shadow:0 -5px 20px rgba(0,0,0,.08) !important;
+}
+
+.nav-item{
+    color:#64748b !important;
+}
+
+.nav-item.active{
+    color:#1769e8 !important;
+}
+
+.nav-item .nav-icon{
+    font-size:23px !important;
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+html.ssc-dark,
+body.ssc-dark{
+    background:#08111f !important;
+}
+
+body.ssc-dark .screen{
+    background:#08111f !important;
+}
+
+body.ssc-dark .home-page > .section-title h2{
+    color:#fff !important;
+}
+
+body.ssc-dark .home-page > .section-title button{
+    color:#60a5fa !important;
+}
+
+body.ssc-dark .bottom-nav{
+    background:#101a2d !important;
+    border-top-color:#26354d !important;
+}
+
+body.ssc-dark .nav-item{
+    color:#94a3b8 !important;
+}
+
+body.ssc-dark .nav-item.active{
+    color:#60a5fa !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:480px){
+
+    .ssc-home-topline{
+        height:76px !important;
+    }
+
+    .ssc-brand{
+        max-width:55% !important;
+    }
+
+    .ssc-brand img{
+        width:39px !important;
+        height:39px !important;
+    }
+
+    .ssc-brand strong{
+        font-size:16px !important;
+    }
+
+    .ssc-brand small{
+        font-size:7px !important;
+    }
+
+    .hero{
+        min-height:255px !important;
+        height:255px !important;
+    }
+
+    .hero h2{
+        font-size:23px !important;
+    }
+
+    .hero p{
+        font-size:10px !important;
+    }
+
+    .sir-hero-photo{
+        height:235px !important;
+        max-width:185px !important;
+    }
+
+    .quick-grid{
+        grid-template-columns:repeat(3,1fr) !important;
+        gap:9px !important;
+    }
+
+    .quick-card{
+        min-height:135px !important;
+        padding:9px 5px !important;
+    }
+
+    .quick-title{
+        font-size:12px !important;
+    }
+
+    .quick-subtitle{
+        font-size:9px !important;
+    }
+}
+
+@media(max-width:360px){
+
+    .ssc-brand strong{
+        font-size:14px !important;
+    }
+
+    .quick-grid{
+        gap:7px !important;
+    }
+
+    .quick-card{
+        min-height:128px !important;
+    }
+
+}
+
+</style>
+
+
+<script>
+/* =========================================================
+   SSC HOME FINAL BEHAVIOUR
+========================================================= */
+
+(function(){
+
+    /* ---------------------------------------------
+       Profile button
+       Existing profileScreen को ही खोलता है.
+       कोई Firebase/profile logic replace नहीं करता.
+    --------------------------------------------- */
+
+    window.openStudentProfile = function(){
+
+        if(typeof closeStudentMenu === "function"){
+            closeStudentMenu();
+        }
+
+        if(typeof loadStudentData === "function"){
+            loadStudentData();
+        }
+
+        if(typeof openScreen === "function"){
+            openScreen("profileScreen");
+        }
+
+    };
+
+
+    /* ---------------------------------------------
+       Make profile button use profile screen
+    --------------------------------------------- */
+
+    document.addEventListener("DOMContentLoaded",function(){
+
+        const profileButton =
+            document.querySelector(".home-profile-button");
+
+        if(profileButton){
+
+            profileButton.onclick = function(){
+
+                if(typeof openStudentProfile === "function"){
+                    openStudentProfile();
+                }
+
+            };
+
+        }
+
+
+        /* -----------------------------------------
+           Make Community bottom-nav use same icon
+        ----------------------------------------- */
+
+        document
+            .querySelectorAll(
+                '[data-screen="communityChatScreen"] .nav-icon'
+            )
+            .forEach(function(icon){
+
+                icon.innerHTML = `
+                    <svg
+                        viewBox="0 0 64 64"
+                        width="25"
+                        height="25"
+                        aria-hidden="true">
+
+                        <circle
+                            cx="32"
+                            cy="18"
+                            r="8"
+                            fill="currentColor"/>
+
+                        <circle
+                            cx="17"
+                            cy="27"
+                            r="7"
+                            fill="currentColor"
+                            opacity=".9"/>
+
+                        <circle
+                            cx="47"
+                            cy="27"
+                            r="7"
+                            fill="currentColor"
+                            opacity=".9"/>
+
+                        <path
+                            d="M21 50
+                               C22 39 26 34 32 34
+                               C38 34 42 39 43 50Z"
+                            fill="currentColor"/>
+
+                        <path
+                            d="M4 49
+                               C5 40 9 35 16 35
+                               C21 35 24 39 25 45
+                               L25 50Z"
+                            fill="currentColor"
+                            opacity=".9"/>
+
+                        <path
+                            d="M39 45
+                               C40 39 43 35 48 35
+                               C55 35 59 40 60 49
+                               L39 49Z"
+                            fill="currentColor"
+                            opacity=".9"/>
+
+                    </svg>
+                    <style>
+/* ===== FIX STUDENT SIDE MENU ===== */
+
+.student-side-menu.show{
+    transform:translateX(0) !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    pointer-events:auto !important;
+}
+
+/* Dark Mode row हमेशा साफ दिखाई दे */
+.student-menu-item.dark-mode-row{
+    display:flex !important;
+    align-items:center !important;
+    min-height:56px !important;
+    cursor:pointer !important;
+}
+
+/* Dark mode switch */
+.dark-mode-switch{
+    display:block !important;
+    flex:none !important;
+    width:42px !important;
+    height:24px !important;
+    padding:3px !important;
+    margin-left:auto !important;
+    border-radius:20px !important;
+    background:#d7deea !important;
+}
+
+.dark-mode-switch span{
+    display:block !important;
+    width:18px !important;
+    height:18px !important;
+    border-radius:50% !important;
+    background:#fff !important;
+    box-shadow:0 1px 3px rgba(0,0,0,.2) !important;
+}
+
+body.ssc-dark .dark-mode-switch{
+    background:#2563eb !important;
+}
+
+body.ssc-dark .dark-mode-switch span{
+    transform:translateX(18px) !important;
+}
+</style>
+
+<script>
+/* ===== MENU SHOW/HIDE FIX ===== */
+
+(function(){
+
+    const oldToggle = window.toggleStudentMenu;
+
+    window.toggleStudentMenu = function(){
+
+        const menu =
+            document.getElementById("studentSideMenu");
+
+        const backdrop =
+            document.getElementById("studentMenuBackdrop");
+
+        if(!menu) return;
+
+        const isOpen =
+            menu.classList.contains("show");
+
+        if(isOpen){
+
+            menu.classList.remove("show");
+            menu.classList.remove("open");
+
+            if(backdrop){
+                backdrop.classList.remove("show");
+                backdrop.classList.remove("open");
+            }
+
+            document.body.style.overflow = "";
+
+        }else{
+
+            menu.classList.add("show");
+            menu.classList.add("open");
+
+            if(backdrop){
+                backdrop.classList.add("show");
+                backdrop.classList.add("open");
+            }
+
+            document.body.style.overflow = "hidden";
+        }
+    };
+
+
+    window.closeStudentMenu = function(){
+
+        const menu =
+            document.getElementById("studentSideMenu");
+
+        const backdrop =
+            document.getElementById("studentMenuBackdrop");
+
+        if(menu){
+            menu.classList.remove("show");
+            menu.classList.remove("open");
+        }
+
+        if(backdrop){
+            backdrop.classList.remove("show");
+            backdrop.classList.remove("open");
+        }
+
+        document.body.style.overflow = "";
+    };
+
+
+                `;
+
+            });
+
+    });
+
+})();
+</script>
+<!-- =========================================================
+     SSC NOTIFICATION MESSAGE POPUP
+     Existing notification system को बिना हटाए
+     केवल click पर बड़ा message box दिखाता है.
+========================================================= -->
+
+<style id="ssc-notification-popup-style">
+
+.ssc-notification-overlay{
+    position:fixed;
+    inset:0;
+    z-index:999999;
+
+    display:none;
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:rgba(0,0,0,.58);
+
+    backdrop-filter:blur(5px);
+    -webkit-backdrop-filter:blur(5px);
+}
+
+.ssc-notification-overlay.show{
+    display:flex;
+}
+
+.ssc-notification-box{
+
+    width:min(520px,94vw);
+    max-height:82vh;
+
+    overflow:auto;
+
+    background:#fff;
+
+    border-radius:24px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.30);
+
+    animation:sscNotificationPopup .22s ease;
+
+    position:relative;
+}
+
+@keyframes sscNotificationPopup{
+
+    from{
+        opacity:0;
+        transform:translateY(25px) scale(.94);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+
+}
+
+
+/* Header */
+
+.ssc-notification-popup-head{
+
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    padding:18px 18px 14px;
+
+    border-bottom:1px solid #e8edf4;
+}
+
+.ssc-notification-popup-icon{
+
+    width:50px;
+    height:50px;
+
+    border-radius:16px;
+
+    background:#eaf3ff;
+
+    display:grid;
+    place-items:center;
+
+    font-size:27px;
+
+    flex:none;
+}
+
+.ssc-notification-popup-head-text{
+    min-width:0;
+    flex:1;
+}
+
+.ssc-notification-popup-title{
+
+    margin:0;
+
+    font-size:20px;
+
+    line-height:1.25;
+
+    font-weight:900;
+
+    color:#13213d;
+
+    word-break:break-word;
+}
+
+.ssc-notification-popup-date{
+
+    margin-top:5px;
+
+    font-size:12px;
+
+    color:#718096;
+}
+
+
+/* Close X */
+
+.ssc-notification-popup-close{
+
+    width:38px;
+    height:38px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:#f1f4f8;
+
+    color:#374151;
+
+    font-size:24px;
+
+    line-height:1;
+
+    cursor:pointer;
+
+    flex:none;
+}
+
+
+/* Message */
+
+.ssc-notification-popup-body{
+
+    padding:22px 20px 18px;
+}
+
+.ssc-notification-popup-message{
+
+    font-size:21px;
+
+    line-height:1.65;
+
+    font-weight:600;
+
+    color:#172033;
+
+    white-space:pre-wrap;
+
+    word-break:break-word;
+}
+
+
+/* Buttons */
+
+.ssc-notification-popup-actions{
+
+    display:flex;
+
+    gap:10px;
+
+    padding:0 20px 20px;
+}
+
+.ssc-notification-popup-actions button{
+
+    flex:1;
+
+    min-height:48px;
+
+    border:0;
+
+    border-radius:14px;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+.ssc-notification-close-btn{
+
+    background:#edf1f6;
+
+    color:#26364d;
+}
+
+.ssc-notification-open-btn{
+
+    background:#1769e8;
+
+    color:#fff;
+}
+
+
+/* Dark Mode */
+
+body.ssc-dark .ssc-notification-box{
+
+    background:#101a2d;
+
+}
+
+body.ssc-dark .ssc-notification-popup-head{
+
+    border-bottom-color:#26354d;
+
+}
+
+body.ssc-dark .ssc-notification-popup-title{
+
+    color:#fff;
+
+}
+
+body.ssc-dark .ssc-notification-popup-date{
+
+    color:#9aa9bd;
+
+}
+
+body.ssc-dark .ssc-notification-popup-message{
+
+    color:#f3f6fb;
+
+}
+
+body.ssc-dark .ssc-notification-popup-close{
+
+    background:#1d2a40;
+
+    color:#fff;
+
+}
+
+body.ssc-dark .ssc-notification-close-btn{
+
+    background:#1d2a40;
+
+    color:#fff;
+
+}
+
+
+/* Mobile */
+
+@media(max-width:480px){
+
+    .ssc-notification-overlay{
+
+        padding:14px;
+
+    }
+
+    .ssc-notification-box{
+
+        width:100%;
+
+        border-radius:21px;
+
+    }
+
+    .ssc-notification-popup-title{
+
+        font-size:18px;
+
+    }
+
+    .ssc-notification-popup-message{
+
+        font-size:19px;
+
+        line-height:1.6;
+
+    }
+
+    .ssc-notification-popup-actions{
+
+        flex-direction:column;
+
+    }
+
+}
+
+</style>
+
+
+<script id="ssc-notification-popup-script">
+
+(function(){
+
+    /* =====================================================
+       CREATE POPUP
+    ===================================================== */
+
+    function createNotificationPopup(){
+
+        if(document.getElementById("sscNotificationOverlay")){
+            return;
+        }
+
+        const overlay=document.createElement("div");
+
+        overlay.id="sscNotificationOverlay";
+
+        overlay.className="ssc-notification-overlay";
+
+        overlay.innerHTML=`
+
+            <div
+                class="ssc-notification-box"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="sscNotificationPopupTitle"
+            >
+
+                <div class="ssc-notification-popup-head">
+
+                    <div
+                        id="sscNotificationPopupIcon"
+                        class="ssc-notification-popup-icon"
+                    >
+                        🔔
+                    </div>
+
+
+                    <div class="ssc-notification-popup-head-text">
+
+                        <h2
+                            id="sscNotificationPopupTitle"
+                            class="ssc-notification-popup-title"
+                        >
+                            Notification
+                        </h2>
+
+                        <div
+                            id="sscNotificationPopupDate"
+                            class="ssc-notification-popup-date"
+                        >
+                            S.S.C. CLASSES
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="ssc-notification-popup-close"
+                        onclick="closeNotificationPopup()"
+                        aria-label="Close"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+
+                <div class="ssc-notification-popup-body">
+
+                    <div
+                        id="sscNotificationPopupMessage"
+                        class="ssc-notification-popup-message"
+                    >
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="sscNotificationPopupActions"
+                    class="ssc-notification-popup-actions"
+                >
+
+                    <button
+                        type="button"
+                        class="ssc-notification-close-btn"
+                        onclick="closeNotificationPopup()"
+                    >
+                        Close
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+        document.body.appendChild(overlay);
+
+
+        /* Click outside = close */
+
+        overlay.addEventListener("click",function(e){
+
+            if(e.target===overlay){
+
+                closeNotificationPopup();
+
+            }
+
+        });
+
+
+        /* ESC = close */
+
+        document.addEventListener("keydown",function(e){
+
+            if(e.key==="Escape"){
+
+                closeNotificationPopup();
+
+            }
+
+        });
+
+    }
+
+
+    /* =====================================================
+       ESCAPE HTML
+    ===================================================== */
+
+    function popupEscape(value){
+
+        return String(value ?? "")
+            .replace(/&/g,"&amp;")
+            .replace(/</g,"&lt;")
+            .replace(/>/g,"&gt;")
+            .replace(/"/g,"&quot;")
+            .replace(/'/g,"&#039;");
+
+    }
+
+
+    /* =====================================================
+       OPEN POPUP
+    ===================================================== */
+
+    window.openNotificationPopup=function(item){
+
+        createNotificationPopup();
+
+        const overlay=
+            document.getElementById("sscNotificationOverlay");
+
+        const title=
+            document.getElementById("sscNotificationPopupTitle");
+
+        const message=
+            document.getElementById("sscNotificationPopupMessage");
+
+        const icon=
+            document.getElementById("sscNotificationPopupIcon");
+
+        const date=
+            document.getElementById("sscNotificationPopupDate");
+
+        const actions=
+            document.getElementById("sscNotificationPopupActions");
+
+
+        if(!item){
+            return;
+        }
+
+
+        title.textContent=
+            item.title || "Notification";
+
+
+        message.textContent=
+            item.message || "कोई message उपलब्ध नहीं है।";
+
+
+        icon.textContent=
+            item.icon || "🔔";
+
+
+        date.textContent=
+            item.createdAt
+                ? notificationTimeText(item.createdAt)
+                : "S.S.C. CLASSES";
+
+
+        /* ---------------------------------------------
+           BUTTONS
+        --------------------------------------------- */
+
+        let actionHTML=`
+
+            <button
+                type="button"
+                class="ssc-notification-close-btn"
+                onclick="closeNotificationPopup()"
+            >
+                Close
+            </button>
+
+        `;
+
+
+        /*
+           अगर notification किसी screen/test से जुड़ा है
+           तो Open button दिखाएँ।
+        */
+
+        if(item.target){
+
+            actionHTML+=`
+
+                <button
+                    type="button"
+                    class="ssc-notification-open-btn"
+                    onclick="openNotificationTarget(${JSON.stringify(item.target)})"
+                >
+                    Open
+                </button>
+
+            `;
+
+        }
+
+
+        actions.innerHTML=actionHTML;
+
+
+        overlay.classList.add("show");
+
+        document.body.style.overflow="hidden";
+
+    };
+
+
+    /* =====================================================
+       CLOSE POPUP
+    ===================================================== */
+
+    window.closeNotificationPopup=function(){
+
+        const overlay=
+            document.getElementById("sscNotificationOverlay");
+
+        if(overlay){
+
+            overlay.classList.remove("show");
+
+        }
+
+        document.body.style.overflow="";
+
+    };
+
+
+    /* =====================================================
+       OPEN ORIGINAL TARGET
+       Popup बंद करके existing function को ही use करता है.
+    ===================================================== */
+
+    window.openNotificationTarget=function(target){
+
+        closeNotificationPopup();
+
+        if(target){
+
+            setTimeout(function(){
+
+                if(typeof openScreen==="function"){
+
+                    openScreen(target);
+
+                }
+
+            },120);
+
+        }
+
+    };
+
+
+    /* =====================================================
+       REPLACE ONLY notification CLICK FUNCTION
+       बाकी notification system untouched.
+    ===================================================== */
+
+    window.openNotification=function(encodedId){
+
+        const id=decodeURIComponent(encodedId);
+
+
+        /* Mark notification as read */
+
+        const read=
+            typeof getReadNotificationIds==="function"
+                ? getReadNotificationIds()
+                : [];
+
+
+        if(!read.includes(id)){
+
+            read.push(id);
+
+            if(typeof saveReadNotificationIds==="function"){
+
+                saveReadNotificationIds(read);
+
+            }
+
+        }
+
+
+        /* Find actual notification */
+
+        const items=
+            typeof getDynamicNotifications==="function"
+                ? getDynamicNotifications()
+                : [];
+
+
+        const item=
+            items.find(
+                x=>String(x.id)===String(id)
+            );
+
+
+        /* Existing badge refresh */
+
+        if(typeof updateNotificationBadge==="function"){
+
+            updateNotificationBadge();
+
+        }
+
+
+        if(typeof renderHomeNotifications==="function"){
+
+            renderHomeNotifications();
+
+        }
+
+
+        /* Show big message */
+
+        if(item){
+
+            openNotificationPopup(item);
+
+        }else{
+
+            openNotificationPopup({
+
+                title:"Notification",
+
+                message:"Notification message उपलब्ध नहीं है।",
+
+                icon:"🔔"
+
+            });
+
+        }
+
+    };
+
+
+})();
+
+</script>
+<style>
+/* ===== FINAL HEADER LAYOUT ===== */
+
+.ssc-home-topline{
+    position:relative !important;
+    height:58px !important;
+    min-height:58px !important;
+    width:100% !important;
+    padding:0 8px !important;
+}
+
+/* ☰ LEFT */
+.ssc-home-topline .home-menu-button{
+    position:absolute !important;
+    left:6px !important;
+    top:50% !important;
+    transform:translateY(-50%) !important;
+    z-index:20 !important;
+}
+
+/* LOGO + S.S.C. CLASSES CENTER */
+.ssc-home-topline .ssc-brand{
+    position:absolute !important;
+    left:45% !important;
+    top:50% !important;
+    transform:translate(-50%,-50%) !important;
+
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    width:max-content !important;
+    max-width:60% !important;
+
+    margin:0 !important;
+    padding:0 !important;
+
+    gap:7px !important;
+    z-index:10 !important;
+}
+
+.ssc-home-topline .ssc-brand img{
+    width:45px !important;
+    height:45px !important;
+    object-fit:contain !important;
+}
+
+.ssc-home-topline .ssc-brand strong{
+    font-size:25px !important;
+    line-height:1 !important;
+    white-space:nowrap !important;
+}
+
+.ssc-home-topline .ssc-brand small{
+    display:none !important;
+}
+
+/* 🔔 NOTIFICATION */
+.ssc-home-topline .notification-button{
+    position:absolute !important;
+    right:52px !important;
+    top:50% !important;
+    transform:translateY(-50%) !important;
+    z-index:20 !important;
+}
+
+/* 👤 PROFILE */
+.ssc-home-topline .home-profile-button{
+    position:absolute !important;
+    right:5px !important;
+    top:50% !important;
+    transform:translateY(-50%) !important;
+    z-index:20 !important;
+}
+</style>
+<style id="ssc-classroom-hero">
+
+/* ===== CLASSROOM PHOTO HERO ===== */
+
+.hero{
+    position:relative !important;
+
+    min-height:270px !important;
+
+    border-radius:18px !important;
+
+    overflow:hidden !important;
+
+    padding:18px !important;
+
+    display:flex !important;
+    align-items:center !important;
+
+    /* Classroom photo */
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(0,25,60,.82) 0%,
+            rgba(0,25,60,.58) 42%,
+            rgba(0,25,60,.12) 100%
+        ),
+        url("sscimg.jpeg") !important;
+
+    background-size:cover !important;
+    background-position:center !important;
+    background-repeat:no-repeat !important;
+
+    box-shadow:0 8px 22px rgba(8,43,92,.18) !important;
+}
+
+/* Text ऊपर दिखाई दे */
+.hero-content{
+    position:relative !important;
+    z-index:5 !important;
+}
+
+/* Heading */
+.hero h2{
+    color:#fff !important;
+    font-size:21px !important;
+    line-height:1.25 !important;
+    text-shadow:0 2px 5px rgba(0,0,0,.45) !important;
+}
+
+/* Description */
+.hero p{
+    color:#fff !important;
+    text-shadow:0 1px 4px rgba(0,0,0,.5) !important;
+}
+
+/* Buttons */
+.hero-actions{
+    position:relative !important;
+    z-index:10 !important;
+}
+
+</style>
 
 </body>
 </html>
