@@ -7216,7 +7216,41 @@ body{padding-top:env(safe-area-inset-top)}
 #homeNotificationList .notice-time,#notificationList .notice-time{font-size:11px!important}
 @media(max-width:380px){.hero{height:225px!important;min-height:225px!important}.hero-image{height:205px!important}.sir-hero-photo{height:185px!important}.quick-card{min-height:125px!important}.quick-illustration{height:55px!important}}
 @media print{body *{visibility:hidden!important}#sscPdfExport,#sscPdfExport *{visibility:visible!important}#sscPdfExport{position:absolute!important;left:0!important;top:0!important;width:190mm!important;height:277mm!important;margin:0!important;display:block!important;background:#fff!important;color:#172033!important;box-shadow:none!important;border:0!important;border-radius:0!important;padding:10mm!important}}
+/* ===== BIG SSC CLASSES LOGO IN RESULT CENTER ===== */
 
+.ssc-result-card{
+    position:relative !important;
+    overflow:hidden !important;
+}
+
+/* Center watermark logo */
+.ssc-result-card::before{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:50%;
+
+    width:220px;
+    height:220px;
+
+    transform:translate(-50%,-50%);
+
+    background-image:url("logo.png");
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:contain;
+
+    opacity:0.12;
+
+    pointer-events:none;
+    z-index:0;
+}
+
+/* Keep all result content above logo */
+.ssc-result-card > *{
+    position:relative;
+    z-index:1;
+}
 /* =========================================================
    STUDENT SIDE MENU — FIX
    Prevents the menu from appearing as normal page content.
@@ -7433,12 +7467,240 @@ body.ssc-dark .dark-mode-switch span{
     const photo=st.photo||'logo.png', father=r.fatherName||st.fatherName||'-', cls=r.studentClass||r.testClass||st.studentClass||'-', roll=r.rollNumber||r.rollNo||st.rollNumber||'-', subject=r.subject||r.testSubject||'-';
     c.innerHTML=`<div class="ssc-result-card" id="sscPdfExport"><div class="ssc-result-head"><img class="ssc-result-logo" src="logo.png" alt="S.S.C. CLASSES"><div class="ssc-result-brand">S.S.C. CLASSES</div><div class="ssc-result-tag">Learn • Practice • Success</div><div class="ssc-result-test">${esc(r.testName||'Online Test')}</div><div class="ssc-result-watermark">S.S.C. CLASSES</div></div><div class="ssc-result-student"><img src="${esc(photo)}" onerror="this.src='logo.png'" alt="Student Photo"><div class="ssc-result-student-info"><b>${esc(r.studentName||st.name||'Student')}</b><div>Father Name: ${esc(father)}<br>Class: ${esc(cls)} &nbsp; | &nbsp; Roll No.: ${esc(roll)}<br>Subject: ${esc(subject)}</div></div></div><div class="ssc-score-row"><div class="ssc-score-box"><small>Marks Obtained</small><b>${esc(obtained)} / ${esc(total)}</b></div><div class="ssc-score-box"><small>Percentage</small><b>${pct.toFixed(2)}%</b></div><div class="ssc-score-box"><small>Correct</small><b>${esc(r.correct||0)}</b></div><div class="ssc-score-box"><small>Wrong</small><b>${esc(r.wrong||0)}</b></div></div><table class="ssc-result-table"><thead><tr><th>Result</th><th>Value</th></tr></thead><tbody><tr><td>Total Questions</td><td>${esc(r.totalQuestions||0)}</td></tr><tr><td>Attempted</td><td>${esc(r.attempted||0)}</td></tr><tr><td>Unattempted</td><td>${esc(r.unattempted||0)}</td></tr><tr><td>Final Result</td><td>${esc(r.result||'-')}</td></tr><tr><td>Date</td><td>${esc(r.date||'-')}</td></tr></tbody></table><div class="ssc-result-foot">S.S.C. CLASSES • Learn • Practice • Success</div></div><div class="ssc-download-wrap"><button class="primary-btn full" onclick="downloadCurrentResult()">📥 Download PDF</button></div>`;
   };
-  window.downloadCurrentResult=async function(){
-    const r=selectedResultForView||getLocalMyResults()[0]; if(!r)return toast('Result उपलब्ध नहीं है।');
-    const el=q('sscPdfExport'); if(!el)return toast('Result PDF तैयार नहीं है।');
-    if(window.html2pdf){try{toast('PDF तैयार हो रहा है...');const opt={margin:0,filename:`${String(r.testName||'SSC-Result').replace(/[^a-z0-9]+/gi,'-')}-Result.pdf`,image:{type:'jpeg',quality:.98},html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['avoid-all']}};await html2pdf().set(opt).from(el).save();toast('✅ PDF download हो गया।');return;}catch(e){console.error(e);}}
-    const oldTitle=document.title;document.title=`${r.testName||'Test'} Result - S.S.C. CLASSES`;window.print();setTimeout(()=>document.title=oldTitle,800);
-  };
+  window.downloadCurrentResult = async function(){
+
+    const r = selectedResultForView || getLocalMyResults()[0];
+
+    if(!r){
+        return toast("Result उपलब्ध नहीं है।");
+    }
+
+    const original = document.getElementById("sscPdfExport");
+
+    if(!original){
+        return toast("Result PDF तैयार नहीं है।");
+    }
+
+    if(!window.html2pdf){
+        return toast("PDF system उपलब्ध नहीं है।");
+    }
+
+    try{
+
+        toast("PDF तैयार हो रहा है...");
+
+        /* =========================================
+           CREATE CLEAN A4 PDF COPY
+        ========================================= */
+
+        const pdfWrap = document.createElement("div");
+
+        pdfWrap.style.position = "fixed";
+        pdfWrap.style.left = "-100000px";
+        pdfWrap.style.top = "0";
+        pdfWrap.style.width = "794px";
+        pdfWrap.style.minHeight = "1123px";
+        pdfWrap.style.background = "#ffffff";
+        pdfWrap.style.padding = "0";
+        pdfWrap.style.margin = "0";
+        pdfWrap.style.boxSizing = "border-box";
+        pdfWrap.style.overflow = "hidden";
+        pdfWrap.style.zIndex = "-99999";
+
+        const pdfCard = original.cloneNode(true);
+
+        pdfCard.removeAttribute("id");
+
+        pdfCard.style.position = "relative";
+        pdfCard.style.left = "0";
+        pdfCard.style.top = "0";
+
+        pdfCard.style.width = "794px";
+        pdfCard.style.minHeight = "auto";
+        pdfCard.style.height = "auto";
+
+        pdfCard.style.margin = "0";
+        pdfCard.style.padding = "28px";
+
+        pdfCard.style.boxSizing = "border-box";
+
+        pdfCard.style.background = "#ffffff";
+
+        pdfCard.style.borderRadius = "16px";
+        pdfCard.style.boxShadow = "none";
+
+        pdfCard.style.overflow = "visible";
+
+        pdfWrap.appendChild(pdfCard);
+
+        document.body.appendChild(pdfWrap);
+
+
+        /* =========================================
+           WAIT FOR LOGO / PHOTO
+        ========================================= */
+
+        const images = pdfCard.querySelectorAll("img");
+
+        await Promise.all(
+            Array.from(images).map(img => {
+
+                if(img.complete){
+                    return Promise.resolve();
+                }
+
+                return new Promise(resolve => {
+
+                    img.onload = resolve;
+                    img.onerror = resolve;
+
+                });
+
+            })
+        );
+
+
+        /* =========================================
+           PDF OPTIONS
+        ========================================= */
+
+        const fileName =
+            String(
+                r.testName || "SSC-Result"
+            )
+            .replace(/[^a-z0-9]+/gi,"-")
+            .replace(/^-+|-+$/g,"")
+            + "-Result.pdf";
+
+
+        const opt = {
+
+            margin: [0,0,0,0],
+
+            filename: fileName,
+
+            image: {
+                type: "jpeg",
+                quality: 0.98
+            },
+
+            html2canvas: {
+
+                scale: 2,
+
+                useCORS: true,
+
+                allowTaint: false,
+
+                backgroundColor: "#ffffff",
+
+                logging: false,
+
+                scrollX: 0,
+
+                scrollY: 0,
+
+                windowWidth: 794,
+
+                windowHeight: 1123
+            },
+
+            jsPDF: {
+
+                unit: "mm",
+
+                format: "a4",
+
+                orientation: "portrait",
+
+                compress: true
+            },
+
+            pagebreak: {
+
+                mode: ["css","legacy"],
+
+                avoid: [
+                    ".ssc-result-card",
+                    ".ssc-result-student",
+                    ".ssc-score-row",
+                    ".ssc-result-table"
+                ]
+            }
+
+        };
+
+
+        /* =========================================
+           GENERATE REAL PDF
+        ========================================= */
+
+        await html2pdf()
+
+            .set(opt)
+
+            .from(pdfCard)
+
+            .toPdf()
+
+            .get("pdf")
+
+            .then(pdf => {
+
+                /* Make sure only A4 page is used */
+
+                const totalPages =
+                    pdf.internal.getNumberOfPages();
+
+                while(totalPages > 1){
+
+                    /*
+                     * Existing result is designed
+                     * to fit on one A4 page.
+                     * Remove accidental extra pages.
+                     */
+
+                    pdf.deletePage(totalPages);
+
+                    break;
+                }
+
+            })
+
+            .save();
+
+
+        /* =========================================
+           CLEANUP
+        ========================================= */
+
+        pdfWrap.remove();
+
+        toast("✅ PDF download हो गया।");
+
+
+    }catch(error){
+
+        console.error(
+            "SSC Result PDF Error:",
+            error
+        );
+
+        const oldWrap =
+            document.querySelector(
+                'body > div[style*="-100000px"]'
+            );
+
+        if(oldWrap){
+            oldWrap.remove();
+        }
+
+        toast(
+            "❌ PDF नहीं बन पाया। फिर से कोशिश करें।"
+        );
+    }
+
+};
   /* Father name: add to existing registration flow without replacing the tested function. */
   const oldRegister=window.registerStudent;
   window.registerStudent=async function(){
@@ -9148,6 +9410,387 @@ body.ssc-dark .ssc-notification-close-btn{
 }
 
 </style>
+<script>
+/* =========================================================
+   FINAL MY RESULT FLOW
+   My Result → Test List → View Result → Full Result
+========================================================= */
+(function(){
 
+    function resultEl(id){
+        return document.getElementById(id);
+    }
+
+    function resultEsc(value){
+        if(window.escapeHTML){
+            return window.escapeHTML(String(value ?? ""));
+        }
+
+        return String(value ?? "").replace(/[&<>"']/g,function(m){
+            return {
+                "&":"&amp;",
+                "<":"&lt;",
+                ">":"&gt;",
+                '"':"&quot;",
+                "'":"&#39;"
+            }[m];
+        });
+    }
+
+
+    /* ---------------------------------------------------------
+       SHOW ALL RESULTS
+    --------------------------------------------------------- */
+    window.loadAndRenderAllResults = function(){
+
+        const rows = getLocalMyResults();
+
+        const list = resultEl("resultHistoryList");
+        const historyPanel = resultEl("resultHistoryPanel");
+        const resultContent = resultEl("resultContent");
+
+        if(!list) return;
+
+
+        window.__sscMyResults = rows;
+
+
+        /* Result list visible */
+        if(historyPanel){
+            historyPanel.style.display = "block";
+        }
+
+
+        /* Full result hidden */
+        if(resultContent){
+            resultContent.style.display = "none";
+            resultContent.classList.remove("ssc-result-visible");
+        }
+
+
+        /* Back button = Home */
+        const resultScreen =
+            resultEl("resultScreen");
+
+        const backButton =
+            resultScreen?.querySelector(".back-btn");
+
+        if(backButton){
+            backButton.onclick = function(){
+                goHome();
+            };
+        }
+
+
+        /* No result */
+        if(!rows.length){
+
+            list.innerHTML = `
+                <div style="
+                    padding:22px;
+                    text-align:center;
+                    color:#667085;
+                    background:#fff;
+                    border-radius:14px;
+                ">
+                    <div style="font-size:36px;margin-bottom:8px;">
+                        📄
+                    </div>
+
+                    <b>अभी कोई Result नहीं है</b>
+
+                    <div style="
+                        font-size:12px;
+                        margin-top:5px;
+                    ">
+                        Test complete करने के बाद आपका result यहाँ दिखाई देगा।
+                    </div>
+                </div>
+            `;
+
+            return;
+        }
+
+
+        /* -----------------------------------------------------
+           TEST LIST
+        ----------------------------------------------------- */
+
+        list.innerHTML = rows.map(function(r,index){
+
+            const pct =
+                Number(r.percentage || 0).toFixed(2);
+
+            const obtained =
+                r.obtainedMarks || 0;
+
+            const total =
+                r.totalMarks || 0;
+
+            const date =
+                r.date ||
+                (
+                    r.submittedAt
+                    ? new Date(r.submittedAt)
+                        .toLocaleDateString("en-IN")
+                    : "-"
+                );
+
+
+            return `
+                <button
+                    type="button"
+                    class="result-file-card"
+                    onclick="selectResultForView(${index})"
+                    style="
+                        width:100%;
+                        display:flex;
+                        align-items:center;
+                        gap:12px;
+                        text-align:left;
+                        cursor:pointer;
+                    "
+                >
+
+                    <!-- PDF icon -->
+                    <div
+                        class="result-file-icon"
+                        style="
+                            flex-shrink:0;
+                            font-size:25px;
+                        "
+                    >
+                        📄
+                    </div>
+
+
+                    <!-- Test information -->
+                    <div
+                        class="result-file-meta"
+                        style="
+                            flex:1;
+                            min-width:0;
+                        "
+                    >
+
+                        <b style="
+                            display:block;
+                            font-size:14px;
+                            color:#172033;
+                            white-space:nowrap;
+                            overflow:hidden;
+                            text-overflow:ellipsis;
+                        ">
+                            ${resultEsc(
+                                r.testName || "Online Test"
+                            )}
+                        </b>
+
+                        <small style="
+                            display:block;
+                            margin-top:4px;
+                            color:#667085;
+                        ">
+                            S.S.C. CLASSES
+                            • Class
+                            ${resultEsc(
+                                r.studentClass ||
+                                r.testClass ||
+                                "-"
+                            )}
+                            • ${resultEsc(date)}
+                        </small>
+
+                    </div>
+
+
+                    <!-- Score -->
+                    <div
+                        class="result-file-score"
+                        style="
+                            flex-shrink:0;
+                            text-align:right;
+                        "
+                    >
+
+                        <strong style="
+                            display:block;
+                            color:#164e8c;
+                            font-size:15px;
+                        ">
+                            ${resultEsc(pct)}%
+                        </strong>
+
+                        <small style="
+                            color:#667085;
+                        ">
+                            ${resultEsc(obtained)}/${resultEsc(total)}
+                        </small>
+
+                    </div>
+
+
+                    <!-- View Result arrow -->
+                    <div style="
+                        flex-shrink:0;
+                        display:flex;
+                        align-items:center;
+                        gap:3px;
+                        color:#1769aa;
+                        font-size:13px;
+                        font-weight:700;
+                    ">
+                        <span>View Result</span>
+                        <span style="font-size:20px;">
+                            →
+                        </span>
+                    </div>
+
+                </button>
+            `;
+
+        }).join("");
+
+    };
+
+
+    /* ---------------------------------------------------------
+       OPEN ONE RESULT
+    --------------------------------------------------------- */
+    window.selectResultForView = function(index){
+
+        const rows =
+            window.__sscMyResults ||
+            getLocalMyResults();
+
+        const result =
+            rows[index];
+
+        if(!result) return;
+
+
+        /* Save selected result */
+        selectedResultForView = result;
+
+
+        /* Render existing full result */
+        renderStudentResult(result);
+
+
+        const historyPanel =
+            resultEl("resultHistoryPanel");
+
+        const resultContent =
+            resultEl("resultContent");
+
+
+        /* Hide test list */
+        if(historyPanel){
+            historyPanel.style.display = "none";
+        }
+
+
+        /* Show complete result */
+        if(resultContent){
+
+            resultContent.style.display = "block";
+
+            resultContent.classList.add(
+                "ssc-result-visible"
+            );
+
+            window.scrollTo({
+                top:0,
+                behavior:"smooth"
+            });
+        }
+
+
+        /* -----------------------------------------------------
+           Back button now returns to Test List
+        ----------------------------------------------------- */
+
+        const resultScreen =
+            resultEl("resultScreen");
+
+        const backButton =
+            resultScreen?.querySelector(".back-btn");
+
+        if(backButton){
+
+            backButton.onclick = function(){
+
+                /* Hide current result */
+                if(resultContent){
+                    resultContent.style.display =
+                        "none";
+                }
+
+                /* Show test list */
+                if(historyPanel){
+                    historyPanel.style.display =
+                        "block";
+                }
+
+                /* Reset selected result */
+                selectedResultForView = null;
+
+
+                /* Restore home back button */
+                backButton.onclick =
+                    function(){
+                        goHome();
+                    };
+
+
+                /* Scroll top */
+                window.scrollTo({
+                    top:0,
+                    behavior:"smooth"
+                });
+
+            };
+
+        }
+
+    };
+
+
+    /* ---------------------------------------------------------
+       WHEN RESULT SCREEN OPENS
+       Always show TEST LIST first
+    --------------------------------------------------------- */
+
+    window.openMyResultList = function(){
+
+        openScreen("resultScreen");
+
+        setTimeout(function(){
+
+            if(
+                typeof loadCloudStudentResults ===
+                "function"
+            ){
+
+                loadCloudStudentResults()
+                    .finally(function(){
+
+                        loadAndRenderAllResults();
+
+                    });
+
+            }else{
+
+                loadAndRenderAllResults();
+
+            }
+
+        },50);
+
+    };
+
+
+})();
+</script>
 </body>
 </html>
