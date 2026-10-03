@@ -395,6 +395,132 @@ th{
 
 }
 
+
+/* =====================================================
+   MODERN SSC CLASSES ADMIN DASHBOARD
+   Screenshot-style layout — existing functions preserved
+===================================================== */
+:root{
+  --navy:#0b1f3a;--navy2:#102b4f;--blue:#1769e8;--muted:#667085;
+  --line:#e6ebf2;--card:#fff;--bg:#f4f7fb;--green:#10b981;--orange:#f59e0b;
+  --purple:#7c3aed;--red:#ef476f;
+}
+body{background:var(--bg);color:#172b4d}
+#adminPanel{background:var(--bg)}
+.admin-sidebar{position:fixed;left:0;top:0;bottom:0;width:240px;background:linear-gradient(180deg,#0b1f3a,#0d2747);color:#fff;z-index:100;display:flex;flex-direction:column;box-shadow:6px 0 22px rgba(15,35,65,.08)}
+.admin-side-brand{height:86px;display:flex;align-items:center;gap:11px;padding:14px 17px;border-bottom:1px solid rgba(255,255,255,.08)}
+.admin-side-brand img{width:48px;height:48px;object-fit:contain;background:#fff;border-radius:12px;padding:4px}
+.admin-side-brand strong{font-size:16px;line-height:1.15}.admin-side-brand small{display:block;color:#c9d7e8;font-size:10px;margin-top:4px}
+.admin-side-nav{padding:14px 10px;overflow:auto;flex:1}.admin-side-nav button{width:100%;display:flex;align-items:center;gap:12px;border:0;background:transparent;color:#dbe7f5;text-align:left;padding:12px 13px;margin:3px 0;border-radius:9px;cursor:pointer;font-weight:600;font-size:13px;transition:.18s}.admin-side-nav button:hover,.admin-side-nav button.active{background:linear-gradient(90deg,#1775ee,#2166d8);color:#fff;box-shadow:0 5px 14px rgba(23,105,232,.22)}.admin-side-nav .nav-ico{width:24px;text-align:center;font-size:18px}.admin-side-online{padding:14px 18px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:#d8e3ef}.admin-side-online span{display:inline-block;width:8px;height:8px;background:#19d37e;border-radius:50%;margin-right:7px}
+.topbar{margin-left:240px;height:64px;background:#fff;border-bottom:1px solid var(--line);padding:0 24px;box-shadow:0 1px 7px rgba(16,35,61,.03)}.topbar .brand img{display:none}.topbar .brand h2{color:#1d2d45;font-size:18px}.topbar .brand:before{content:'☰';font-size:23px;color:#1d2d45;margin-right:10px;cursor:pointer}.admin-top-actions{display:flex;align-items:center;gap:15px}.admin-notification{position:relative;font-size:22px;cursor:pointer}.admin-notification b{position:absolute;right:-7px;top:-6px;background:#ef476f;color:#fff;font-size:10px;min-width:18px;height:18px;border-radius:99px;display:grid;place-items:center}.admin-profile{display:flex;align-items:center;gap:9px}.admin-profile-avatar{width:36px;height:36px;border-radius:50%;background:#e8eef7;display:grid;place-items:center;font-size:18px}.admin-profile strong{display:block;font-size:12px}.admin-profile small{display:block;color:#667085;font-size:10px;margin-top:2px}.admin-profile .chev{font-size:14px;color:#667085;margin-left:4px}
+.container{margin-left:240px;max-width:none;padding:22px 25px 28px}.container>.welcome,.container>.stats,.container>.menu-grid{display:none}
+.modern-dashboard{display:grid;grid-template-columns:minmax(0,1fr) 285px;gap:16px}.dash-main{min-width:0}.dash-heading{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}.dash-heading h1{font-size:25px;color:#172b4d}.dash-heading p{font-size:12px;color:#7b8798;margin-top:4px}.dash-date{font-size:12px;color:#526174;font-weight:700;background:#fff;border:1px solid var(--line);padding:9px 11px;border-radius:9px}
+.dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:15px}.dash-stat{border-radius:11px;color:#fff;padding:15px 16px;min-height:116px;box-shadow:0 6px 16px rgba(31,52,85,.10);position:relative;overflow:hidden}.dash-stat:after{content:'';position:absolute;width:90px;height:90px;border:16px solid rgba(255,255,255,.11);border-radius:50%;right:-28px;top:-25px}.dash-stat .ico{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.20);display:grid;place-items:center;font-size:21px;margin-bottom:9px}.dash-stat h4{font-size:12px;font-weight:600;opacity:.95}.dash-stat strong{display:block;font-size:24px;margin-top:4px}.dash-stat small{font-size:10px;opacity:.85}.stat-blue{background:linear-gradient(135deg,#3562e8,#2851d5)}.stat-green{background:linear-gradient(135deg,#16b879,#0da36c)}.stat-orange{background:linear-gradient(135deg,#f5a623,#e88b00)}.stat-purple{background:linear-gradient(135deg,#7d4ce5,#6631d1)}
+.dash-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:15px}.dash-card{background:#fff;border:1px solid #edf0f5;border-radius:11px;box-shadow:0 3px 12px rgba(26,48,80,.045);padding:15px}.dash-card-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}.dash-card-title h3{font-size:14px;color:#26364e}.dash-card-title span{font-size:11px;color:#2f70db;font-weight:700}.growth-svg{width:100%;height:178px;display:block}.donut-wrap{display:flex;align-items:center;justify-content:center;gap:22px;min-height:178px}.donut{width:142px;height:142px;border-radius:50%;background:conic-gradient(#10b981 0 67%,#f59e0b 67% 89%,#ef476f 89% 100%);display:grid;place-items:center}.donut:after{content:var(--total-tests,'0\A Total Tests');white-space:pre;text-align:center;width:88px;height:88px;background:#fff;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;color:#344054;line-height:1.5}.legend{font-size:11px;color:#526174;line-height:2}.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px}.lg-green{background:#10b981}.lg-orange{background:#f59e0b}.lg-red{background:#ef476f}
+.dash-tables{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:15px}.mini-table{width:100%;border-collapse:collapse}.mini-table th{background:#f7f9fc;color:#667085;font-size:10px;text-transform:none;padding:9px}.mini-table td{font-size:11px;padding:9px;border-bottom:1px solid #eef1f5}.status-pill{display:inline-block;padding:4px 8px;border-radius:99px;background:#d9f7e9;color:#0f9f68;font-size:9px;font-weight:700}.upcoming-pill{background:#e5f0ff;color:#2670db}.dash-side{display:flex;flex-direction:column;gap:15px}.quick-card,.activity-card{background:#fff;border:1px solid #edf0f5;border-radius:11px;box-shadow:0 3px 12px rgba(26,48,80,.045);padding:15px}.quick-card h3,.activity-card h3{font-size:14px;margin-bottom:13px}.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.quick-action{border:0;background:transparent;cursor:pointer;text-align:center;font-size:10px;color:#344054;font-weight:600}.quick-icon{width:43px;height:43px;border-radius:12px;margin:0 auto 7px;display:grid;place-items:center;color:#fff;font-size:19px;box-shadow:0 5px 10px rgba(0,0,0,.10)}.qi-blue{background:#2776ed}.qi-green{background:#12a968}.qi-purple{background:#7140d9}.qi-orange{background:#ef930d}.qi-pink{background:#dc3972}.qi-red{background:#ef476f}.activity-item{display:flex;gap:9px;padding:10px 0;border-bottom:1px solid #eef1f5}.activity-item:last-child{border-bottom:0}.activity-dot{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;color:#fff;flex:0 0 auto;font-size:14px}.activity-item strong{display:block;font-size:10px;color:#344054}.activity-item span{display:block;font-size:9px;color:#7a8798;margin-top:3px}.activity-item time{display:block;font-size:8px;color:#98a2b3;margin-top:4px}.feature-section{grid-column:1/-1;margin-top:1px}.feature-title{text-align:center;font-size:17px;color:#17355e;margin:8px 0 11px}.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.feature-card{background:#fff;border:1px solid #e8edf4;border-radius:10px;padding:13px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;transition:.18s}.feature-card:hover{transform:translateY(-2px);box-shadow:0 7px 18px rgba(23,47,78,.08)}.feature-icon{width:43px;height:43px;border-radius:11px;color:#fff;display:grid;place-items:center;font-size:20px;flex:0 0 auto}.feature-card h4{font-size:12px;margin-bottom:4px}.feature-card p{font-size:9px;color:#6b7280;line-height:1.45}
+.admin-section{margin-left:0}.section-box{border:1px solid #e8edf4;box-shadow:0 4px 15px rgba(26,48,80,.05)}
+.duration-editor{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:8px}.duration-editor input{width:90px!important;padding:8px!important}.duration-editor button{border:0;background:#1769e8;color:#fff;padding:8px 11px;border-radius:8px;cursor:pointer;font-weight:700}
+@media(max-width:1050px){.dash-stats{grid-template-columns:repeat(2,1fr)}.modern-dashboard{grid-template-columns:1fr}.dash-side{display:grid;grid-template-columns:1fr 1fr}.feature-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:800px){.admin-sidebar{width:76px}.admin-side-brand{justify-content:center;padding:10px}.admin-side-brand>div,.admin-side-brand small,.admin-side-nav button span:not(.nav-ico),.admin-side-online{display:none}.admin-side-nav button{justify-content:center}.topbar,.container{margin-left:76px}.container{padding:15px}.dash-grid,.dash-tables{grid-template-columns:1fr}.dash-side{display:block}.quick-card{margin-bottom:15px}.feature-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.admin-sidebar{width:62px}.topbar,.container{margin-left:62px}.topbar{padding:0 12px}.topbar .brand h2{font-size:14px}.admin-profile>div{display:none}.dash-stats{grid-template-columns:1fr 1fr;gap:9px}.dash-stat{min-height:104px;padding:12px}.dash-stat strong{font-size:20px}.dash-heading{display:block}.dash-date{display:inline-block;margin-top:9px}.feature-grid{grid-template-columns:1fr}.quick-grid{gap:8px}.quick-icon{width:38px;height:38px}.modern-dashboard{gap:10px}}
+
+/* =====================================================
+   MOBILE SIDEBAR / HAMBURGER MENU
+===================================================== */
+
+.admin-sidebar{
+    transition:transform .28s ease, left .28s ease;
+    z-index:1000;
+}
+
+.sidebar-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    z-index:999;
+}
+
+.sidebar-overlay.show{
+    display:block;
+}
+
+.sidebar-toggle{
+    display:none;
+    border:0;
+    background:transparent;
+    font-size:27px;
+    cursor:pointer;
+    color:#0f2747;
+    width:44px;
+    height:44px;
+    border-radius:10px;
+}
+
+.sidebar-toggle:hover{
+    background:#eef4ff;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px){
+
+    .admin-sidebar{
+        position:fixed !important;
+        top:0;
+        left:0;
+        bottom:0;
+        width:240px !important;
+        transform:translateX(-105%);
+        box-shadow:8px 0 25px rgba(0,0,0,.18);
+        overflow-y:auto;
+    }
+
+    .admin-sidebar.mobile-open{
+        transform:translateX(0);
+    }
+
+    .sidebar-toggle{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-shrink:0;
+    }
+
+    .container,
+    .modern-dashboard{
+        margin-left:0 !important;
+        width:100% !important;
+    }
+
+    .topbar{
+        margin-left:0 !important;
+        width:100% !important;
+    }
+}
+
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media(min-width:901px){
+
+    .sidebar-overlay{
+        display:none !important;
+    }
+
+    .admin-sidebar{
+        transform:none !important;
+    }
+
+    .sidebar-toggle{
+        display:none !important;
+    }
+}
 </style>
 
 </head>
@@ -473,9 +599,37 @@ th{
 ===================================================== -->
 
 <div id="adminPanel">
+<div class="admin-sidebar" id="adminSidebar">
+  <div class="admin-side-brand"><img src="logo.png" alt="SSC CLASSES"><div><strong>S.S.C. CLASSES</strong><small>Learn • Practice • Success</small></div></div>
+  <nav class="admin-side-nav">
+    <button class="active" onclick="goDashboard(this)"><span class="nav-ico">⌂</span><span>Dashboard</span></button>
+    <button onclick="showSection('studentsSection');setSideActive(this)"><span class="nav-ico">👥</span><span>Students</span></button>
+    <button onclick="showSection('manageTestsSection');setSideActive(this)"><span class="nav-ico">▤</span><span>Tests</span></button>
+    <button onclick="showSection('classesSection');setSideActive(this)"><span class="nav-ico">📚</span><span>Study Material</span></button>
+    <button onclick="showSection('videosSection');setSideActive(this)"><span class="nav-ico">▶</span><span>Live Classes</span></button>
+    <button onclick="showSection('communityMessageSection');setSideActive(this)"><span class="nav-ico">💬</span><span>Community Chat</span></button>
+    <button onclick="showSection('sendMessageSection');setSideActive(this)"><span class="nav-ico">🔔</span><span>Notifications</span></button>
+    <button onclick="showSection('resultsSection');setSideActive(this)"><span class="nav-ico">▥</span><span>Results</span></button>
+    <button onclick="showSection('certificatesSection');setSideActive(this)"><span class="nav-ico">▣</span><span>Certificates</span></button>
+    <button onclick="showSection('bannersSection');setSideActive(this)"><span class="nav-ico">▧</span><span>Banners & Pages</span></button>
+    <button onclick="showSection('usersSection');setSideActive(this)"><span class="nav-ico">⚙</span><span>User Management</span></button>
+    <button onclick="showSection('settingsSection');setSideActive(this)"><span class="nav-ico">⚙</span><span>Settings</span></button>
+  </nav>
+  <div class="admin-side-online"><span></span>System Online</div>
+</div>
+
 
 
 <header class="topbar">
+
+    <!-- THREE LINE MENU -->
+    <button
+        type="button"
+        class="sidebar-toggle"
+        onclick="toggleAdminSidebar()"
+        aria-label="Open Menu">
+        ☰
+    </button>
 
     <div class="brand">
 
@@ -488,19 +642,85 @@ th{
 
     </div>
 
+    <div class="admin-top-actions">
 
-    <button
-        class="logout-btn"
-        onclick="adminLogout()"
-    >
-        Logout
-    </button>
+        <div
+            class="admin-notification"
+            onclick="showSection('sendMessageSection')">
+            🔔
+            <b id="adminBellCount">3</b>
+        </div>
+
+        <div class="admin-profile">
+            <div class="admin-profile-avatar">👨‍💼</div>
+
+            <div>
+                <strong>Admin</strong>
+                <small>Super Admin</small>
+            </div>
+
+            <span class="chev">⌄</span>
+        </div>
+
+        <button
+            class="logout-btn"
+            onclick="adminLogout()">
+            Logout
+        </button>
+
+    </div>
 
 </header>
 
 
 
 <main class="container">
+
+<div id="modernDashboard" class="modern-dashboard">
+  <div class="dash-main">
+    <div class="dash-heading"><div><h1>⌂ &nbsp;Dashboard</h1><p>Welcome back, Admin! Here's what's happening with your platform.</p></div><div class="dash-date" id="dashDate">02 Oct 2026, 06:23 PM</div></div>
+    <div class="dash-stats">
+      <div class="dash-stat stat-blue"><div class="ico">👥</div><h4>Total Students</h4><strong id="dashStudentCount">0</strong><small>↗ Live registered students</small></div>
+      <div class="dash-stat stat-green"><div class="ico">▤</div><h4>Total Tests</h4><strong id="dashTestCount">0</strong><small>↗ This platform</small></div>
+      <div class="dash-stat stat-orange"><div class="ico">🏆</div><h4>Total Results</h4><strong id="dashResultCount">0</strong><small>↗ Recorded results</small></div>
+      <div class="dash-stat stat-purple"><div class="ico">▣</div><h4>Certificates Issued</h4><strong id="dashCertificateCount">0</strong><small>↗ Ready records</small></div>
+    </div>
+    <div class="dash-grid">
+      <div class="dash-card"><div class="dash-card-title"><h3>👥 Student Growth</h3><span>Last 6 Months ▾</span></div><svg class="growth-svg" viewBox="0 0 600 190" preserveAspectRatio="none"><g stroke="#edf1f6" stroke-width="1"><line x1="42" y1="20" x2="580" y2="20"/><line x1="42" y1="58" x2="580" y2="58"/><line x1="42" y1="96" x2="580" y2="96"/><line x1="42" y1="134" x2="580" y2="134"/><line x1="42" y1="172" x2="580" y2="172"/></g><polyline id="growthLine" fill="rgba(39,118,237,.12)" stroke="none" points="42,154 150,138 258,119 366,99 474,72 580,39 580,172 42,172"/><polyline id="growthStroke" fill="none" stroke="#2776ed" stroke-width="3" points="42,154 150,138 258,119 366,99 474,72 580,39"/><g fill="#2776ed" id="growthDots"><circle cx="42" cy="154" r="4"/><circle cx="150" cy="138" r="4"/><circle cx="258" cy="119" r="4"/><circle cx="366" cy="99" r="4"/><circle cx="474" cy="72" r="4"/><circle cx="580" cy="39" r="4"/></g><g font-size="10" fill="#8491a5"><text x="35" y="187">Apr</text><text x="143" y="187">May</text><text x="251" y="187">Jun</text><text x="359" y="187">Jul</text><text x="467" y="187">Aug</text><text x="570" y="187">Sep</text></g></svg></div>
+      <div class="dash-card"><div class="dash-card-title"><h3>▥ Test Performance</h3><span>All Tests</span></div><div class="donut-wrap"><div class="donut"></div><div class="legend"><div><i class="lg-green"></i>Completed <b id="completedCount">0</b></div><div><i class="lg-orange"></i>Upcoming <b id="upcomingCount">0</b></div><div><i class="lg-red"></i>Cancelled <b id="cancelledCount">0</b></div></div></div></div>
+    </div>
+    <div class="dash-tables">
+      <div class="dash-card"><div class="dash-card-title"><h3>👨‍🎓 Recent Students</h3><span onclick="showSection('studentsSection')" style="cursor:pointer">View All</span></div><div id="dashRecentStudents"></div></div>
+      <div class="dash-card"><div class="dash-card-title"><h3>▣ Upcoming Tests</h3><span onclick="showSection('scheduleSection')" style="cursor:pointer">View All</span></div><div id="dashUpcomingTests"></div></div>
+    </div>
+  </div>
+  <aside class="dash-side">
+    <div class="quick-card"><h3>Quick Actions</h3><div class="quick-grid">
+      <button class="quick-action" onclick="showSection('studentsSection')"><div class="quick-icon qi-blue">👤+</div>Add Student</button>
+      <button class="quick-action" onclick="showSection('createTestSection')"><div class="quick-icon qi-green">▤</div>Create Test</button>
+      <button class="quick-action" onclick="showSection('classesSection')"><div class="quick-icon qi-purple">☁</div>Upload Material</button>
+      <button class="quick-action" onclick="showSection('sendMessageSection')"><div class="quick-icon qi-orange">🔔</div>Send Notification</button>
+      <button class="quick-action" onclick="showSection('certificatesSection')"><div class="quick-icon qi-pink">▣</div>Issue Certificate</button>
+      <button class="quick-action" onclick="showSection('videosSection')"><div class="quick-icon qi-red">▶</div>Start Live Class</button>
+    </div></div>
+    <div class="activity-card"><div class="dash-card-title"><h3>Recent Activity</h3><span>View All</span></div><div id="dashActivity"></div></div>
+  </aside>
+  <div class="feature-section"><div class="feature-title">S.S.C. CLASSES Admin Panel — Key Features</div><div class="feature-grid">
+    <div class="feature-card" onclick="showSection('studentsSection')"><div class="feature-icon qi-blue">👤+</div><div><h4>Student Management</h4><p>Students को add, edit, delete करें, profile और progress देखें।</p></div></div>
+    <div class="feature-card" onclick="showSection('manageTestsSection')"><div class="feature-icon qi-green">▤</div><div><h4>Test Management</h4><p>Online test बनाएं, schedule करें और questions manage करें।</p></div></div>
+    <div class="feature-card" onclick="showSection('resultsSection')"><div class="feature-icon qi-purple">▥</div><div><h4>Result Management</h4><p>Test results देखें और student performance track करें।</p></div></div>
+    <div class="feature-card" onclick="showSection('classesSection')"><div class="feature-icon qi-orange">📖</div><div><h4>Study Material</h4><p>Notes, PDF, Video और chapter content manage करें।</p></div></div>
+    <div class="feature-card" onclick="showSection('videosSection')"><div class="feature-icon qi-red">▶</div><div><h4>Live Classes</h4><p>Video classes और lecture links manage करें।</p></div></div>
+    <div class="feature-card" onclick="showSection('communityMessageSection')"><div class="feature-icon" style="background:#13a7b4">💬</div><div><h4>Community Chat</h4><p>Students के community messages manage करें।</p></div></div>
+    <div class="feature-card" onclick="showSection('sendMessageSection')"><div class="feature-icon qi-pink">🔔</div><div><h4>Notifications</h4><p>Classes और important updates students को भेजें।</p></div></div>
+    <div class="feature-card" onclick="showSection('certificatesSection')"><div class="feature-icon" style="background:#13a7b4">▣</div><div><h4>Certificates</h4><p>Result records के आधार पर certificate workflow रखें।</p></div></div>
+    <div class="feature-card" onclick="showSection('bannersSection')"><div class="feature-icon qi-blue">▧</div><div><h4>Banners & Pages</h4><p>Home page और learning content manage करें।</p></div></div>
+    <div class="feature-card" onclick="showSection('usersSection')"><div class="feature-icon qi-green">⚙</div><div><h4>User Management</h4><p>Students और admin access related records देखें।</p></div></div>
+    <div class="feature-card" onclick="loadAdminStats()"><div class="feature-icon" style="background:#40577a">▥</div><div><h4>Reports & Analytics</h4><p>Students, tests और results का overview देखें।</p></div></div>
+    <div class="feature-card" onclick="showSection('settingsSection')"><div class="feature-icon qi-pink">⚙</div><div><h4>Settings</h4><p>App content, notifications और configuration manage करें।</p></div></div>
+  </div></div>
+</div>
+
 
 
 <div class="welcome">
@@ -816,8 +1036,10 @@ th{
     id="testDuration"
     type="number"
     min="1"
+    max="300"
     value="30"
-    readonly
+    step="1"
+    placeholder="Minutes"
 >
 
 </div>
@@ -1120,6 +1342,12 @@ Select Test
 
 
 <div class="input-box">
+<label>Test Duration (Minutes)</label>
+<input id="scheduleDuration" type="number" min="1" max="300" value="30" placeholder="Example: 30">
+<small style="display:block;margin-top:5px;color:#667085">यह duration students के test timer में लागू होगा।</small>
+</div>
+
+<div class="input-box">
 
 <label>End Date & Time</label>
 
@@ -1344,6 +1572,12 @@ Select Test
 
 
 
+
+<section id="certificatesSection" class="admin-section"><div class="section-box"><button class="back-btn" onclick="backDashboard()">← Dashboard</button><h2>▣ Certificates</h2><p style="margin:8px 0;color:#667085">Students के result records से certificate workflow manage करें।</p><div id="certificateManager" style="margin-top:18px"></div></div></section>
+<section id="bannersSection" class="admin-section"><div class="section-box"><button class="back-btn" onclick="backDashboard()">← Dashboard</button><h2>▧ Banners & Pages</h2><p style="margin:8px 0;color:#667085">Home banner image और announcement text manage करें।</p><div class="input-box"><label>Banner Title</label><input id="bannerTitle" placeholder="S.S.C. CLASSES"></div><div class="input-box"><label>Banner Message</label><textarea id="bannerText" rows="4" placeholder="Learn Today • Succeed Tomorrow"></textarea></div><div class="input-box"><label>Banner Image</label><input id="bannerImageFile" type="file" accept="image/*"></div><button class="primary-btn" style="max-width:260px" onclick="saveAdminBanner()">💾 Save Banner</button><div id="bannerStatus" style="margin-top:10px;color:#667085"></div></div></section>
+<section id="usersSection" class="admin-section"><div class="section-box"><button class="back-btn" onclick="backDashboard()">← Dashboard</button><h2>⚙ User Management</h2><p style="margin:8px 0;color:#667085">Registered students और admin access overview.</p><div id="userManagementBox" style="margin-top:18px"></div></div></section>
+<section id="settingsSection" class="admin-section"><div class="section-box"><button class="back-btn" onclick="backDashboard()">← Dashboard</button><h2>⚙ Settings</h2><div class="input-box" style="margin-top:18px"><label>Coaching Name</label><input id="settingCoachingName" value="S.S.C. CLASSES"></div><div class="input-box"><label>Tagline</label><input id="settingTagline" value="Learn • Practice • Success"></div><button class="primary-btn" style="max-width:260px" onclick="saveAdminSettings()">💾 Save Settings</button><p id="settingsStatus" style="margin-top:10px;color:#667085"></p></div></section>
+
 </main>
 
 </div>
@@ -1412,6 +1646,7 @@ try {
 </script>
 
 <script>
+    
 /* =====================================================
    ADMIN LOGIN
 ===================================================== */
@@ -1585,6 +1820,78 @@ async function adminLogin(){
     }
 
 }
+/* =====================================================
+   ADMIN MOBILE SIDEBAR
+===================================================== */
+
+function openAdminSidebar(){
+
+    const sidebar = document.querySelector(".admin-sidebar");
+    const overlay = document.getElementById("sidebarOverlay");
+
+    if(sidebar){
+        sidebar.classList.add("mobile-open");
+    }
+
+    if(overlay){
+        overlay.classList.add("show");
+    }
+}
+
+
+function closeAdminSidebar(){
+
+    const sidebar = document.querySelector(".admin-sidebar");
+    const overlay = document.getElementById("sidebarOverlay");
+
+    if(sidebar){
+        sidebar.classList.remove("mobile-open");
+    }
+
+    if(overlay){
+        overlay.classList.remove("show");
+    }
+}
+
+
+function toggleAdminSidebar(){
+
+    const sidebar = document.querySelector(".admin-sidebar");
+
+    if(!sidebar)return;
+
+    if(sidebar.classList.contains("mobile-open")){
+        closeAdminSidebar();
+    }else{
+        openAdminSidebar();
+    }
+}
+
+
+/* Sidebar menu पर click होने के बाद mobile में menu बंद */
+document.addEventListener("click",function(e){
+
+    if(window.innerWidth > 900)return;
+
+    const item = e.target.closest(
+        ".admin-sidebar a, .admin-sidebar button, .admin-sidebar .sidebar-item"
+    );
+
+    if(item){
+        setTimeout(closeAdminSidebar,150);
+    }
+
+});
+
+
+/* Screen बड़ी होने पर mobile state साफ */
+window.addEventListener("resize",function(){
+
+    if(window.innerWidth > 900){
+        closeAdminSidebar();
+    }
+
+});
 
 
 /* =====================================================
@@ -1608,8 +1915,6 @@ function showAdminPanel(){
     ensureClass8ScienceGrandTest();
 
     ensureClass10ScienceGrandTest();
-
-    enforceThirtyMinuteTests();
 
     loadAdminStats();
 
@@ -2058,10 +2363,9 @@ function enforceThirtyMinuteTests(){
     if(!Array.isArray(tests))return;
     let changed=false;
     tests.forEach(t=>{
-        if(Number(t.duration)!==30 || Number(t.durationMinutes)!==30){t.duration=30;t.durationMinutes=30;changed=true;}
-        if(String(t.id)==="class9_science_grand_test" && t.testName!=="🏆 Class 9th Science Grand Test"){
-            t.testName="🏆 Class 9th Science Grand Test";t.name=t.testName;changed=true;
-        }
+        const d=Number(t.durationMinutes||t.duration||30);
+        const safe=Math.min(300,Math.max(1,Number.isFinite(d)?d:30));
+        if(Number(t.duration)!==safe || Number(t.durationMinutes)!==safe){t.duration=safe;t.durationMinutes=safe;changed=true;}
     });
     if(changed)localStorage.setItem("sscScheduledTests",JSON.stringify(tests));
 }
@@ -2988,6 +3292,12 @@ function renderManageTests(){
                         "Draft"
                     )}
                 </p>
+                <div class="duration-editor">
+                  <strong style="font-size:12px">Duration:</strong>
+                  <input type="number" min="1" max="300" value="${Number(t.durationMinutes||t.duration||30)}" id="duration_${escapeHTML(String(t.id))}">
+                  <button type="button" onclick="updateTestDurationById(${JSON.stringify(t.id)})">Save</button>
+                  <span style="font-size:11px;color:#667085">minutes</span>
+                </div>
 
                 <button type="button" style="padding:8px 12px;border:0;border-radius:8px;background:#eaf2ff;color:#1769e8;cursor:pointer;margin-top:8px" onclick="rescheduleTest(${index})">Reschedule</button>
                 <button type="button" class="danger-btn" onclick="deleteScheduledTest(${index})">Delete Test</button>
@@ -3055,6 +3365,8 @@ async function scheduleSelectedTest(){
     const id = document.getElementById("scheduleTestSelect").value;
     const start = document.getElementById("scheduleStart").value;
     const end = document.getElementById("scheduleEnd").value;
+    const durationInput = document.getElementById("scheduleDuration");
+    const duration = Math.min(300, Math.max(1, Number(durationInput?.value || 30)));
 
     if(!id){
         alert("Test select करें।");
@@ -3093,6 +3405,8 @@ async function scheduleSelectedTest(){
 
     test.startDateTime = new Date(start).toISOString();
     test.endDateTime = new Date(end).toISOString();
+    test.duration = duration;
+    test.durationMinutes = duration;
     test.status = "Scheduled";
 
     // Local backup
@@ -3306,21 +3620,42 @@ async function rescheduleTestById(id){
     if(!t){alert("Test नहीं मिला।");return;}
     const start=prompt("नई शुरू होने की तारीख और समय लिखें (YYYY-MM-DDTHH:mm)",testDateTimeLocal(t.startDateTime));
     if(start===null)return;
-    const end=prompt("नई समाप्त होने की तारीख और समय लिखें (YYYY-MM-DDTHH:mm)",testDateTimeLocal(t.endDateTime));
+    const end=prompt("नई समाप्ति तारीख और समय लिखें (YYYY-MM-DDTHH:mm)",testDateTimeLocal(t.endDateTime));
     if(end===null)return;
+    const currentDuration=Number(t.durationMinutes||t.duration||30);
+    const durationRaw=prompt("नई Test Duration (minutes) लिखें:",String(currentDuration));
+    if(durationRaw===null)return;
+    const duration=Math.min(300,Math.max(1,Number(durationRaw)));
     const startDate=new Date(start),endDate=new Date(end);
     if(Number.isNaN(startDate.getTime())||Number.isNaN(endDate.getTime())||endDate<=startDate){alert("सही तारीख/समय भरें। समाप्ति समय, शुरू होने के समय के बाद होना चाहिए।");return;}
-    t.startDateTime=startDate.toISOString();
-    t.endDateTime=endDate.toISOString();
-    t.status="Scheduled";
+    if(!Number.isFinite(duration)){alert("Duration सही number में डालें।");return;}
+    t.startDateTime=startDate.toISOString();t.endDateTime=endDate.toISOString();t.duration=duration;t.durationMinutes=duration;t.status="Scheduled";
     localStorage.setItem("sscScheduledTests",JSON.stringify(tests));
     try{
         const bridge=await window.sscMessageFirestoreReady;
-        await bridge.setDoc(bridge.doc(bridge.db,"sscScheduledTests",String(t.id)),t);
-    }catch(error){console.error("Test reschedule cloud sync failed",error);alert("नई तारीख इस browser में save हुई, लेकिन students के साथ sync नहीं हो पाई।");}
-    alert("Test reschedule हो गया।");
+        await bridge.setDoc(bridge.doc(bridge.db,"sscScheduledTests",String(t.id)),{...t,updatedAt:new Date().toISOString()},{merge:true});
+    }catch(error){console.error("Test reschedule cloud sync failed",error);alert("नई settings इस browser में save हुई, लेकिन students के साथ sync नहीं हो पाई।");}
+    alert(`Test reschedule हो गया।\nDuration: ${duration} minutes`);
     renderManageTests();renderSchedule();loadAdminStats();
 }
+
+async function updateTestDurationById(id){
+    const tests=getJSON("sscScheduledTests",[]);
+    const t=tests.find(x=>String(x.id)===String(id));
+    if(!t){alert("Test नहीं मिला।");return;}
+    const input=document.getElementById("duration_"+String(id));
+    const duration=Math.min(300,Math.max(1,Number(input?.value||0)));
+    if(!Number.isFinite(duration)||duration<1){alert("Duration 1 से 300 minutes के बीच रखें।");return;}
+    t.duration=duration;t.durationMinutes=duration;
+    localStorage.setItem("sscScheduledTests",JSON.stringify(tests));
+    try{
+      const bridge=await window.sscMessageFirestoreReady;
+      await bridge.setDoc(bridge.doc(bridge.db,"sscScheduledTests",String(t.id)),{duration, durationMinutes:duration, updatedAt:new Date().toISOString()},{merge:true});
+      alert(`✅ Duration ${duration} minutes कर दी गई। Students के लिए नया timer लागू होगा।`);
+    }catch(e){console.error(e);alert("Duration local में save हुई, लेकिन Firebase sync नहीं हुई।");}
+    renderManageTests();loadAdminStats();
+}
+
 
 function deleteScheduledTest(index){
     const tests=getJSON("sscScheduledTests",[]);
@@ -3425,7 +3760,24 @@ function getAdminMaterials(){
     const x=getJSON(MATERIAL_KEY,[]);
     return Array.isArray(x)?x:[];
 }
-function saveAdminMaterials(x){ localStorage.setItem(MATERIAL_KEY,JSON.stringify(Array.isArray(x)?x:[])); }
+function saveAdminMaterials(x){
+    const list=Array.isArray(x)?x:[];
+    localStorage.setItem(MATERIAL_KEY,JSON.stringify(list));
+    if(window.sscMessageFirestoreReady){
+      window.sscMessageFirestoreReady.then(async bridge=>{
+        const snap=await bridge.getDocs(bridge.collection(bridge.db,"sscMaterials"));
+        const cloudIds=new Set(snap.docs.map(d=>String(d.id)));
+        const localIds=new Set();
+        for(const item of list){
+          if(!item?.id)continue;
+          const id=String(item.id);localIds.add(id);
+          await bridge.setDoc(bridge.doc(bridge.db,"sscMaterials",id),{...item,id,updatedAt:new Date().toISOString()},{merge:true});
+        }
+        for(const id of cloudIds){if(!localIds.has(id))await bridge.deleteDoc(bridge.doc(bridge.db,"sscMaterials",id));}
+        console.log("✅ Materials cloud sync:",list.length);
+      }).catch(e=>console.warn("Materials cloud sync failed",e));
+    }
+}
 function getAdminSubjects(cls){
     const c=normalizeAdminClass(cls),data=getContentStore(),subjects=Object.keys(data[c]?.subjects||{});
     getAdminVideos().filter(v=>normalizeAdminClass(v.className??v.studentClass??v.class)===c).forEach(v=>{
@@ -4106,6 +4458,11 @@ async function saveVideoBlobLocally(id,file){
     db.close();
 }
 
+async function syncVideoClassToCloud(item){
+  if(!item?.id || !window.sscMessageFirestoreReady)return;
+  try{const bridge=await window.sscMessageFirestoreReady;await bridge.setDoc(bridge.doc(bridge.db,"sscVideos",String(item.id)),{...item,id:String(item.id),updatedAt:new Date().toISOString()},{merge:true});console.log("✅ Video cloud sync:",item.id);}catch(e){console.warn("Video cloud sync failed",e);alert("Video local में save हुआ, लेकिन Firebase में sync नहीं हुआ।\n\n"+(e?.message||e));}
+}
+
 async function saveVideoClass(){
     const cls=normalizeAdminClass(document.getElementById("videoClass")?.value);
     const subject=document.getElementById("videoSubject")?.value || "";
@@ -4147,8 +4504,10 @@ async function saveVideoClass(){
         }
 
         const videos=getAdminVideos();
-        videos.unshift({id:"video_"+Date.now(),className:cls,studentClass:cls,subject,chapter,title,videoUrl:finalUrl,sourceType,localFileId,originalFileName:file?file.name:"",description,scheduledAt:schedule?new Date(schedule).toISOString():"",createdAt:new Date().toISOString()});
+        const item={id:"video_"+Date.now(),className:cls,studentClass:cls,subject,chapter,title,videoUrl:finalUrl,sourceType,localFileId,originalFileName:file?file.name:"",description,scheduledAt:schedule?new Date(schedule).toISOString():"",createdAt:new Date().toISOString()};
+        videos.unshift(item);
         localStorage.setItem("sscVideos",JSON.stringify(videos));
+        await syncVideoClassToCloud(item);
         clearVideoForm();
         if(status)status.textContent="✅ Video saved successfully.";
         renderAdminVideos();
@@ -4179,6 +4538,7 @@ async function deleteVideoClass(id){
         let db;try{db=await openSSCVideoDB();await new Promise((resolve,reject)=>{const tx=db.transaction("videos","readwrite");tx.objectStore("videos").delete(target.localFileId);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error||new Error("Local video delete failed"));tx.onabort=()=>reject(tx.error||new Error("Local video delete aborted"));});}catch(e){console.error("Local video file removal failed",e);alert("Video entry हटेगा, लेकिन इस browser की stored file पूरी तरह नहीं हट पाई।");}finally{if(db)db.close();}
     }
     localStorage.setItem("sscVideos",JSON.stringify(videos.filter(v=>String(v.id)!==String(id))));
+    try{const bridge=await window.sscMessageFirestoreReady;await bridge.deleteDoc(bridge.doc(bridge.db,"sscVideos",String(id)));}catch(e){console.warn("Cloud video delete failed",e);}
     renderAdminVideos();
     alert("✅ Video Class delete हो गई।");
 }
@@ -4370,8 +4730,6 @@ document.addEventListener("DOMContentLoaded",function(){
     ensureClass9ScienceGrandTest();
     ensureClass10ScienceGrandTest();
     ensureClass8ScienceGrandTest();
-    enforceThirtyMinuteTests();
-
     const videoClass=document.getElementById("videoClass");
     const videoSubject=document.getElementById("videoSubject");
     const testClass=document.getElementById("testClass");
@@ -4473,5 +4831,293 @@ document.addEventListener(
 
 </script>
 
+
+
+<script>
+async function renderCertificates(){const box=document.getElementById('certificateManager');if(!box)return;const results=getJSON('sscResultHistory',[]);const arr=Array.isArray(results)?results:[];box.innerHTML=arr.length?`<div class="table-wrap"><table><thead><tr><th>Student</th><th>Test</th><th>Score</th><th>Action</th></tr></thead><tbody>${arr.slice(-30).reverse().map((r,i)=>`<tr><td>${escapeHTML(r.studentName||r.name||r.studentMobile||'-')}</td><td>${escapeHTML(r.testName||r.name||'Test')}</td><td>${escapeHTML(String(r.score??r.marks??'-'))}</td><td><button type="button" class="primary-btn" style="width:auto;padding:7px 10px" onclick="issueCertificate(${i})">Issue</button></td></tr>`).join('')}</tbody></table></div>`:'<p style="color:#667085">अभी कोई result record नहीं है।</p>';}
+function issueCertificate(i){alert('Certificate workflow ready है। Selected result के लिए certificate generation को आपके existing certificate/PDF module से जोड़ना होगा।');}
+async function renderUserManagement(){const box=document.getElementById('userManagementBox');if(!box)return;const students=getJSON('sscStudents',[]);box.innerHTML=`<div class="dash-card" style="box-shadow:none;border:1px solid #e8edf4"><b>Admin UID</b><p style="margin-top:6px;color:#667085">${escapeHTML(localStorage.getItem('sscAdminFirebaseUid')||'Not logged in')}</p><hr style="margin:15px 0;border:0;border-top:1px solid #eee"><b>Registered Students</b><p style="margin-top:6px;color:#667085">${Array.isArray(students)?students.length:0} local records. Firebase student list देखने के लिए Students module खोलें।</p></div>`;}
+async function saveAdminBanner(){const title=document.getElementById('bannerTitle')?.value.trim()||'';const text=document.getElementById('bannerText')?.value.trim()||'';const file=document.getElementById('bannerImageFile')?.files?.[0]||null;if(!title&&!text&&!file){alert('Banner title, message या image दें।');return;}let imageUrl='';try{if(file){const api=await window.sscStorageReady;const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,'_');const refObj=api.ref(api.storage,`ssc-banners/${Date.now()}_${safe}`);const snap=await api.uploadBytes(refObj,file,{contentType:file.type});imageUrl=await api.getDownloadURL(snap.ref);}const data={title,text,imageUrl,updatedAt:new Date().toISOString()};localStorage.setItem('sscAdminBanner',JSON.stringify(data));const bridge=await window.sscMessageFirestoreReady;await bridge.setDoc(bridge.doc(bridge.db,'sscAdminConfig','banner'),data,{merge:true});document.getElementById('bannerStatus').textContent='✅ Banner saved to Firebase.';}catch(e){console.error(e);alert('Banner save नहीं हुआ: '+(e?.message||e));}}
+function saveAdminSettings(){const data={coachingName:document.getElementById('settingCoachingName')?.value.trim()||'S.S.C. CLASSES',tagline:document.getElementById('settingTagline')?.value.trim()||'',updatedAt:new Date().toISOString()};localStorage.setItem('sscAdminSettings',JSON.stringify(data));if(window.sscMessageFirestoreReady)window.sscMessageFirestoreReady.then(b=>b.setDoc(b.doc(b.db,'sscAdminConfig','settings'),data,{merge:true})).catch(e=>console.warn(e));const el=document.getElementById('settingsStatus');if(el)el.textContent='✅ Settings saved.';}
+const _oldShowSection=window.showSection;
+window.showSection=function(id){if(typeof _oldShowSection==='function')_oldShowSection(id);if(id==='certificatesSection')renderCertificates();if(id==='usersSection')renderUserManagement();};
+</script>
+<script>
+/* =====================================================
+   MODERN DASHBOARD HELPERS
+===================================================== */
+function setSideActive(btn){document.querySelectorAll('.admin-side-nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');}
+function goDashboard(btn){hideAllSections();document.getElementById('modernDashboard')?.scrollIntoView({block:'start'});setSideActive(btn);loadAdminStats();}
+function dashboardNumber(n){return Number(n||0).toLocaleString('en-IN');}
+function refreshModernDashboard(){
+  const students=getJSON('sscStudents',[]);const tests=getJSON('sscScheduledTests',[]);const results=getJSON('sscResultHistory',[]);
+  const st=Array.isArray(students)?students:[],tt=Array.isArray(tests)?tests:[],rr=Array.isArray(results)?results:[];
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=dashboardNumber(v)};
+  set('dashStudentCount',st.length);set('dashTestCount',tt.length);set('dashResultCount',rr.length);set('dashCertificateCount',0);
+  const completed=tt.filter(t=>String(t.status).toLowerCase()==='completed').length;const upcoming=tt.filter(t=>String(t.status).toLowerCase()==='scheduled'||String(t.status).toLowerCase()==='ready').length;const cancelled=tt.filter(t=>String(t.status).toLowerCase()==='cancelled').length;
+  set('completedCount',completed);set('upcomingCount',upcoming);set('cancelledCount',cancelled);
+  const rs=document.getElementById('dashRecentStudents');
+  if(rs){const rows=st.slice(-5).reverse();rs.innerHTML=rows.length?`<table class="mini-table"><thead><tr><th>#</th><th>Name</th><th>Class</th><th>Status</th></tr></thead><tbody>${rows.map((x,i)=>`<tr><td>${i+1}</td><td>${escapeHTML(x.name||x.studentName||'-')}</td><td>${escapeHTML(String(x.class||x.studentClass||'-'))}</td><td><span class="status-pill">Active</span></td></tr>`).join('')}</tbody></table>`:'<p style="padding:12px;color:#7b8798;font-size:11px">No students found.</p>';}
+  const up=document.getElementById('dashUpcomingTests');if(up){const rows=tt.filter(t=>t.startDateTime).sort((a,b)=>new Date(a.startDateTime)-new Date(b.startDateTime)).slice(0,5);up.innerHTML=rows.length?`<table class="mini-table"><thead><tr><th>#</th><th>Test Name</th><th>Date & Time</th><th>Status</th></tr></thead><tbody>${rows.map((x,i)=>`<tr><td>${i+1}</td><td>${escapeHTML(x.testName||x.name||'Test')}</td><td>${escapeHTML(new Date(x.startDateTime).toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}))}</td><td><span class="status-pill upcoming-pill">Upcoming</span></td></tr>`).join('')}</tbody></table>`:'<p style="padding:12px;color:#7b8798;font-size:11px">No upcoming tests.</p>';}
+  const act=document.getElementById('dashActivity');if(act){const items=[];st.slice(-2).reverse().forEach(x=>items.push(['#13a968','👤','New student registered',x.name||x.studentName||'Student']));tt.slice(-2).reverse().forEach(x=>items.push(['#2776ed','▤','Test created',x.testName||x.name||'Test']));rr.slice(-2).reverse().forEach(x=>items.push(['#7140d9','▥','Result published',x.studentName||x.name||'Student']));act.innerHTML=(items.slice(0,6).map(x=>`<div class="activity-item"><div class="activity-dot" style="background:${x[0]}">${x[1]}</div><div><strong>${escapeHTML(x[2])}</strong><span>${escapeHTML(String(x[3]))}</span><time>Recently</time></div></div>`).join(''))||'<p style="font-size:11px;color:#7b8798">No recent activity.</p>';}
+  const d=document.getElementById('dashDate');if(d)d.textContent=new Date().toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+const _oldLoadAdminStats=window.loadAdminStats;
+window.loadAdminStats=function(){try{if(typeof _oldLoadAdminStats==='function')_oldLoadAdminStats();}catch(e){console.warn(e)}refreshModernDashboard();};
+
+/* =====================================================
+   SSC CLASSES — FINAL FIREBASE SYNC + REAL DASHBOARD
+   This patch keeps the existing functions/UI and adds:
+   - Firebase-backed dashboard counts + graphs
+   - Firebase hydration for admin data
+   - Reliable cloud sync for subjects/chapters/materials/videos
+   - Cloud sync after subject/chapter rename
+   - No forced 30-minute duration
+===================================================== */
+
+async function sscAdminCloudBridge(){
+  if(!window.sscMessageFirestoreReady) throw new Error("Firebase Firestore bridge उपलब्ध नहीं है।");
+  const b=await window.sscMessageFirestoreReady;
+  if(!b?.db) throw new Error("Firestore database उपलब्ध नहीं है।");
+  return b;
+}
+
+function sscSafeArray(v){return Array.isArray(v)?v:[];}
+
+async function syncAllAdminVideosToCloud(){
+  try{
+    const b=await sscAdminCloudBridge();
+    const videos=getAdminVideos();
+    const localIds=new Set(videos.map(v=>String(v?.id||'')));
+    for(const item of videos){
+      if(!item?.id) continue;
+      await b.setDoc(
+        b.doc(b.db,"sscVideos",String(item.id)),
+        {...item,id:String(item.id),updatedAt:new Date().toISOString()},
+        {merge:true}
+      );
+    }
+    const snap=await b.getDocs(b.collection(b.db,"sscVideos"));
+    for(const d of snap.docs){
+      if(!localIds.has(String(d.id))) await b.deleteDoc(b.doc(b.db,"sscVideos",String(d.id)));
+    }
+    console.log("✅ All videos cloud sync:",videos.length);
+  }catch(e){
+    console.warn("Video bulk cloud sync failed",e);
+  }
+}
+
+async function hydrateAdminCloudData(){
+  try{
+    const b=await sscAdminCloudBridge();
+
+    // Class → subject → chapter/content
+    const contentSnap=await b.getDoc(b.doc(b.db,"sscClassContent","main"));
+    if(contentSnap.exists()){
+      const cloud=contentSnap.data()?.content;
+      if(cloud && typeof cloud==='object'){
+        localStorage.setItem("sscClassContent",JSON.stringify(cloud));
+      }
+    }
+
+    // Notes/PDF/materials
+    const matSnap=await b.getDocs(b.collection(b.db,"sscMaterials"));
+    const mats=[];
+    matSnap.forEach(d=>mats.push({id:d.id,...d.data()}));
+    if(mats.length) localStorage.setItem("sscMaterials",JSON.stringify(mats));
+
+    // Videos
+    const vidSnap=await b.getDocs(b.collection(b.db,"sscVideos"));
+    const vids=[];
+    vidSnap.forEach(d=>vids.push({id:d.id,...d.data()}));
+    if(vids.length) localStorage.setItem("sscVideos",JSON.stringify(vids));
+
+    // Scheduled tests
+    const testSnap=await b.getDocs(b.collection(b.db,"sscScheduledTests"));
+    const cloudTests=[];
+    testSnap.forEach(d=>cloudTests.push({id:d.id,...d.data()}));
+    if(cloudTests.length) localStorage.setItem("sscScheduledTests",JSON.stringify(cloudTests));
+
+    console.log("✅ Admin cloud data hydrated",{materials:mats.length,videos:vids.length,tests:cloudTests.length});
+  }catch(e){
+    console.warn("Admin cloud hydration failed",e);
+  }
+}
+
+async function loadFirebaseAdminDashboardData(){
+  try{
+    const b=await sscAdminCloudBridge();
+
+    const studentsSnap=await b.getDocs(b.collection(b.db,"students"));
+    const students=[];
+    studentsSnap.forEach(d=>students.push({id:d.id,uid:d.id,...d.data()}));
+    if(students.length) localStorage.setItem("sscStudents",JSON.stringify(students));
+
+    const testsSnap=await b.getDocs(b.collection(b.db,"sscScheduledTests"));
+    const tests=[];
+    testsSnap.forEach(d=>tests.push({id:d.id,...d.data()}));
+    if(tests.length) localStorage.setItem("sscScheduledTests",JSON.stringify(tests));
+
+    const resultsSnap=await b.getDocs(b.collection(b.db,"testResults"));
+    const results=[];
+    resultsSnap.forEach(d=>results.push({id:d.id,...d.data()}));
+    if(results.length) localStorage.setItem("sscResultHistory",JSON.stringify(results));
+
+    renderRealAdminGraphs(students,tests,results);
+    refreshModernDashboard();
+    updateDashboardDate();
+    return {students,tests,results};
+  }catch(e){
+    console.warn("Firebase dashboard load failed; using local backup",e);
+    const students=sscSafeArray(getJSON("sscStudents",[]));
+    const tests=sscSafeArray(getJSON("sscScheduledTests",[]));
+    const results=sscSafeArray(getJSON("sscResultHistory",[]));
+    renderRealAdminGraphs(students,tests,results);
+    return {students,tests,results};
+  }
+}
+
+function updateDashboardDate(){
+  const d=document.getElementById('dashDate');
+  if(d)d.textContent=new Date().toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+
+function dateFromAny(v){
+  if(!v) return null;
+  if(typeof v?.toDate==='function') return v.toDate();
+  if(typeof v==='number') return new Date(v);
+  const d=new Date(v);
+  return Number.isNaN(d.getTime())?null:d;
+}
+
+function studentDate(x){
+  return dateFromAny(x?.createdAt)||dateFromAny(x?.registeredAt)||dateFromAny(x?.createdDate)||dateFromAny(x?.timestamp)||null;
+}
+
+function renderRealStudentGrowth(students){
+  const svg=document.querySelector('.growth-svg');
+  if(!svg) return;
+  const list=sscSafeArray(students);
+  const months=[];
+  const now=new Date();
+  for(let i=5;i>=0;i--){
+    const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    months.push({date:d,label:d.toLocaleDateString('en-IN',{month:'short'}),count:0});
+  }
+  list.forEach(st=>{
+    const d=studentDate(st); if(!d)return;
+    const idx=months.findIndex(m=>m.date.getFullYear()===d.getFullYear()&&m.date.getMonth()===d.getMonth());
+    if(idx>=0) months[idx].count++;
+  });
+  let running=0;
+  months.forEach(m=>{running+=m.count;m.total=running;});
+  const max=Math.max(1,...months.map(m=>m.total));
+  const left=42,right=580,top=20,bottom=172;
+  const pts=months.map((m,i)=>{
+    const x=left+(right-left)*(i/5);
+    const y=bottom-(m.total/max)*(bottom-top-8);
+    return {x,y,m};
+  });
+  const line=pts.map(p=>`${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+  const area=`${line} ${right},${bottom} ${left},${bottom}`;
+  const gl=document.getElementById('growthLine'); if(gl)gl.setAttribute('points',area);
+  const gs=document.getElementById('growthStroke'); if(gs)gs.setAttribute('points',line);
+  const dots=document.getElementById('growthDots');
+  if(dots)dots.innerHTML=pts.map(p=>`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4"><title>${p.m.label}: ${p.m.total} students</title></circle>`).join('');
+  const texts=svg.querySelectorAll('text');
+  texts.forEach((t,i)=>{if(i<6 && months[i]){t.textContent=months[i].label;t.setAttribute('x',(pts[i].x-8).toFixed(1));}});
+  const span=svg.parentElement?.querySelector('.dash-card-title span');
+  if(span)span.textContent=`Last 6 Months • ${list.length} Students`;
+}
+
+function renderRealTestPerformance(tests){
+  const list=sscSafeArray(tests);
+  const now=Date.now();
+  let completed=0,upcoming=0,cancelled=0;
+  list.forEach(t=>{
+    const status=String(t.status||'').toLowerCase();
+    if(status==='cancelled') cancelled++;
+    else if(status==='completed') completed++;
+    else if(status==='scheduled'||status==='ready'||(dateFromAny(t.startDateTime)?.getTime()>now)) upcoming++;
+    else if(dateFromAny(t.endDateTime)?.getTime()<now) completed++;
+    else upcoming++;
+  });
+  const total=completed+upcoming+cancelled;
+  const donut=document.querySelector('.donut');
+  if(donut){
+    const a=total?completed/total*100:0;
+    const b=total?(completed+upcoming)/total*100:0;
+    donut.style.background=`conic-gradient(#10b981 0 ${a}%,#f59e0b ${a}% ${b}%,#ef476f ${b}% 100%)`;
+    donut.style.setProperty('--total-tests',`"${total}\\A Total Tests"`);
+  }
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=String(v)};
+  set('completedCount',completed);set('upcomingCount',upcoming);set('cancelledCount',cancelled);
+  const center=document.querySelector('.donut');
+  if(center){center.setAttribute('aria-label',`${total} Total Tests`);center.title=`${total} Total Tests`;}
+}
+
+function renderRealAdminGraphs(students,tests,results){
+  renderRealStudentGrowth(students);
+  renderRealTestPerformance(tests);
+}
+
+// Keep the dashboard real even when loadAdminStats() is called by old code.
+const __sscOriginalLoadAdminStats = window.loadAdminStats;
+window.loadAdminStats = function(){
+  try{if(typeof __sscOriginalLoadAdminStats==='function')__sscOriginalLoadAdminStats();}catch(e){console.warn(e)}
+  refreshModernDashboard();
+  loadFirebaseAdminDashboardData();
+};
+
+// Preserve local + cloud sync when subjects/chapters are renamed.
+const __sscOriginalEditSubject = window.editSubject;
+if(typeof __sscOriginalEditSubject==='function'){
+  window.editSubject = async function(...args){
+    const out=await __sscOriginalEditSubject(...args);
+    await syncAllAdminVideosToCloud();
+    return out;
+  };
+}
+const __sscOriginalEditChapter = window.editChapter;
+if(typeof __sscOriginalEditChapter==='function'){
+  window.editChapter = async function(...args){
+    const out=await __sscOriginalEditChapter(...args);
+    await syncAllAdminVideosToCloud();
+    return out;
+  };
+}
+
+// Firebase listeners: dashboard updates automatically when data changes.
+let __sscAdminUnsubs=[];
+async function startAdminRealtimeDashboard(){
+  try{
+    const b=await sscAdminCloudBridge();
+    __sscAdminUnsubs.forEach(fn=>{try{fn()}catch(e){}});__sscAdminUnsubs=[];
+    const refresh=()=>loadFirebaseAdminDashboardData();
+    __sscAdminUnsubs.push(b.onSnapshot(b.collection(b.db,'students'),refresh));
+    __sscAdminUnsubs.push(b.onSnapshot(b.collection(b.db,'sscScheduledTests'),refresh));
+    __sscAdminUnsubs.push(b.onSnapshot(b.collection(b.db,'testResults'),refresh));
+  }catch(e){console.warn('Admin realtime dashboard unavailable',e);}
+}
+
+// After admin login, hydrate cloud data first, then render everything.
+const __sscOriginalShowAdminPanel = window.showAdminPanel;
+window.showAdminPanel = async function(){
+  try{if(typeof __sscOriginalShowAdminPanel==='function')__sscOriginalShowAdminPanel();}catch(e){console.warn(e)}
+  await hydrateAdminCloudData();
+  loadAdminStats();
+  startAdminRealtimeDashboard();
+};
+
+// If the page is already logged in, also initialize sync once.
+setTimeout(()=>{
+  if(document.getElementById('adminPanel')?.style.display==='block'){
+    hydrateAdminCloudData().then(()=>{loadAdminStats();startAdminRealtimeDashboard();});
+  }
+},700);
+
+</script>
+<!-- Mobile Sidebar Overlay -->
+<div id="sidebarOverlay" class="sidebar-overlay" onclick="closeAdminSidebar()"></div>
 </body>
 </html>
