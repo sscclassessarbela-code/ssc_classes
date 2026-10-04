@@ -1,0 +1,2846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>S.S.C CLASSES - Certificate / Result</title>
+
+<!--
+IMPORTANT:
+html2pdf.bundle.min.js को certificate.html के
+SAME FOLDER में रखना है।
+-->
+
+<script src="html2pdf.bundle.min.js"></script>
+<script>
+if (typeof window.html2pdf === "undefined") {
+    var sscPdfScript = document.createElement("script");
+    sscPdfScript.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+    sscPdfScript.async = true;
+    document.head.appendChild(sscPdfScript);
+}
+</script>
+
+<style>
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:#555;
+    font-family:Arial,Helvetica,sans-serif;
+    color:#111;
+}
+
+
+/* =========================================================
+   BUTTON BAR
+========================================================= */
+
+#sscCertificateActions{
+    width:100%;
+    background:#111827;
+    padding:12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+#sscCertificateActions button{
+    border:none;
+    border-radius:7px;
+    padding:10px 18px;
+    color:white;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+#sscPrintBtn{
+    background:#2563eb;
+}
+
+#sscDownloadBtn{
+    background:#059669;
+}
+
+#sscBackBtn{
+    background:#6b7280;
+}
+
+#sscDashboardBtn{
+    background:#7c3aed;
+}
+
+#sscCertificateActions button:hover{
+    opacity:.85;
+}
+
+
+/* =========================================================
+   A4 PAPER
+========================================================= */
+
+#sscCertificatePaper{
+    width:210mm;
+    height:297mm;
+    min-height:297mm;
+    background:white;
+    margin:20px auto;
+    padding:7mm;
+    position:relative;
+    overflow:hidden;
+    border:5px double #173f73;
+}
+
+
+/* =========================================================
+   INNER BORDER
+========================================================= */
+
+#sscCertificateInnerBorder{
+    position:absolute;
+    top:4mm;
+    left:4mm;
+    right:4mm;
+    bottom:4mm;
+    border:1px solid #555;
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+#sscCertificateContent{
+    position:relative;
+    z-index:2;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+#sscHeader{
+    text-align:center;
+    border-bottom:2px solid #173f73;
+    padding-bottom:4px;
+}
+
+#sscLogo{
+    width:20mm;
+    height:20mm;
+    object-fit:contain;
+}
+
+#sscInstituteName{
+    color:#173f73;
+    font-size:27px;
+    font-weight:900;
+    letter-spacing:1px;
+    margin-top:1px;
+}
+
+#sscInstituteSubtitle{
+    font-size:13px;
+    font-weight:bold;
+    margin-top:2px;
+}
+
+#sscInstituteAddress{
+    font-size:11px;
+    margin-top:2px;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+#sscTitleArea{
+    text-align:center;
+    margin-top:4mm;
+}
+
+#sscTitle{
+    color:#173f73;
+    font-size:20px;
+    font-weight:900;
+    letter-spacing:.8px;
+}
+
+#sscSession{
+    font-size:12px;
+    font-weight:bold;
+    margin-top:2px;
+}
+
+
+/* =========================================================
+   CERTIFICATE NUMBER / DATE
+========================================================= */
+
+#sscTopInfo{
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    font-weight:bold;
+    margin-top:4px;
+}
+
+
+/* =========================================================
+   STUDENT SECTION
+========================================================= */
+
+#sscStudentSection{
+    display:flex;
+    width:100%;
+    margin-top:4mm;
+}
+
+#sscStudentDetails{
+    width:calc(100% - 32mm);
+}
+
+#sscStudentDetailsTable{
+    width:100%;
+    border-collapse:collapse;
+    table-layout:fixed;
+}
+
+#sscStudentDetailsTable td{
+    border:1px solid #222;
+    padding:5px;
+    height:9mm;
+    font-size:11px;
+}
+
+.sscStudentLabel{
+    width:32%;
+    background:#edf1f5;
+    font-weight:bold;
+}
+
+.sscStudentValue{
+    font-weight:bold;
+}
+
+
+/* =========================================================
+   PHOTO
+========================================================= */
+
+#sscPhotoBox{
+    width:31mm;
+    height:45mm;
+    margin-left:3px;
+    border:1px solid #222;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f4f4f4;
+    overflow:hidden;
+}
+
+#sscStudentPhoto{
+    width:29mm;
+    height:42mm;
+    object-fit:cover;
+}
+
+
+/* =========================================================
+   MARKS HEADING
+========================================================= */
+
+#sscMarksHeading{
+    text-align:center;
+    color:#173f73;
+    font-weight:900;
+    font-size:15px;
+    margin-top:4mm;
+    margin-bottom:2px;
+}
+
+
+/* =========================================================
+   MARKS TABLE
+========================================================= */
+
+#sscMarksTable{
+    width:100%;
+    border-collapse:collapse;
+    table-layout:fixed;
+}
+
+#sscMarksTable th,
+#sscMarksTable td{
+    border:1px solid #222;
+    padding:4px 2px;
+    text-align:center;
+    vertical-align:middle;
+    font-size:8.5px;
+}
+
+#sscMarksTable th{
+    background:#e8edf3;
+    font-weight:900;
+}
+
+#sscMarksTable th:nth-child(1){
+    width:21%;
+}
+
+#sscMarksTable th:nth-child(2){
+    width:9%;
+}
+
+#sscMarksTable th:nth-child(3){
+    width:9%;
+}
+
+#sscMarksTable th:nth-child(4){
+    width:11%;
+}
+
+#sscMarksTable th:nth-child(5){
+    width:16%;
+}
+
+#sscMarksTable th:nth-child(6){
+    width:9%;
+}
+
+#sscMarksTable th:nth-child(7){
+    width:25%;
+}
+
+#sscMarksTable td:first-child{
+    text-align:left;
+    padding-left:5px;
+    font-weight:bold;
+}
+
+#sscMarksTable tbody tr{
+    height:12mm;
+}
+
+
+/* =========================================================
+   AGGREGATE
+========================================================= */
+
+#sscAggregateTable{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:3px;
+}
+
+#sscAggregateTable td{
+    border:1px solid #222;
+    padding:5px;
+    font-size:11px;
+    font-weight:bold;
+    text-align:center;
+}
+
+#sscAggregateLabel{
+    width:24%;
+    background:#e8edf3;
+}
+
+#sscAggregateValue{
+    width:28%;
+    font-size:14px !important;
+}
+
+#sscResultLabel{
+    width:18%;
+    background:#e8edf3;
+}
+
+#sscResultValue{
+    width:30%;
+    font-size:14px !important;
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+#sscSummary{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:3px;
+    margin-top:3px;
+}
+
+.sscSummaryBox{
+    border:1px solid #222;
+    padding:4px;
+    text-align:center;
+    font-size:9px;
+    background:#fafafa;
+}
+
+.sscSummaryNumber{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin-top:2px;
+}
+
+
+/* =========================================================
+   MARKS IN WORDS
+========================================================= */
+
+#sscMarksWords{
+    border:1px solid #222;
+    margin-top:3px;
+    padding:5px;
+    font-size:10px;
+}
+
+#sscMarksWordsValue{
+    font-weight:bold;
+}
+
+
+/* =========================================================
+   DECLARATION
+========================================================= */
+
+#sscDeclaration{
+    border:1px solid #999;
+    margin-top:4mm;
+    padding:6px;
+    font-size:9px;
+    line-height:1.45;
+}
+
+
+/* =========================================================
+   BOTTOM
+========================================================= */
+
+#sscBottom{
+    position:absolute;
+    left:8mm;
+    right:8mm;
+    bottom:10mm;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    z-index:2;
+}
+
+#sscDateArea{
+    font-size:11px;
+    font-weight:bold;
+}
+
+#sscSignatureArea{
+    width:50mm;
+    text-align:center;
+}
+
+#sscSignatureLine{
+    border-top:1px solid #222;
+    margin-bottom:3px;
+}
+
+#sscDirectorName{
+    font-size:12px;
+    font-weight:bold;
+}
+
+#sscDirectorTitle{
+    font-size:10px;
+    margin-top:2px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+#sscFooter{
+    position:absolute;
+    bottom:4mm;
+    left:8mm;
+    right:8mm;
+    text-align:center;
+    font-size:7px;
+    border-top:1px solid #888;
+    padding-top:2px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:700px){
+
+    #sscCertificatePaper{
+        width:100%;
+        height:auto;
+        min-height:0;
+        margin:0;
+        padding:5mm;
+        border-width:3px;
+    }
+
+    #sscInstituteName{
+        font-size:21px;
+    }
+
+    #sscTitle{
+        font-size:17px;
+    }
+
+    #sscStudentDetailsTable td{
+        font-size:8px;
+    }
+
+    #sscMarksTable th,
+    #sscMarksTable td{
+        font-size:6px;
+        padding:2px 1px;
+    }
+
+    .sscSummaryBox{
+        font-size:7px;
+    }
+
+    .sscSummaryNumber{
+        font-size:11px;
+    }
+}
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print{
+
+    @page{
+        size:A4 portrait;
+        margin:0;
+    }
+
+    html,
+    body{
+        margin:0 !important;
+        padding:0 !important;
+        background:white !important;
+    }
+
+    #sscCertificateActions{
+        display:none !important;
+    }
+
+    #sscCertificatePaper{
+        width:210mm !important;
+        height:297mm !important;
+        min-height:297mm !important;
+        margin:0 !important;
+        border:5px double #173f73 !important;
+    }
+}
+#sscWatermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 420px;
+    height: auto;
+    opacity: 0.08;
+    z-index: 1;
+    pointer-events: none;
+}
+
+
+#sscCertificate {
+    position: relative;
+}
+</style>
+</head>
+
+
+<body id="sscCertificatePage">
+
+
+<!-- =====================================================
+     BUTTONS
+===================================================== -->
+
+<div id="sscCertificateActions">
+
+    <button id="sscPrintBtn" type="button">
+        🖨️ Print
+    </button>
+
+    <button id="sscDownloadBtn" type="button">
+        📥 Download PDF
+    </button>
+
+    <button id="sscBackBtn" type="button">
+        ← Back
+    </button>
+
+    <button id="sscDashboardBtn" type="button">
+        🏠 Dashboard
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     A4 PAPER
+===================================================== -->
+
+<div id="sscCertificatePaper">
+
+    <div id="sscCertificateInnerBorder"></div>
+
+    <div id="sscCertificateContent">
+
+    <img id="sscWatermark" src="logo.png" alt="S.S.C CLASSES Logo">
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <div id="sscHeader">
+
+            <img
+                id="sscLogo"
+                src="logo.png"
+                alt="S.S.C CLASSES"
+            >
+
+            <div id="sscInstituteName">
+                S.S.C CLASSES
+            </div>
+
+            <div id="sscInstituteSubtitle">
+                ACADEMIC RESULT STATEMENT
+            </div>
+
+            <div id="sscInstituteAddress">
+                Sarbela, Bihar
+                &nbsp; | &nbsp;
+                Director: Sonu Sir
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             TITLE
+        ================================================== -->
+
+        <div id="sscTitleArea">
+
+            <div id="sscTitle">
+                RESULT / MARKS STATEMENT
+            </div>
+
+            <div id="sscSession">
+                Academic Session:
+                <span id="sscSessionValue">
+                    2026-27
+                </span>
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CERTIFICATE NUMBER / DATE
+        ================================================== -->
+
+        <div id="sscTopInfo">
+
+            <div>
+                Certificate No.:
+                <span id="sscCertificateNumber">
+                    —
+                </span>
+            </div>
+
+            <div>
+                Date:
+                <span id="sscCertificateDate">
+                    —
+                </span>
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             STUDENT DETAILS
+        ================================================== -->
+
+        <div id="sscStudentSection">
+
+            <div id="sscStudentDetails">
+
+                <table id="sscStudentDetailsTable">
+
+                    <tr>
+                        <td class="sscStudentLabel">
+                            Student Name
+                        </td>
+
+                        <td
+                            class="sscStudentValue"
+                            id="sscStudentName"
+                        >
+                            —
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="sscStudentLabel">
+                            Father Name
+                        </td>
+
+                        <td
+                            class="sscStudentValue"
+                            id="sscFatherName"
+                        >
+                            —
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="sscStudentLabel">
+                            Class
+                        </td>
+
+                        <td
+                            class="sscStudentValue"
+                            id="sscStudentClass"
+                        >
+                            —
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="sscStudentLabel">
+                            Roll No.
+                        </td>
+
+                        <td
+                            class="sscStudentValue"
+                            id="sscRollNumber"
+                        >
+                            —
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="sscStudentLabel">
+                            Batch Time
+                        </td>
+
+                        <td
+                            class="sscStudentValue"
+                            id="sscBatchTime"
+                        >
+                            —
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+
+            <div id="sscPhotoBox">
+
+                <img
+                    id="sscStudentPhoto"
+                    src="logo.png"
+                    alt="Student Photo"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             MARKS
+        ================================================== -->
+
+        <div id="sscMarksHeading">
+            MARKS OBTAINED
+        </div>
+
+
+        <table id="sscMarksTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        SUBJECT
+                    </th>
+
+                    <th>
+                        FULL<br>MARKS
+                    </th>
+
+                    <th>
+                        PASS<br>MARKS
+                    </th>
+
+                    <th>
+                        THEORY
+                    </th>
+
+                    <th>
+                        INTERNAL<br>ASSESSMENT
+                    </th>
+
+                    <th>
+                        TOTAL
+                    </th>
+
+                    <th>
+                        MARKS IN WORDS
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="sscMarksBody">
+            </tbody>
+
+        </table>
+
+
+        <!-- =================================================
+             AGGREGATE
+        ================================================== -->
+
+        <table id="sscAggregateTable">
+
+            <tr>
+
+                <td id="sscAggregateLabel">
+                    AGGREGATE
+                </td>
+
+                <td id="sscAggregateValue">
+
+                    <span id="sscFullMarks">
+                        0
+                    </span>
+
+                    &nbsp; / &nbsp;
+
+                    <span id="sscObtainedMarks">
+                        0
+                    </span>
+
+                </td>
+
+                <td id="sscResultLabel">
+                    RESULT
+                </td>
+
+                <td id="sscResultValue">
+
+                    <span id="sscFinalResult">
+                        —
+                    </span>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+
+        <!-- =================================================
+             SUMMARY
+        ================================================== -->
+
+        <div id="sscSummary">
+
+            <div class="sscSummaryBox">
+
+                TOTAL MARKS
+
+                <span
+                    class="sscSummaryNumber"
+                    id="sscSummaryFull"
+                >
+                    0
+                </span>
+
+            </div>
+
+
+            <div class="sscSummaryBox">
+
+                OBTAINED
+
+                <span
+                    class="sscSummaryNumber"
+                    id="sscSummaryObtained"
+                >
+                    0
+                </span>
+
+            </div>
+
+
+            <div class="sscSummaryBox">
+
+                PERCENTAGE
+
+                <span
+                    class="sscSummaryNumber"
+                    id="sscSummaryPercentage"
+                >
+                    0%
+                </span>
+
+            </div>
+
+
+            <div class="sscSummaryBox">
+
+                DIVISION
+
+                <span
+                    class="sscSummaryNumber"
+                    id="sscSummaryDivision"
+                >
+                    —
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             WORDS
+        ================================================== -->
+
+        <div id="sscMarksWords">
+
+            Total Marks in Words:
+
+            <span id="sscMarksWordsValue">
+                —
+            </span>
+
+        </div>
+
+
+        <!-- =================================================
+             DECLARATION
+        ================================================== -->
+
+        <div id="sscDeclaration">
+
+            <strong>Declaration:</strong>
+
+            This result statement has been issued by
+            S.S.C CLASSES, Sarbela, Bihar, on the basis of
+            the academic assessment records maintained by
+            the institute.
+
+            <br><br>
+
+            This is an institute-issued academic result
+            statement and is not a government or board
+            marksheet.
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =================================================
+         BOTTOM
+    ================================================== -->
+
+    <div id="sscBottom">
+
+        <div id="sscDateArea">
+
+            Date:
+
+            <span id="sscBottomDate">
+                —
+            </span>
+
+        </div>
+
+
+        <div id="sscSignatureArea">
+
+            <div id="sscSignatureLine"></div>
+
+            <div id="sscDirectorName">
+                Sonu Sir
+            </div>
+
+            <div id="sscDirectorTitle">
+                Director<br>
+                S.S.C CLASSES
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
+
+    <div id="sscFooter">
+
+        S.S.C CLASSES • Sarbela, Bihar • Academic Result Statement
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   GET JSON
+========================================================= */
+
+function sscGetJSON(key){
+
+    try{
+
+        const raw =
+            localStorage.getItem(key);
+
+        if(!raw){
+            return null;
+        }
+
+        return JSON.parse(raw);
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        return null;
+
+    }
+
+}
+
+
+/* =========================================================
+   SAFE VALUE
+========================================================= */
+
+function sscSafe(
+    value,
+    fallback="—"
+){
+
+    if(
+        value === undefined ||
+        value === null ||
+        value === ""
+    ){
+        return fallback;
+    }
+
+    return value;
+
+}
+
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+function sscNum(
+    value,
+    fallback=0
+){
+
+    const n =
+        Number(value);
+
+    return Number.isFinite(n)
+        ? n
+        : fallback;
+
+}
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+function sscEscape(value){
+
+    return String(
+        sscSafe(value,"")
+    )
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   STUDENT
+========================================================= */
+
+function sscGetStudent(){
+
+    return (
+        sscGetJSON("sscStudent")
+        || {}
+    );
+
+}
+
+
+/* =========================================================
+   RESULT
+========================================================= */
+
+function sscGetResult(){
+
+    const keys = [
+
+        "sscLastResult",
+
+        "sscResult",
+
+        "currentResult",
+
+        "testResult",
+
+        "lastResult"
+
+    ];
+
+
+    for(
+        let i=0;
+        i<keys.length;
+        i++
+    ){
+
+        const result =
+            sscGetJSON(keys[i]);
+
+        if(result){
+            return result;
+        }
+
+    }
+
+
+    return {};
+
+}
+
+
+/* =========================================================
+   NUMBER TO WORDS
+========================================================= */
+
+function sscNumberToWords(value){
+
+    let number =
+        Math.floor(
+            sscNum(value)
+        );
+
+
+    if(number === 0){
+        return "ZERO";
+    }
+
+
+    const ones = [
+
+        "",
+
+        "ONE",
+
+        "TWO",
+
+        "THREE",
+
+        "FOUR",
+
+        "FIVE",
+
+        "SIX",
+
+        "SEVEN",
+
+        "EIGHT",
+
+        "NINE",
+
+        "TEN",
+
+        "ELEVEN",
+
+        "TWELVE",
+
+        "THIRTEEN",
+
+        "FOURTEEN",
+
+        "FIFTEEN",
+
+        "SIXTEEN",
+
+        "SEVENTEEN",
+
+        "EIGHTEEN",
+
+        "NINETEEN"
+
+    ];
+
+
+    const tens = [
+
+        "",
+
+        "",
+
+        "TWENTY",
+
+        "THIRTY",
+
+        "FORTY",
+
+        "FIFTY",
+
+        "SIXTY",
+
+        "SEVENTY",
+
+        "EIGHTY",
+
+        "NINETY"
+
+    ];
+
+
+    function belowThousand(n){
+
+        let text = "";
+
+
+        if(n >= 100){
+
+            text +=
+                ones[
+                    Math.floor(n / 100)
+                ] +
+                " HUNDRED";
+
+
+            n %= 100;
+
+
+            if(n){
+                text += " ";
+            }
+
+        }
+
+
+        if(n >= 20){
+
+            text +=
+                tens[
+                    Math.floor(n / 10)
+                ];
+
+
+            n %= 10;
+
+
+            if(n){
+                text +=
+                    " " +
+                    ones[n];
+            }
+
+        }
+
+        else if(n > 0){
+
+            text +=
+                ones[n];
+
+        }
+
+
+        return text;
+
+    }
+
+
+    let text = "";
+
+
+    if(number >= 100000){
+
+        text +=
+            belowThousand(
+                Math.floor(
+                    number / 100000
+                )
+            ) +
+            " LAKH";
+
+
+        number %= 100000;
+
+
+        if(number){
+            text += " ";
+        }
+
+    }
+
+
+    if(number >= 1000){
+
+        text +=
+            belowThousand(
+                Math.floor(
+                    number / 1000
+                )
+            ) +
+            " THOUSAND";
+
+
+        number %= 1000;
+
+
+        if(number){
+            text += " ";
+        }
+
+    }
+
+
+    if(number > 0){
+
+        text +=
+            belowThousand(
+                number
+            );
+
+    }
+
+
+    return text.trim();
+
+}
+
+
+/* =========================================================
+   DIVISION
+========================================================= */
+
+function sscGetDivision(
+    percentage
+){
+
+    percentage =
+        sscNum(percentage);
+
+
+    if(percentage >= 60){
+        return "1st";
+    }
+
+
+    if(percentage >= 45){
+        return "2nd";
+    }
+
+
+    if(percentage >= 33){
+        return "3rd";
+    }
+
+
+    return "FAIL";
+
+}
+
+
+/* =========================================================
+   NORMALIZE SUBJECT
+========================================================= */
+
+function sscNormalizeSubject(
+    raw,
+    defaultName
+){
+
+    /*
+      Number:
+      85
+
+      Object:
+      {
+        marks:85
+      }
+
+      OR:
+
+      {
+        theory:70,
+        internal:20
+      }
+    */
+
+
+    if(
+        typeof raw === "number" ||
+        typeof raw === "string"
+    ){
+
+        const obtained =
+            sscNum(raw);
+
+
+        return {
+
+            name:
+                defaultName,
+
+            fullMarks:
+                100,
+
+            passMarks:
+                30,
+
+            theory:
+                obtained,
+
+            internal:
+                0,
+
+            obtained:
+                obtained
+
+        };
+
+    }
+
+
+    if(
+        !raw ||
+        typeof raw !== "object"
+    ){
+
+        return {
+
+            name:
+                defaultName,
+
+            fullMarks:
+                100,
+
+            passMarks:
+                30,
+
+            theory:
+                0,
+
+            internal:
+                0,
+
+            obtained:
+                0
+
+        };
+
+    }
+
+
+    const fullMarks =
+        sscNum(
+
+            raw.fullMarks ??
+
+            raw.maximumMarks ??
+
+            raw.maxMarks ??
+
+            raw.max ??
+
+            100,
+
+            100
+
+        );
+
+
+    const passMarks =
+        sscNum(
+
+            raw.passMarks ??
+
+            raw.passingMarks ??
+
+            raw.pass ??
+
+            30,
+
+            30
+
+        );
+
+
+    let theory =
+        sscNum(
+
+            raw.theory ??
+
+            raw.theoryMarks ??
+
+            raw.theoryObtained ??
+
+            raw.written ??
+
+            raw.writtenMarks ??
+
+            0
+
+        );
+
+
+    let internal =
+        sscNum(
+
+            raw.internal ??
+
+            raw.internalMarks ??
+
+            raw.internalAssessment ??
+
+            raw.practical ??
+
+            raw.practicalMarks ??
+
+            0
+
+        );
+
+
+    let obtained =
+        sscNum(
+
+            raw.obtained ??
+
+            raw.obtainedMarks ??
+
+            raw.totalObtained ??
+
+            raw.total ??
+
+            raw.marks ??
+
+            raw.score ??
+
+            raw.resultMarks,
+
+            NaN
+
+        );
+
+
+    /*
+      अगर total नहीं मिला
+    */
+
+    if(
+        !Number.isFinite(obtained)
+    ){
+
+        obtained =
+            theory +
+            internal;
+
+    }
+
+
+    /*
+      Theory नहीं है लेकिन
+      obtained + internal है
+    */
+
+    if(
+        theory === 0 &&
+        internal > 0 &&
+        obtained > 0
+    ){
+
+        theory =
+            Math.max(
+                0,
+                obtained - internal
+            );
+
+    }
+
+
+    /*
+      Total नहीं है लेकिन
+      theory + internal है
+    */
+
+    if(
+        obtained === 0 &&
+        (
+            theory > 0 ||
+            internal > 0
+        )
+    ){
+
+        obtained =
+            theory +
+            internal;
+
+    }
+
+
+    return {
+
+        name:
+
+            raw.subject ??
+
+            raw.subjectName ??
+
+            raw.name ??
+
+            raw.title ??
+
+            defaultName,
+
+
+        fullMarks:
+            fullMarks,
+
+
+        passMarks:
+            passMarks,
+
+
+        theory:
+            theory,
+
+
+        internal:
+            internal,
+
+
+        obtained:
+            obtained
+
+    };
+
+}
+
+
+/* =========================================================
+   EXPLICIT SIX SUBJECT MAPPING
+========================================================= */
+
+function sscGetLegacySubjects(
+    result
+){
+
+    const map = [
+
+        [
+            "mathematics",
+            "Mathematics"
+        ],
+
+        [
+            "math",
+            "Mathematics"
+        ],
+
+        [
+            "science",
+            "Science"
+        ],
+
+        [
+            "socialScience",
+            "Social Science (SST)"
+        ],
+
+        [
+            "socialscience",
+            "Social Science (SST)"
+        ],
+
+        [
+            "sst",
+            "Social Science (SST)"
+        ],
+
+        [
+            "hindi",
+            "Hindi"
+        ],
+
+        [
+            "sanskrit",
+            "Sanskrit"
+        ],
+
+        [
+            "english",
+            "English"
+        ]
+
+    ];
+
+
+    const subjects = [];
+
+    const alreadyAdded =
+        new Set();
+
+
+    for(
+        const item of map
+    ){
+
+        const key =
+            item[0];
+
+        const label =
+            item[1];
+
+
+        if(
+            result[key] !== undefined &&
+            result[key] !== null &&
+            result[key] !== "" &&
+            !alreadyAdded.has(label)
+        ){
+
+            subjects.push(
+
+                sscNormalizeSubject(
+                    result[key],
+                    label
+                )
+
+            );
+
+
+            alreadyAdded.add(label);
+
+        }
+
+    }
+
+
+    return subjects;
+
+}
+
+
+/* =========================================================
+   GET SUBJECTS
+========================================================= */
+
+function sscGetSubjects(
+    result
+){
+
+    /*
+      FIRST:
+      Subject arrays
+    */
+
+    const arrays = [
+
+        result.subjects,
+
+        result.resultSubjects,
+
+        result.subjectResults,
+
+        result.subjectWiseResults,
+
+        result.results
+
+    ];
+
+
+    for(
+        const arr of arrays
+    ){
+
+        if(
+            Array.isArray(arr) &&
+            arr.length > 0
+        ){
+
+            return arr.map(
+
+                function(item,index){
+
+                    return sscNormalizeSubject(
+
+                        item,
+
+                        item?.subjectName ||
+
+                        item?.subject ||
+
+                        "Subject " +
+                        (index + 1)
+
+                    );
+
+                }
+
+            );
+
+        }
+
+    }
+
+
+    /*
+      SECOND:
+      IMPORTANT SIX SUBJECT
+      LEGACY RESULT FORMAT
+    */
+
+    const legacy =
+        sscGetLegacySubjects(
+            result
+        );
+
+
+    if(
+        legacy.length > 0
+    ){
+
+        return legacy;
+
+    }
+
+
+    /*
+      THIRD:
+      Single online test
+    */
+
+    const full =
+        sscNum(
+
+            result.fullMarks ??
+
+            result.totalMarks ??
+
+            result.maxMarks ??
+
+            result.totalQuestions ??
+
+            0
+
+        );
+
+
+    const obtained =
+        sscNum(
+
+            result.obtainedMarks ??
+
+            result.obtained ??
+
+            result.score ??
+
+            result.marks ??
+
+            result.correct ??
+
+            0
+
+        );
+
+
+    if(
+        full > 0 ||
+        obtained > 0
+    ){
+
+        return [
+
+            {
+
+                name:
+
+                    result.subject ||
+
+                    result.subjectName ||
+
+                    result.testName ||
+
+                    "Online Test",
+
+
+                fullMarks:
+                    full || 100,
+
+
+                passMarks:
+                    sscNum(
+                        result.passMarks,
+                        30
+                    ),
+
+
+                theory:
+                    sscNum(
+                        result.theory,
+                        obtained
+                    ),
+
+
+                internal:
+                    sscNum(
+                        result.internal,
+                        0
+                    ),
+
+
+                obtained:
+                    obtained
+
+            }
+
+        ];
+
+    }
+
+
+    return [];
+
+}
+
+
+/* =========================================================
+   LOAD STUDENT
+========================================================= */
+
+function sscLoadStudent(){
+
+    const student =
+        sscGetStudent();
+
+
+    document.getElementById(
+        "sscStudentName"
+    ).textContent =
+
+        sscSafe(
+
+            student.name ||
+
+            student.studentName
+
+        );
+
+
+    document.getElementById(
+        "sscFatherName"
+    ).textContent =
+
+        sscSafe(
+
+            student.fatherName ||
+
+            student.father
+
+        );
+
+
+    document.getElementById(
+        "sscStudentClass"
+    ).textContent =
+
+        sscSafe(
+
+            student.studentClass ||
+
+            student.className ||
+
+            student.class
+
+        );
+
+
+    document.getElementById(
+        "sscRollNumber"
+    ).textContent =
+
+        sscSafe(
+
+            student.rollNumber ||
+
+            student.rollNo ||
+
+            student.roll
+
+        );
+
+
+    document.getElementById(
+        "sscBatchTime"
+    ).textContent =
+
+        sscSafe(
+
+            student.batchTime ||
+
+            student.batch
+
+        );
+
+
+    if(
+        student.photo
+    ){
+
+        document.getElementById(
+            "sscStudentPhoto"
+        ).src =
+            student.photo;
+
+    }
+
+}
+
+
+/* =========================================================
+   CERTIFICATE NUMBER
+========================================================= */
+
+function sscLoadCertificateNumber(){
+
+    const student = sscGetStudent();
+    const result = sscGetResult();
+
+    const identity =
+        student.rollNumber ||
+        student.rollNo ||
+        student.mobile ||
+        student.phone ||
+        student.name ||
+        student.studentName ||
+        "STUDENT";
+
+    const resultIdentity =
+        result.id ||
+        result.resultId ||
+        result.testId ||
+        result.submittedAt ||
+        result.createdAt ||
+        result.testName ||
+        result.name ||
+        "RESULT";
+
+    const rawKey = String(identity) + "|" + String(resultIdentity);
+    let hash = 0;
+
+    for(let i = 0; i < rawKey.length; i++){
+        hash = ((hash << 5) - hash + rawKey.charCodeAt(i)) | 0;
+    }
+
+    const serial = Math.abs(hash).toString().slice(0, 6).padStart(6, "0");
+    const year = new Date().getFullYear();
+    const number = "SSC-" + year + "-" + serial;
+
+    document.getElementById("sscCertificateNumber").textContent = number;
+
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+function sscLoadDate(){
+
+    const d =
+        new Date();
+
+
+    const date =
+
+        String(
+            d.getDate()
+        ).padStart(
+            2,
+            "0"
+        )
+
+        +
+
+        "/"
+
+        +
+
+        String(
+            d.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        )
+
+        +
+
+        "/"
+
+        +
+
+        d.getFullYear();
+
+
+    document.getElementById(
+        "sscCertificateDate"
+    ).textContent =
+        date;
+
+
+    document.getElementById(
+        "sscBottomDate"
+    ).textContent =
+        date;
+
+}
+
+
+/* =========================================================
+   LOAD RESULT
+========================================================= */
+
+function sscLoadResult(){
+
+    const result =
+        sscGetResult();
+
+
+    const subjects =
+        sscGetSubjects(
+            result
+        );
+
+
+    const body =
+        document.getElementById(
+            "sscMarksBody"
+        );
+
+
+    body.innerHTML = "";
+
+
+    let totalFull = 0;
+
+    let totalObtained = 0;
+
+    let subjectCount = 0;
+
+
+    /*
+      CREATE EVERY SUBJECT ROW
+    */
+
+    subjects.forEach(
+
+        function(subject){
+
+            if(!subject){
+                return;
+            }
+
+
+            const fullMarks =
+                Math.max(
+                    0,
+                    sscNum(
+                        subject.fullMarks,
+                        100
+                    )
+                );
+
+
+            const passMarks =
+                Math.max(
+                    0,
+                    sscNum(
+                        subject.passMarks,
+                        30
+                    )
+                );
+
+
+            const theory =
+                Math.max(
+                    0,
+                    sscNum(
+                        subject.theory,
+                        0
+                    )
+                );
+
+
+            const internal =
+                Math.max(
+                    0,
+                    sscNum(
+                        subject.internal,
+                        0
+                    )
+                );
+
+
+            const obtained =
+                Math.max(
+                    0,
+                    sscNum(
+                        subject.obtained,
+                        theory + internal
+                    )
+                );
+
+
+            totalFull +=
+                fullMarks;
+
+
+            totalObtained +=
+                obtained;
+
+
+            subjectCount++;
+
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${sscEscape(
+                        subject.name
+                    )}
+                </td>
+
+                <td>
+                    ${fullMarks}
+                </td>
+
+                <td>
+                    ${passMarks}
+                </td>
+
+                <td>
+                    ${theory}
+                </td>
+
+                <td>
+                    ${internal}
+                </td>
+
+                <td>
+                    <strong>
+                        ${obtained}
+                    </strong>
+                </td>
+
+                <td>
+                    ${sscNumberToWords(
+                        obtained
+                    )}
+                </td>
+
+            `;
+
+
+            body.appendChild(
+                row
+            );
+
+        }
+
+    );
+
+
+    /*
+      अगर कोई subject/result नहीं मिला
+    */
+
+    if(
+        subjectCount === 0
+    ){
+
+        const row =
+            document.createElement(
+                "tr"
+            );
+
+
+        row.innerHTML = `
+
+            <td>
+                Result data not available
+            </td>
+
+            <td>—</td>
+
+            <td>—</td>
+
+            <td>—</td>
+
+            <td>—</td>
+
+            <td>—</td>
+
+            <td>—</td>
+
+        `;
+
+
+        body.appendChild(
+            row
+        );
+
+
+        /*
+          Stored aggregate fallback
+        */
+
+        totalFull =
+            sscNum(
+
+                result.totalMarks ??
+
+                result.fullMarks ??
+
+                result.maxMarks ??
+
+                result.totalQuestions ??
+
+                0
+
+            );
+
+
+        totalObtained =
+            sscNum(
+
+                result.obtainedMarks ??
+
+                result.obtained ??
+
+                result.score ??
+
+                result.marks ??
+
+                result.correct ??
+
+                0
+
+            );
+
+    }
+
+
+    /*
+      PERCENTAGE
+    */
+
+    let percentage = 0;
+
+
+    if(
+        totalFull > 0
+    ){
+
+        percentage =
+
+            (
+                totalObtained /
+                totalFull
+            ) *
+            100;
+
+    }
+
+    else{
+
+        percentage =
+            sscNum(
+                result.percentage,
+                0
+            );
+
+    }
+
+
+    /*
+      FINAL RESULT
+    */
+
+    let finalResult =
+
+        result.result ||
+
+        result.status ||
+
+        result.finalResult;
+
+
+    if(
+        !finalResult
+    ){
+
+        finalResult =
+
+            percentage >= 33
+
+            ? "PASS"
+
+            : "FAIL";
+
+    }
+
+
+    /*
+      DIVISION
+    */
+
+    let division =
+
+        result.division ||
+
+        result.div ||
+
+        sscGetDivision(
+            percentage
+        );
+
+
+    /*
+      DISPLAY AGGREGATE
+    */
+
+    document.getElementById(
+        "sscFullMarks"
+    ).textContent =
+        totalFull;
+
+
+    document.getElementById(
+        "sscObtainedMarks"
+    ).textContent =
+        totalObtained;
+
+
+    /*
+      SUMMARY
+    */
+
+    document.getElementById(
+        "sscSummaryFull"
+    ).textContent =
+        totalFull;
+
+
+    document.getElementById(
+        "sscSummaryObtained"
+    ).textContent =
+        totalObtained;
+
+
+    document.getElementById(
+        "sscSummaryPercentage"
+    ).textContent =
+
+        percentage.toFixed(2) +
+        "%";
+
+
+    document.getElementById(
+        "sscSummaryDivision"
+    ).textContent =
+        division;
+
+
+    document.getElementById(
+        "sscFinalResult"
+    ).textContent =
+
+        String(
+            finalResult
+        ).toUpperCase();
+
+
+    /*
+      TOTAL MARKS IN WORDS
+    */
+
+    document.getElementById(
+        "sscMarksWordsValue"
+    ).textContent =
+
+        sscNumberToWords(
+            totalObtained
+        );
+
+
+    /*
+      SESSION
+    */
+
+    document.getElementById(
+        "sscSessionValue"
+    ).textContent =
+
+        result.session ||
+
+        result.academicSession ||
+
+        "2026-27";
+
+}
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+function sscPrint(){
+
+    /*
+      सिर्फ Print खुलेगा।
+      Download function नहीं चलेगा।
+    */
+
+    window.print();
+
+}
+
+
+/* =========================================================
+   DOWNLOAD PDF
+========================================================= */
+
+async function sscDownloadPDF(){
+
+    /*
+      IMPORTANT:
+      यहाँ window.print() नहीं है।
+    */
+
+    if(typeof html2pdf === "undefined"){
+
+        await new Promise(function(resolve){
+            let waited = 0;
+
+            const timer = setInterval(function(){
+
+                if(typeof html2pdf !== "undefined"){
+                    clearInterval(timer);
+                    resolve();
+                    return;
+                }
+
+                waited += 250;
+
+                if(waited >= 5000){
+                    clearInterval(timer);
+                    resolve();
+                }
+
+            },250);
+        });
+
+    }
+
+    if(typeof html2pdf === "undefined"){
+
+        alert(
+            "PDF library नहीं मिली।\\n\\n" +
+            "html2pdf.bundle.min.js को certificate.html के SAME FOLDER में रखें, " +
+            "या internet connection उपलब्ध रखें।"
+        );
+
+        return;
+
+    }
+
+    const paper =
+        document.getElementById(
+            "sscCertificatePaper"
+        );
+
+
+    const student =
+        sscGetStudent();
+
+
+    const name =
+
+        student.name ||
+
+        student.studentName ||
+
+        "Student";
+
+
+    const cleanName =
+
+        String(name)
+
+        .replace(
+            /[^a-zA-Z0-9 ]/g,
+            ""
+        )
+
+        .trim()
+
+        .replace(
+            /\s+/g,
+            "-"
+        )
+
+        ||
+
+        "Student";
+
+
+    const filename =
+
+        "SSC-CLASSES-RESULT-" +
+
+        cleanName +
+
+        ".pdf";
+
+
+    try{
+
+        await html2pdf()
+
+            .set({
+
+                margin:0,
+
+                filename:
+                    filename,
+
+                image:{
+
+                    type:"jpeg",
+
+                    quality:.98
+
+                },
+
+                html2canvas:{
+
+                    scale:2,
+
+                    useCORS:true,
+
+                    allowTaint:true,
+
+                    backgroundColor:
+                        "#ffffff"
+
+                },
+
+                jsPDF:{
+
+                    unit:"mm",
+
+                    format:"a4",
+
+                    orientation:
+                        "portrait"
+
+                }
+
+            })
+
+            .from(
+                paper
+            )
+
+            .save();
+
+    }
+
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        alert(
+
+            "PDF download नहीं हो पाया।\n\n" +
+
+            "html2pdf.bundle.min.js की file check करें।"
+
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   BACK
+========================================================= */
+
+function sscBack(){
+
+    if(window.history.length > 1){
+        history.back();
+    }else{
+        window.location.href = "student.html#result";
+    }
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function sscDashboard(){
+
+    window.location.href =
+        "student.html";
+
+}
+
+
+/* =========================================================
+   BUTTON EVENTS
+========================================================= */
+
+document.getElementById(
+    "sscPrintBtn"
+).addEventListener(
+    "click",
+    sscPrint
+);
+
+
+document.getElementById(
+    "sscDownloadBtn"
+).addEventListener(
+    "click",
+    sscDownloadPDF
+);
+
+
+document.getElementById(
+    "sscBackBtn"
+).addEventListener(
+    "click",
+    sscBack
+);
+
+
+document.getElementById(
+    "sscDashboardBtn"
+).addEventListener(
+    "click",
+    sscDashboard
+);
+
+
+/* =========================================================
+   START
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    sscLoadStudent();
+    sscLoadCertificateNumber();
+    sscLoadDate();
+    sscLoadResult();
+
+});
+
+</script>
+
+</body>
+</html>

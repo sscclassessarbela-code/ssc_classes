@@ -1,0 +1,5545 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<meta name="theme-color" content="#082b5c">
+
+<title>SSC CLASSES | Learn Today • Succeed Tomorrow</title>
+
+<style>
+
+/* =========================================================
+   SSC CLASSES - DESIGN SYSTEM
+========================================================= */
+
+:root{
+    --navy:#082b5c;
+    --navy-dark:#061f45;
+    --blue:#1769e8;
+    --blue-light:#eaf2ff;
+
+    --green:#18a873;
+    --green-light:#e8f8ef;
+
+    --orange:#f59e0b;
+    --orange-light:#fff2dc;
+
+    --red:#e53935;
+    --red-light:#ffeded;
+
+    --purple:#7c4dff;
+    --purple-light:#f0eaff;
+
+    --teal:#119da4;
+    --teal-light:#e5fafb;
+
+    --bg:#f4f7fb;
+    --white:#ffffff;
+
+    --text:#172033;
+    --muted:#6b7280;
+    --border:#e5eaf0;
+
+    --shadow:0 7px 22px rgba(8,43,92,.09);
+    --radius:17px;
+}
+
+/* RESET */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:
+        Arial,
+        "Noto Sans Devanagari",
+        sans-serif;
+
+    background:var(--bg);
+    color:var(--text);
+}
+
+button,
+input{
+    font:inherit;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+}
+
+button:active{
+    transform:scale(.98);
+}
+
+/* =========================================================
+   COMMON
+========================================================= */
+
+.hidden{
+    display:none!important;
+}
+
+.card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+}
+
+.primary-btn{
+    background:var(--blue);
+    color:#fff;
+    border-radius:12px;
+    padding:13px 18px;
+    font-weight:700;
+}
+
+.primary-btn.full{
+    width:100%;
+}
+
+.outline-btn{
+    background:#fff;
+    color:var(--blue);
+    border:1px solid #ccd9eb;
+    border-radius:12px;
+    padding:12px 18px;
+    font-weight:700;
+}
+
+.outline-btn.full{
+    width:100%;
+}
+
+.section-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:18px 2px 10px;
+}
+
+.section-title h2{
+    font-size:17px;
+}
+
+.section-title button{
+    background:none;
+    color:var(--blue);
+    font-size:13px;
+    font-weight:700;
+}
+
+/* =========================================================
+   SPLASH
+========================================================= */
+
+.splash{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--navy-dark),
+            #0a3c7e
+        );
+
+    color:#fff;
+    text-align:center;
+}
+
+.splash-content{
+    padding:30px;
+}
+
+.splash-logo{
+    width:105px;
+    height:105px;
+    object-fit:contain;
+    display:block;
+    margin:auto;
+}
+
+.splash h1{
+    font-size:30px;
+    margin-top:12px;
+}
+
+.splash-tag{
+    color:#dbe7f8;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.splash-dream{
+    margin-top:55px;
+    line-height:1.8;
+    font-size:14px;
+}
+
+.spinner{
+    width:38px;
+    height:38px;
+
+    border:4px solid rgba(255,255,255,.3);
+    border-top-color:white;
+
+    border-radius:50%;
+
+    margin:25px auto 0;
+
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* =========================================================
+   SCREENS
+========================================================= */
+
+.screen{
+    display:none;
+    min-height:100vh;
+    padding-bottom:82px;
+}
+
+.screen.active{
+    display:block;
+}
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar{
+    height:67px;
+
+    background:var(--navy);
+    color:#fff;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 17px;
+
+    gap:12px;
+
+    position:sticky;
+    top:0;
+    z-index:50;
+}
+
+.topbar h1{
+    font-size:18px;
+    flex:1;
+}
+
+.back-btn{
+    width:38px;
+    height:38px;
+
+    border-radius:10px;
+
+    background:rgba(255,255,255,.1);
+
+    color:#fff;
+
+    font-size:28px;
+}
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page{
+    max-width:620px;
+    margin:auto;
+    padding:17px;
+}
+
+/* =========================================================
+   LOGIN / REGISTER
+========================================================= */
+
+.auth-screen{
+    min-height:100vh;
+    background:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+}
+
+.auth-box{
+    width:100%;
+    max-width:420px;
+    text-align:center;
+}
+
+.auth-logo{
+    width:92px;
+    height:92px;
+    object-fit:contain;
+}
+
+.auth-box h1{
+    color:var(--navy);
+    font-size:25px;
+    margin-top:8px;
+}
+
+.auth-tag{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.auth-box h2{
+    font-size:25px;
+    margin-top:32px;
+    margin-bottom:7px;
+}
+
+.auth-description{
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:20px;
+}
+
+.input-group{
+    position:relative;
+    margin:10px 0;
+}
+
+.input-group input{
+    width:100%;
+    height:48px;
+
+    border:1px solid #dbe2ec;
+
+    border-radius:12px;
+
+    padding:0 43px;
+
+    outline:none;
+}
+
+.input-group input:focus{
+    border-color:var(--blue);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(23,105,232,.1);
+}
+
+.input-icon{
+    position:absolute;
+    left:14px;
+    top:13px;
+}
+
+.password-eye{
+    position:absolute;
+    right:10px;
+    top:8px;
+
+    background:none;
+
+    font-size:18px;
+}
+
+.forgot{
+    text-align:right;
+    color:var(--blue);
+    font-size:12px;
+    margin:8px 2px 15px;
+    cursor:pointer;
+}
+
+.or{
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
+    color:#929baa;
+
+    font-size:12px;
+
+    margin:18px 0;
+}
+
+.or::before,
+.or::after{
+    content:"";
+    height:1px;
+    background:var(--border);
+    flex:1;
+}
+
+.google-btn{
+    width:100%;
+    padding:13px;
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    font-weight:700;
+}
+
+.auth-footer{
+    margin-top:22px;
+
+    font-size:12px;
+
+    color:var(--muted);
+}
+
+.auth-footer span{
+    color:var(--blue);
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* =========================================================
+   HOME HEADER
+========================================================= */
+
+.home-header{
+    background:var(--navy);
+    color:#fff;
+
+    padding:18px 17px 24px;
+
+    border-radius:
+        0 0 26px 26px;
+}
+
+.user-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.user-avatar{
+    width:43px;
+    height:43px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    background:#dce8fb;
+}
+
+.user-info{
+    flex:1;
+}
+
+.user-info strong{
+    font-size:15px;
+}
+
+.user-info small{
+    display:block;
+    color:#c8d7ef;
+    margin-top:4px;
+    font-size:10px;
+}
+
+.notification-button{
+    width:40px;
+    height:40px;
+
+    border-radius:11px;
+
+    color:#fff;
+
+    background:
+        rgba(255,255,255,.1);
+
+    position:relative;
+}
+
+.notification-badge{
+    position:absolute;
+
+    top:-3px;
+    right:-3px;
+
+    min-width:17px;
+    height:17px;
+
+    background:#ef2222;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    font-size:9px;
+
+    border:2px solid var(--navy);
+}
+
+/* =========================================================
+   HOME HERO
+========================================================= */
+
+.hero{
+    margin-top:18px;
+
+    min-height:151px;
+
+    border-radius:18px;
+
+    padding:18px;
+
+    display:flex;
+    align-items:center;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            120deg,
+            #164e9c,
+            #092a59
+        );
+}
+
+.hero-content{
+    flex:1;
+}
+
+.hero h2{
+    font-size:20px;
+    line-height:1.25;
+}
+
+.hero p{
+    color:#d5e4fa;
+    font-size:11px;
+    line-height:1.5;
+
+    margin:7px 0 13px;
+}
+
+.hero-btn{
+    background:var(--orange);
+    color:white;
+
+    padding:9px 13px;
+
+    border-radius:9px;
+
+    font-size:11px;
+    font-weight:bold;
+}
+
+.hero-image{
+    font-size:65px;
+}
+
+/* =========================================================
+   QUICK MENU
+========================================================= */
+
+.home-page{
+    padding:0 17px;
+}
+
+.quick-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:10px;
+
+    margin-top:16px;
+}
+
+.quick-card{
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-radius:15px;
+
+    padding:13px 5px;
+
+    text-align:center;
+
+    box-shadow:
+        0 4px 14px
+        rgba(0,0,0,.05);
+}
+
+.quick-icon{
+    width:39px;
+    height:39px;
+
+    border-radius:11px;
+
+    margin:auto auto 7px;
+
+    display:grid;
+    place-items:center;
+
+    font-size:20px;
+
+    background:var(--blue-light);
+}
+
+.quick-card:nth-child(2)
+.quick-icon{
+    background:var(--purple-light);
+}
+
+.quick-card:nth-child(3)
+.quick-icon{
+    background:var(--green-light);
+}
+
+.quick-card:nth-child(4)
+.quick-icon{
+    background:var(--red-light);
+}
+
+.quick-card:nth-child(5)
+.quick-icon{
+    background:var(--green-light);
+}
+
+.quick-card:nth-child(6)
+.quick-icon{
+    background:var(--blue-light);
+}
+
+.quick-card b{
+    font-size:10px;
+}
+
+/* =========================================================
+   NOTIFICATION CARD
+========================================================= */
+
+.notice-card{
+    padding:13px;
+
+    margin:8px 0;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.notice-icon{
+    width:32px;
+    height:32px;
+
+    border-radius:50%;
+
+    background:var(--blue-light);
+
+    display:grid;
+    place-items:center;
+}
+
+.notice-content{
+    flex:1;
+}
+
+.notice-title{
+    font-size:12px;
+    font-weight:700;
+}
+
+.notice-time{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:3px;
+}
+
+.arrow{
+    color:#9aa3b1;
+    font-size:20px;
+}
+
+/* =========================================================
+   SUBJECT
+========================================================= */
+
+.subject-card{
+    padding:13px;
+
+    margin-bottom:10px;
+
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    cursor:pointer;
+}
+
+.subject-icon{
+    width:43px;
+    height:43px;
+
+    border-radius:12px;
+
+    display:grid;
+    place-items:center;
+
+    font-size:21px;
+}
+
+.subject-info{
+    flex:1;
+}
+
+.subject-info b{
+    font-size:14px;
+}
+
+.subject-info small{
+    display:block;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    margin:5px 0;
+}
+
+.progress{
+    height:5px;
+
+    background:#e9eef5;
+
+    border-radius:10px;
+
+    overflow:hidden;
+}
+
+.progress i{
+    display:block;
+
+    height:100%;
+
+    background:var(--blue);
+
+    border-radius:10px;
+}
+
+/* =========================================================
+   CHAPTER SUMMARY
+========================================================= */
+
+.summary-card{
+    padding:17px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:13px;
+}
+
+.summary-stat small{
+    color:var(--muted);
+    font-size:11px;
+}
+
+.summary-stat strong{
+    display:block;
+
+    font-size:25px;
+
+    margin-top:3px;
+}
+
+.progress-ring{
+    width:68px;
+    height:68px;
+
+    border-radius:50%;
+
+    background:
+        conic-gradient(
+            var(--blue) 80%,
+            #e6edf5 0
+        );
+
+    display:grid;
+    place-items:center;
+}
+
+.progress-ring::after{
+    content:"80%";
+
+    width:54px;
+    height:54px;
+
+    border-radius:50%;
+
+    background:white;
+
+    display:grid;
+    place-items:center;
+
+    font-size:12px;
+    font-weight:bold;
+}
+
+/* =========================================================
+   CHAPTER
+========================================================= */
+
+.chapter-card{
+    padding:14px;
+
+    margin-bottom:9px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    cursor:pointer;
+}
+
+.chapter-status{
+    width:30px;
+    height:30px;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    background:#edf1f6;
+
+    color:#8b95a5;
+}
+
+.chapter-status.done{
+    background:#dcf7e9;
+    color:var(--green);
+}
+
+.chapter-status.progress{
+    background:#fff1d5;
+    color:#d58b00;
+}
+
+.chapter-info{
+    flex:1;
+}
+
+.chapter-info b{
+    font-size:13px;
+}
+
+.chapter-info small{
+    display:block;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    margin-top:4px;
+}
+
+/* =========================================================
+   VIDEO
+========================================================= */
+
+.video-player{
+    background:#101923;
+
+    border-radius:17px;
+
+    overflow:hidden;
+
+    color:white;
+}
+
+.video-thumbnail{
+    height:210px;
+
+    display:grid;
+    place-items:center;
+
+    position:relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            #34404b,
+            #101820
+        );
+}
+
+.video-title{
+    position:absolute;
+
+    text-align:center;
+
+    font-size:16px;
+
+    line-height:1.5;
+}
+
+.play-button{
+    position:relative;
+
+    z-index:2;
+
+    width:58px;
+    height:58px;
+
+    border-radius:50%;
+
+    background:white;
+
+    color:var(--navy);
+
+    font-size:23px;
+}
+
+.video-controls{
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:9px 12px;
+
+    font-size:10px;
+
+    color:#ccd5df;
+}
+
+/* =========================================================
+   TABS
+========================================================= */
+
+.tabs{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:8px;
+
+    margin:12px 0;
+}
+
+.tab{
+    padding:10px;
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    background:white;
+
+    color:#526071;
+}
+
+.tab.active{
+    background:var(--blue-light);
+
+    color:var(--blue);
+
+    font-weight:bold;
+}
+
+/* =========================================================
+   LESSON
+========================================================= */
+
+.lesson-card{
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:12px;
+
+    margin-bottom:8px;
+}
+
+.lesson-number{
+    width:28px;
+    height:28px;
+
+    border-radius:8px;
+
+    background:var(--blue-light);
+
+    color:var(--blue);
+
+    display:grid;
+    place-items:center;
+
+    font-size:12px;
+    font-weight:bold;
+}
+
+.lesson-info{
+    flex:1;
+}
+
+.lesson-info b{
+    font-size:12px;
+}
+
+.lesson-info small{
+    display:block;
+
+    color:var(--muted);
+
+    margin-top:3px;
+
+    font-size:10px;
+}
+
+/* =========================================================
+   TEST
+========================================================= */
+
+.test-card{
+    padding:18px;
+
+    margin-bottom:15px;
+}
+
+.test-card h2{
+    font-size:17px;
+}
+
+.test-card p{
+    color:var(--muted);
+
+    font-size:12px;
+
+    margin-top:5px;
+}
+
+.test-meta{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:8px;
+
+    margin:18px 0;
+}
+
+.meta-box{
+    background:#f7f9fc;
+
+    border-radius:10px;
+
+    padding:10px;
+
+    text-align:center;
+}
+
+.meta-box strong{
+    display:block;
+    font-size:16px;
+}
+
+.meta-box small{
+    color:var(--muted);
+    font-size:9px;
+}
+
+.previous-test{
+    padding:14px;
+
+    margin-bottom:9px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.test-icon{
+    width:35px;
+    height:35px;
+
+    border-radius:10px;
+
+    background:var(--blue-light);
+
+    display:grid;
+    place-items:center;
+}
+
+.previous-test-info{
+    flex:1;
+}
+
+.previous-test-info b{
+    font-size:12px;
+}
+
+.previous-test-info small{
+    display:block;
+
+    color:var(--muted);
+
+    margin-top:4px;
+
+    font-size:10px;
+}
+
+/* =========================================================
+   TEST RUNNER
+========================================================= */
+
+.test-header{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:15px;
+}
+
+.timer{
+    background:#fff0f0;
+
+    color:var(--red);
+
+    padding:8px 12px;
+
+    border-radius:10px;
+
+    font-weight:bold;
+
+    font-size:13px;
+}
+
+.question-text{
+    font-size:17px;
+
+    line-height:1.6;
+
+    font-weight:bold;
+
+    margin:15px 0;
+}
+
+.option{
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:13px;
+
+    margin:9px 0;
+
+    border:1px solid var(--border);
+
+    border-radius:11px;
+
+    background:white;
+
+    text-align:left;
+}
+
+.option.selected{
+    border-color:var(--blue);
+
+    background:#edf5ff;
+}
+
+.option-letter{
+    width:27px;
+    height:27px;
+
+    border-radius:50%;
+
+    background:#f0f3f7;
+
+    display:grid;
+    place-items:center;
+
+    font-weight:bold;
+
+    font-size:12px;
+}
+
+.option.selected
+.option-letter{
+    background:var(--blue);
+    color:white;
+}
+
+.question-numbers{
+    display:flex;
+
+    gap:7px;
+
+    flex-wrap:wrap;
+
+    margin:15px 0;
+}
+
+.question-number{
+    width:34px;
+    height:34px;
+
+    border-radius:9px;
+
+    background:#eef1f5;
+
+    color:#566171;
+}
+
+.question-number.answered{
+    background:#dcf7e9;
+    color:#087c4e;
+}
+
+.question-number.current{
+    background:var(--blue);
+    color:white;
+}
+
+.test-actions{
+    display:flex;
+    gap:9px;
+}
+
+.test-actions button{
+    flex:1;
+}
+
+/* =========================================================
+   RESULT
+========================================================= */
+
+.overall-result{
+    padding:20px;
+
+    text-align:center;
+
+    margin-bottom:12px;
+}
+
+.big-ring{
+    width:125px;
+    height:125px;
+
+    margin:12px auto;
+
+    border-radius:50%;
+
+    background:
+        conic-gradient(
+            var(--blue) 78%,
+            #e8eef6 0
+        );
+
+    display:grid;
+    place-items:center;
+}
+
+.big-ring::after{
+    content:"78%";
+
+    width:100px;
+    height:100px;
+
+    background:#fff;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    font-size:25px;
+
+    font-weight:800;
+}
+
+.score-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:9px;
+}
+
+.score-card{
+    padding:13px;
+
+    border-radius:12px;
+}
+
+.score-card b{
+    display:block;
+
+    font-size:18px;
+
+    margin-top:3px;
+}
+
+.score-card small{
+    font-size:10px;
+}
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.profile-header{
+    background:var(--navy);
+
+    color:#fff;
+
+    text-align:center;
+
+    padding:25px;
+
+    border-radius:
+        0 0 25px 25px;
+}
+
+.profile-header img{
+    width:76px;
+    height:76px;
+
+    border-radius:50%;
+
+    border:3px solid white;
+
+    object-fit:cover;
+}
+
+.profile-header h2{
+    font-size:19px;
+
+    margin:9px 0 4px;
+}
+
+.profile-header p{
+    font-size:11px;
+    color:#d5e2f6;
+}
+
+.profile-menu{
+    margin-top:15px;
+}
+
+.profile-item{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:16px;
+
+    background:white;
+
+    border-bottom:
+        1px solid var(--border);
+
+    cursor:pointer;
+}
+
+.profile-item:first-child{
+    border-radius:
+        16px 16px 0 0;
+}
+
+.profile-item:last-child{
+    border-radius:
+        0 0 16px 16px;
+
+    border-bottom:none;
+}
+
+.profile-icon{
+    width:34px;
+    height:34px;
+
+    border-radius:10px;
+
+    background:#eef4ff;
+
+    display:grid;
+    place-items:center;
+}
+
+.profile-item span:nth-child(2){
+    flex:1;
+
+    font-size:13px;
+}
+
+.logout{
+    color:var(--red);
+}
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+.notification-tabs{
+    display:flex;
+
+    background:white;
+
+    padding:4px;
+
+    border-radius:12px;
+
+    margin-bottom:13px;
+
+    border:1px solid var(--border);
+}
+
+.notification-tabs button{
+    flex:1;
+
+    background:none;
+
+    padding:9px;
+
+    border-radius:9px;
+
+    color:#657083;
+
+    font-size:11px;
+}
+
+.notification-tabs button.active{
+    background:var(--navy);
+    color:white;
+}
+
+.unread-dot{
+    width:8px;
+    height:8px;
+
+    background:red;
+
+    border-radius:50%;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(0,0,0,.62);
+
+    z-index:500;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+
+    max-width:420px;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:20px;
+
+    position:relative;
+
+    max-height:90vh;
+
+    overflow:auto;
+}
+
+.modal-box h2{
+    font-size:19px;
+
+    margin-bottom:15px;
+}
+
+.close-modal{
+    position:absolute;
+
+    right:14px;
+    top:12px;
+
+    width:32px;
+    height:32px;
+
+    border-radius:50%;
+
+    background:#f0f2f5;
+
+    font-size:22px;
+}
+
+.admin-error{
+    color:var(--red);
+
+    font-size:12px;
+
+    margin-top:8px;
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+    position:fixed;
+
+    left:50%;
+
+    bottom:90px;
+
+    transform:translateX(-50%);
+
+    background:#172033;
+
+    color:white;
+
+    padding:11px 16px;
+
+    border-radius:10px;
+
+    font-size:12px;
+
+    z-index:1000;
+
+    display:none;
+}
+
+.toast.show{
+    display:block;
+}
+
+/* =========================================================
+   BOTTOM NAVIGATION
+========================================================= */
+
+.bottom-nav{
+    position:fixed;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:74px;
+
+    background:#fff;
+
+    border-top:
+        1px solid var(--border);
+
+    display:none;
+
+    z-index:100;
+
+    box-shadow:
+        0 -5px 20px
+        rgba(0,0,0,.06);
+}
+
+.nav-item{
+    flex:1;
+
+    background:none;
+
+    color:#8a94a6;
+
+    font-size:10px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:4px;
+}
+
+.nav-item .nav-icon{
+    font-size:21px;
+}
+
+.nav-item.active{
+    color:var(--blue);
+
+    font-weight:bold;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:380px){
+
+    .quick-grid{
+        gap:7px;
+    }
+
+    .quick-card{
+        padding:11px 3px;
+    }
+
+    .hero-image{
+        font-size:50px;
+    }
+
+    .page{
+        padding:14px;
+    }
+}
+
+
+/* =========================================================
+   ANDROID PHONE / WEBVIEW LAYOUT
+========================================================= */
+html{
+    width:100%;
+    min-height:100%;
+    background:#f4f7fb;
+}
+
+body{
+    width:100%;
+    min-height:100vh;
+    min-height:100dvh;
+    overflow-x:hidden;
+    -webkit-text-size-adjust:100%;
+    -webkit-tap-highlight-color:transparent;
+    overscroll-behavior-x:none;
+}
+
+button,
+input{
+    touch-action:manipulation;
+}
+
+.screen{
+    width:100%;
+    max-width:480px;
+    min-height:100vh;
+    min-height:100dvh;
+    margin:0 auto;
+    background:var(--bg);
+}
+
+.home-page,
+.page{
+    width:100%;
+    max-width:480px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.bottom-nav{
+    width:100%;
+    max-width:480px;
+    left:50%;
+    right:auto;
+    transform:translateX(-50%);
+    height:calc(74px + env(safe-area-inset-bottom));
+    padding-bottom:env(safe-area-inset-bottom);
+}
+
+.modal{
+    width:100%;
+    max-width:480px;
+    margin:0 auto;
+}
+
+@media(max-width:480px){
+    .page{padding:14px;}
+    .home-page{padding:0 14px;}
+    .topbar{padding-left:14px;padding-right:14px;}
+    .hero{min-height:145px;padding:16px;}
+    .hero h2{font-size:19px;}
+    .video-thumbnail{height:auto;aspect-ratio:16/9;}
+}
+
+@media(min-width:481px){
+    body{background:#e9eef5;}
+    .screen{box-shadow:0 0 28px rgba(8,43,92,.08);}
+}
+
+@media(max-width:360px){
+    .page{padding:12px;}
+    .home-page{padding:0 12px;}
+    .quick-grid{gap:7px;}
+    .quick-card{padding:10px 3px;}
+    .quick-icon{width:36px;height:36px;font-size:18px;}
+    .hero{padding:14px;}
+    .hero-image{font-size:48px;}
+}
+
+</style>
+</head>
+
+<body>
+<script>
+(function(){
+    if(localStorage.getItem("sscStudentLoggedIn")!=="true"){
+        window.location.replace("login.html");
+    }
+})();
+</script>
+
+
+
+<!-- =======================================================
+     SPLASH SCREEN
+======================================================= -->
+
+<div id="splash" class="splash">
+
+    <div class="splash-content">
+
+        <img
+            src="logo.png"
+            class="splash-logo"
+            alt="SSC Classes Logo">
+
+        <h1>SSC CLASSES</h1>
+
+        <div class="splash-tag">
+            Learn Today • Succeed Tomorrow
+        </div>
+
+        <div class="splash-dream">
+            Your Dream<br>
+            Our Responsibility
+        </div>
+
+        <div class="spinner"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =======================================================
+     LOGIN
+======================================================= -->
+
+<section id="loginScreen" class="screen">
+
+    <div class="auth-screen">
+
+        <div class="auth-box">
+
+            <img
+                src="logo.png"
+                class="auth-logo"
+                alt="SSC Classes">
+
+            <h1>SSC CLASSES</h1>
+
+            <div class="auth-tag">
+                Learn Today • Succeed Tomorrow
+            </div>
+
+            <h2>Welcome Back</h2>
+
+            <p class="auth-description">
+                Login to continue your learning journey
+            </p>
+
+
+            <div class="input-group">
+
+                <span class="input-icon">📞</span>
+
+                <input
+                    id="loginMobile"
+                    type="tel"
+                    maxlength="10"
+                    placeholder="Enter Mobile Number">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <span class="input-icon">🔒</span>
+
+                <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="Enter Password">
+
+                <button
+                    class="password-eye"
+                    onclick="togglePassword(
+                        'loginPassword',
+                        this
+                    )">
+
+                    👁
+
+                </button>
+
+            </div>
+
+
+            <div
+                class="forgot"
+                onclick="forgotPassword()">
+
+                Forgot Password?
+
+            </div>
+
+
+            <button
+                class="primary-btn full"
+                onclick="studentLogin()">
+
+                Login
+
+            </button>
+
+
+            <div class="or">
+                OR
+            </div>
+
+
+            <button
+                class="google-btn"
+                onclick="googleLogin()">
+
+                🌈 Continue with Google
+
+            </button>
+
+
+            <div class="auth-footer">
+
+                Don't have an account?
+
+                <span onclick="showRegister()">
+                    Register Now
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     REGISTER
+======================================================= -->
+
+<section id="registerScreen" class="screen">
+
+    <div class="auth-screen">
+
+        <div class="auth-box">
+
+            <img
+                src="logo.png"
+                class="auth-logo"
+                alt="SSC Classes">
+
+            <h1>Create Account</h1>
+
+            <p class="auth-description">
+                Start your learning journey
+            </p>
+
+
+            <div class="input-group">
+
+                <span class="input-icon">👤</span>
+
+                <input
+                    id="registerName"
+                    placeholder="Full Name">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <span class="input-icon">📞</span>
+
+                <input
+                    id="registerMobile"
+                    maxlength="10"
+                    type="tel"
+                    placeholder="Mobile Number">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <span class="input-icon">🎓</span>
+
+                <input
+                    id="registerClass"
+                    placeholder="Class">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <span class="input-icon">🔒</span>
+
+                <input
+                    id="registerPassword"
+                    type="password"
+                    placeholder="Create Password">
+
+            </div>
+
+
+            <button
+                class="primary-btn full"
+                onclick="registerStudent()">
+
+                Register
+
+            </button>
+
+
+            <div class="auth-footer">
+
+                Already have an account?
+
+                <span onclick="showLogin()">
+                    Login
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     HOME
+======================================================= -->
+
+<section id="homeScreen" class="screen">
+
+    <div class="home-header">
+
+        <div class="user-header">
+
+            <img
+                src="sonu sir.png"
+                class="user-avatar"
+                alt="Student">
+
+            <div class="user-info">
+
+                <strong id="homeName">
+                    Hello, Aman 👋
+                </strong>
+
+                <small id="homeMeta">
+                    Class 10 | Roll No. 12
+                </small>
+
+            </div>
+
+
+            <button
+                class="notification-button"
+                onclick="openScreen('notificationsScreen')">
+
+                🔔
+
+                <span
+                    id="notificationBadge"
+                    class="notification-badge">
+
+                    3
+
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <div class="hero">
+
+            <div class="hero-content">
+
+                <h2>
+                    Study Today<br>
+                    Score Tomorrow
+                </h2>
+
+                <p>
+                    Best Concept for<br>
+                    Your Bright Future
+                </p>
+
+                <button
+                    class="hero-btn"
+                    onclick="openScreen('subjectsScreen')">
+
+                    Start Learning
+
+                </button>
+
+            </div>
+
+            <div class="hero-image">
+                👨‍🎓
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="home-page">
+
+
+        <!-- QUICK MENU -->
+
+        <div class="quick-grid">
+
+            <button
+                class="quick-card"
+                onclick="openScreen('subjectsScreen')">
+
+                <div class="quick-icon">
+                    📖
+                </div>
+
+                <b>
+                    My Subjects
+                </b>
+
+            </button>
+
+
+            <button
+                class="quick-card"
+                onclick="openScreen('testScreen')">
+
+                <div class="quick-icon">
+                    📝
+                </div>
+
+                <b>
+                    Online Test
+                </b>
+
+            </button>
+
+
+            <button
+                class="quick-card"
+                onclick="openScreen('resultScreen')">
+
+                <div class="quick-icon">
+                    📊
+                </div>
+
+                <b>
+                    My Result
+                </b>
+
+            </button>
+
+
+            <button
+                class="quick-card"
+                onclick="toast('YouTube section opened')">
+
+                <div class="quick-icon">
+                    ▶️
+                </div>
+
+                <b>
+                    YouTube
+                </b>
+
+            </button>
+
+
+            <button
+                class="quick-card"
+                onclick="openWhatsApp()">
+
+                <div class="quick-icon">
+                    💬
+                </div>
+
+                <b>
+                    WhatsApp
+                </b>
+
+            </button>
+
+
+            <button
+                class="quick-card"
+                onclick="toast('Community Chat opened')">
+
+                <div class="quick-icon">
+                    🗨️
+                </div>
+
+                <b>
+                    Community Chat
+                </b>
+
+            </button>
+
+        </div>
+
+
+        <!-- NOTIFICATIONS -->
+
+        <div class="section-title">
+
+            <h2>
+                Latest Notifications
+            </h2>
+
+            <button
+                onclick="openScreen('notificationsScreen')">
+
+                View All
+
+            </button>
+
+        </div>
+
+
+        <div
+            class="card notice-card"
+            onclick="openScreen('testScreen')">
+
+            <div class="notice-icon">
+                📝
+            </div>
+
+            <div class="notice-content">
+
+                <div class="notice-title">
+                    New test is available for Mathematics
+                </div>
+
+                <div class="notice-time">
+                    Chapter 5 - Trigonometry • 2 hours ago
+                </div>
+
+            </div>
+
+            <span class="arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="card notice-card"
+            onclick="openScreen('resultScreen')">
+
+            <div class="notice-icon">
+                📊
+            </div>
+
+            <div class="notice-content">
+
+                <div class="notice-title">
+                    Your result has been updated
+                </div>
+
+                <div class="notice-time">
+                    Science - Unit Test 1 • 5 hours ago
+                </div>
+
+            </div>
+
+            <span class="arrow">
+                ›
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     NOTIFICATIONS
+======================================================= -->
+
+<section id="notificationsScreen" class="screen">
+
+    <div class="topbar">
+
+        <button
+            class="back-btn"
+            onclick="goHome()">
+
+            ‹
+
+        </button>
+
+        <h1>
+            Notifications
+        </h1>
+
+    </div>
+
+
+    <div class="page">
+
+
+        <div class="notification-tabs">
+
+            <button
+                class="active"
+                onclick="filterNotifications('all',this)">
+
+                All
+
+            </button>
+
+            <button
+                onclick="filterNotifications('unread',this)">
+
+                Unread (3)
+
+            </button>
+
+            <button
+                onclick="filterNotifications('message',this)">
+
+                Messages
+
+            </button>
+
+        </div>
+
+
+        <div id="notificationList">
+
+
+            <div
+                class="card notice-card notification-item"
+                data-type="unread">
+
+                <div class="notice-icon">
+                    📝
+                </div>
+
+                <div class="notice-content">
+
+                    <div class="notice-title">
+                        New test is available
+                    </div>
+
+                    <div class="notice-time">
+                        Mathematics - Chapter 5 • 2 hours ago
+                    </div>
+
+                </div>
+
+                <span class="unread-dot"></span>
+
+            </div>
+
+
+            <div
+                class="card notice-card notification-item"
+                data-type="unread">
+
+                <div class="notice-icon">
+                    📊
+                </div>
+
+                <div class="notice-content">
+
+                    <div class="notice-title">
+                        Your result has been updated
+                    </div>
+
+                    <div class="notice-time">
+                        Science - Unit Test 1 • 5 hours ago
+                    </div>
+
+                </div>
+
+                <span class="unread-dot"></span>
+
+            </div>
+
+
+            <div
+                class="card notice-card notification-item"
+                data-type="message">
+
+                <div class="notice-icon">
+                    💬
+                </div>
+
+                <div class="notice-content">
+
+                    <div class="notice-title">
+                        New message in community
+                    </div>
+
+                    <div class="notice-time">
+                        Rohit: "Sir doubt hai is question..."
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="card notice-card notification-item"
+                data-type="all">
+
+                <div class="notice-icon">
+                    📢
+                </div>
+
+                <div class="notice-content">
+
+                    <div class="notice-title">
+                        Important Notice
+                    </div>
+
+                    <div class="notice-time">
+                        Class will be off tomorrow
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="card notice-card notification-item"
+                data-type="all">
+
+                <div class="notice-icon">
+                    📚
+                </div>
+
+                <div class="notice-content">
+
+                    <div class="notice-title">
+                        New study material
+                    </div>
+
+                    <div class="notice-time">
+                        English - Grammar Notes • 1 day ago
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary-btn full"
+            onclick="markAllRead()">
+
+            ✓ Mark all as read
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     SUBJECTS
+======================================================= -->
+
+<section id="subjectsScreen" class="screen">
+
+    <div class="topbar">
+
+        <button
+            class="back-btn"
+            onclick="goHome()">
+
+            ‹
+
+        </button>
+
+        <h1>
+            My Subjects
+        </h1>
+
+    </div>
+
+
+    <div class="page">
+
+
+        <div
+            class="card subject-card"
+            onclick="openChapters('Mathematics')">
+
+            <div
+                class="subject-icon"
+                style="background:#eaf2ff">
+
+                ∑
+
+            </div>
+
+            <div class="subject-info">
+
+                <b>
+                    Mathematics
+                </b>
+
+                <small>
+                    12 / 15 Chapters Completed
+                </small>
+
+                <div class="progress">
+                    <i style="width:80%"></i>
+                </div>
+
+            </div>
+
+            <span>
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="card subject-card"
+            onclick="openChapters('Science')">
+
+            <div
+                class="subject-icon"
+                style="background:#e8f8ef">
+
+                🧪
+
+            </div>
+
+            <div class="subject-info">
+
+                <b>
+                    Science
+                </b>
+
+                <small>
+                    10 / 14 Chapters Completed
+                </small>
+
+                <div class="progress">
+                    <i
+                        style="
+                        width:71%;
+                        background:#18a873">
+                    </i>
+                </div>
+
+            </div>
+
+            <span>
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="card subject-card"
+            onclick="openChapters('Social Science')">
+
+            <div
+                class="subject-icon"
+                style="background:#fff2dc">
+
+                🌍
+
+            </div>
+
+            <div class="subject-info">
+
+                <b>
+                    Social Science
+                </b>
+
+                <small>
+                    8 / 12 Chapters Completed
+                </small>
+
+                <div class="progress">
+                    <i
+                        style="
+                        width:67%;
+                        background:#f59e0b">
+                    </i>
+                </div>
+
+            </div>
+
+            <span>
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="card subject-card"
+            onclick="openChapters('Hindi')">
+
+            <div
+                class="subject-icon"
+                style="background:#ffeded">
+
+                अ
+
+            </div>
+
+            <div class="subject-info">
+
+                <b>
+                    Hindi
+                </b>
+
+                <small>
+                    6 / 10 Chapters Completed
+                </small>
+
+                <div class="progress">
+                    <i
+                        style="
+                        width:60%;
+                        background:#e53935">
+                    </i>
+                </div>
+
+            </div>
+
+            <span>
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="card subject-card"
+            onclick="openChapters('Sanskrit')">
+
+            <div
+                class="subject-icon"
+                style="background:#f0eaff">
+
+                ॐ
+
+            </div>
+
+            <div class="subject-info">
+
+                <b>
+                    Sanskrit
+                </b>
+
+                <small>
+                    4 / 8 Chapters Completed
+                </small>
+
+                <div class="progress">
+                    <i
+                        style="
+                        width:50%;
+                        background:#7c4dff">
+                    </i>
+                </div>
+
+            </div>
+
+            <span>
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="card subject-card"
+            onclick="openChapters('English')">
+
+            <div
+                class="subject-icon"
+                style="background:#e5fafb">
+
+                A
+
+            </div>
+
+            <div class="subject-info">
+
+                <b>
+                    English
+                </b>
+
+                <small>
+                    5 / 10 Chapters Completed
+                </small>
+
+                <div class="progress">
+                    <i
+                        style="
+                        width:50%;
+                        background:#119da4">
+                    </i>
+                </div>
+
+            </div>
+
+            <span>
+                ›
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     CHAPTER LIST
+======================================================= -->
+
+<section id="chaptersScreen" class="screen">
+
+    <div class="topbar">
+
+        <button
+            class="back-btn"
+            onclick="openScreen('subjectsScreen')">
+
+            ‹
+
+        </button>
+
+        <h1 id="chapterSubject">
+            Mathematics
+        </h1>
+
+    </div>
+
+
+    <div class="page">
+
+
+        <div class="card summary-card">
+
+            <div class="summary-stat">
+
+                <small>
+                    Total Chapters
+                </small>
+
+                <strong>
+                    15
+                </strong>
+
+            </div>
+
+
+            <div class="summary-stat">
+
+                <small>
+                    Completed
+                </small>
+
+                <strong>
+                    12
+                </strong>
+
+            </div>
+
+
+            <div class="progress-ring"></div>
+
+        </div>
+
+
+        <div
+            class="card chapter-card"
+            onclick="openLecture()">
+
+            <div class="chapter-status done">
+                ✓
+            </div>
+
+            <div class="chapter-info">
+
+                <b>
+                    Chapter 1 - Real Numbers
+                </b>
+
+                <small>
+                    Completed
+                </small>
+
+            </div>
+
+            <span>›</span>
+
+        </div>
+
+
+        <div
+            class="card chapter-card"
+            onclick="openLecture()">
+
+            <div class="chapter-status done">
+                ✓
+            </div>
+
+            <div class="chapter-info">
+
+                <b>
+                    Chapter 2 - Polynomials
+                </b>
+
+                <small>
+                    Completed
+                </small>
+
+            </div>
+
+            <span>›</span>
+
+        </div>
+
+
+        <div
+            class="card chapter-card"
+            onclick="openLecture()">
+
+            <div class="chapter-status progress">
+                ●
+            </div>
+
+            <div class="chapter-info">
+
+                <b>
+                    Chapter 3 - Pair of Linear Equations
+                </b>
+
+                <small>
+                    In Progress
+                </small>
+
+            </div>
+
+            <span>›</span>
+
+        </div>
+
+
+        <div class="card chapter-card">
+
+            <div class="chapter-status">
+                ○
+            </div>
+
+            <div class="chapter-info">
+
+                <b>
+                    Chapter 4 - Quadratic Equations
+                </b>
+
+                <small>
+                    Not Started
+                </small>
+
+            </div>
+
+            <span>›</span>
+
+        </div>
+
+
+        <div class="card chapter-card">
+
+            <div class="chapter-status">
+                ○
+            </div>
+
+            <div class="chapter-info">
+
+                <b>
+                    Chapter 5 - Arithmetic Progression
+                </b>
+
+                <small>
+                    Not Started
+                </small>
+
+            </div>
+
+            <span>›</span>
+
+        </div>
+
+
+        <div class="card chapter-card">
+
+            <div class="chapter-status">
+                ○
+            </div>
+
+            <div class="chapter-info">
+
+                <b>
+                    Chapter 6 - Triangles
+                </b>
+
+                <small>
+                    Not Started
+                </small>
+
+            </div>
+
+            <span>›</span>
+
+        </div>
+
+
+        <div class="card chapter-card">
+
+            <div class="chapter-status">
+                ○
+            </div>
+
+            <div class="chapter-info">
+
+                <b>
+                    Chapter 7 - Coordinate Geometry
+                </b>
+
+                <small>
+                    Not Started
+                </small>
+
+            </div>
+
+            <span>›</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     LECTURE
+======================================================= -->
+
+<section id="lectureScreen" class="screen">
+
+    <div class="topbar">
+
+        <button
+            class="back-btn"
+            onclick="openScreen('chaptersScreen')">
+
+            ‹
+
+        </button>
+
+        <h1>
+            Chapter 3 - Pair of Linear Equations
+        </h1>
+
+    </div>
+
+
+    <div class="page">
+
+
+        <div class="video-player">
+
+            <div class="video-thumbnail">
+
+                <div class="video-title">
+                    Pair of Linear Equations<br>
+                    in Two Variables
+                </div>
+
+                <button
+                    class="play-button"
+                    onclick="playVideo()">
+
+                    ▶
+
+                </button>
+
+            </div>
+
+
+            <div class="video-controls">
+
+                <span id="videoTime">
+                    12:45 / 28:30
+                </span>
+
+                <span>
+                    ⛶
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="tabs">
+
+            <button
+                class="tab active"
+                onclick="lectureTab('notes',this)">
+
+                📄 Notes
+
+            </button>
+
+            <button
+                class="tab"
+                onclick="lectureTab('pdf',this)">
+
+                📕 PDF
+
+            </button>
+
+            <button
+                class="tab"
+                onclick="lectureTab('mcq',this)">
+
+                ☑ MCQ
+
+            </button>
+
+        </div>
+
+
+        <div id="lectureContent">
+
+            <div class="section-title">
+
+                <h2>
+                    Chapter Content
+                </h2>
+
+            </div>
+
+
+            <div class="card lesson-card">
+
+                <div class="lesson-number">
+                    1
+                </div>
+
+                <div class="lesson-info">
+
+                    <b>
+                        Introduction
+                    </b>
+
+                    <small>
+                        5 min
+                    </small>
+
+                </div>
+
+                <span>✓</span>
+
+            </div>
+
+
+            <div class="card lesson-card">
+
+                <div class="lesson-number">
+                    2
+                </div>
+
+                <div class="lesson-info">
+
+                    <b>
+                        Important Formulas
+                    </b>
+
+                    <small>
+                        8 min
+                    </small>
+
+                </div>
+
+                <span>✓</span>
+
+            </div>
+
+
+            <div class="card lesson-card">
+
+                <div class="lesson-number">
+                    3
+                </div>
+
+                <div class="lesson-info">
+
+                    <b>
+                        Solved Examples
+                    </b>
+
+                    <small>
+                        12 min
+                    </small>
+
+                </div>
+
+                <span>▶</span>
+
+            </div>
+
+
+            <div class="card lesson-card">
+
+                <div class="lesson-number">
+                    4
+                </div>
+
+                <div class="lesson-info">
+
+                    <b>
+                        Practice Questions
+                    </b>
+
+                    <small>
+                        10 min
+                    </small>
+
+                </div>
+
+                <span>🔒</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     ONLINE TEST
+======================================================= -->
+
+<section id="testScreen" class="screen">
+
+    <div class="topbar">
+
+        <button
+            class="back-btn"
+            onclick="goHome()">
+
+            ‹
+
+        </button>
+
+        <h1>
+            Online Test
+        </h1>
+
+    </div>
+
+
+    <div class="page">
+
+
+        <div class="card test-card">
+
+            <h2>
+                Mathematics - Chapter 5
+            </h2>
+
+            <p>
+                Trigonometry
+            </p>
+
+
+            <div class="test-meta">
+
+                <div class="meta-box">
+
+                    <strong>
+                        20
+                    </strong>
+
+                    <small>
+                        Total Questions
+                    </small>
+
+                </div>
+
+
+                <div class="meta-box">
+
+                    <strong>
+                        30
+                    </strong>
+
+                    <small>
+                        Minutes
+                    </small>
+
+                </div>
+
+
+                <div class="meta-box">
+
+                    <strong>
+                        0.25
+                    </strong>
+
+                    <small>
+                        Negative Marking
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="primary-btn full"
+                onclick="startTest()">
+
+                Start Test
+
+            </button>
+
+        </div>
+
+
+        <div class="section-title">
+
+            <h2>
+                Previous Tests
+            </h2>
+
+        </div>
+
+
+        <div class="card previous-test">
+
+            <div class="test-icon">
+                ∑
+            </div>
+
+            <div class="previous-test-info">
+
+                <b>
+                    Mathematics - Chapter 4
+                </b>
+
+                <small>
+                    Score: 16/20 (80%)
+                </small>
+
+            </div>
+
+            <span>›</span>
+
+        </div>
+
+
+        <div class="card previous-test">
+
+            <div class="test-icon">
+                🧪
+            </div>
+
+            <div class="previous-test-info">
+
+                <b>
+                    Science - Chapter 2
+                </b>
+
+                <small>
+                    Score: 14/20 (70%)
+                </small>
+
+            </div>
+
+            <span>›</span>
+
+        </div>
+
+
+        <div class="card previous-test">
+
+            <div class="test-icon">
+                A
+            </div>
+
+            <div class="previous-test-info">
+
+                <b>
+                    English - Grammar
+                </b>
+
+                <small>
+                    Score: 18/20 (90%)
+                </small>
+
+            </div>
+
+            <span>›</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     TEST RUNNER
+======================================================= -->
+
+<section id="runnerScreen" class="screen">
+
+    <div class="topbar">
+
+        <button
+            class="back-btn"
+            onclick="confirmSubmit()">
+
+            ‹
+
+        </button>
+
+        <h1>
+            Mathematics Test
+        </h1>
+
+        <span
+            class="timer"
+            id="timer">
+
+            30:00
+
+        </span>
+
+    </div>
+
+
+    <div class="page">
+
+        <div class="card test-card">
+
+            <div class="test-header">
+
+                <b id="questionCounter">
+                    Question 1 of 20
+                </b>
+
+                <small id="answeredCount">
+                    0 Answered
+                </small>
+
+            </div>
+
+
+            <div
+                id="questionText"
+                class="question-text">
+
+                If sin θ = 3/5,
+                then cos θ is equal to?
+
+            </div>
+
+
+            <div id="options"></div>
+
+
+            <div
+                id="questionNumbers"
+                class="question-numbers">
+            </div>
+
+
+            <div class="test-actions">
+
+                <button
+                    class="outline-btn"
+                    onclick="previousQuestion()">
+
+                    Previous
+
+                </button>
+
+                <button
+                    class="primary-btn"
+                    onclick="nextQuestion()">
+
+                    Next
+
+                </button>
+
+            </div>
+
+
+            <button
+                class="outline-btn full"
+                style="margin-top:10px"
+                onclick="confirmSubmit()">
+
+                Submit Test
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     RESULT
+======================================================= -->
+
+<section id="resultScreen" class="screen">
+
+    <div class="topbar">
+
+        <button
+            class="back-btn"
+            onclick="goHome()">
+
+            ‹
+
+        </button>
+
+        <h1>
+            My Result
+        </h1>
+
+    </div>
+
+
+    <div class="page">
+
+
+        <div class="card overall-result">
+
+            <small>
+                Overall Performance
+            </small>
+
+            <div class="big-ring"></div>
+
+        </div>
+
+
+        <div class="score-grid">
+
+            <div
+                class="score-card card"
+                style="background:#eaf2ff">
+
+                <small>
+                    Mathematics
+                </small>
+
+                <b>
+                    72%
+                </b>
+
+            </div>
+
+
+            <div
+                class="score-card card"
+                style="background:#e8f8ef">
+
+                <small>
+                    Science
+                </small>
+
+                <b>
+                    85%
+                </b>
+
+            </div>
+
+
+            <div
+                class="score-card card"
+                style="background:#fff2dc">
+
+                <small>
+                    Social Science
+                </small>
+
+                <b>
+                    76%
+                </b>
+
+            </div>
+
+
+            <div
+                class="score-card card"
+                style="background:#f0eaff">
+
+                <small>
+                    English
+                </small>
+
+                <b>
+                    80%
+                </b>
+
+            </div>
+
+        </div>
+
+
+        <div class="section-title">
+
+            <h2>
+                Recent Tests
+            </h2>
+
+        </div>
+
+
+        <div class="card notice-card">
+
+            <div class="notice-icon">
+                ∑
+            </div>
+
+            <div class="notice-content">
+
+                <div class="notice-title">
+                    Mathematics - Chapter 5
+                </div>
+
+                <div class="notice-time">
+                    16/20 (80%) • 2 days ago
+                </div>
+
+            </div>
+
+            <span>›</span>
+
+        </div>
+
+
+        <div class="card notice-card">
+
+            <div class="notice-icon">
+                🧪
+            </div>
+
+            <div class="notice-content">
+
+                <div class="notice-title">
+                    Science - Chapter 3
+                </div>
+
+                <div class="notice-time">
+                    14/20 (70%) • 4 days ago
+                </div>
+
+            </div>
+
+            <span>›</span>
+
+        </div>
+
+
+        <div class="card notice-card">
+
+            <div class="notice-icon">
+                A
+            </div>
+
+            <div class="notice-content">
+
+                <div class="notice-title">
+                    English - Grammar
+                </div>
+
+                <div class="notice-time">
+                    18/20 (90%) • 6 days ago
+                </div>
+
+            </div>
+
+            <span>›</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     PROFILE
+======================================================= -->
+
+<section id="profileScreen" class="screen">
+
+    <div class="profile-header">
+
+        <img
+            src="sonu sir.png"
+            alt="Profile">
+
+        <h2 id="profileName">
+            Aman Kumar
+        </h2>
+
+        <p>
+            Class 10 | Roll No. 12
+        </p>
+
+    </div>
+
+
+    <div class="page">
+
+        <div class="card profile-menu">
+
+
+            <div
+                class="profile-item"
+                onclick="editProfile()">
+
+                <span class="profile-icon">
+                    👤
+                </span>
+
+                <span>
+                    My Profile
+                </span>
+
+                <b>›</b>
+
+            </div>
+
+
+            <div
+                class="profile-item"
+                onclick="changePassword()">
+
+                <span class="profile-icon">
+                    🔒
+                </span>
+
+                <span>
+                    Change Password
+                </span>
+
+                <b>›</b>
+
+            </div>
+
+
+            <div
+                class="profile-item"
+                onclick="openScreen('resultScreen')">
+
+                <span class="profile-icon">
+                    📊
+                </span>
+
+                <span>
+                    My Result
+                </span>
+
+                <b>›</b>
+
+            </div>
+
+
+            <div
+                class="profile-item"
+                onclick="openScreen('notificationsScreen')">
+
+                <span class="profile-icon">
+                    🔔
+                </span>
+
+                <span>
+                    Notifications
+                </span>
+
+                <b>›</b>
+
+            </div>
+
+
+            <div
+                class="profile-item"
+                onclick="toast('Community Chat opened')">
+
+                <span class="profile-icon">
+                    💬
+                </span>
+
+                <span>
+                    Community Chat
+                </span>
+
+                <b>›</b>
+
+            </div>
+
+
+            <div
+                class="profile-item"
+                onclick="toast('Help & Support: 7520414872')">
+
+                <span class="profile-icon">
+                    ❓
+                </span>
+
+                <span>
+                    Help & Support
+                </span>
+
+                <b>›</b>
+
+            </div>
+
+
+            <div
+                class="profile-item"
+                onclick="showAbout()">
+
+                <span class="profile-icon">
+                    ℹ️
+                </span>
+
+                <span>
+                    About Us
+                </span>
+
+                <b>›</b>
+
+            </div>
+
+
+            <div
+                class="profile-item logout"
+                onclick="logout()">
+
+                <span class="profile-icon">
+                    ↪
+                </span>
+
+                <span>
+                    Logout
+                </span>
+
+                <b>›</b>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     BOTTOM NAVIGATION
+======================================================= -->
+
+<nav
+    id="bottomNav"
+    class="bottom-nav">
+
+
+    <button
+        class="nav-item active"
+        data-screen="homeScreen"
+        onclick="navigateBottom('homeScreen',this)">
+
+        <span class="nav-icon">
+            ⌂
+        </span>
+
+        <span>
+            Home
+        </span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-screen="subjectsScreen"
+        onclick="navigateBottom('subjectsScreen',this)">
+
+        <span class="nav-icon">
+            📖
+        </span>
+
+        <span>
+            Subjects
+        </span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-screen="testScreen"
+        onclick="navigateBottom('testScreen',this)">
+
+        <span class="nav-icon">
+            📝
+        </span>
+
+        <span>
+            Test
+        </span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-screen="resultScreen"
+        onclick="navigateBottom('resultScreen',this)">
+
+        <span class="nav-icon">
+            📊
+        </span>
+
+        <span>
+            Result
+        </span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-screen="profileScreen"
+        onclick="navigateBottom('profileScreen',this)">
+
+        <span class="nav-icon">
+            👤
+        </span>
+
+        <span>
+            Profile
+        </span>
+
+    </button>
+
+</nav>
+
+
+<!-- =======================================================
+     ADMIN MODAL
+======================================================= -->
+
+<div
+    id="adminModal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <button
+            class="close-modal"
+            onclick="closeModal('adminModal')">
+
+            ×
+
+        </button>
+
+        <h2>
+            🔐 Admin Login
+        </h2>
+
+
+        <div class="input-group">
+
+            <span class="input-icon">
+                👤
+            </span>
+
+            <input
+                id="adminUser"
+                placeholder="Admin User ID">
+
+        </div>
+
+
+        <div class="input-group">
+
+            <span class="input-icon">
+                🔒
+            </span>
+
+            <input
+                id="adminPassword"
+                type="password"
+                placeholder="Admin Password">
+
+        </div>
+
+
+        <button
+            class="primary-btn full"
+            onclick="adminLogin()">
+
+            Login
+
+        </button>
+
+
+        <p
+            id="adminError"
+            class="admin-error">
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =======================================================
+     GENERAL MODAL
+======================================================= -->
+
+<div
+    id="generalModal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <button
+            class="close-modal"
+            onclick="closeModal('generalModal')">
+
+            ×
+
+        </button>
+
+        <div id="generalContent"></div>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    id="toast"
+    class="toast">
+</div>
+
+
+<script>
+
+/* =========================================================
+   SSC CLASSES JAVASCRIPT
+========================================================= */
+
+
+/* ---------------------------------------------------------
+   SCREEN MANAGEMENT
+--------------------------------------------------------- */
+
+const screens =
+    document.querySelectorAll(".screen");
+
+let currentScreen = "loginScreen";
+
+
+function openScreen(id){
+
+    screens.forEach(screen=>{
+        screen.classList.remove("active");
+    });
+
+    const screen =
+        document.getElementById(id);
+
+    if(screen){
+        screen.classList.add("active");
+    }
+
+    currentScreen=id;
+
+    const mainScreens=[
+        "homeScreen",
+        "subjectsScreen",
+        "testScreen",
+        "resultScreen",
+        "profileScreen"
+    ];
+
+    const nav =
+        document.getElementById("bottomNav");
+
+    if(mainScreens.includes(id)){
+        nav.style.display="flex";
+    }else{
+        nav.style.display="none";
+    }
+
+    updateBottomNav(id);
+
+    window.scrollTo(0,0);
+}
+
+
+function goHome(){
+    openScreen("homeScreen");
+}
+
+
+function showLogin(){
+    window.location.replace("login.html");
+}
+
+
+function showRegister(){
+    window.location.replace("register.html");
+}
+
+
+/* ---------------------------------------------------------
+   BOTTOM NAVIGATION
+--------------------------------------------------------- */
+
+function navigateBottom(id,button){
+
+    openScreen(id);
+}
+
+
+function updateBottomNav(id){
+
+    document
+        .querySelectorAll(".nav-item")
+        .forEach(button=>{
+
+            button.classList.toggle(
+                "active",
+                button.dataset.screen===id
+            );
+
+        });
+
+}
+
+
+/* ---------------------------------------------------------
+   SPLASH
+--------------------------------------------------------- */
+
+window.addEventListener(
+    "load",
+    function(){
+
+        setTimeout(
+            function(){
+
+                document
+                    .getElementById("splash")
+                    .style.display="none";
+
+                if(
+                    localStorage.getItem(
+                        "sscStudentLoggedIn"
+                    )==="true"
+                ){
+
+                    loadStudentData();
+
+                    openScreen("homeScreen");
+
+                }else{
+
+                    window.location.replace("login.html");
+
+                }
+
+            },
+            1200
+        );
+
+    }
+);
+
+
+/* ---------------------------------------------------------
+   PASSWORD
+--------------------------------------------------------- */
+
+function togglePassword(id,button){
+
+    const input =
+        document.getElementById(id);
+
+    if(input.type==="password"){
+
+        input.type="text";
+
+        button.textContent="🙈";
+
+    }else{
+
+        input.type="password";
+
+        button.textContent="👁";
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   LOGIN
+--------------------------------------------------------- */
+
+function studentLogin(){
+
+    const mobile =
+        document
+        .getElementById("loginMobile")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("loginPassword")
+        .value;
+
+
+    if(!/^\d{10}$/.test(mobile)){
+
+        toast(
+            "कृपया 10 अंकों का मोबाइल नंबर डालें"
+        );
+
+        return;
+    }
+
+
+    if(password.length<4){
+
+        toast(
+            "Password कम से कम 4 characters का होना चाहिए"
+        );
+
+        return;
+    }
+
+
+    localStorage.setItem(
+        "sscStudentLoggedIn",
+        "true"
+    );
+
+    localStorage.setItem(
+        "sscStudentName",
+        "Aman Kumar"
+    );
+
+
+    loadStudentData();
+
+    toast("Login successful ✓");
+
+
+    setTimeout(
+        ()=>{
+            openScreen("homeScreen");
+        },
+        400
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   REGISTER
+--------------------------------------------------------- */
+
+function registerStudent(){
+
+    const name =
+        document
+        .getElementById("registerName")
+        .value
+        .trim();
+
+    const mobile =
+        document
+        .getElementById("registerMobile")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("registerPassword")
+        .value;
+
+
+    if(!name){
+
+        toast("कृपया नाम दर्ज करें");
+
+        return;
+    }
+
+
+    if(!/^\d{10}$/.test(mobile)){
+
+        toast(
+            "सही मोबाइल नंबर डालें"
+        );
+
+        return;
+    }
+
+
+    if(password.length<4){
+
+        toast(
+            "Password कम से कम 4 characters रखें"
+        );
+
+        return;
+    }
+
+
+    localStorage.setItem(
+        "sscStudentLoggedIn",
+        "true"
+    );
+
+    localStorage.setItem(
+        "sscStudentName",
+        name
+    );
+
+
+    loadStudentData();
+
+    toast(
+        "Registration successful ✓"
+    );
+
+
+    setTimeout(
+        ()=>{
+            openScreen("homeScreen");
+        },
+        400
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   STUDENT DATA
+--------------------------------------------------------- */
+
+function loadStudentData(){
+
+    const name =
+        localStorage.getItem(
+            "sscStudentName"
+        ) || "Aman Kumar";
+
+
+    document
+        .getElementById("homeName")
+        .textContent =
+        "Hello, "+name+" 👋";
+
+
+    document
+        .getElementById("profileName")
+        .textContent =
+        name;
+
+}
+
+
+/* ---------------------------------------------------------
+   GOOGLE LOGIN
+--------------------------------------------------------- */
+
+function googleLogin(){
+
+    localStorage.setItem(
+        "sscStudentLoggedIn",
+        "true"
+    );
+
+    localStorage.setItem(
+        "sscStudentName",
+        "Aman Kumar"
+    );
+
+    loadStudentData();
+
+    toast(
+        "Demo Google Login successful ✓"
+    );
+
+    setTimeout(
+        ()=>{
+            openScreen("homeScreen");
+        },
+        400
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   FORGOT PASSWORD
+--------------------------------------------------------- */
+
+function forgotPassword(){
+
+    toast(
+        "Password reset के लिए 7520414872 पर संपर्क करें"
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   LOGOUT
+--------------------------------------------------------- */
+
+function logout(){
+
+    if(
+        confirm(
+            "क्या आप logout करना चाहते हैं?"
+        )
+    ){
+
+        localStorage.removeItem(
+            "sscStudentLoggedIn"
+        );
+
+        window.location.replace("login.html");
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   SUBJECT / CHAPTER
+--------------------------------------------------------- */
+
+function openChapters(subject){
+
+    document
+        .getElementById("chapterSubject")
+        .textContent=subject;
+
+    openScreen("chaptersScreen");
+
+}
+
+
+function openLecture(){
+
+    openScreen("lectureScreen");
+
+}
+
+
+/* ---------------------------------------------------------
+   VIDEO
+--------------------------------------------------------- */
+
+function playVideo(){
+
+    toast(
+        "यह demo video player है। अपना video URL यहाँ जोड़ें।"
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   LECTURE TABS
+--------------------------------------------------------- */
+
+function lectureTab(type,button){
+
+    document
+        .querySelectorAll(".tab")
+        .forEach(tab=>{
+            tab.classList.remove("active");
+        });
+
+    button.classList.add("active");
+
+
+    const content =
+        document.getElementById(
+            "lectureContent"
+        );
+
+
+    if(type==="pdf"){
+
+        content.innerHTML=`
+
+            <div class="card"
+                 style="padding:30px;text-align:center">
+
+                <h2>📕 PDF Notes</h2>
+
+                <p style="margin:15px 0;color:#6b7280">
+                    Chapter PDF यहाँ दिखाई जाएगी।
+                </p>
+
+                <button
+                    class="primary-btn"
+                    onclick="toast('PDF viewer connect करें')">
+
+                    Open PDF
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
+    else if(type==="mcq"){
+
+        content.innerHTML=`
+
+            <div class="card"
+                 style="padding:30px;text-align:center">
+
+                <h2>☑ MCQ Practice</h2>
+
+                <p style="margin:15px 0;color:#6b7280">
+                    Chapter MCQ practice शुरू करें।
+                </p>
+
+                <button
+                    class="primary-btn"
+                    onclick="openScreen('testScreen')">
+
+                    Start MCQ
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
+    else{
+
+        content.innerHTML=`
+
+            <div class="section-title">
+                <h2>Chapter Content</h2>
+            </div>
+
+            <div class="card lesson-card">
+
+                <div class="lesson-number">
+                    1
+                </div>
+
+                <div class="lesson-info">
+
+                    <b>
+                        Introduction
+                    </b>
+
+                    <small>
+                        5 min
+                    </small>
+
+                </div>
+
+                <span>✓</span>
+
+            </div>
+
+            <div class="card lesson-card">
+
+                <div class="lesson-number">
+                    2
+                </div>
+
+                <div class="lesson-info">
+
+                    <b>
+                        Important Formulas
+                    </b>
+
+                    <small>
+                        8 min
+                    </small>
+
+                </div>
+
+                <span>✓</span>
+
+            </div>
+
+            <div class="card lesson-card">
+
+                <div class="lesson-number">
+                    3
+                </div>
+
+                <div class="lesson-info">
+
+                    <b>
+                        Solved Examples
+                    </b>
+
+                    <small>
+                        12 min
+                    </small>
+
+                </div>
+
+                <span>▶</span>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   ONLINE TEST ENGINE
+========================================================= */
+
+const questions=[
+
+    {
+        question:
+        "If sin θ = 3/5, then cos θ is equal to?",
+
+        options:[
+            "3/5",
+            "4/5",
+            "5/4",
+            "2/5"
+        ],
+
+        correct:1
+    },
+
+    {
+        question:
+        "The value of sin 30° is?",
+
+        options:[
+            "1",
+            "1/2",
+            "√3/2",
+            "0"
+        ],
+
+        correct:1
+    },
+
+    {
+        question:
+        "The value of tan 45° is?",
+
+        options:[
+            "0",
+            "1/2",
+            "1",
+            "√3"
+        ],
+
+        correct:2
+    },
+
+    {
+        question:
+        "If cos θ = 1, then θ is?",
+
+        options:[
+            "0°",
+            "30°",
+            "45°",
+            "90°"
+        ],
+
+        correct:0
+    },
+
+    {
+        question:
+        "sin²θ + cos²θ equals?",
+
+        options:[
+            "0",
+            "1",
+            "2",
+            "-1"
+        ],
+
+        correct:1
+    }
+
+];
+
+
+/*
+   Demo has 5 real questions.
+   Question navigator shows 20 questions
+   to match the reference design.
+*/
+
+let answers =
+    Array(20).fill(null);
+
+let currentQuestion=0;
+
+let secondsLeft=1800;
+
+let testTimer=null;
+
+
+/* ---------------------------------------------------------
+   START TEST
+--------------------------------------------------------- */
+
+function startTest(){
+
+    currentQuestion=0;
+
+    answers=
+        Array(20).fill(null);
+
+    secondsLeft=1800;
+
+    openScreen("runnerScreen");
+
+    renderQuestion();
+
+    clearInterval(testTimer);
+
+    testTimer=
+        setInterval(
+            function(){
+
+                secondsLeft--;
+
+                renderTimer();
+
+                if(secondsLeft<=0){
+
+                    clearInterval(testTimer);
+
+                    submitTest();
+
+                }
+
+            },
+            1000
+        );
+
+}
+
+
+/* ---------------------------------------------------------
+   TIMER
+--------------------------------------------------------- */
+
+function renderTimer(){
+
+    const minutes=
+        String(
+            Math.floor(
+                secondsLeft/60
+            )
+        ).padStart(2,"0");
+
+
+    const seconds=
+        String(
+            secondsLeft%60
+        ).padStart(2,"0");
+
+
+    document
+        .getElementById("timer")
+        .textContent=
+        minutes+":"+seconds;
+
+}
+
+
+/* ---------------------------------------------------------
+   GET QUESTION
+--------------------------------------------------------- */
+
+function getQuestion(){
+
+    return questions[
+        currentQuestion %
+        questions.length
+    ];
+
+}
+
+
+/* ---------------------------------------------------------
+   RENDER QUESTION
+--------------------------------------------------------- */
+
+function renderQuestion(){
+
+    const question=
+        getQuestion();
+
+
+    document
+        .getElementById(
+            "questionCounter"
+        )
+        .textContent=
+        "Question "+
+        (currentQuestion+1)+
+        " of 20";
+
+
+    document
+        .getElementById(
+            "answeredCount"
+        )
+        .textContent=
+        answers.filter(
+            x=>x!==null
+        ).length+
+        " Answered";
+
+
+    document
+        .getElementById(
+            "questionText"
+        )
+        .textContent=
+        question.question;
+
+
+    const optionsBox=
+        document.getElementById(
+            "options"
+        );
+
+    optionsBox.innerHTML="";
+
+
+    question.options.forEach(
+        (option,index)=>{
+
+            const button=
+                document.createElement(
+                    "button"
+                );
+
+            button.className=
+                "option";
+
+
+            if(
+                answers[currentQuestion]===index
+            ){
+
+                button.classList.add(
+                    "selected"
+                );
+
+            }
+
+
+            button.innerHTML=`
+
+                <span class="option-letter">
+                    ${String.fromCharCode(65+index)}
+                </span>
+
+                <span>
+                    ${option}
+                </span>
+
+            `;
+
+
+            button.onclick=
+                function(){
+
+                    answers[currentQuestion]=index;
+
+                    renderQuestion();
+
+                };
+
+
+            optionsBox.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    renderQuestionNumbers();
+
+    renderTimer();
+
+}
+
+
+/* ---------------------------------------------------------
+   QUESTION NUMBERS
+--------------------------------------------------------- */
+
+function renderQuestionNumbers(){
+
+    const box=
+        document.getElementById(
+            "questionNumbers"
+        );
+
+    box.innerHTML="";
+
+
+    for(
+        let i=0;
+        i<20;
+        i++
+    ){
+
+        const button=
+            document.createElement(
+                "button"
+            );
+
+
+        button.className=
+            "question-number";
+
+
+        if(i===currentQuestion){
+
+            button.classList.add(
+                "current"
+            );
+
+        }
+
+
+        if(
+            answers[i]!==null
+        ){
+
+            button.classList.add(
+                "answered"
+            );
+
+        }
+
+
+        button.textContent=i+1;
+
+
+        button.onclick=
+            function(){
+
+                currentQuestion=i;
+
+                renderQuestion();
+
+            };
+
+
+        box.appendChild(
+            button
+        );
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   NEXT
+--------------------------------------------------------- */
+
+function nextQuestion(){
+
+    if(
+        currentQuestion<19
+    ){
+
+        currentQuestion++;
+
+        renderQuestion();
+
+    }else{
+
+        confirmSubmit();
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   PREVIOUS
+--------------------------------------------------------- */
+
+function previousQuestion(){
+
+    if(
+        currentQuestion>0
+    ){
+
+        currentQuestion--;
+
+        renderQuestion();
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   SUBMIT CONFIRM
+--------------------------------------------------------- */
+
+function confirmSubmit(){
+
+    if(
+        confirm(
+            "क्या आप test submit करना चाहते हैं?"
+        )
+    ){
+
+        submitTest();
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   SUBMIT TEST
+--------------------------------------------------------- */
+
+function submitTest(){
+
+    clearInterval(testTimer);
+
+
+    let correct=0;
+
+    let wrong=0;
+
+
+    answers.forEach(
+        (answer,index)=>{
+
+            if(answer===null){
+                return;
+            }
+
+
+            const question=
+                questions[
+                    index %
+                    questions.length
+                ];
+
+
+            if(
+                answer===
+                question.correct
+            ){
+
+                correct++;
+
+            }else{
+
+                wrong++;
+
+            }
+
+        }
+    );
+
+
+    const score=
+        Math.max(
+            0,
+            correct-
+            (wrong*0.25)
+        );
+
+
+    toast(
+        "Test submitted: "+
+        score.toFixed(2)+
+        " marks"
+    );
+
+
+    openScreen(
+        "resultScreen"
+    );
+
+}
+
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+function filterNotifications(
+    type,
+    button
+){
+
+    document
+        .querySelectorAll(
+            ".notification-tabs button"
+        )
+        .forEach(
+            b=>b.classList.remove("active")
+        );
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    document
+        .querySelectorAll(
+            ".notification-item"
+        )
+        .forEach(
+            item=>{
+
+                if(type==="all"){
+
+                    item.style.display="flex";
+
+                }
+
+                else if(
+                    type==="unread"
+                ){
+
+                    item.style.display=
+                        item.dataset.type===
+                        "unread"
+                        ?
+                        "flex"
+                        :
+                        "none";
+
+                }
+
+                else if(
+                    type==="message"
+                ){
+
+                    item.style.display=
+                        item.dataset.type===
+                        "message"
+                        ?
+                        "flex"
+                        :
+                        "none";
+
+                }
+
+            }
+        );
+
+}
+
+
+/* ---------------------------------------------------------
+   MARK READ
+--------------------------------------------------------- */
+
+function markAllRead(){
+
+    document
+        .querySelectorAll(
+            ".unread-dot"
+        )
+        .forEach(
+            dot=>dot.remove()
+        );
+
+
+    document
+        .getElementById(
+            "notificationBadge"
+        )
+        .style.display="none";
+
+
+    toast(
+        "सभी notifications read हो गए"
+    );
+
+}
+
+
+/* =========================================================
+   WHATSAPP
+========================================================= */
+
+function openWhatsApp(){
+
+    window.open(
+        "https://wa.me/917520414872",
+        "_blank"
+    );
+
+}
+
+
+/* =========================================================
+   PROFILE EDIT
+========================================================= */
+
+function editProfile(){
+
+    const name=
+        localStorage.getItem(
+            "sscStudentName"
+        ) ||
+        "Aman Kumar";
+
+
+    document
+        .getElementById(
+            "generalContent"
+        )
+        .innerHTML=`
+
+            <h2>
+                👤 My Profile
+            </h2>
+
+            <div class="input-group">
+
+                <input
+                    id="editName"
+                    value="${name}"
+                    placeholder="Full Name">
+
+            </div>
+
+            <div class="input-group">
+
+                <input
+                    value="Class 10"
+                    placeholder="Class">
+
+            </div>
+
+            <div class="input-group">
+
+                <input
+                    value="Roll No. 12"
+                    placeholder="Roll Number">
+
+            </div>
+
+            <button
+                class="primary-btn full"
+                onclick="saveProfile()">
+
+                Save Profile
+
+            </button>
+
+        `;
+
+
+    document
+        .getElementById(
+            "generalModal"
+        )
+        .classList.add("show");
+
+}
+
+
+/* ---------------------------------------------------------
+   SAVE PROFILE
+--------------------------------------------------------- */
+
+function saveProfile(){
+
+    const name=
+        document
+        .getElementById(
+            "editName"
+        )
+        .value
+        .trim() ||
+        "Aman Kumar";
+
+
+    localStorage.setItem(
+        "sscStudentName",
+        name
+    );
+
+
+    loadStudentData();
+
+    closeModal(
+        "generalModal"
+    );
+
+
+    toast(
+        "Profile updated ✓"
+    );
+
+}
+
+
+/* =========================================================
+   CHANGE PASSWORD
+========================================================= */
+
+function changePassword(){
+
+    document
+        .getElementById(
+            "generalContent"
+        )
+        .innerHTML=`
+
+            <h2>
+                🔒 Change Password
+            </h2>
+
+            <div class="input-group">
+
+                <input
+                    type="password"
+                    placeholder="Old Password">
+
+            </div>
+
+            <div class="input-group">
+
+                <input
+                    type="password"
+                    placeholder="New Password">
+
+            </div>
+
+            <div class="input-group">
+
+                <input
+                    type="password"
+                    placeholder="Confirm Password">
+
+            </div>
+
+            <button
+                class="primary-btn full"
+                onclick="
+                    closeModal('generalModal');
+                    toast('Password changed successfully ✓');
+                ">
+
+                Change Password
+
+            </button>
+
+        `;
+
+
+    document
+        .getElementById(
+            "generalModal"
+        )
+        .classList.add("show");
+
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+function showAbout(){
+
+    document
+        .getElementById(
+            "generalContent"
+        )
+        .innerHTML=`
+
+            <h2>
+                🏫 SSC CLASSES
+            </h2>
+
+            <p
+                style="
+                line-height:1.7;
+                color:#667085;
+                ">
+
+                <b>
+                    Learn Today • Succeed Tomorrow
+                </b>
+
+                <br><br>
+
+                S.S.C CLASSES विद्यार्थियों को
+                बेहतर शिक्षा, मार्गदर्शन और
+                परीक्षा की तैयारी के लिए
+                digital learning platform
+                प्रदान करता है।
+
+                <br><br>
+
+                <b>
+                    Sarbela, Bihar
+                </b>
+
+                <br>
+
+                Director:
+                Sonu Sir
+
+                <br>
+
+                📞 7520414872
+
+            </p>
+
+        `;
+
+
+    document
+        .getElementById(
+            "generalModal"
+        )
+        .classList.add("show");
+
+}
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+function closeModal(id){
+
+    document
+        .getElementById(id)
+        .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
+
+function openAdmin(){
+
+    document
+        .getElementById(
+            "adminModal"
+        )
+        .classList.add("show");
+
+}
+
+
+/*
+   IMPORTANT:
+   Current admin credentials are kept only
+   for compatibility with your old website.
+
+   Production app में credentials को
+   frontend JavaScript में नहीं रखना चाहिए.
+*/
+
+function adminLogin(){
+
+    const user=
+        document
+        .getElementById(
+            "adminUser"
+        )
+        .value
+        .trim();
+
+
+    const password=
+        document
+        .getElementById(
+            "adminPassword"
+        )
+        .value;
+
+
+    if(
+        user==="SSCLASSES" &&
+        password==="sonusir@7520"
+    ){
+
+        localStorage.setItem(
+            "sscAdminLoggedIn",
+            "true"
+        );
+
+
+        closeModal(
+            "adminModal"
+        );
+
+
+        window.location.href=
+            "admin.html";
+
+
+    }else{
+
+        document
+            .getElementById(
+                "adminError"
+            )
+            .textContent=
+            "❌ गलत User ID या Password";
+
+    }
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function toast(message){
+
+    const box=
+        document.getElementById(
+            "toast"
+        );
+
+
+    box.textContent=
+        message;
+
+
+    box.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        window.toastTimer
+    );
+
+
+    window.toastTimer=
+        setTimeout(
+            function(){
+
+                box.classList.remove(
+                    "show"
+                );
+
+            },
+            2200
+        );
+
+}
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key==="Escape"){
+
+            document
+                .querySelectorAll(
+                    ".modal.show"
+                )
+                .forEach(
+                    modal=>{
+                        modal.classList.remove(
+                            "show"
+                        );
+                    }
+                );
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
