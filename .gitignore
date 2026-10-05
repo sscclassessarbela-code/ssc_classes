@@ -2,3 +2,17 @@
 .idea/
 *.iml
 .DS_Store
+
+# Android release signing files
+android/keystore.properties
+android/*.keystore
+android/*.jks
+# Accidental file
+h --force-with-lease origin main
+
+# Android release signing files
+android/keystore.properties
+android/*.keystore
+android/*.jks
+# Accidental file
+h --force-with-lease origin main
