@@ -1,11 +1,544 @@
 <!doctype html>
-<html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Community Chat • S.S.C. CLASSES</title>
-<style>body{margin:0;font-family:Arial,sans-serif;background:#f3f6fa;color:#0f172a}.wrap{max-width:760px;margin:auto;min-height:100vh;background:#fff;display:flex;flex-direction:column}.top{padding:15px 16px;background:#0b1f3a;color:#fff;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:2}.back{border:0;background:transparent;color:#fff;font-size:25px;cursor:pointer}.tg{width:38px;height:38px}.messages{flex:1;padding:16px;overflow:auto}.msg{max-width:82%;margin:9px 0;padding:10px 12px;border-radius:14px;background:#eef3f8}.msg.me{margin-left:auto;background:#d9efff}.name{font-size:12px;font-weight:700;color:#2563eb}.time{font-size:10px;color:#94a3b8;margin-top:4px}.composer{display:flex;gap:8px;padding:10px;border-top:1px solid #e5e7eb;position:sticky;bottom:0;background:#fff}.composer textarea{flex:1;border:1px solid #d1d5db;border-radius:12px;padding:10px;resize:none}.send{border:0;border-radius:12px;background:#1769aa;color:#fff;padding:0 16px;font-weight:700}</style></head><body><div class="wrap"><div class="top"><button class="back" onclick="history.back()">‹</button><svg class="tg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#229ED9"/><path fill="#fff" d="M36.8 12.9 30.9 35c-.45 1.56-1.28 1.94-2.6 1.2l-7.15-5.27-3.45 3.32c-.38.38-.7.7-1.43.7l.51-7.28 13.25-11.97c.58-.51-.13-.8-.9-.29L12.75 25.8l-6.97-2.18c-1.52-.48-1.55-1.52.32-2.25l27.25-10.5c1.26-.46 2.37.3 1.45 2.03Z"/></svg><div><b>S.S.C. CLASSES</b><div style="font-size:12px;opacity:.8">Community Chat</div></div></div><div id="messages" class="messages"></div><div class="composer"><textarea id="text" rows="2" placeholder="Message लिखें..."></textarea><button class="send" onclick="sendMessage()">Send</button></div></div>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Community Chat • S.S.C. CLASSES</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f3f6fa;
+    color:#0f172a
+}
+
+.wrap{
+    max-width:760px;
+    margin:auto;
+    min-height:100vh;
+    background:#fff;
+    display:flex;
+    flex-direction:column
+}
+
+.top{
+    padding:15px 16px;
+    background:#0b1f3a;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    position:sticky;
+    top:0;
+    z-index:2
+}
+
+.back{
+    border:0;
+    background:transparent;
+    color:#fff;
+    font-size:25px;
+    cursor:pointer
+}
+
+.tg{
+    width:38px;
+    height:38px
+}
+
+.messages{
+    flex:1;
+    padding:16px;
+    overflow:auto
+}
+
+.msg{
+    max-width:82%;
+    margin:9px 0;
+    padding:10px 12px;
+    border-radius:14px;
+    background:#eef3f8
+}
+
+.msg.me{
+    margin-left:auto;
+    background:#d9efff
+}
+
+.name{
+    font-size:12px;
+    font-weight:700;
+    color:#2563eb
+}
+
+.time{
+    font-size:10px;
+    color:#94a3b8;
+    margin-top:4px
+}
+
+.composer{
+    display:flex;
+    gap:8px;
+    padding:10px;
+    border-top:1px solid #e5e7eb;
+    position:sticky;
+    bottom:0;
+    background:#fff
+}
+
+.composer textarea{
+    flex:1;
+    border:1px solid #d1d5db;
+    border-radius:12px;
+    padding:10px;
+    resize:none
+}
+
+.send{
+    border:0;
+    border-radius:12px;
+    background:#1769aa;
+    color:#fff;
+    padding:0 16px;
+    font-weight:700
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+    <div class="top">
+
+        <!-- BACK BUTTON -->
+        <button class="back" onclick="goBackToStudent()">‹</button>
+
+        <svg class="tg" viewBox="0 0 48 48">
+            <circle cx="24" cy="24" r="24" fill="#229ED9"/>
+            <path fill="#fff"
+                d="M36.8 12.9 30.9 35c-.45 1.56-1.28 1.94-2.6 1.2l-7.15-5.27-3.45 3.32c-.38.38-.7.7-1.43.7l.51-7.28 13.25-11.97c.58-.51-.13-.8-.9-.29L12.75 25.8l-6.97-2.18c-1.52-.48-1.55-1.52.32-2.25l27.25-10.5c1.26-.46 2.37.3 1.45 2.03Z"/>
+        </svg>
+
+        <div>
+            <b>S.S.C. CLASSES</b>
+            <div style="font-size:12px;opacity:.8">
+                Community Chat
+            </div>
+        </div>
+
+    </div>
+
+    <div id="messages" class="messages"></div>
+
+    <div class="composer">
+        <textarea
+            id="text"
+            rows="2"
+            placeholder="Message लिखें...">
+        </textarea>
+
+        <button class="send" onclick="sendMessage()">
+            Send
+        </button>
+    </div>
+
+</div>
+
+
 <script type="module">
-import{initializeApp,getApps}from"https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";import{getAuth,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";import{getFirestore,collection,query,where,orderBy,onSnapshot,addDoc,serverTimestamp,getDoc,doc}from"https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-const cfg={apiKey:"AIzaSyDGnQzr8AV8nVdIBO6tUDbNAoRqlxuF7N0",authDomain:"ssc-classes-4e87d.firebaseapp.com",projectId:"ssc-classes-4e87d",storageBucket:"ssc-classes-4e87d.firebasestorage.app",messagingSenderId:"65398917667",appId:"1:65398917667:web:8f47fdf42001902db7ff96",measurementId:"G-JQ4EK99HHN"};
-const app=getApps().length?getApps()[0]:initializeApp(cfg),auth=getAuth(app),db=getFirestore(app);let user=null,profile={};
-const esc=x=>String(x??"").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-async function start(u){user=u;if(!u)return;try{const s=await getDoc(doc(db,"students",u.uid));profile=s.exists()?s.data():{};}catch(e){}const q=query(collection(db,"messages"),where("type","==","community_chat"));onSnapshot(q,s=>{const rows=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>{const aa=a.createdAt?.toMillis?a.createdAt.toMillis():0,bb=b.createdAt?.toMillis?b.createdAt.toMillis():0;return aa-bb});const box=document.getElementById('messages');box.innerHTML=rows.map(m=>{const mine=m.senderUid===u.uid;const dt=m.createdAt?.toDate?m.createdAt.toDate():null;return `<div class="msg ${mine?'me':''}"><div class="name">${esc(m.senderName||'Student')}</div><div style="white-space:pre-wrap;margin-top:4px">${esc(m.text||m.message||'')}</div><div class="time">${dt?dt.toLocaleString('en-IN'):''}</div></div>`}).join('');box.scrollTop=box.scrollHeight;},e=>{console.error(e);document.getElementById('messages').innerHTML='<p style="text-align:center;color:#b91c1c">Chat load नहीं हुआ। Firebase Rules check करें।</p>';});}
-window.sendMessage=async()=>{const input=document.getElementById('text'),text=input.value.trim();if(!text||!user)return;try{await addDoc(collection(db,'messages'),{type:'community_chat',senderUid:user.uid,senderName:profile.name||profile.studentName||user.displayName||'Student',studentClass:String(profile.studentClass||profile.class||''),text,message:text,createdAt:serverTimestamp()});input.value='';}catch(e){alert('Message send नहीं हुआ। Firebase Rules check करें।');console.error(e);}};
-onAuthStateChanged(auth,start);</script></body></html>
+
+/* ================================
+   FIREBASE IMPORTS
+================================ */
+
+import{
+    initializeApp,
+    getApps
+}from"https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+
+import{
+    getAuth,
+    onAuthStateChanged,
+    setPersistence,
+    browserLocalPersistence
+}from"https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+import{
+    getFirestore,
+    collection,
+    query,
+    where,
+    onSnapshot,
+    addDoc,
+    serverTimestamp,
+    getDoc,
+    doc
+}from"https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+
+/* ================================
+   FIREBASE CONFIG
+================================ */
+
+const cfg={
+    apiKey:"AIzaSyDGnQzr8AV8nVdIBO6tUDbNAoRqlxuF7N0",
+    authDomain:"ssc-classes-4e87d.firebaseapp.com",
+    projectId:"ssc-classes-4e87d",
+    storageBucket:"ssc-classes-4e87d.firebasestorage.app",
+    messagingSenderId:"65398917667",
+    appId:"1:65398917667:web:8f47fdf42001902db7ff96",
+    measurementId:"G-JQ4EK99HHN"
+};
+
+
+/* ================================
+   FIREBASE INIT
+================================ */
+
+const app=
+    getApps().length
+        ? getApps()[0]
+        : initializeApp(cfg);
+
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+
+/* ================================
+   AUTH PERSISTENCE
+================================ */
+
+setPersistence(
+    auth,
+    browserLocalPersistence
+).catch(e=>{
+    console.warn(
+        "Community auth persistence failed",
+        e
+    );
+});
+
+
+/* ================================
+   BACK BUTTON
+   COMMUNITY → STUDENT HOME
+================================ */
+
+window.goBackToStudent=function(){
+
+    try{
+
+        /*
+         * history.back() इस्तेमाल नहीं करेंगे।
+         * Direct student.html खोलेंगे ताकि
+         * previous page/history से logout/reset न हो।
+         */
+
+        window.location.href="student.html";
+
+    }catch(e){
+
+        console.error(
+            "Back navigation failed:",
+            e
+        );
+
+        window.location.href="./student.html";
+
+    }
+
+};
+
+
+/* ================================
+   GLOBAL VARIABLES
+================================ */
+
+let user=null;
+let profile={};
+
+
+/* ================================
+   HTML ESCAPE
+================================ */
+
+const esc=x=>
+    String(x??"").replace(
+        /[&<>"']/g,
+        c=>({
+            '&':'&amp;',
+            '<':'&lt;',
+            '>':'&gt;',
+            '"':'&quot;',
+            "'":'&#39;'
+        }[c])
+    );
+
+
+/* ================================
+   START COMMUNITY
+================================ */
+
+async function start(u){
+
+    user=u;
+
+    if(!u){
+
+        document.getElementById("messages").innerHTML=
+            '<p style="text-align:center;color:#64748b">Login session नहीं मिला।</p>';
+
+        return;
+    }
+
+
+    /* ================================
+       LOAD STUDENT PROFILE
+    ================================ */
+
+    try{
+
+        const s=
+            await getDoc(
+                doc(
+                    db,
+                    "students",
+                    u.uid
+                )
+            );
+
+        profile=
+            s.exists()
+                ? s.data()
+                : {};
+
+    }catch(e){
+
+        console.warn(
+            "Student profile load failed",
+            e
+        );
+
+        profile={};
+
+    }
+
+
+    /* ================================
+       COMMUNITY MESSAGES
+    ================================ */
+
+    const q=
+        query(
+            collection(db,"messages"),
+            where(
+                "type",
+                "==",
+                "community_chat"
+            )
+        );
+
+
+    onSnapshot(
+        q,
+
+        snapshot=>{
+
+            const rows=
+                snapshot.docs
+                .map(d=>({
+                    id:d.id,
+                    ...d.data()
+                }))
+                .sort((a,b)=>{
+
+                    const aa=
+                        a.createdAt?.toMillis
+                            ? a.createdAt.toMillis()
+                            : 0;
+
+                    const bb=
+                        b.createdAt?.toMillis
+                            ? b.createdAt.toMillis()
+                            : 0;
+
+                    return aa-bb;
+
+                });
+
+
+            const box=
+                document.getElementById(
+                    "messages"
+                );
+
+
+            box.innerHTML=
+                rows.map(m=>{
+
+                    const mine=
+                        m.senderUid===u.uid;
+
+                    const dt=
+                        m.createdAt?.toDate
+                            ? m.createdAt.toDate()
+                            : null;
+
+
+                    return `
+                        <div class="msg ${mine?'me':''}">
+
+                            <div class="name">
+                                ${esc(
+                                    m.senderName ||
+                                    'Student'
+                                )}
+                            </div>
+
+                            <div style="white-space:pre-wrap;margin-top:4px">
+                                ${esc(
+                                    m.text ||
+                                    m.message ||
+                                    ''
+                                )}
+                            </div>
+
+                            <div class="time">
+                                ${
+                                    dt
+                                        ? dt.toLocaleString('en-IN')
+                                        : ''
+                                }
+                            </div>
+
+                        </div>
+                    `;
+
+                }).join("");
+
+
+            box.scrollTop=
+                box.scrollHeight;
+
+        },
+
+        error=>{
+
+            console.error(
+                "Community chat load error:",
+                error
+            );
+
+            document.getElementById(
+                "messages"
+            ).innerHTML=
+                '<p style="text-align:center;color:#b91c1c">Chat load नहीं हुआ। Firebase Rules check करें।</p>';
+
+        }
+
+    );
+
+}
+
+
+/* ================================
+   SEND MESSAGE
+================================ */
+
+window.sendMessage=async()=>{
+
+    const input=
+        document.getElementById("text");
+
+    const text=
+        input.value.trim();
+
+
+    if(!text){
+
+        return;
+
+    }
+
+
+    if(!user){
+
+        alert(
+            "Login session नहीं मिला। पहले Login करें।"
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        await addDoc(
+            collection(
+                db,
+                "messages"
+            ),
+            {
+                type:"community_chat",
+
+                senderUid:user.uid,
+
+                senderName:
+                    profile.name ||
+                    profile.studentName ||
+                    user.displayName ||
+                    "Student",
+
+                studentClass:
+                    String(
+                        profile.studentClass ||
+                        profile.class ||
+                        ""
+                    ),
+
+                text:text,
+
+                message:text,
+
+                createdAt:
+                    serverTimestamp()
+            }
+        );
+
+
+        input.value="";
+
+
+    }catch(e){
+
+        alert(
+            "Message send नहीं हुआ। Firebase Rules check करें।"
+        );
+
+        console.error(
+            "Message send error:",
+            e
+        );
+
+    }
+
+};
+
+
+/* ================================
+   AUTH STATE
+================================ */
+
+onAuthStateChanged(
+    auth,
+    start
+);
+
+</script>
+
+</body>
+</html>

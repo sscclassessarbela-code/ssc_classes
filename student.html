@@ -6620,14 +6620,16 @@ function getDynamicNotifications(){
             const when=start.toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"});
             const live=Date.now()>=start.getTime();
             items.push({
-                id,
-                type:"test",
-                icon:"📝",
-                title:live?"Test available now":"Upcoming test",
-                message:`${testName}${subject?" • "+subject:""} • Starts ${when} • ${live?"Available now":"Available at scheduled time"}`,
-                createdAt:t.startDateTime,
-                target:"testScreen"
-            });
+    id,
+    type:"test",
+    icon:"📝",
+    title:live ? "Test available now" : "Upcoming test",
+    message:`${testName}${subject ? " • "+subject : ""} • Starts ${when} • ${live ? "Available now" : "Available at scheduled time"}`,
+    createdAt:t.startDateTime,
+    target:"testScreen",
+    targetTestId:String(t.id || testName),
+    testName:testName
+});
         });
     }
 
@@ -9397,7 +9399,7 @@ body.ssc-dark .ssc-notification-close-btn{
                 <button
                     type="button"
                     class="ssc-notification-open-btn"
-                    onclick="openNotificationTarget(${JSON.stringify(item.target)})"
+                    onclick="openNotificationTarget(${JSON.stringify(item.target)},${JSON.stringify(item.targetTestId||"")})"
                 >
                     Open
                 </button>
@@ -9442,26 +9444,58 @@ body.ssc-dark .ssc-notification-close-btn{
        Popup बंद करके existing function को ही use करता है.
     ===================================================== */
 
-    window.openNotificationTarget=function(target){
+   window.openNotificationTarget=function(target,targetTestId){
 
-        closeNotificationPopup();
+    closeNotificationPopup();
 
-        if(target){
+    if(!target) return;
 
-            setTimeout(function(){
+    setTimeout(function(){
 
-                if(typeof openScreen==="function"){
-
-                    openScreen(target);
-
-                }
-
-            },120);
-
+        /* Normal notification */
+        if(target!=="testScreen"){
+            if(typeof openScreen==="function"){
+                openScreen(target);
+            }
+            return;
         }
 
-    };
+        /* Test notification */
+        if(typeof openScreen==="function"){
+            openScreen("testScreen");
+        }
 
+        setTimeout(function(){
+
+            const tests =
+                typeof getAvailableTests==="function"
+                    ? getAvailableTests()
+                    : [];
+
+            const wantedId=String(targetTestId||"");
+
+            let index=tests.findIndex(t =>
+                String(t.id||"")===wantedId
+            );
+
+            /* अगर ID match न मिले तो test name से खोजें */
+            if(index<0 && wantedId){
+                index=tests.findIndex(t =>
+                    String(t.testName||t.name||"").trim()===wantedId
+                );
+            }
+
+            if(index>=0 && typeof startUnifiedTest==="function"){
+                startUnifiedTest(index);
+            }else{
+                toast("यह Test अभी उपलब्ध नहीं है।");
+            }
+
+        },250);
+
+    },120);
+
+};
 
     /* =====================================================
        REPLACE ONLY notification CLICK FUNCTION
