@@ -1,7 +1,12 @@
+
 {
   "appId": "com.sscclasses.sarbela",
   "appName": "S.S.C. CLASSES",
-  "webDir": "www"
+  "webDir": "www",
+  "plugins": {
+    "FirebaseAuthentication": {
+      "skipNativeAuth": false,
+      "providers": ["google.com"]
+    }
+  }
 }
-
-

@@ -4695,7 +4695,7 @@ if(!/^\d+$/.test(roll)){
             toast("Registration successful ✓");
             setTimeout(()=>openScreen("homeScreen"),400);
 
-        }catch(error){
+                }catch(error){
             console.error("Student registration failed:",error);
 
             let message="Registration पूरा नहीं हो पाया। कृपया दोबारा कोशिश करें।";
@@ -4711,6 +4711,9 @@ if(!/^\d+$/.test(roll)){
             toast(message);
             return;
         }
+    };
+
+    if(photoInput?.files?.[0]){
 
         let students=[];
         try{ students=JSON.parse(localStorage.getItem("sscStudents"))||[]; }catch(e){}
@@ -5019,7 +5022,6 @@ function logout(){
    DYNAMIC SUBJECT / CHAPTER / VIDEO SYSTEM
 --------------------------------------------------------- */
 const CONTENT_KEY="sscClassContent";
-function normalizeClassValue(value){return String(value??"").replace(/Class/ig,"").trim();}
 function getContentStore(){
   const data=safeJSON(CONTENT_KEY,{});
   return data && typeof data==="object" ? data : {};
@@ -5058,8 +5060,10 @@ function renderSubjects(){
   const cls=studentClassValue(), subjects=getClassSubjects(cls), icons=["∑","🧪","🌍","A","अ","ॐ","⚡","⚗","🧬"];
   if(!subjects.length){box.innerHTML='<div class="card" style="padding:25px;text-align:center"><h2>📚 No Subjects</h2><p style="color:#6b7280;margin-top:8px">Admin ने अभी इस Class के लिए Subject नहीं बनाया है।</p></div>';return;}
   box.innerHTML=subjects.map((subject,i)=>{
+    const chapters=getClassChapters(cls,subject);
     const count=getVideoStore().filter(v=>getVideoClassValue(v)===normalizeClassValue(cls)&&String(v.subject||"").trim()===String(subject).trim()).length;
-    return `<div class="card subject-card" data-subject="${escapeHTML(subject)}"><div class="subject-icon" style="background:#eaf2ff">${icons[i%icons.length]}</div><div class="subject-info"><b>${escapeHTML(subject)}</b><small>${count} Video Class${count===1?'':'es'} available</small><div class="progress"><i style="width:${count?100:0}%"></i></div></div><span>›</span></div>`;
+    const progress=chapters.length?100:(count?100:0);
+    return `<div class="card subject-card" data-subject="${escapeHTML(subject)}"><div class="subject-icon" style="background:#eaf2ff">${icons[i%icons.length]}</div><div class="subject-info"><b>${escapeHTML(subject)}</b><small>${chapters.length} Chapter${chapters.length===1?'':'s'} • ${count} Video${count===1?'':'s'}</small><div class="progress"><i style="width:${progress}%"></i></div></div><span>›</span></div>`;
   }).join('');
   box.querySelectorAll('.subject-card').forEach(el=>el.addEventListener('click',()=>openChapters(el.dataset.subject||'')));
 }
@@ -5845,7 +5849,7 @@ function studentClassValue(){
 function normalizeClassValue(value){
     const raw=String(value ?? "").trim();
     const m=raw.match(/\d+/);
-    return m ? m[0] : raw;
+    return m ? m[0] : raw.replace(/Class/ig,"").trim();
 }
 
 function getQuestionArray(test){
@@ -7058,6 +7062,16 @@ window.sscAuthBridge=Promise.resolve({
   saveStudentProfile:async(uid,data)=>
     setDoc(doc(db,"students",uid),data,{merge:true}),
 
+loadClassContent:async()=>{
+    const snap=await getDoc(
+        doc(db,"sscClassContent","main")
+    );
+
+    return snap.exists()
+        ? (snap.data().content || {})
+        : {};
+},
+
   saveTestResult:async(result)=>{
     const key=`${result.studentUid||result.studentMobile||"student"}__${result.testId||result.id}`;
     return setDoc(doc(db,"testResults",key),result,{merge:true});
@@ -7088,29 +7102,97 @@ window.sscGoogleLogin=async function(){
 getRedirectResult(auth).then(result=>{if(result?.user)window.handleExternalStudentAuth(result.user,"google");}).catch(error=>console.error("Google redirect sign-in failed",error));
 onAuthStateChanged(auth,async user=>{
 
-  /* User ने Firebase से logout किया हो तभी login हटाएँ.
-     Normal refresh/reopen पर Firebase persistent session वापस user देगा. */
-
+  /*
+   * Firebase persistent session restore:
+   * 1) Restore the student profile/class first.
+   * 2) Then load the latest class content from Firebase.
+   * 3) Finally render the UI.
+   * This prevents Subjects/Chapters from rendering against the fallback class.
+   */
   if(!user){
       return;
   }
+
   try{
-    const current=safeJSON("sscStudent",{});
-    if(current?.uid===user.uid && localStorage.getItem("sscStudentLoggedIn")==="true")return;
-    const profile=await getDoc(doc(db,"students",user.uid));
-    if(profile.exists()){
-      const student={...profile.data(),uid:user.uid,email:profile.data().email||user.email||"",name:profile.data().name||user.displayName||"Student",photo:profile.data().photo||user.photoURL||""};
-      localStorage.setItem("sscStudent",JSON.stringify(student));
-      localStorage.setItem("sscStudentLoggedIn","true");
-      localStorage.setItem("sscStudentName",student.name||"Student");
-      localStorage.setItem("sscStudentClass",String(student.studentClass||student.className||""));
-      if(typeof loadStudentData==="function")loadStudentData();
-      if(typeof window.activateStudentSessionSilent==="function")window.activateStudentSessionSilent(student);
-      else if(typeof openScreen==="function" && !document.getElementById("homeScreen")?.classList.contains("active"))openScreen("homeScreen");
+    let student = safeJSON("sscStudent",{});
+
+    if(!student || student.uid!==user.uid || localStorage.getItem("sscStudentLoggedIn")!=="true"){
+      const profile=await getDoc(doc(db,"students",user.uid));
+
+      if(profile.exists()){
+        student={
+          ...profile.data(),
+          uid:user.uid,
+          email:profile.data().email||user.email||"",
+          name:profile.data().name||user.displayName||"Student",
+          photo:profile.data().photo||user.photoURL||""
+        };
+
+        localStorage.setItem("sscStudent",JSON.stringify(student));
+        localStorage.setItem("sscStudentLoggedIn","true");
+        localStorage.setItem("sscStudentName",student.name||"Student");
+        localStorage.setItem("sscStudentClass",String(student.studentClass||student.className||student.class||""));
+      }
     }
-  }catch(e){console.warn("Firebase session restore failed",e);}
+
+    /* Always fetch the latest admin content after the class is known. */
+    await loadCloudClassContent();
+
+    const latestStudent=safeJSON("sscStudent",student||{});
+    if(typeof loadStudentData==="function") loadStudentData();
+
+    if(latestStudent?.uid===user.uid && typeof window.activateStudentSessionSilent==="function" ){
+      window.activateStudentSessionSilent(latestStudent);
+    }else if(typeof openScreen==="function" && !document.getElementById("homeScreen")?.classList.contains("active")){
+      openScreen("homeScreen");
+    }
+
+  }catch(e){
+    console.error("Firebase session restore failed",e);
+  }
 });
+
 let stopClassMessages=null,stopScheduledTests=null,currentClass="";
+async function loadCloudClassContent(){
+
+    try{
+
+        const bridge=await window.sscAuthBridge;
+
+        if(!bridge?.loadClassContent){
+            console.warn("loadClassContent bridge उपलब्ध नहीं है।");
+            return;
+        }
+
+        const cloudContent=await bridge.loadClassContent();
+        const content = cloudContent?.content && typeof cloudContent.content==="object"
+            ? cloudContent.content
+            : cloudContent;
+
+        if(!content || typeof content!=="object" || Array.isArray(content)){
+            console.warn("Firebase में valid class content नहीं मिला।");
+            return;
+        }
+
+        /* Firebase is the source of truth for Subjects / Chapters. */
+        localStorage.setItem("sscClassContent",JSON.stringify(content));
+
+        console.log("✅ SSC Class Content Firebase से load हो गया।",Object.keys(content));
+
+        if(typeof renderSubjects==="function"){
+            renderSubjects();
+        }
+
+    }catch(error){
+
+        console.warn(
+            "Student class content load failed:",
+            error
+        );
+
+    }
+
+}
 async function loadCloudStudentResults(){
   try{
     const st=safeJSON("sscStudent",{});
@@ -7710,12 +7792,12 @@ body.ssc-dark .dark-mode-switch span{
         pdfWrap.style.left = "-100000px";
         pdfWrap.style.top = "0";
         pdfWrap.style.width = "794px";
-        pdfWrap.style.minHeight = "1123px";
+        pdfWrap.style.minHeight = "0";
         pdfWrap.style.background = "#ffffff";
         pdfWrap.style.padding = "0";
         pdfWrap.style.margin = "0";
         pdfWrap.style.boxSizing = "border-box";
-        pdfWrap.style.overflow = "hidden";
+        pdfWrap.style.overflow = "visible";
         pdfWrap.style.zIndex = "-99999";
 
         const pdfCard = original.cloneNode(true);
@@ -7811,9 +7893,7 @@ body.ssc-dark .dark-mode-switch span{
 
                 scrollY: 0,
 
-                windowWidth: 794,
-
-                windowHeight: 1123
+                windowWidth: 794
             },
 
             jsPDF: {
@@ -7832,7 +7912,6 @@ body.ssc-dark .dark-mode-switch span{
                 mode: ["css","legacy"],
 
                 avoid: [
-                    ".ssc-result-card",
                     ".ssc-result-student",
                     ".ssc-score-row",
                     ".ssc-result-table"
@@ -7857,25 +7936,9 @@ body.ssc-dark .dark-mode-switch span{
             .get("pdf")
 
             .then(pdf => {
-
-                /* Make sure only A4 page is used */
-
-                const totalPages =
-                    pdf.internal.getNumberOfPages();
-
-                while(totalPages > 1){
-
-                    /*
-                     * Existing result is designed
-                     * to fit on one A4 page.
-                     * Remove accidental extra pages.
-                     */
-
-                    pdf.deletePage(totalPages);
-
-                    break;
-                }
-
+                /* Keep every generated A4 page; never delete overflow content. */
+                const totalPages = pdf.internal.getNumberOfPages();
+                console.info("SSC result PDF pages:", totalPages);
             })
 
             .save();
@@ -9350,7 +9413,7 @@ body.ssc-dark .ssc-notification-close-btn{
         if(!item){
             return;
         }
-
+        window._sscNotificationItem = item;
 
         title.textContent=
             item.title || "Notification";
@@ -9399,7 +9462,7 @@ body.ssc-dark .ssc-notification-close-btn{
                 <button
                     type="button"
                     class="ssc-notification-open-btn"
-                    onclick="openNotificationTarget(${JSON.stringify(item.target)})"
+                    onclick="openNotificationTarget()"
                 >
                     Open
                 </button>
@@ -9444,142 +9507,81 @@ body.ssc-dark .ssc-notification-close-btn{
        Popup बंद करके existing function को ही use करता है.
     ===================================================== */
 
-    window.openNotificationTarget=function(target,targetTestId){
+    window.openNotificationTarget = function(target, targetTestId, targetTestName) {
+        const item = window._sscNotificationItem || {};
+        const destination = target || item.target || "testScreen";
+        const wantedId = String(targetTestId || item.targetTestId || "").trim();
+        const wantedName = String(targetTestName || item.testName || "").trim();
 
-    closeNotificationPopup();
+        closeNotificationPopup();
 
-    if(!target) return;
+        if (!destination) return;
 
-    setTimeout(function(){
-
-        /* Normal notification */
-        if(target!=="testScreen"){
-            if(typeof openScreen==="function"){
-                openScreen(target);
-            }
-            return;
-        }
-
-        /* Test notification */
-        if(typeof openScreen==="function"){
-            openScreen("testScreen");
-        }
-
-        setTimeout(function(){
-
-            const tests =
-                typeof getAvailableTests==="function"
-                    ? getAvailableTests()
-                    : [];
-
-            const wantedId=String(targetTestId||"");
-
-            let index=tests.findIndex(t =>
-                String(t.id||"")===wantedId
-            );
-
-            /* अगर ID match न मिले तो test name से खोजें */
-            if(index<0 && wantedId){
-                index=tests.findIndex(t =>
-                    String(t.testName||t.name||"").trim()===wantedId
-                );
+        setTimeout(function() {
+            if (destination !== "testScreen") {
+                if (typeof openScreen === "function") openScreen(destination);
+                window._sscNotificationItem = null;
+                return;
             }
 
-            if(index>=0 && typeof startUnifiedTest==="function"){
-                startUnifiedTest(index);
-            }else{
-                toast("यह Test अभी उपलब्ध नहीं है।");
-            }
+            if (typeof openScreen === "function") openScreen("testScreen");
 
-        },250);
+            setTimeout(function() {
+                let tests = typeof getAvailableTests === "function" ? getAvailableTests() : [];
+                if (!Array.isArray(tests)) tests = [];
 
-    },120);
+                let index = tests.findIndex(function(test) {
+                    const id = String(test && test.id || "").trim();
+                    const name = String(test && (test.testName || test.name) || "").trim();
+                    return (wantedId && id === wantedId) ||
+                           (wantedName && name.toLowerCase() === wantedName.toLowerCase()) ||
+                           (wantedId && name.toLowerCase() === wantedId.toLowerCase());
+                });
 
-};
+                if (index < 0) {
+                    let rawTests = [];
+                    ["sscScheduledTests", "sscCloudScheduledTests"].forEach(function(key) {
+                        try {
+                            const value = JSON.parse(localStorage.getItem(key) || "[]");
+                            if (Array.isArray(value)) rawTests.push.apply(rawTests, value);
+                        } catch (error) {
+                            console.warn("Could not read scheduled tests cache:", key, error);
+                        }
+                    });
 
-    /* =====================================================
-       REPLACE ONLY notification CLICK FUNCTION
-       बाकी notification system untouched.
-    ===================================================== */
+                    const found = rawTests.find(function(test) {
+                        const id = String(test && test.id || "").trim();
+                        const name = String(test && (test.testName || test.name) || "").trim();
+                        return (wantedId && (id === wantedId || name.toLowerCase() === wantedId.toLowerCase())) ||
+                               (wantedName && name.toLowerCase() === wantedName.toLowerCase());
+                    });
 
-    window.openNotification=function(encodedId){
+                    if (found) {
+                        const key = String(found.id || found.testName || found.name || "");
+                        const map = new Map(tests.map(function(test) {
+                            return [String(test.id || test.testName || test.name || ""), test];
+                        }));
+                        map.set(key, found);
+                        tests = Array.from(map.values());
+                        index = tests.findIndex(function(test) {
+                            return String(test.id || test.testName || test.name || "") === key;
+                        });
+                    }
+                }
 
-        const id=decodeURIComponent(encodedId);
+                if (typeof renderTestList === "function") renderTestList();
+                window._sscVisibleTests = tests;
 
+                if (index >= 0 && typeof startUnifiedTest === "function") {
+                    startUnifiedTest(index);
+                } else if (typeof toast === "function") {
+                    toast("यह टेस्ट अभी उपलब्ध नहीं है। Test List में Refresh करके देखें।");
+                }
 
-        /* Mark notification as read */
-
-        const read=
-            typeof getReadNotificationIds==="function"
-                ? getReadNotificationIds()
-                : [];
-
-
-        if(!read.includes(id)){
-
-            read.push(id);
-
-            if(typeof saveReadNotificationIds==="function"){
-
-                saveReadNotificationIds(read);
-
-            }
-
-        }
-
-
-        /* Find actual notification */
-
-        const items=
-            typeof getDynamicNotifications==="function"
-                ? getDynamicNotifications()
-                : [];
-
-
-        const item=
-            items.find(
-                x=>String(x.id)===String(id)
-            );
-
-
-        /* Existing badge refresh */
-
-        if(typeof updateNotificationBadge==="function"){
-
-            updateNotificationBadge();
-
-        }
-
-
-        if(typeof renderHomeNotifications==="function"){
-
-            renderHomeNotifications();
-
-        }
-
-
-        /* Show big message */
-
-        if(item){
-
-            openNotificationPopup(item);
-
-        }else{
-
-            openNotificationPopup({
-
-                title:"Notification",
-
-                message:"Notification message उपलब्ध नहीं है।",
-
-                icon:"🔔"
-
-            });
-
-        }
-
+                window._sscNotificationItem = null;
+            }, 250);
+        }, 100);
     };
-
 
 })();
 
@@ -10103,5 +10105,38 @@ body.ssc-dark .ssc-notification-close-btn{
 
 })();
 </script>
+
+<script>
+window.googleLogin = async function () {
+    const button = document.querySelector(".google-btn");
+
+    try {
+        if (typeof window.sscGoogleLogin !== "function") {
+            if (typeof toast === "function") {
+                toast("Google Login तैयार नहीं है। कुछ सेकंड बाद दोबारा प्रयास करें।");
+            }
+            return;
+        }
+
+        if (button) button.disabled = true;
+
+        await window.sscGoogleLogin();
+
+    } catch (error) {
+        console.error("Google Login failed:", error);
+
+        if (typeof toast === "function") {
+            toast("Google Login में समस्या आई। Console में error देखें।");
+        } else {
+            alert("Google Login में समस्या आई।");
+        }
+    } finally {
+        if (button) button.disabled = false;
+    }
+};
+</script>
+</body>
+</html>
+
 </body>
 </html>

@@ -16,3 +16,7 @@ android/*.keystore
 android/*.jks
 # Accidental file
 h --force-with-lease origin main
+
+# Private Android signing and Firebase config
+android/app/ssc-classes-release.keystore
+android/app/google-services.json
