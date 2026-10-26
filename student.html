@@ -7761,7 +7761,52 @@ body.ssc-dark .dark-mode-switch span{
 
     }).join("");
 };
-  
+   /* Screen-only result: score circle, answer counts, and question-by-question review. */
+  window.renderStudentResult=function(rOverride){
+    const st=studentRecord(), rows=getLocalMyResults();
+    const r=rOverride||rows[0];
+    const c=q('resultContent'), empty=q('noClassResultMessage');
+    if(!r){
+      if(c)c.innerHTML='';
+      if(empty){empty.style.display='block';q('noClassResultText').textContent='अभी कोई टेस्ट परिणाम उपलब्ध नहीं है।';}
+      return;
+    }
+    if(empty)empty.style.display='none';
+    if(c)c.classList.add('ssc-result-visible');
+    selectedResultForView=r;
+    const pct=Math.max(0,Math.min(100,Number(r.percentage||0)));
+    const correct=Number(r.correct||0), wrong=Number(r.wrong||0), unattempted=Number(r.unattempted||0);
+    const review=Array.isArray(r.questionReview)?r.questionReview:[];
+    const questionHtml=review.length?review.map((item,index)=>{
+      const correctIndex=Number(item.correctIndex);
+      const selectedIndex=item.selectedIndex===null?null:Number(item.selectedIndex);
+      const status=selectedIndex===null?'नहीं किया':selectedIndex===correctIndex?'सही':'गलत';
+      const statusColor=selectedIndex===null?'#92400e':selectedIndex===correctIndex?'#166534':'#b91c1c';
+      const optionHtml=(Array.isArray(item.options)?item.options:[]).map((option,optionIndex)=>{
+        const isCorrect=optionIndex===correctIndex;
+        const isSelected=optionIndex===selectedIndex;
+        const bg=isCorrect?'#dcfce7':isSelected?'#fee2e2':'#f8fafc';
+        const color=isCorrect?'#166534':isSelected?'#b91c1c':'#334155';
+        const note=isCorrect?(isSelected?'✓ आपका सही उत्तर':'✓ सही उत्तर'):isSelected?'✕ आपका उत्तर':'';
+        return `<div style="margin-top:5px;padding:8px 10px;border-radius:9px;background:${bg};color:${color};font-size:13px">${String.fromCharCode(65+optionIndex)}. ${esc(String(option))}${note?` <b>${note}</b>`:''}</div>`;
+      }).join('');
+      return `<article style="padding:12px;margin:10px 0;border:1px solid #e2e8f0;border-radius:12px;background:#fff"><div style="display:flex;justify-content:space-between;gap:8px;align-items:start"><b>प्रश्न ${item.number||index+1}: ${esc(item.question||'')}</b><b style="color:${statusColor};white-space:nowrap">${status}</b></div>${optionHtml}</article>`;
+    }).join(''):'<p style="color:#667085">इस पुराने परिणाम में प्रश्नवार जानकारी उपलब्ध नहीं है।</p>';
+    c.innerHTML=`<div class="card" style="padding:16px;margin-bottom:14px;text-align:center">
+      <small style="color:#667085">${esc(r.testName||'टेस्ट परिणाम')}</small>
+      <div style="width:150px;height:150px;margin:14px auto;border-radius:50%;background:conic-gradient(#16a34a ${pct}%,#e2e8f0 ${pct}%);display:grid;place-items:center">
+        <div style="width:112px;height:112px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center"><strong style="font-size:30px;color:#082b5c">${pct.toFixed(0)}%</strong><small style="color:#64748b">सही उत्तर</small></div>
+      </div>
+      <div style="font-size:15px;font-weight:700;color:#082b5c">${Number(r.obtainedMarks||0)} / ${Number(r.totalMarks||0)} अंक • ${esc(r.result||'')}</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px">
+        <div style="padding:10px 4px;border-radius:10px;background:#dcfce7;color:#166534"><b style="display:block;font-size:20px">${correct}</b><small>सही</small></div>
+        <div style="padding:10px 4px;border-radius:10px;background:#fee2e2;color:#b91c1c"><b style="display:block;font-size:20px">${wrong}</b><small>गलत</small></div>
+        <div style="padding:10px 4px;border-radius:10px;background:#fef3c7;color:#92400e"><b style="display:block;font-size:20px">${unattempted}</b><small>छोड़े</small></div>
+      </div>
+    </div>
+    <div class="card" style="padding:14px"><h3 style="margin:0 0 8px">प्रश्नवार परिणाम</h3>${questionHtml}</div>`;
+  };
+
   window.renderStudentResult=function(rOverride){
     const st=studentRecord(), rows=getLocalMyResults(); const r=rOverride||selectedResultForView||rows[0]; const c=q('resultContent'), empty=q('noClassResultMessage');
     if(!r){if(c)c.classList.remove('ssc-result-visible');if(empty){empty.style.display='block';q('noClassResultText').textContent=`You have no completed test results.`;}return;}
