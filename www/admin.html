@@ -2010,6 +2010,9 @@ function showAdminPanel(){
 
     ensureClass10ScienceGrandTest();
 
+    
+    publishClass10HindiChapter1Test();
+    
     loadAdminStats();
 
 }
@@ -2450,6 +2453,29 @@ function ensureClass8ScienceGrandTest(){
         createdAt:new Date().toISOString()
     });
     localStorage.setItem("sscScheduledTests",JSON.stringify(tests));
+}
+/* Publish the unscheduled Hindi test to Firestore for all Class 10 students. */
+async function publishClass10HindiChapter1Test(){
+    try{
+        const bridge=await window.sscMessageFirestoreReady;
+        if(!bridge?.db || !bridge.doc || !bridge.setDoc){
+            throw new Error("Firebase Firestore उपलब्ध नहीं है।");
+        }
+        const tests=getJSON("sscScheduledTests",[]);
+        const test=Array.isArray(tests)
+            ? tests.find(t=>String(t.id)==="class10_hindi_chapter1_neta_ji_ka_chashma")
+            : null;
+        if(!test) throw new Error("हिंदी टेस्ट डेटा नहीं मिला।");
+        await bridge.setDoc(
+            bridge.doc(bridge.db,"sscScheduledTests",String(test.id)),
+            {...test,id:String(test.id),updatedAt:new Date().toISOString()},
+            {merge:true}
+        );
+        console.log("✅ कक्षा 10 हिंदी टेस्ट Firebase में प्रकाशित है।");
+    }catch(error){
+        console.error("Hindi test Firebase publish failed:",error);
+        alert("हिंदी टेस्ट सभी छात्रों तक प्रकाशित नहीं हुआ। Firebase/Internet जाँचें और Admin पेज फिर खोलें।\n\n"+(error?.message||error));
+    }
 }
 
 function enforceThirtyMinuteTests(){
