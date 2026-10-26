@@ -6169,7 +6169,8 @@ async function submitTest(autoSubmitted){
 
     const result = {
 
-        id: activeTest.id || Date.now(),
+       // Each attempt gets its own record ID so a retake never overwrites an older result.
+        id: `attempt_${Date.now()}_${Math.random().toString(36).slice(2,8)}`,
 
         testId: activeTest.id || "",
 
@@ -6272,7 +6273,7 @@ async function submitTest(autoSubmitted){
         const bridge=await window.sscAuthBridge;
         await bridge.saveTestResult(result);
         const cloud=safeJSON("sscCloudResultHistory",[]);
-        const merged=[result,...(Array.isArray(cloud)?cloud:[])]
+        ,a)=>a.findIndex(x=>String(x.id||x.attemptId||x.testId)===String(r.id||r.attemptId||r.testId) && String(x.studentUid||x.studentMobile)===String(r.studentUid||r.studentMobile))===i)
             .filter((r,i,a)=>a.findIndex(x=>String(x.testId||x.id)===String(r.testId||r.id) && String(x.studentUid||x.studentMobile)===String(r.studentUid||r.studentMobile))===i)
             .slice(0,100);
         localStorage.setItem("sscCloudResultHistory",JSON.stringify(merged));
@@ -6309,7 +6310,7 @@ function getLocalMyResults(){
     all.forEach(r=>{
         const ruid=String(r.studentUid||""), rmob=String(r.studentMobile||"");
         if((uid&&ruid===uid)||(mobile&&rmob===mobile)){
-            const key=`${r.testId||r.id||r.testName}__${ruid||rmob}`;
+              const key=`${r.id||r.attemptId||r.testId||r.testName}__${ruid||rmob}`;
             map.set(key,r);
         }
     });
@@ -7073,7 +7074,7 @@ loadClassContent:async()=>{
 },
 
   saveTestResult:async(result)=>{
-    const key=`${result.studentUid||result.studentMobile||"student"}__${result.testId||result.id}`;
+   const key=`${result.studentUid||result.studentMobile||"student"}__${result.id||result.attemptId||result.testId}`;
     return setDoc(doc(db,"testResults",key),result,{merge:true});
   },
 
