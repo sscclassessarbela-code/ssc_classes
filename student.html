@@ -6310,7 +6310,6 @@ const merged = [result, ...(Array.isArray(cloud) ? cloud : [])]
     selectedResultForView=result;
     window.showTestSubmittedScreen(result);
 }
-}
 function getLocalMyResults(){
     const st=studentRecord(), uid=String(st.uid||""), mobile=String(st.mobile||"");
     const local=safeJSON("sscResultHistory",[]);
