@@ -4078,6 +4078,10 @@ let currentScreen = "loginScreen";
 
 
 function openScreen(id){
+  if(currentScreen==="resultScreen" && id!=="resultScreen"){
+        window._sscResultFlowActive=false;
+        window._sscJustSubmittedResultId=null;
+    }
 
     screens.forEach(screen=>{
         screen.classList.remove("active");
@@ -4110,7 +4114,11 @@ function openScreen(id){
 
     if(id==="subjectsScreen" && typeof renderSubjects==="function") renderSubjects();
     if(id==="testScreen") renderTestList();
-    if(id==="resultScreen"){ loadCloudStudentResults().finally(()=>loadAndRenderAllResults()); }
+       if(id==="resultScreen"){
+        const historyPanel=document.getElementById("resultHistoryPanel");
+        if(historyPanel)historyPanel.style.display=window._sscResultFlowActive?"none":"";
+        loadCloudStudentResults().finally(()=>loadAndRenderAllResults());
+    }
     if(id==="notificationsScreen" && typeof renderNotifications==="function") renderNotifications("all");
     if(typeof updateNotificationBadge==="function") updateNotificationBadge();
     window.scrollTo(0,0);
@@ -6199,6 +6207,9 @@ async function submitTest(autoSubmitted){
 
         totalQuestions:
             activeQuestions.length,
+          
+         durationMinutes:30,
+        timeTakenSeconds:Math.max(0,30*60-Number(secondsLeft||0)),
 
         totalMarks:
             total,
@@ -6288,26 +6299,17 @@ const merged = [result, ...(Array.isArray(cloud) ? cloud : [])]
     }catch(error){ console.warn("Cloud result save failed; local result retained",error); }
 
 
-    try{
-        renderStudentResult();
-    }
-    catch(e){
-        console.error(
-            "Result render error:",
-            e
-        );
-    }
-
-
     toast(
         autoSubmitted
             ? "Time up! Test submitted."
             : `Test submitted: ${obtained.toFixed(2)} marks`
     );
-
+     window._sscResultFlowActive=true;
+    window._sscJustSubmittedResultId=String(result.id);
     openScreen("resultScreen");
     selectedResultForView=result;
-    renderStudentResult(result);
+    window.showTestSubmittedScreen(result);
+}
 }
 function getLocalMyResults(){
     const st=studentRecord(), uid=String(st.uid||""), mobile=String(st.mobile||"");
@@ -7814,6 +7816,112 @@ body.ssc-dark .dark-mode-switch span{
     const photo=st.photo||'logo.png', father=r.fatherName||st.fatherName||'-', cls=r.studentClass||r.testClass||st.studentClass||'-', roll=r.rollNumber||r.rollNo||st.rollNumber||'-', subject=r.subject||r.testSubject||'-';
     c.innerHTML=`<div class="ssc-result-card" id="sscPdfExport"><div class="ssc-result-head"><img class="ssc-result-logo" src="logo.png" alt="S.S.C. CLASSES"><div class="ssc-result-brand">S.S.C. CLASSES</div><div class="ssc-result-tag">Learn • Practice • Success</div><div class="ssc-result-test">${esc(r.testName||'Online Test')}</div><div class="ssc-result-watermark">S.S.C. CLASSES</div></div><div class="ssc-result-student"><img src="${esc(photo)}" onerror="this.src='logo.png'" alt="Student Photo"><div class="ssc-result-student-info"><b>${esc(r.studentName||st.name||'Student')}</b><div>Father Name: ${esc(father)}<br>Class: ${esc(cls)} &nbsp; | &nbsp; Roll No.: ${esc(roll)}<br>Subject: ${esc(subject)}</div></div></div><div class="ssc-score-row"><div class="ssc-score-box"><small>Marks Obtained</small><b>${esc(obtained)} / ${esc(total)}</b></div><div class="ssc-score-box"><small>Percentage</small><b>${pct.toFixed(2)}%</b></div><div class="ssc-score-box"><small>Correct</small><b>${esc(r.correct||0)}</b></div><div class="ssc-score-box"><small>Wrong</small><b>${esc(r.wrong||0)}</b></div></div><table class="ssc-result-table"><thead><tr><th>Result</th><th>Value</th></tr></thead><tbody><tr><td>Total Questions</td><td>${esc(r.totalQuestions||0)}</td></tr><tr><td>Attempted</td><td>${esc(r.attempted||0)}</td></tr><tr><td>Unattempted</td><td>${esc(r.unattempted||0)}</td></tr><tr><td>Final Result</td><td>${esc(r.result||'-')}</td></tr><tr><td>Date</td><td>${esc(r.date||'-')}</td></tr></tbody></table><div class="ssc-result-foot">S.S.C. CLASSES • Learn • Practice • Success</div></div><div class="ssc-download-wrap"><button class="primary-btn full" onclick="downloadCurrentResult()">📥 Download PDF</button></div>`;
   };
+
+       window.showTestSubmittedScreen=function(r){
+    if(!r)return;
+    selectedResultForView=r;
+    window._sscResultFlowActive=true;
+    const c=q('resultContent'); if(!c)return;
+    const time=Math.max(0,Number(r.timeTakenSeconds||0));
+    const timeText=`${Math.floor(time/60)} मिनट ${time%60} सेकंड`;
+    c.classList.add('ssc-result-visible');
+    c.innerHTML=`<div class="card" style="padding:24px 16px;text-align:center;margin-bottom:14px">
+      <div style="width:72px;height:72px;border-radius:50%;margin:4px auto 14px;background:#dcfce7;color:#12805c;display:grid;place-items:center;font-size:38px;font-weight:800">✓</div>
+      <h2 style="margin:0;color:#082b5c">टेस्ट जमा हो गया!</h2>
+      <p style="margin:8px 0 16px;color:#64748b">आपका टेस्ट सफलतापूर्वक जमा कर दिया गया है।</p>
+      <div style="text-align:left;padding:12px 14px;border:1px solid #e5eaf0;border-radius:12px;background:#f8fafc">
+        <div style="display:flex;justify-content:space-between;padding:6px 0"><span>कुल प्रश्न</span><b>${Number(r.totalQuestions||0)}</b></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0"><span>हल किए</span><b>${Number(r.attempted||0)}</b></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0"><span>समय लिया</span><b>${timeText}</b></div>
+      </div>
+      <button class="primary-btn full" style="margin-top:16px" onclick="showResultSummary()">रिज़ल्ट देखें</button>
+    </div>`;
+  };
+
+  window.renderStudentResult=function(rOverride){
+    const rows=getLocalMyResults();
+    const r=rOverride||rows[0];
+    if(!r){const c=q('resultContent');if(c)c.innerHTML='';return;}
+    selectedResultForView=r;
+    if(!rOverride && window._sscJustSubmittedResultId===String(r.id))window.showTestSubmittedScreen(r);
+    else window.showResultSummary(r);
+  };
+
+  window.showResultSummary=function(rOverride){
+    const r=rOverride||selectedResultForView||getLocalMyResults()[0];
+    const c=q('resultContent'); if(!r||!c)return;
+    selectedResultForView=r;
+    window._sscJustSubmittedResultId=null;
+    const pct=Math.max(0,Math.min(100,Number(r.percentage||0)));
+    const correct=Number(r.correct||0),wrong=Number(r.wrong||0),unattempted=Number(r.unattempted||0);
+    const time=Math.max(0,Number(r.timeTakenSeconds||0));
+    const timeText=`${Math.floor(time/60)} मिनट ${time%60} सेकंड`;
+    c.classList.add('ssc-result-visible');
+    c.innerHTML=`<div class="card" style="padding:16px;margin-bottom:14px;text-align:center">
+      <h2 style="margin:2px 0 5px;color:#082b5c">टेस्ट परिणाम</h2>
+      <p style="margin:0;color:#64748b;font-size:13px">${esc(r.testName||'ऑनलाइन टेस्ट')}</p>
+      <div style="width:154px;height:154px;margin:17px auto;border-radius:50%;background:conic-gradient(#0877e8 ${pct}%,#e2e8f0 ${pct}%);display:grid;place-items:center">
+        <div style="width:118px;height:118px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center"><strong style="font-size:30px;color:#082b5c">${pct.toFixed(0)}%</strong><small style="color:#64748b">आपका स्कोर</small></div>
+      </div>
+      <div style="font-size:18px;font-weight:800;color:#082b5c">${Number(r.obtainedMarks||0)} / ${Number(r.totalMarks||0)} अंक</div>
+      <div style="display:grid;gap:8px;margin:14px 0;text-align:left">
+        <div style="display:flex;justify-content:space-between;padding:10px 12px;border-radius:10px;background:#f8fafc"><span>कुल प्रश्न</span><b>${Number(r.totalQuestions||0)}</b></div>
+        <div style="display:flex;justify-content:space-between;padding:10px 12px;border-radius:10px;background:#ecfdf3;color:#15803d"><span>✓ सही उत्तर</span><b>${correct}</b></div>
+        <div style="display:flex;justify-content:space-between;padding:10px 12px;border-radius:10px;background:#fef2f2;color:#dc2626"><span>✕ गलत उत्तर</span><b>${wrong}</b></div>
+        <div style="display:flex;justify-content:space-between;padding:10px 12px;border-radius:10px;background:#f1f5f9"><span>छोड़े गए</span><b>${unattempted}</b></div>
+        <div style="display:flex;justify-content:space-between;padding:10px 12px;border-radius:10px;background:#f8fafc"><span>समय लिया</span><b>${timeText}</b></div>
+      </div>
+      <button class="primary-btn full" onclick="showDetailedResult('all')">विस्तृत परिणाम देखें</button>
+    </div>`;
+  };
+
+  window.showDetailedResult=function(filter){
+    const r=selectedResultForView||getLocalMyResults()[0];
+    const c=q('resultContent'); if(!r||!c)return;
+    const review=Array.isArray(r.questionReview)?r.questionReview:[];
+    const activeFilter=filter||'all';
+    const filtered=review.filter(item=>{
+      const selected=item.selectedIndex===null?null:Number(item.selectedIndex);
+      const correct=Number(item.correctIndex);
+      if(activeFilter==='correct')return selected===correct;
+      if(activeFilter==='wrong')return selected!==null&&selected!==correct;
+      return true;
+    });
+    const allCount=review.length,correctCount=Number(r.correct||0),wrongCount=Number(r.wrong||0);
+    const questionHtml=filtered.length?filtered.map((item,index)=>{
+      const correctIndex=Number(item.correctIndex);
+      const selectedIndex=item.selectedIndex===null?null:Number(item.selectedIndex);
+      const isCorrect=selectedIndex===correctIndex;
+      const status=selectedIndex===null?'नहीं किया':isCorrect?'सही':'गलत';
+      const color=selectedIndex===null?'#64748b':isCorrect?'#15803d':'#dc2626';
+      const options=(Array.isArray(item.options)?item.options:[]).map((option,i)=>{
+        const right=i===correctIndex,chosen=i===selectedIndex;
+        if(!right&&!chosen)return '';
+        const bg=right?'#ecfdf3':'#fef2f2',ink=right?'#15803d':'#dc2626';
+        const label=right?(chosen?'✓ आपका सही उत्तर':'✓ सही उत्तर'):'✕ आपका उत्तर';
+        return `<div style="margin-top:6px;padding:8px 10px;border-radius:9px;background:${bg};color:${ink};font-size:13px">${String.fromCharCode(65+i)}. ${esc(String(option))} <b>${label}</b></div>`;
+      }).join('');
+      return `<article style="padding:12px;margin:9px 0;border:1px solid #e2e8f0;border-radius:12px;background:#fff"><div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><b style="font-size:13px">Q${item.number||index+1}. ${esc(item.question||'')}</b><b style="color:${color};white-space:nowrap">${status}</b></div>${options||'<small style="color:#64748b">उत्तर उपलब्ध नहीं है।</small>'}</article>`;
+    }).join(''):'<p style="padding:12px;color:#64748b">इस सूची में प्रश्न नहीं हैं।</p>';
+    const aTab=activeFilter==='all'?'#0877e8':'#eaf2ff',cTab=activeFilter==='correct'?'#0877e8':'#eaf2ff',wTab=activeFilter==='wrong'?'#0877e8':'#eaf2ff';
+    const aText=activeFilter==='all'?'#fff':'#1769e8',cText=activeFilter==='correct'?'#fff':'#1769e8',wText=activeFilter==='wrong'?'#fff':'#1769e8';
+    c.classList.add('ssc-result-visible');
+    c.innerHTML=`<div class="card" style="padding:14px;margin-bottom:12px"><div style="display:flex;align-items:center;gap:10px"><button class="outline-btn" style="padding:7px 12px" onclick="showResultSummary()">‹</button><h2 style="margin:0;color:#082b5c;font-size:18px">विस्तृत परिणाम</h2></div><p style="font-size:12px;color:#64748b;margin:8px 0 12px">${esc(r.testName||'ऑनलाइन टेस्ट')}</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px"><button style="border:0;border-radius:9px;padding:9px 3px;background:${aTab};color:${aText}" onclick="showDetailedResult('all')">सभी ${allCount}</button><button style="border:0;border-radius:9px;padding:9px 3px;background:${cTab};color:${cText}" onclick="showDetailedResult('correct')">सही ${correctCount}</button><button style="border:0;border-radius:9px;padding:9px 3px;background:${wTab};color:${wText}" onclick="showDetailedResult('wrong')">गलत ${wrongCount}</button></div>
+      ${questionHtml}<button class="primary-btn full" style="margin-top:10px" onclick="reattemptCurrentTest()">फिर से प्रयास करें</button></div>`;
+  };
+
+  window.reattemptCurrentTest=function(){
+    const result=selectedResultForView;
+    const id=String(result?.testId||'');
+    const tests=getAvailableTests();
+    const index=tests.findIndex(test=>String(test.id||'')===id);
+    if(index<0){toast('यह टेस्ट अभी उपलब्ध नहीं है।');return;}
+    window._sscVisibleTests=tests;
+    openScreen('testScreen');
+    startUnifiedTest(index);
+  };
+
   window.downloadCurrentResult = async function(){
 
     const r = selectedResultForView || getLocalMyResults()[0];
