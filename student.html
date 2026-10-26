@@ -5976,7 +5976,7 @@ function renderTestList(){
         const endText=end && !Number.isNaN(end.getTime()) ? end.toLocaleString("hi-IN") : "";
         const statusText=t.status==="Scheduled" ? "निर्धारित" : t.status==="Live now" ? "अभी चल रही है" : t.status==="Expired" ? "समय समाप्त" : "उपलब्ध";
         const canStart=t.status!=="Scheduled" && t.status!=="Expired";
-        const buttonText=attempts.count ? "Completed" : "Start Test";
+         const buttonText=attempts.count ? "ReAttempt" : "Start Test";
         const last=attempts.last;
         html+=`<div class="card test-card" style="margin-bottom:12px">
             <h2>${escapeHTML(title)}</h2>
@@ -5989,7 +5989,7 @@ function renderTestList(){
             ${startText ? `<small style="display:block;margin:8px 0;color:#6b7280">शुरू: ${escapeHTML(startText)}</small>` : ""}
             ${endText ? `<small style="display:block;margin:8px 0;color:#6b7280">समाप्त: ${escapeHTML(endText)}</small>` : ""}
             ${attempts.count && last ? `<p style="margin:8px 0">पिछला परिणाम: ${escapeHTML(String(last.obtainedMarks ?? last.score ?? 0))} / ${escapeHTML(String(last.totalMarks ?? 0))} अंक (${escapeHTML(String(last.percentage ?? 0))}%)</p>` : ""}
-            ${canStart && !attempts.count ? `<button type="button" class="primary-btn full" onclick="startUnifiedTest(${i})">${buttonText}</button>` : `<button type="button" class="primary-btn full" disabled>${attempts.count ? buttonText : t.status==="Scheduled" ? "Starts at scheduled time" : "Test expired"}</button>`}
+              ${canStart ? `<button type="button" class="primary-btn full" onclick="startUnifiedTest(${i})">${buttonText}</button>` : `<button type="button" class="primary-btn full" disabled>${t.status==="Scheduled" ? "Starts at scheduled time" : "Test expired"}</button>`}
         </div>`;
     });
     box.innerHTML=html;
@@ -6043,7 +6043,7 @@ function showTestInstructions(duration,marks){
             <li>एक बार उत्तर चुनने के बाद उसे बदला नहीं जा सकता।</li> 
             <li>समय समाप्त होने पर परीक्षा स्वतः Submit हो जाएगी।</li> 
             <li>आप प्रश्न संख्या पर क्लिक करके प्रश्नों के बीच जा सकते हैं।</li> 
-            <li>एक बार परीक्षा पूरी होने के बाद उसे दोबारा Attempt नहीं किया जा सकता।</li> 
+            <li>परीक्षा पूरी होने के बाद आप इसे दुबारा बार चाहें फिर से दे सकते हैं।</li> 
         </ul> 
 
         <label style="display:flex;gap:9px;align-items:flex-start;margin:14px 0;font-size:13px;line-height:1.5"> 
