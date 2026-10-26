@@ -6272,10 +6272,18 @@ async function submitTest(autoSubmitted){
     try{
         const bridge=await window.sscAuthBridge;
         await bridge.saveTestResult(result);
-        const cloud=safeJSON("sscCloudResultHistory",[]);
-        ,a)=>a.findIndex(x=>String(x.id||x.attemptId||x.testId)===String(r.id||r.attemptId||r.testId) && String(x.studentUid||x.studentMobile)===String(r.studentUid||r.studentMobile))===i)
-            .filter((r,i,a)=>a.findIndex(x=>String(x.testId||x.id)===String(r.testId||r.id) && String(x.studentUid||x.studentMobile)===String(r.studentUid||r.studentMobile))===i)
-            .slice(0,100);
+       const cloud = safeJSON("sscCloudResultHistory", []);
+
+const merged = [result, ...(Array.isArray(cloud) ? cloud : [])]
+    .filter((r, i, a) =>
+        a.findIndex(x =>
+            String(x.id || x.attemptId || x.testId) ===
+                String(r.id || r.attemptId || r.testId) &&
+            String(x.studentUid || x.studentMobile) ===
+                String(r.studentUid || r.studentMobile)
+        ) === i
+    )
+    .slice(0, 100);
         localStorage.setItem("sscCloudResultHistory",JSON.stringify(merged));
     }catch(error){ console.warn("Cloud result save failed; local result retained",error); }
 
