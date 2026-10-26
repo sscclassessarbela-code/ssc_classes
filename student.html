@@ -5976,7 +5976,7 @@ function renderTestList(){
         const endText=end && !Number.isNaN(end.getTime()) ? end.toLocaleString("hi-IN") : "";
         const statusText=t.status==="Scheduled" ? "निर्धारित" : t.status==="Live now" ? "अभी चल रही है" : t.status==="Expired" ? "समय समाप्त" : "उपलब्ध";
         const canStart=t.status!=="Scheduled" && t.status!=="Expired";
-         const buttonText=attempts.count ? "ReAttempt" : "Start Test";
+         const buttonText=attempts.count ? "Re Attempt" : "Start Test";
         const last=attempts.last;
         html+=`<div class="card test-card" style="margin-bottom:12px">
             <h2>${escapeHTML(title)}</h2>
