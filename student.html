@@ -6005,7 +6005,6 @@ function startUnifiedTest(index){
     const end=selected.endDateTime ? new Date(selected.endDateTime).getTime() : NaN;
     if(Number.isFinite(start) && now<start){ toast("यह परीक्षा निर्धारित समय पर खुलेगी।"); return; }
     if(Number.isFinite(end) && now>end){ toast("इस परीक्षा का समय समाप्त हो गया है।"); return; }
-    if(getTestAttemptInfo(selected).count){ toast("आप यह परीक्षा पहले ही पूरी कर चुके हैं। दोबारा प्रयास की अनुमति नहीं है।"); renderTestList(); return; }
     activeTest=selected;
     let raw=getQuestionArray(activeTest);
     activeQuestions=raw.map(normalizeQuestion).filter(q=>q && q.question && q.options.length>=2 && q.correct>=0);
